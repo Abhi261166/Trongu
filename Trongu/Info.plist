@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>APP-NAME</key>
+	<string>Trongu</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>246320878167425</key>
+			<array>
+				<string>fb246320878167425</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.557296526603-o4ao6d4mfl9n9gderihcnmgm38bkqpn6</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>246320878167425</string>
+	<key>FacebookClientToken</key>
+	<string>58768f4d288ac73fb9dcd2f9a87a0235</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+	</array>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>Fonts provided by application</key>
+			<array>
+				<string>Poppins-Regular.ttf</string>
+				<string>Poppins-SemiBold.ttf</string>
+				<string>Poppins-Bold.ttf</string>
+				<string>Poppins-Light.ttf</string>
+				<string>Poppins-Medium.ttf</string>
+			</array>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneConfigurationName</key>
+					<string>Default Configuration</string>
+					<key>UISceneDelegateClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+				</dict>
+			</array>
+		</dict>
+		<key>UIUserInterfaceStyle</key>
+		<false/>
+	</dict>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Trongu requires access to your device&apos;s microphone to enable voice recording and recognition features. This permission allows you to create videos.</string>
+</dict>
+</plist>

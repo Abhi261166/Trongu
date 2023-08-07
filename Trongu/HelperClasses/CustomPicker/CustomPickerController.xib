@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomPickerController" customModule="GoSpeak" customModuleProvider="target">
+            <connections>
+                <outlet property="cancelButotn" destination="g5r-k0-BK4" id="TrY-y1-OQH"/>
+                <outlet property="customPicker" destination="p8l-o8-3EB" id="ELb-NE-V1h"/>
+                <outlet property="doneButton" destination="DEZ-RX-S8J" id="LjZ-cU-lpf"/>
+                <outlet property="toolbar" destination="w97-RY-kxG" id="yb1-EN-E9r"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p8l-o8-3EB">
+                    <rect key="frame" x="0.0" y="646" width="414" height="216"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </pickerView>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="w97-RY-kxG">
+                    <rect key="frame" x="0.0" y="602" width="414" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="f8L-m6-lON"/>
+                    </constraints>
+                    <items>
+                        <barButtonItem systemItem="cancel" id="g5r-k0-BK4">
+                            <connections>
+                                <action selector="cancelAction:" destination="-1" id="hmY-BE-ser"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="NQ3-Tc-yqA"/>
+                        <barButtonItem systemItem="done" id="DEZ-RX-S8J">
+                            <connections>
+                                <action selector="doneAction:" destination="-1" id="BC9-0h-24Q"/>
+                            </connections>
+                        </barButtonItem>
+                    </items>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="barTintColor" red="0.12549019610000001" green="0.49803921569999998" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </toolbar>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" white="0.0" alpha="0.20050299657534246" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="p8l-o8-3EB" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="1ro-Op-4EA"/>
+                <constraint firstItem="p8l-o8-3EB" firstAttribute="top" secondItem="w97-RY-kxG" secondAttribute="bottom" id="JJB-GJ-D6j"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="p8l-o8-3EB" secondAttribute="trailing" id="L7r-y7-FGb"/>
+                <constraint firstItem="w97-RY-kxG" firstAttribute="trailing" secondItem="p8l-o8-3EB" secondAttribute="trailing" id="QQ4-md-X6L"/>
+                <constraint firstItem="w97-RY-kxG" firstAttribute="leading" secondItem="p8l-o8-3EB" secondAttribute="leading" id="mbG-vA-Sqc"/>
+                <constraint firstItem="p8l-o8-3EB" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="x07-iX-nnk"/>
+            </constraints>
+            <point key="canvasLocation" x="-29" y="-36"/>
+        </view>
+    </objects>
+</document>

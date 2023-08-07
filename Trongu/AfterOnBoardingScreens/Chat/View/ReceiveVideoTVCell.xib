@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Regular.ttf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ReceiveVideoTVCell" rowHeight="173" id="KGk-i7-Jjw" customClass="ReceiveVideoTVCell" customModule="Trongu" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="584" height="173"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="584" height="173"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZgM-FA-QA8">
+                        <rect key="frame" x="90" y="0.0" width="464" height="130"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image 27" translatesAutoresizingMaskIntoConstraints="NO" id="cx1-O0-Cmt">
+                                <rect key="frame" x="0.0" y="0.0" width="464" height="130"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="cx1-O0-Cmt" firstAttribute="leading" secondItem="ZgM-FA-QA8" secondAttribute="leading" id="Ajn-SM-kPc"/>
+                            <constraint firstAttribute="height" constant="130" id="SRL-tD-V1J"/>
+                            <constraint firstItem="cx1-O0-Cmt" firstAttribute="top" secondItem="ZgM-FA-QA8" secondAttribute="top" id="XdZ-Wn-nwY"/>
+                            <constraint firstAttribute="bottom" secondItem="cx1-O0-Cmt" secondAttribute="bottom" id="erT-Tg-hxP"/>
+                            <constraint firstAttribute="trailing" secondItem="cx1-O0-Cmt" secondAttribute="trailing" id="lYZ-yQ-hHm"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="07:50 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fI3-pH-eZZ">
+                        <rect key="frame" x="90" y="135" width="464" height="18.333333333333343"/>
+                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
+                        <color key="textColor" red="0.50588235294117645" green="0.50588235294117645" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="fI3-pH-eZZ" firstAttribute="leading" secondItem="ZgM-FA-QA8" secondAttribute="leading" id="46P-9j-J7U"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fI3-pH-eZZ" secondAttribute="bottom" constant="5" id="9Rf-Hs-4cl"/>
+                    <constraint firstItem="ZgM-FA-QA8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="90" id="Fy8-IJ-1mh"/>
+                    <constraint firstItem="fI3-pH-eZZ" firstAttribute="trailing" secondItem="ZgM-FA-QA8" secondAttribute="trailing" id="Tcj-oR-7WX"/>
+                    <constraint firstItem="fI3-pH-eZZ" firstAttribute="top" secondItem="ZgM-FA-QA8" secondAttribute="bottom" constant="5" id="VdN-Dq-fun"/>
+                    <constraint firstAttribute="trailing" secondItem="ZgM-FA-QA8" secondAttribute="trailing" constant="30" id="b6a-eS-q3W"/>
+                    <constraint firstItem="ZgM-FA-QA8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="iCU-4j-qli"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <point key="canvasLocation" x="329.7709923664122" y="34.154929577464792"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="image 27" width="278" height="129"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

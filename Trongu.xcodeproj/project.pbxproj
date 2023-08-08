@@ -54,6 +54,10 @@
 		186679BF2A4AAC7900522429 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 189551732A49C74E003EC8FD /* Poppins-SemiBold.ttf */; };
 		186679C22A4AB90C00522429 /* LoginVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186679C02A4AB90C00522429 /* LoginVc.swift */; };
 		186679C32A4AB90C00522429 /* LoginVc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186679C12A4AB90C00522429 /* LoginVc.xib */; };
+		18679B302A821BA200FD3C98 /* TagListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18679B2F2A821BA200FD3C98 /* TagListModel.swift */; };
+		18679B322A821BD500FD3C98 /* TagListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18679B312A821BD500FD3C98 /* TagListVM.swift */; };
+		18679B362A826D2D00FD3C98 /* HomeDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18679B352A826D2D00FD3C98 /* HomeDataModel.swift */; };
+		18679B382A826D4300FD3C98 /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18679B372A826D4300FD3C98 /* HomeVM.swift */; };
 		186DA22B2A81030300D4F879 /* AddLocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186DA2272A81030300D4F879 /* AddLocationTableViewCell.xib */; };
 		186DA22C2A81030300D4F879 /* AddLocationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186DA2282A81030300D4F879 /* AddLocationVC.xib */; };
 		186DA22D2A81030300D4F879 /* AddLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186DA2292A81030300D4F879 /* AddLocationTableViewCell.swift */; };
@@ -279,6 +283,10 @@
 		186679B82A4AA72A00522429 /* LoginTypeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginTypeVC.xib; sourceTree = "<group>"; };
 		186679C02A4AB90C00522429 /* LoginVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVc.swift; sourceTree = "<group>"; };
 		186679C12A4AB90C00522429 /* LoginVc.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginVc.xib; sourceTree = "<group>"; };
+		18679B2F2A821BA200FD3C98 /* TagListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListModel.swift; sourceTree = "<group>"; };
+		18679B312A821BD500FD3C98 /* TagListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListVM.swift; sourceTree = "<group>"; };
+		18679B352A826D2D00FD3C98 /* HomeDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDataModel.swift; sourceTree = "<group>"; };
+		18679B372A826D4300FD3C98 /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
 		186DA2272A81030300D4F879 /* AddLocationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddLocationTableViewCell.xib; sourceTree = "<group>"; };
 		186DA2282A81030300D4F879 /* AddLocationVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddLocationVC.xib; sourceTree = "<group>"; };
 		186DA2292A81030300D4F879 /* AddLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLocationTableViewCell.swift; sourceTree = "<group>"; };
@@ -690,6 +698,38 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		18679B2D2A821B5900FD3C98 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				18679B2F2A821BA200FD3C98 /* TagListModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		18679B2E2A821B6200FD3C98 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				18679B312A821BD500FD3C98 /* TagListVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		18679B332A826CFC00FD3C98 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				18679B352A826D2D00FD3C98 /* HomeDataModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		18679B342A826D0400FD3C98 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				18679B372A826D4300FD3C98 /* HomeVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		186DA2252A81030300D4F879 /* AddLocationVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -931,18 +971,9 @@
 		1882AFD12A5304BB006CC3FC /* EditPost */ = {
 			isa = PBXGroup;
 			children = (
-				1882AFD42A5304D9006CC3FC /* Model */,
 				1882AFD32A5304D1006CC3FC /* View */,
-				1882AFD22A5304C7006CC3FC /* ViewModel */,
 			);
 			path = EditPost;
-			sourceTree = "<group>";
-		};
-		1882AFD22A5304C7006CC3FC /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		1882AFD32A5304D1006CC3FC /* View */ = {
@@ -952,13 +983,6 @@
 				1882AFD62A5304FA006CC3FC /* EditPostVC.xib */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		1882AFD42A5304D9006CC3FC /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		188604502A4EF96600387D35 /* Chat */ = {
@@ -1080,13 +1104,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		189029D52A4B0AC7002FA039 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		189029D62A4B0AD5002FA039 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1098,13 +1115,6 @@
 				1873EF9B2A4C068F00C6CE96 /* HomeCVCell.xib */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		189029D72A4B0ADE002FA039 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		189550FF2A49BC00003EC8FD = {
@@ -1353,9 +1363,9 @@
 		1895516D2A49C31E003EC8FD /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				189029D72A4B0ADE002FA039 /* Model */,
+				18679B342A826D0400FD3C98 /* ViewModel */,
+				18679B332A826CFC00FD3C98 /* Model */,
 				189029D62A4B0AD5002FA039 /* View */,
-				189029D52A4B0AC7002FA039 /* ViewModel */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1416,18 +1426,11 @@
 		189EC4952A4E9EFC001E6644 /* CreatePost */ = {
 			isa = PBXGroup;
 			children = (
-				189EC4982A4E9F20001E6644 /* Model */,
+				18679B2E2A821B6200FD3C98 /* ViewModel */,
+				18679B2D2A821B5900FD3C98 /* Model */,
 				189EC4972A4E9F11001E6644 /* View */,
-				189EC4962A4E9F08001E6644 /* ViewModel */,
 			);
 			path = CreatePost;
-			sourceTree = "<group>";
-		};
-		189EC4962A4E9F08001E6644 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		189EC4972A4E9F11001E6644 /* View */ = {
@@ -1443,13 +1446,6 @@
 				0448179E2A7FED11009539FB /* MentionTVC.xib */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		189EC4982A4E9F20001E6644 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		189EC49D2A4EB37C001E6644 /* AddPhotoVideo */ = {
@@ -2038,12 +2034,14 @@
 				31C7EA7A2A71285900D86870 /* LoginTypeVM.swift in Sources */,
 				1813FBCC2A57F39D0072BD7F /* PannableViewController.swift in Sources */,
 				0448179F2A7FED11009539FB /* MentionTVC.swift in Sources */,
+				18679B322A821BD500FD3C98 /* TagListVM.swift in Sources */,
 				1895514A2A49BEF6003EC8FD /* NSLayoutContraint+Custom.swift in Sources */,
 				18CEA5882A50352F007AF695 /* UserProfileVC.swift in Sources */,
 				189029DA2A4B0AFD002FA039 /* HomeVC.swift in Sources */,
 				189EC4A72A4EB864001E6644 /* AddPhotoVideoCVCell.swift in Sources */,
 				1895513B2A49BEF6003EC8FD /* UIView+Custom.swift in Sources */,
 				31CB5DC72A67D1BC0020E409 /* InAppPurchaseProducts.swift in Sources */,
+				18679B382A826D4300FD3C98 /* HomeVM.swift in Sources */,
 				1895514E2A49BEF6003EC8FD /* UIButton+Custom.swift in Sources */,
 				31CB5E072A67F29B0020E409 /* ForgotPasswordVM.swift in Sources */,
 				18EF10D72A542FF7005D55AB /* MediaTVCell.swift in Sources */,
@@ -2054,6 +2052,7 @@
 				044817962A7FCC99009539FB /* MentionView.swift in Sources */,
 				31CB5DB72A67D1BC0020E409 /* IJReachability.swift in Sources */,
 				31CB5DF32A67D25F0020E409 /* GalleryImagesCollectionView.swift in Sources */,
+				18679B302A821BA200FD3C98 /* TagListModel.swift in Sources */,
 				31CB5DDB2A67D2220020E409 /* PickerData.swift in Sources */,
 				318770972A691ACD00FF4B46 /* ProfileModel.swift in Sources */,
 				31CB5DFC2A67D25F0020E409 /* CropMaskView.swift in Sources */,
@@ -2150,6 +2149,7 @@
 				31CB5DD82A67D2220020E409 /* CustomDashedView.swift in Sources */,
 				189551232A49BEC4003EC8FD /* AppIBDesignableUI.swift in Sources */,
 				1873EF9C2A4C068F00C6CE96 /* HomeCVCell.swift in Sources */,
+				18679B362A826D2D00FD3C98 /* HomeDataModel.swift in Sources */,
 				31CB5DBA2A67D1BC0020E409 /* Socketton.swift in Sources */,
 				1882AFD72A5304FA006CC3FC /* EditPostVC.swift in Sources */,
 				1895510E2A49BC00003EC8FD /* SceneDelegate.swift in Sources */,

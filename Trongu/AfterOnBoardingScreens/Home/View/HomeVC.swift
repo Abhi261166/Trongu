@@ -10,16 +10,13 @@ class HomeVC: UIViewController {
     
     @IBOutlet weak var homeTableView: UITableView!
     
-   
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         homeTableView.delegate = self
         homeTableView.dataSource = self
         homeTableView.register(UINib(nibName: "HomeTVCell", bundle: nil), forCellReuseIdentifier: "HomeTVCell")
-        
     }
+    
 
     @IBAction func searchAction(_ sender: UIButton) {
         let vc = SearchVC()

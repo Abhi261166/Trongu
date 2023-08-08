@@ -40,21 +40,15 @@ class API {
         static let fbLogin                = "j1/trongu/api/v1/users/facebooklogin"
         static let appleLogin             = "j1/trongu/api/v1/users/applelogin"
         static let socialLogin             = "j1/trongu/api/v1/users/sociallogin"
-       
         static let changePass             = "j1/trongu/api/v1/users/change-password"
-        static let onboarding             = "gospeak/api/v1/user/onboarding"
-        static let phoneSignup            = "gospeak/api/v1/user/phonesignup"
-//        static let appleLogIn             = "gospeak/api/v1/user/applelogin"
-        static let deleteAccount          = "gospeak/api/v1/user/deleteaccount"
+        static let editProfile             = "j1/trongu/api/v1/users/editprofile"
         static let getProfile             = "j1/trongu/api/v1/users/get-profile"
-        static let categoryList           = "gospeak/api/v1/category/categorylist"
-        static let subCategoryList        = "gospeak/api/v1/subcategory/subcategorylist"
-        static let editProfile            = "j1/trongu/api/v1/users/editprofile"
-        static let changeVoice            = "gospeak/api/v1/user/changevoice"
-        static let saveChat               = "gospeak/api/v1/chatbot/savechat"
-        static let savedChatList          = "gospeak/api/v1/chatbot/allconversation"
-        static let savedChatDetails       = "gospeak/api/v1/chatbot/getallchat?room_no="
-        static let deleteSavedChat        = "gospeak/api/v1/chatbot/deletechat?room_no="
+        
+        // create post
+        static let tagList                = "j1/trongu/api/v1/users/followers-following-listing"
+
+        
+      
         
     }
     

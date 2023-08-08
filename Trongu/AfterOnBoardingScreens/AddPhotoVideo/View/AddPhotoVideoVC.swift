@@ -19,7 +19,6 @@ class AddPhotoVideoVC: UIViewController {
     @IBOutlet weak var timeTF: UITextField!
     @IBOutlet weak var btnAddAddress: UIButton!
     @IBOutlet weak var addPhotoVideoCollectionView: UICollectionView!
-    
     @IBOutlet weak var btnBack: UIButton!
     
     var postImage = ["AddImage_1","AddImage_2"]
@@ -27,6 +26,7 @@ class AddPhotoVideoVC: UIViewController {
     let timePicker = UIDatePicker()
     var selectedItems = [YPMediaItem]()
     var selectedIndex:IndexPath?
+    var completion : (( _ posts:[YPMediaItem]) -> Void)? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,13 +96,18 @@ class AddPhotoVideoVC: UIViewController {
     }
     
     @IBAction func backAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        popVC()
     }
     
     @IBAction func addAction(_ sender: UIButton) {
-        let vc = PostVC()
-        vc.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(vc, animated: true)
+      
+        debugPrint("selected items is --- ",self.selectedItems)
+        
+        if let completion = self.completion{
+            popVC()
+            Singleton.shared.showMessage(message: "Post images and videos added sucsessfully, Now please enter remaning information and post. ", isError: .success)
+            completion(selectedItems)
+        }
     }
     
     @IBAction func addAddress(_ sender: UIButton) {
@@ -167,6 +172,8 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
                 if selectedIndex == indexPath{
                     cell.postImage.borderWidth = 2
                     cell.postImage.borderColor = UIColor(named: "OrengeAppColour")
+                    self.showMetaDataInTextFileds(index: indexPath.row)
+                    
                 }else{
                     cell.postImage.borderWidth = 0
                 }
@@ -392,29 +399,29 @@ extension AddPhotoVideoVC{
                     addressComponents.append(name)
                 }
 
-                if let thoroughfare = placemark.thoroughfare {
-                  //  addressComponents.append(thoroughfare)
-                }
+//                if let thoroughfare = placemark.thoroughfare {
+//                    addressComponents.append(thoroughfare)
+//                }
 
-                if let subThoroughfare = placemark.subThoroughfare {
-                    //addressComponents.append(subThoroughfare)
-                }
+//                if let subThoroughfare = placemark.subThoroughfare {
+//                    addressComponents.append(subThoroughfare)
+//                }
 
                 if let locality = placemark.locality {
                     addressComponents.append(locality)
                 }
 
-                if let administrativeArea = placemark.administrativeArea {
-                   // addressComponents.append(administrativeArea)
-                }
+//                if let administrativeArea = placemark.administrativeArea {
+//                    addressComponents.append(administrativeArea)
+//                }
 
-                if let postalCode = placemark.postalCode {
-                  //  addressComponents.append(postalCode)
-                }
+//                if let postalCode = placemark.postalCode {
+//                    addressComponents.append(postalCode)
+//                }
 
-                if let country = placemark.country {
-                   // addressComponents.append(country)
-                }
+//                if let country = placemark.country {
+//                    addressComponents.append(country)
+//                }
 
                 // Join all the address components to get the complete address
                 let address = addressComponents.joined(separator: ", ")

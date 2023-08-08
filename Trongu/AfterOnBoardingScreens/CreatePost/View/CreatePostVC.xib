@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,6 +21,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreatePostVC" customModule="Trongu" customModuleProvider="target">
             <connections>
                 <outlet property="addImage" destination="lTl-AV-mSd" id="Kjo-yE-shM"/>
+                <outlet property="lblSelectedItems" destination="63g-Ld-269" id="6Iz-j4-Xt4"/>
                 <outlet property="txtBudget" destination="BTN-Hi-VaO" id="QHu-p1-dtP"/>
                 <outlet property="txtNoOffDays" destination="4fY-mh-ezs" id="cJn-Kx-FCS"/>
                 <outlet property="txtTags" destination="W9X-PA-TLZ" id="Fm2-Fr-D08"/>
@@ -62,6 +64,12 @@
                                                 <constraint firstAttribute="height" constant="220" id="Cck-dz-gM6"/>
                                             </constraints>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="63g-Ld-269">
+                                            <rect key="frame" x="20" y="200" width="353" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="20"/>
+                                            <color key="textColor" name="OrengeAppColour"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iPy-aD-g0c">
                                             <rect key="frame" x="20" y="20" width="353" height="220"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -187,6 +195,7 @@
                                                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select number of days" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4fY-mh-ezs">
                                                                     <rect key="frame" x="20" y="5" width="333" height="50"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <color key="tintColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
                                                                     <textInputTraits key="textInputTraits"/>
@@ -244,6 +253,7 @@
                                                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select Trip Category" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9My-Lf-vXk">
                                                                     <rect key="frame" x="20" y="5" width="333" height="50"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <color key="tintColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
                                                                     <textInputTraits key="textInputTraits"/>
@@ -355,6 +365,7 @@
                                                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select Trip Complexity" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tMr-oP-f08">
                                                                     <rect key="frame" x="20" y="5" width="328" height="50"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <color key="tintColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
                                                                     <textInputTraits key="textInputTraits"/>
@@ -418,15 +429,18 @@
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
+                                        <constraint firstItem="63g-Ld-269" firstAttribute="leading" secondItem="UnU-Eg-Yhz" secondAttribute="leading" constant="20" id="2l0-jv-9Nu"/>
                                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="OTU-Mn-RaC" secondAttribute="bottom" constant="30" id="3g4-Im-yUd"/>
                                         <constraint firstItem="iPy-aD-g0c" firstAttribute="top" secondItem="lTl-AV-mSd" secondAttribute="top" id="7cn-5o-JCJ"/>
                                         <constraint firstItem="OTU-Mn-RaC" firstAttribute="top" secondItem="T9K-by-rsB" secondAttribute="bottom" constant="30" id="Mfy-3D-jvl"/>
                                         <constraint firstItem="lTl-AV-mSd" firstAttribute="leading" secondItem="UnU-Eg-Yhz" secondAttribute="leading" constant="20" id="NSH-sv-2q5"/>
+                                        <constraint firstAttribute="trailing" secondItem="63g-Ld-269" secondAttribute="trailing" constant="20" id="Wkx-wD-YIb"/>
                                         <constraint firstAttribute="trailing" secondItem="lTl-AV-mSd" secondAttribute="trailing" constant="20" id="XtF-HG-erA"/>
                                         <constraint firstItem="iPy-aD-g0c" firstAttribute="trailing" secondItem="lTl-AV-mSd" secondAttribute="trailing" id="ckM-6T-qr7"/>
                                         <constraint firstItem="T9K-by-rsB" firstAttribute="leading" secondItem="lTl-AV-mSd" secondAttribute="leading" id="iMs-E7-gsI"/>
                                         <constraint firstItem="T9K-by-rsB" firstAttribute="top" secondItem="lTl-AV-mSd" secondAttribute="bottom" constant="20" id="jrQ-8A-OkX"/>
                                         <constraint firstItem="lTl-AV-mSd" firstAttribute="top" secondItem="UnU-Eg-Yhz" secondAttribute="top" constant="20" id="k5Y-4A-SCc"/>
+                                        <constraint firstItem="T9K-by-rsB" firstAttribute="top" secondItem="63g-Ld-269" secondAttribute="bottom" constant="60" id="ogJ-Mi-IoB"/>
                                         <constraint firstItem="OTU-Mn-RaC" firstAttribute="leading" secondItem="T9K-by-rsB" secondAttribute="leading" id="tVg-55-gSa"/>
                                         <constraint firstItem="T9K-by-rsB" firstAttribute="trailing" secondItem="lTl-AV-mSd" secondAttribute="trailing" id="uWS-Jf-9qo"/>
                                         <constraint firstItem="iPy-aD-g0c" firstAttribute="leading" secondItem="lTl-AV-mSd" secondAttribute="leading" id="uoy-uZ-tqM"/>
@@ -473,6 +487,9 @@
     <resources>
         <image name="CreatePostImage" width="389" height="226"/>
         <image name="FilterDropdown" width="18.333333969116211" height="9"/>
+        <namedColor name="OrengeAppColour">
+            <color red="0.92941176470588238" green="0.5725490196078431" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

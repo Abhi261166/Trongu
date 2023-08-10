@@ -8,8 +8,8 @@
 import UIKit
 import YPImagePicker
 
-class CreatePostVC: UIViewController {
-
+class CreatePostVC: UIViewController{
+   
     @IBOutlet weak var addImage: UIImageView!
     @IBOutlet weak var txtTags: UITextField!
     @IBOutlet weak var txtBudget: UITextField!
@@ -20,17 +20,40 @@ class CreatePostVC: UIViewController {
     @IBOutlet weak var lblSelectedItems: UILabel!
     
     var finalPostItems = [YPMediaItem]()
-    var tagIds = ""
+    var tagIds = "10"
     let pickerView = UIPickerView()
     var arrDays = ["1 day","2 days","3 days","4 days","5 days","6 days","7 days","8 days","9 days","10 days"]
     var arrTripCat = ["Business Trip","Family Trip","Friends Trip"]
     var arrTripComplexity = ["Complex","Smooth","Normal"]
-    
+    var viewModel:TagListVM?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         textFiledDelegates()
         setPicker()
+        setViewModel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setData()
+    }
+    
+    func setData(){
+        
+        txtBudget.text = "40"
+        txtNoOffDays.text = "2 days"
+        txtTripCategory.text = "Business Trip"
+        txtNoOffDays.text = "2 days"
+        txtTripComplexity.text = "Normal"
+        txtViewDesc.text = "12345"
+        
+        
+    }
+    
+    func setViewModel(){
+        
+        self.viewModel = TagListVM(observer: self)
     }
     
     func setPicker() {
@@ -72,7 +95,9 @@ class CreatePostVC: UIViewController {
 //        let vc = AddPhotoVideoVC()
 //        vc.hidesBottomBarWhenPushed = true
 //        self.navigationController?.pushViewController(vc, animated: true)
-        self.navigationController?.popViewController(animated: true)
+        //self.navigationController?.popViewController(animated: true)
+        
+        self.viewModel?.apiCreatePost(tags: self.tagIds, budget: self.txtBudget.text ?? "", noOffDays: self.txtNoOffDays.text ?? "", tripCat: "1", disc: txtViewDesc.text ?? "", tripComp: txtTripComplexity.text ?? "", arrPosts: finalPostItems)
     }
     
 }
@@ -226,4 +251,14 @@ extension CreatePostVC : CustomPickerControllerDelegate{
     func cancel(picker: CustomPickerController, _ tag: Int) {
         
     }
+}
+
+extension CreatePostVC:TagListVMObserver{
+    func observePostAddedSucessfull() {
+       print("Postedddd")
+    }
+    func observeGetTagListSucessfull() {
+        
+    }
+    
 }

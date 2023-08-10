@@ -93,6 +93,9 @@ extension MentionVC: UITableViewDelegate,UITableViewDataSource{
 }
 
 extension MentionVC:TagListVMObserver{
+    func observePostAddedSucessfull() {
+        
+    }
     
     func observeGetTagListSucessfull() {
         

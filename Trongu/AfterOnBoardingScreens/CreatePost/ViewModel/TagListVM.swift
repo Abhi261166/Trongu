@@ -123,6 +123,19 @@ class TagListVM: NSObject {
                ]
                arrImagesDict.append(dictImageUrl) //type
                
+               // start for thumb
+               
+               let dictThumbImage : [String
+                           :Any] = [
+                 "key": "image[\(index)][thumb_nail_image]",
+                 "src": UIImage(),
+                 "type": "file"
+               ]
+               arrImagesDict.append(dictThumbImage)
+               
+               //end for thumb
+               
+               
                let dictType : [String
                            :Any] = [
                  "key": "image[\(index)][type]",
@@ -180,6 +193,16 @@ class TagListVM: NSObject {
                  "type": "file"
                ]
                arrImagesDict.append(dictImageUrl)
+               
+               // start for thumb
+               
+               let dictThumbImage : [String
+                           :Any] = [
+                 "key": "image[\(index)][thumb_nail_image]",
+                 "src": video.thumbnail,
+                 "type": "file"
+               ]
+               arrImagesDict.append(dictThumbImage)
                
                let dictType : [String
                            :Any] = [
@@ -270,7 +293,7 @@ class TagListVM: NSObject {
 
                                     
                                      if  let data = img.jpegData(compressionQuality: 0.5){
-                                         print("cover data \(data.count)")
+                                       //  print("cover data \(data.count)")
                                          body.append(data)
                                      }
                                      body.append("\r\n".data(using: String.Encoding.utf8, allowLossyConversion: true)!)

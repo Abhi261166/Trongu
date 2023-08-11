@@ -22,6 +22,8 @@
                 <outlet property="addPhotoVideoCollectionView" destination="bs5-24-8ie" id="fjp-cn-zcC"/>
                 <outlet property="btnAddAddress" destination="4RV-Ys-Sd3" id="ZJz-VP-JnR"/>
                 <outlet property="btnBack" destination="Xgk-p3-4lB" id="jpc-Nq-8WO"/>
+                <outlet property="btnDate" destination="q8P-G8-qMv" id="REf-lT-aOw"/>
+                <outlet property="btnTime" destination="q8M-t9-6PR" id="8lt-7j-U5H"/>
                 <outlet property="dateTF" destination="7ko-Aq-tmO" id="Fft-O7-Scn"/>
                 <outlet property="placeTF" destination="trA-io-wkO" id="96T-xE-b44"/>
                 <outlet property="timeTF" destination="dHU-Pe-q1O" id="64e-SI-QA8"/>
@@ -92,7 +94,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="353" height="103"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Place" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iyi-fa-TyD">
-                                                            <rect key="frame" x="0.0" y="0.0" width="40" height="28"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="43.666666666666664" height="28"/>
                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
                                                             <color key="textColor" red="0.50588235290000005" green="0.50588235290000005" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -162,7 +164,7 @@
                                                     <rect key="frame" x="0.0" y="113" width="353" height="103"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AHG-WN-EBV">
-                                                            <rect key="frame" x="0.0" y="0.0" width="33.666666666666664" height="28"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="38" height="28"/>
                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
                                                             <color key="textColor" red="0.50588235290000005" green="0.50588235290000005" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -178,14 +180,25 @@
                                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q8P-G8-qMv">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="60"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <connections>
+                                                                        <action selector="actionDate:" destination="-1" eventType="touchUpInside" id="cAm-o4-8tK"/>
+                                                                    </connections>
+                                                                </button>
                                                             </subviews>
                                                             <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="60" id="9CO-OM-6eB"/>
+                                                                <constraint firstItem="q8P-G8-qMv" firstAttribute="leading" secondItem="TsN-FB-7EU" secondAttribute="leading" id="9V2-4P-KXx"/>
                                                                 <constraint firstItem="7ko-Aq-tmO" firstAttribute="leading" secondItem="TsN-FB-7EU" secondAttribute="leading" constant="20" id="MOv-fv-ZX2"/>
+                                                                <constraint firstItem="q8P-G8-qMv" firstAttribute="top" secondItem="TsN-FB-7EU" secondAttribute="top" id="Puq-tf-GJW"/>
                                                                 <constraint firstAttribute="trailing" secondItem="7ko-Aq-tmO" secondAttribute="trailing" constant="5" id="QGf-kV-PJg"/>
                                                                 <constraint firstItem="7ko-Aq-tmO" firstAttribute="top" secondItem="TsN-FB-7EU" secondAttribute="top" constant="5" id="QQX-IG-Wdb"/>
+                                                                <constraint firstAttribute="bottom" secondItem="q8P-G8-qMv" secondAttribute="bottom" id="ass-Zd-f8c"/>
                                                                 <constraint firstAttribute="bottom" secondItem="7ko-Aq-tmO" secondAttribute="bottom" constant="5" id="e6F-VY-3oS"/>
+                                                                <constraint firstAttribute="trailing" secondItem="q8P-G8-qMv" secondAttribute="trailing" id="qFv-p8-clb"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -208,7 +221,7 @@
                                                     <rect key="frame" x="0.0" y="226" width="353" height="103"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEz-rq-Ygm">
-                                                            <rect key="frame" x="0.0" y="0.0" width="35" height="28"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="39" height="28"/>
                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
                                                             <color key="textColor" red="0.50588235290000005" green="0.50588235290000005" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -224,14 +237,25 @@
                                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q8M-t9-6PR">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="60"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <connections>
+                                                                        <action selector="actionTime:" destination="-1" eventType="touchUpInside" id="iO9-RY-WUE"/>
+                                                                    </connections>
+                                                                </button>
                                                             </subviews>
                                                             <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="60" id="59s-nn-2HC"/>
+                                                                <constraint firstItem="q8M-t9-6PR" firstAttribute="top" secondItem="mVZ-4W-eJe" secondAttribute="top" id="HRi-ji-ktk"/>
+                                                                <constraint firstAttribute="trailing" secondItem="q8M-t9-6PR" secondAttribute="trailing" id="JO5-hH-UfL"/>
                                                                 <constraint firstAttribute="trailing" secondItem="dHU-Pe-q1O" secondAttribute="trailing" constant="5" id="KLI-j5-Amj"/>
                                                                 <constraint firstItem="dHU-Pe-q1O" firstAttribute="leading" secondItem="mVZ-4W-eJe" secondAttribute="leading" constant="20" id="Rc2-OT-wi4"/>
                                                                 <constraint firstAttribute="bottom" secondItem="dHU-Pe-q1O" secondAttribute="bottom" constant="5" id="Shv-eH-3ma"/>
+                                                                <constraint firstAttribute="bottom" secondItem="q8M-t9-6PR" secondAttribute="bottom" id="imp-qH-SYP"/>
                                                                 <constraint firstItem="dHU-Pe-q1O" firstAttribute="top" secondItem="mVZ-4W-eJe" secondAttribute="top" constant="5" id="ww9-Sg-att"/>
+                                                                <constraint firstItem="q8M-t9-6PR" firstAttribute="leading" secondItem="mVZ-4W-eJe" secondAttribute="leading" id="zaD-wH-OIm"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">

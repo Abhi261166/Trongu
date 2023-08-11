@@ -20,6 +20,9 @@ class AddPhotoVideoVC: UIViewController {
     @IBOutlet weak var btnAddAddress: UIButton!
     @IBOutlet weak var addPhotoVideoCollectionView: UICollectionView!
     @IBOutlet weak var btnBack: UIButton!
+    @IBOutlet weak var btnTime: UIButton!
+    @IBOutlet weak var btnDate: UIButton!
+    
     
     var postImage = ["AddImage_1","AddImage_2"]
     let datePicker = UIDatePicker()
@@ -82,38 +85,89 @@ class AddPhotoVideoVC: UIViewController {
     }
     
     func disableTextFileds(){
-        btnAddAddress.isEnabled = false
+     //   btnAddAddress.isEnabled = false
+        btnTime.isUserInteractionEnabled = true
+        btnDate.isUserInteractionEnabled = true
         timeTF.isUserInteractionEnabled = false
         placeTF.isUserInteractionEnabled = false
         dateTF.isUserInteractionEnabled = false
+        
     }
     
     func enableTextFileds(){
-        btnAddAddress.isEnabled = true
+     //   btnAddAddress.isEnabled = true
+        btnTime.isUserInteractionEnabled = false
+        btnDate.isUserInteractionEnabled = false
         timeTF.isUserInteractionEnabled = true
         placeTF.isUserInteractionEnabled = true
         dateTF.isUserInteractionEnabled = true
+    }
+    
+    func checkEnterdData() -> Bool{
+        
+        for (index, post) in selectedItems.enumerated() {
+            
+            switch post{
+            case .photo(p: let photo):
+                if photo.asset?.location?.coordinate.latitude == nil && photo.asset?.location?.coordinate.longitude == nil{
+                    self.showMessage(message: "Please select address for \(index) photo", isError: .error)
+                    return false
+                }
+                
+            case .video(v: let video):
+                if video.asset?.location?.coordinate.latitude == nil && video.asset?.location?.coordinate.longitude == nil{
+                    self.showMessage(message: "Please select address for \(index) video", isError: .error)
+                    return false
+                }
+            }
+        }
+        return true
     }
     
     @IBAction func backAction(_ sender: UIButton) {
         popVC()
     }
     
+    @IBAction func actionDate(_ sender: UIButton) {
+        Singleton.shared.showMessage(message: "Please select at least one image or video first", isError: .error)
+    }
+    
+    @IBAction func actionTime(_ sender: UIButton) {
+        Singleton.shared.showMessage(message: "Please select at least one image or video first", isError: .error)
+    }
+    
     @IBAction func addAction(_ sender: UIButton) {
-      
+        
         debugPrint("selected items is --- ",self.selectedItems)
         
-        if let completion = self.completion{
-            popVC()
-            Singleton.shared.showMessage(message: "Post images and videos added sucsessfully, Now please enter remaning information and post. ", isError: .success)
-            completion(selectedItems)
+        let postStatus = checkEnterdData()
+        
+        if postStatus && selectedItems.count > 0{
+            if let completion = self.completion{
+                popVC()
+                Singleton.shared.showMessage(message: "Post images and videos added sucsessfully, Now please enter remaning information and post ", isError: .success)
+                completion(selectedItems)
+            }
+        }else{
+            Singleton.shared.showMessage(message: "Please select at least one image or video first", isError: .error)
+            print("Please add all text filed data")
         }
+         
     }
     
     @IBAction func addAddress(_ sender: UIButton) {
-        let vc = AddLocationVC()
-        vc.delegate = self
-        self.navigationController?.pushViewController(vc, animated: true)
+        
+        
+        if placeTF.isUserInteractionEnabled{
+            let vc = AddLocationVC()
+            vc.delegate = self
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else{
+            
+            self.showMessage(message: "Please select at least one image or video", isError: .error)
+            
+        }
+        
     }
     
     func setTableviewDelegates(){
@@ -172,6 +226,7 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
                 if selectedIndex == indexPath{
                     cell.postImage.borderWidth = 2
                     cell.postImage.borderColor = UIColor(named: "OrengeAppColour")
+                    ActivityIndicator.shared.showActivityIndicator()
                     self.showMetaDataInTextFileds(index: indexPath.row)
                     
                 }else{
@@ -199,8 +254,10 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
             showPicker()
         }else{
             self.selectedIndex = indexPath
+            ActivityIndicator.shared.showActivityIndicator()
             self.showMetaDataInTextFileds(index: indexPath.row)
             self.addPhotoVideoCollectionView.reloadData()
+            
         }
     }
     
@@ -256,6 +313,16 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
             print("Not last Index-- Index is ",sender.tag)
         }
         
+        
+        if selectedItems.count == 0{
+            
+            placeTF.text = ""
+            dateTF.text = ""
+            timeTF.text = ""
+            
+        }
+        
+        
     }
     
 }
@@ -267,7 +334,7 @@ extension AddPhotoVideoVC{
         var config = YPImagePickerConfiguration()
         config.library.maxNumberOfItems = 10
         config.library.mediaType = .photoAndVideo
-        config.shouldSaveNewPicturesToAlbum = false
+        config.shouldSaveNewPicturesToAlbum = true
         config.library.itemOverlayType = .grid
         config.video.compression = AVAssetExportPresetPassthrough
         config.startOnScreen = .library
@@ -288,8 +355,10 @@ extension AddPhotoVideoVC{
         
         picker.didFinishPicking { [weak picker] items, cancelled in
             self.btnBack.isHidden = false
+            ActivityIndicator.shared.showActivityIndicator()
             if cancelled {
                 print("Picker was canceled")
+                ActivityIndicator.shared.hideActivityIndicator()
                 picker?.dismiss(animated: true, completion: nil)
                 return
             }
@@ -313,6 +382,7 @@ extension AddPhotoVideoVC{
                    })
                    self.dateTF.text = photo.asset?.creationDate?.dateToString(format: "dd/MM/yyyy")
                    self.timeTF.text = photo.asset?.creationDate?.dateToString(format: "h:mm a")
+                   ActivityIndicator.shared.hideActivityIndicator()
                   
                case .video(v: let video):
                    self.selectedIndex = IndexPath(row: self.selectedItems.count - 1, section: 0)
@@ -325,12 +395,13 @@ extension AddPhotoVideoVC{
                        print("Got address from picker -----",address ?? "")
                        self.dateTF.text = video.asset?.creationDate?.dateToString(format: "dd/MM/yyyy")
                        self.timeTF.text = video.asset?.creationDate?.dateToString(format: "h:mm a")
+                       ActivityIndicator.shared.hideActivityIndicator()
                    })
                    
                case .none:
                    print("No Photo Selected")
                }
-            picker?.dismiss(animated: true, completion: nil)
+            picker?.dismiss(animated: true)
             self.addPhotoVideoCollectionView.reloadData()
             self.scrollToLastItem()
             
@@ -358,7 +429,9 @@ extension AddPhotoVideoVC{
             
         }
         
-       
+//        picker.dismiss(animated: true) {
+//            ActivityIndicator.shared.hideActivityIndicator()
+//        }
         
     }
     
@@ -447,7 +520,7 @@ extension AddPhotoVideoVC{
                print("Got address from picker -----",address ?? "")
                self.dateTF.text = photo.asset?.creationDate?.dateToString(format: "dd/MM/yyyy")
                self.timeTF.text = photo.asset?.creationDate?.dateToString(format: "h:mm a")
-               
+               ActivityIndicator.shared.hideActivityIndicator()
            })
           
        case .video(v: let video):
@@ -460,6 +533,7 @@ extension AddPhotoVideoVC{
                print("Got address from picker -----",address ?? "")
                self.dateTF.text = video.asset?.creationDate?.dateToString(format: "dd/MM/yyyy")
                self.timeTF.text = video.asset?.creationDate?.dateToString(format: "h:mm a")
+               ActivityIndicator.shared.hideActivityIndicator()
            })
        }
         
@@ -477,7 +551,26 @@ extension AddPhotoVideoVC:AddLocationVCDelegate{
     func setLocation(text: String, lat: Double, long: Double, address: String) {
         DispatchQueue.main.async {
             self.placeTF.text = address
+            
+            
+            
         }
+        
+    }
+    
+    
+    func setAddressOnSelectedItem(index:Int,lat: Double, long: Double){
+        
+        let post = selectedItems[index]
+//       switch post{
+//       case .photo(p: let photo):
+//
+//           photo.asset?.location?.coordinate.latitude = lat
+//           photo.asset?.location?.coordinate.longitude = long
+//
+//       case .video(v: let video):
+//
+//       }
         
     }
     

@@ -3,4 +3,244 @@
    uuid = "ACDBD09F-9393-4A32-A219-385AC3343EC2"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "86C19A62-F866-44EA-85ED-C491AC655FB6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trongu/AfterOnBoardingScreens/AddPhotoVideo/View/AddPhotoVideoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
+            landmarkName = "addAction(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "86C19A62-F866-44EA-85ED-C491AC655FB6 - 2504e008ee9eadb6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.AddPhotoVideoVC.addAction(__C.UIButton) -&gt; ()"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/AddPhotoVideo/View/AddPhotoVideoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "129"
+                  endingLineNumber = "129"
+                  offsetFromSymbolStart = "336">
+               </Location>
+               <Location
+                  uuid = "86C19A62-F866-44EA-85ED-C491AC655FB6 - 2504e008ee9ead91"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.AddPhotoVideoVC.addAction(__C.UIButton) -&gt; ()"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/AddPhotoVideo/View/AddPhotoVideoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "304">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "874CE26B-43B6-4449-B575-595C0CD42442"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trongu/AfterOnBoardingScreens/AddPhotoVideo/View/AddPhotoVideoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "addAction(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "874CE26B-43B6-4449-B575-595C0CD42442 - 2504e008ee9eadd7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.AddPhotoVideoVC.addAction(__C.UIButton) -&gt; ()"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/AddPhotoVideo/View/AddPhotoVideoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "130"
+                  endingLineNumber = "130"
+                  offsetFromSymbolStart = "352">
+               </Location>
+               <Location
+                  uuid = "874CE26B-43B6-4449-B575-595C0CD42442 - 2504e008ee9eadd7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.AddPhotoVideoVC.addAction(__C.UIButton) -&gt; ()"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/AddPhotoVideo/View/AddPhotoVideoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "130"
+                  endingLineNumber = "130"
+                  offsetFromSymbolStart = "416">
+               </Location>
+               <Location
+                  uuid = "874CE26B-43B6-4449-B575-595C0CD42442 - 2504e008ee9eadd7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.AddPhotoVideoVC.addAction(__C.UIButton) -&gt; ()"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/AddPhotoVideo/View/AddPhotoVideoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "130"
+                  endingLineNumber = "130"
+                  offsetFromSymbolStart = "336">
+               </Location>
+               <Location
+                  uuid = "874CE26B-43B6-4449-B575-595C0CD42442 - 2504e008ee9eadd7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.AddPhotoVideoVC.addAction(__C.UIButton) -&gt; ()"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/AddPhotoVideo/View/AddPhotoVideoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "130"
+                  endingLineNumber = "130"
+                  offsetFromSymbolStart = "356">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FB23EBF7-6B04-492D-A2BC-3EE86153702F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trongu/AfterOnBoardingScreens/AddPhotoVideo/View/AddPhotoVideoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "checkEnterdData()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "FB23EBF7-6B04-492D-A2BC-3EE86153702F - 7638f3e81dce6af6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.AddPhotoVideoVC.checkEnterdData() -&gt; Swift.Bool"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/AddPhotoVideo/View/AddPhotoVideoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
+                  offsetFromSymbolStart = "328">
+               </Location>
+               <Location
+                  uuid = "FB23EBF7-6B04-492D-A2BC-3EE86153702F - 7638f3e81dce6a17"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.AddPhotoVideoVC.checkEnterdData() -&gt; Swift.Bool"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/AddPhotoVideo/View/AddPhotoVideoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
+                  offsetFromSymbolStart = "328">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "77A41F83-0FE9-4260-9DBA-AD95F2353B1D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trongu/AfterOnBoardingScreens/AddPhotoVideo/View/AddPhotoVideoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "checkEnterdData()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "77A41F83-0FE9-4260-9DBA-AD95F2353B1D - 7638f3e81dce6a30"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.AddPhotoVideoVC.checkEnterdData() -&gt; Swift.Bool"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/AddPhotoVideo/View/AddPhotoVideoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
+                  offsetFromSymbolStart = "1044">
+               </Location>
+               <Location
+                  uuid = "77A41F83-0FE9-4260-9DBA-AD95F2353B1D - 7638f3e81dce6a30"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.AddPhotoVideoVC.checkEnterdData() -&gt; Swift.Bool"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/AddPhotoVideo/View/AddPhotoVideoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
+                  offsetFromSymbolStart = "372">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C3F08D68-55C6-4E55-AE8D-ED1DA2745583"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trongu/AfterOnBoardingScreens/AddPhotoVideo/View/AddPhotoVideoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
+            landmarkName = "addAddress(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

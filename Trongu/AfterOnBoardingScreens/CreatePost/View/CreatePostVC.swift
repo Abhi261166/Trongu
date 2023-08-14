@@ -20,6 +20,7 @@ class CreatePostVC: UIViewController{
     @IBOutlet weak var lblSelectedItems: UILabel!
     
     var finalPostItems = [YPMediaItem]()
+    var arrPosts = [PostImagesVideo]()
     var tagIds = "10"
     let pickerView = UIPickerView()
     var arrDays = ["1 day","2 days","3 days","4 days","5 days","6 days","7 days","8 days","9 days","10 days"]
@@ -36,17 +37,17 @@ class CreatePostVC: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setData()
+       // setData()
     }
     
     func setData(){
         
-        txtBudget.text = "40"
-        txtNoOffDays.text = "2 days"
-        txtTripCategory.text = "Business Trip"
-        txtNoOffDays.text = "2 days"
-        txtTripComplexity.text = "Normal"
-        txtViewDesc.text = "12345"
+        txtBudget.text = ""
+        txtNoOffDays.text = ""
+        txtTripCategory.text = ""
+        txtNoOffDays.text = ""
+        txtTripComplexity.text = ""
+        txtViewDesc.text = ""
         
         
     }
@@ -75,8 +76,9 @@ class CreatePostVC: UIViewController{
     
     @IBAction func addImageAction(_ sender: UIButton) {
         let vc = AddPhotoVideoVC()
-        vc.completion = { posts in
-            self.finalPostItems = posts
+        vc.completion = { posts1, posts2 in
+            self.finalPostItems = posts1
+            self.arrPosts = posts2
             if self.finalPostItems.count != 0{
                 self.lblSelectedItems.text = "\(self.finalPostItems.count) items selected"
             }else{
@@ -86,6 +88,7 @@ class CreatePostVC: UIViewController{
         }
         vc.selectedItems = finalPostItems
         vc.selectedIndex = IndexPath(row: 0, section: 0)
+        vc.arrPostItems = arrPosts
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
         
@@ -97,7 +100,16 @@ class CreatePostVC: UIViewController{
 //        self.navigationController?.pushViewController(vc, animated: true)
         //self.navigationController?.popViewController(animated: true)
         
-        self.viewModel?.apiCreatePost(tags: self.tagIds, budget: self.txtBudget.text ?? "", noOffDays: self.txtNoOffDays.text ?? "", tripCat: "1", disc: txtViewDesc.text ?? "", tripComp: txtTripComplexity.text ?? "", arrPosts: finalPostItems)
+        if arrPosts.count > 0{
+            
+            guard let viewModel = self.viewModel,
+                  viewModel.validateCreatePostDetails(imageSelected: true, budget: self.txtBudget.text ?? "", noOfDays: self.txtNoOffDays.text ?? "", tripCat: "1", desc: txtViewDesc.text ?? "", tripComp: txtTripComplexity.text ?? "")else { return }
+            
+            
+            self.viewModel?.apiCreatePost(tags: self.tagIds, budget: self.txtBudget.text ?? "", noOffDays: self.txtNoOffDays.text ?? "", tripCat: "1", disc: txtViewDesc.text ?? "", tripComp: txtTripComplexity.text ?? "", arrPosts: finalPostItems, arrPosts2: arrPosts)
+            
+        }
+       
     }
     
 }
@@ -255,6 +267,9 @@ extension CreatePostVC : CustomPickerControllerDelegate{
 
 extension CreatePostVC:TagListVMObserver{
     func observePostAddedSucessfull() {
+        setData()
+        arrPosts = []
+        finalPostItems = []
        print("Postedddd")
     }
     func observeGetTagListSucessfull() {

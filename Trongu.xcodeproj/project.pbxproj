@@ -100,6 +100,10 @@
 		188D8E852A52AE0100083DC0 /* FollowersVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188D8E832A52AE0100083DC0 /* FollowersVC.xib */; };
 		189029DA2A4B0AFD002FA039 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189029D82A4B0AFD002FA039 /* HomeVC.swift */; };
 		189029DB2A4B0AFD002FA039 /* HomeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 189029D92A4B0AFD002FA039 /* HomeVC.xib */; };
+		18944A8C2A89EB41005E07EC /* AddPostCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18944A8A2A89EB41005E07EC /* AddPostCVC.swift */; };
+		18944A8D2A89EB41005E07EC /* AddPostCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18944A8B2A89EB41005E07EC /* AddPostCVC.xib */; };
+		18944A8F2A89EC27005E07EC /* DAVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18944A8E2A89EC27005E07EC /* DAVideoPlayerView.swift */; };
+		18944A912A8A005C005E07EC /* AVAssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18944A902A8A005C005E07EC /* AVAssetManager.swift */; };
 		1895510C2A49BC00003EC8FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1895510B2A49BC00003EC8FD /* AppDelegate.swift */; };
 		1895510E2A49BC00003EC8FD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1895510D2A49BC00003EC8FD /* SceneDelegate.swift */; };
 		189551152A49BC04003EC8FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 189551142A49BC04003EC8FD /* Assets.xcassets */; };
@@ -329,6 +333,10 @@
 		188D8E832A52AE0100083DC0 /* FollowersVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FollowersVC.xib; sourceTree = "<group>"; };
 		189029D82A4B0AFD002FA039 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		189029D92A4B0AFD002FA039 /* HomeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeVC.xib; sourceTree = "<group>"; };
+		18944A8A2A89EB41005E07EC /* AddPostCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPostCVC.swift; sourceTree = "<group>"; };
+		18944A8B2A89EB41005E07EC /* AddPostCVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPostCVC.xib; sourceTree = "<group>"; };
+		18944A8E2A89EC27005E07EC /* DAVideoPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DAVideoPlayerView.swift; sourceTree = "<group>"; };
+		18944A902A8A005C005E07EC /* AVAssetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAssetManager.swift; sourceTree = "<group>"; };
 		189551082A49BC00003EC8FD /* Trongu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trongu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1895510B2A49BC00003EC8FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1895510D2A49BC00003EC8FD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -1113,6 +1121,10 @@
 				189BC6432A4BF22A00C97BCA /* HomeTVCell.xib */,
 				1873EF9A2A4C068F00C6CE96 /* HomeCVCell.swift */,
 				1873EF9B2A4C068F00C6CE96 /* HomeCVCell.xib */,
+				18944A8A2A89EB41005E07EC /* AddPostCVC.swift */,
+				18944A8B2A89EB41005E07EC /* AddPostCVC.xib */,
+				18944A8E2A89EC27005E07EC /* DAVideoPlayerView.swift */,
+				18944A902A8A005C005E07EC /* AVAssetManager.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1923,6 +1935,7 @@
 				18FC21162A4FF0E30064F471 /* ReplyPhotoTVCell.xib in Resources */,
 				0448179C2A7FD13C009539FB /* MentionVC.xib in Resources */,
 				184FE0C72A4D89AF009D666D /* OtherUserProfileVC.xib in Resources */,
+				18944A8D2A89EB41005E07EC /* AddPostCVC.xib in Resources */,
 				3114AAE52A6901D600F444B5 /* GoogleService-Info.plist in Resources */,
 				186679BB2A4AAC6B00522429 /* Poppins-Bold.ttf in Resources */,
 				044817A02A7FED11009539FB /* MentionTVC.xib in Resources */,
@@ -2052,6 +2065,7 @@
 				044817962A7FCC99009539FB /* MentionView.swift in Sources */,
 				31CB5DB72A67D1BC0020E409 /* IJReachability.swift in Sources */,
 				31CB5DF32A67D25F0020E409 /* GalleryImagesCollectionView.swift in Sources */,
+				18944A8C2A89EB41005E07EC /* AddPostCVC.swift in Sources */,
 				18679B302A821BA200FD3C98 /* TagListModel.swift in Sources */,
 				31CB5DDB2A67D2220020E409 /* PickerData.swift in Sources */,
 				318770972A691ACD00FF4B46 /* ProfileModel.swift in Sources */,
@@ -2102,6 +2116,7 @@
 				1895514D2A49BEF6003EC8FD /* UIStoryboard+Custom.swift in Sources */,
 				189EC4932A4E9352001E6644 /* BlockReportPopUpVC.swift in Sources */,
 				1842FF212A4C691000CF6F41 /* ReportPopUpVC.swift in Sources */,
+				18944A912A8A005C005E07EC /* AVAssetManager.swift in Sources */,
 				31CB5DBE2A67D1BC0020E409 /* Validator.swift in Sources */,
 				31CB5DD02A67D1BC0020E409 /* HttpManager.swift in Sources */,
 				186DA22D2A81030300D4F879 /* AddLocationTableViewCell.swift in Sources */,
@@ -2133,6 +2148,7 @@
 				185352792A4D765500EAC753 /* BucketListVC.swift in Sources */,
 				31CB5E112A68080B0020E409 /* ProfileVM.swift in Sources */,
 				31CB5DBC2A67D1BC0020E409 /* Singleton.swift in Sources */,
+				18944A8F2A89EC27005E07EC /* DAVideoPlayerView.swift in Sources */,
 				188D8E842A52AE0100083DC0 /* FollowersVC.swift in Sources */,
 				18A0F8882A4C4B7300E34ED6 /* LikesVC.swift in Sources */,
 				1877D9342A5005AD0067925F /* HeaderTableViewCell.swift in Sources */,

@@ -28,6 +28,7 @@ class HomeTVCell: UITableViewCell {
     var image = ["PostFirstImage","PostSecondImage"]
     var delegate: HomeTVCellDelegate?
     var controller:UIViewController?
+    var arrPostImagesVideosList : [PostImagesVideo] = []
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,7 +38,7 @@ class HomeTVCell: UITableViewCell {
         homeCollectionView.register(UINib(nibName: "HomeCVCell", bundle: nil), forCellWithReuseIdentifier: "HomeCVCell")
         
         pageController.hidesForSinglePage = true
-        self.pageController.numberOfPages = 2
+       // self.pageController.numberOfPages = arrPostImagesVideosList.count
         
      }
     
@@ -117,22 +118,30 @@ class HomeTVCell: UITableViewCell {
 }
 
 extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return image.count
+        return arrPostImagesVideosList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCVCell", for: indexPath) as! HomeCVCell
-        cell.postImage.image = UIImage(named: image[indexPath.row])
+        
+        let dict = arrPostImagesVideosList[indexPath.row]
+        cell.postImage.setImage(image: dict.image)
+        
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: 350)
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = DetailVC()
-        vc.hidesBottomBarWhenPushed = true
-        controller?.navigationController?.pushViewController(vc, animated: true)
+     
+//        let vc = DetailVC()
+//        vc.hidesBottomBarWhenPushed = true
+//        controller?.navigationController?.pushViewController(vc, animated: true)
+  
     }
    
 }

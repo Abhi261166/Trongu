@@ -46,6 +46,7 @@ class API {
         
         // create post
         static let tagList                = "j1/trongu/api/v1/users/followers-following-listing"
+        static let postList               = "j1/trongu/api/v1/users/home-listing"
 
         
       

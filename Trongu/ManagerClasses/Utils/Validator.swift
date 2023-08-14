@@ -76,6 +76,42 @@ class Validator {
         return (true, "")
     }
     
+    static public func validatePrice(price: String) -> (Bool,String) {
+      
+        guard price.count > 0  else {
+            return (false, "Please enter trip budget")
+        }
+        
+        return (true, "")
+    }
+    
+    static public func validateNoOffDays(days: String) -> (Bool,String) {
+      
+        guard days.count > 0  else {
+            return (false, "Please select number of days")
+        }
+        
+        return (true, "")
+    }
+    
+    static public func validateTripCat(tripCat: String) -> (Bool,String) {
+      
+        guard tripCat.count > 0  else {
+            return (false, "Please select Trip Category")
+        }
+        
+        return (true, "")
+    }
+    
+    static public func validateTripComplex(tripComp: String) -> (Bool,String) {
+      
+        guard tripComp.count > 0  else {
+            return (false, "Please select Trip Complexity level")
+        }
+        
+        return (true, "")
+    }
+    
     static public func validategender(gender: String) -> (Bool,String) {
       
         guard gender.count > 0  else {

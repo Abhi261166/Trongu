@@ -28,8 +28,9 @@ class AddPhotoVideoVC: UIViewController {
     let datePicker = UIDatePicker()
     let timePicker = UIDatePicker()
     var selectedItems = [YPMediaItem]()
+    var arrPostItems = [PostImagesVideo]()
     var selectedIndex:IndexPath?
-    var completion : (( _ posts:[YPMediaItem]) -> Void)? = nil
+    var completion : (( _ post1:[YPMediaItem], _ posts2:[PostImagesVideo]) -> Void)? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +44,13 @@ class AddPhotoVideoVC: UIViewController {
         
         addDatePicker()
         addTimePicker()
+        
+    }
+    
+    func textFiledDelegates(){
+        
+        dateTF.delegate = self
+        timeTF.delegate = self
         
     }
     
@@ -105,22 +113,13 @@ class AddPhotoVideoVC: UIViewController {
     
     func checkEnterdData() -> Bool{
         
-        for (index, post) in selectedItems.enumerated() {
+        for (index, post) in arrPostItems.enumerated() {
             
-            switch post{
-            case .photo(p: let photo):
-                if photo.asset?.location?.coordinate.latitude == nil && photo.asset?.location?.coordinate.longitude == nil{
-                    self.showMessage(message: "Please select address for \(index) photo", isError: .error)
-                    return false
-                }
-                
-            case .video(v: let video):
-                if video.asset?.location?.coordinate.latitude == nil && video.asset?.location?.coordinate.longitude == nil{
-                    self.showMessage(message: "Please select address for \(index) video", isError: .error)
+            if post.lat == "0.0" && post.long == "0.0"{
+                    self.showMessage(message: "Please select address for \(index + 1) post item", isError: .error)
                     return false
                 }
             }
-        }
         return true
     }
     
@@ -141,22 +140,33 @@ class AddPhotoVideoVC: UIViewController {
         debugPrint("selected items is --- ",self.selectedItems)
         
         let postStatus = checkEnterdData()
+        // With validation
         
-        if postStatus && selectedItems.count > 0{
-            if let completion = self.completion{
-                popVC()
-                Singleton.shared.showMessage(message: "Post images and videos added sucsessfully, Now please enter remaning information and post ", isError: .success)
-                completion(selectedItems)
+        if arrPostItems.count != 0{
+            if postStatus{
+                if let completion = self.completion{
+                    popVC()
+                    Singleton.shared.showMessage(message: "Post images and videos added sucsessfully, Now please enter remaning information and post ", isError: .success)
+                    completion(selectedItems,arrPostItems)
+                }
+            }else{
+                print("Please add all text filed data")
             }
         }else{
             Singleton.shared.showMessage(message: "Please select at least one image or video first", isError: .error)
-            print("Please add all text filed data")
         }
-         
+        
+        // Without validation
+        
+//        if let completion = self.completion{
+//            popVC()
+//            Singleton.shared.showMessage(message: "Post images and videos added sucsessfully, Now please enter remaning information and post ", isError: .success)
+//            completion(selectedItems)
+//        }
+//
     }
     
     @IBAction func addAddress(_ sender: UIButton) {
-        
         
         if placeTF.isUserInteractionEnabled{
             let vc = AddLocationVC()
@@ -242,7 +252,6 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
             
             self.disableTextFileds()
         }
-       
         
         return cell
     }
@@ -251,6 +260,7 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
         
         if indexPath.row == selectedItems.count{
             print("Add post")
+            arrPostItems = []
             showPicker()
         }else{
             self.selectedIndex = indexPath
@@ -279,6 +289,7 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
     
     @objc func actionCross(sender:UIButton){
         self.selectedItems.remove(at: sender.tag)
+        self.arrPostItems.remove(at: sender.tag)
         
         // is last element
         
@@ -365,6 +376,11 @@ extension AddPhotoVideoVC{
             _ = items.map { print("🧀 \($0)") }
 
             self.selectedItems = items
+            
+            self.fetchData(posts: self.selectedItems)
+            
+            print(self.arrPostItems.count, "Posts count")
+            
             
             let post = self.selectedItems.last
                switch post{
@@ -511,37 +527,61 @@ extension AddPhotoVideoVC{
         let post = selectedItems[index]
        switch post{
        case .photo(p: let photo):
-           getAddressFromLatLong(latitude: photo.asset?.location?.coordinate.latitude ?? 0.0, longitude: photo.asset?.location?.coordinate.longitude ?? 0.0, completion: { address in
+           getAddressFromLatLong(latitude: Double(arrPostItems[index].lat) ?? 0.0, longitude: Double(arrPostItems[index].long) ?? 0.0, completion: { address in
                if address ?? "" == "North Atlantic Ocean"{
                    self.placeTF.text = ""
                }else{
                    self.placeTF.text = address
                }
                print("Got address from picker -----",address ?? "")
-               self.dateTF.text = photo.asset?.creationDate?.dateToString(format: "dd/MM/yyyy")
-               self.timeTF.text = photo.asset?.creationDate?.dateToString(format: "h:mm a")
+               self.dateTF.text = self.arrPostItems[index].date
+               self.timeTF.text = self.arrPostItems[index].time
                ActivityIndicator.shared.hideActivityIndicator()
            })
           
        case .video(v: let video):
-           getAddressFromLatLong(latitude: video.asset?.location?.coordinate.latitude ?? 0.0, longitude: video.asset?.location?.coordinate.longitude ?? 0.0, completion: { address in
+           getAddressFromLatLong(latitude: Double(arrPostItems[index].lat) ?? 0.0, longitude: Double(arrPostItems[index].long) ?? 0.0, completion: { address in
                if address ?? "" == "North Atlantic Ocean"{
                    self.placeTF.text = ""
                }else{
                    self.placeTF.text = address
                }
                print("Got address from picker -----",address ?? "")
-               self.dateTF.text = video.asset?.creationDate?.dateToString(format: "dd/MM/yyyy")
-               self.timeTF.text = video.asset?.creationDate?.dateToString(format: "h:mm a")
+               self.dateTF.text = self.arrPostItems[index].date
+               self.timeTF.text = self.arrPostItems[index].time
                ActivityIndicator.shared.hideActivityIndicator()
            })
        }
         
     }
     
-    func getDate(date:Date){
-       
+    func fetchData(posts:[YPMediaItem]){
         
+        for (index, post) in selectedItems.enumerated() {
+            
+            print("index---",index)
+            
+            switch post{
+            case .photo(p: let photo):
+                // get place
+                var place = ""
+                getAddressFromLatLong(latitude: photo.asset?.location?.coordinate.latitude ?? 0.0, longitude: photo.asset?.location?.coordinate.longitude ?? 0.0, completion: { address in
+                    place = address ?? ""
+                })
+                
+                let post = PostImagesVideo(id: "", postID: "", place: place, date: photo.asset?.creationDate?.dateToString(format: "dd/MM/yyyy") ?? "", time: photo.asset?.creationDate?.dateToString(format: "h:mm a") ?? "", lat: "\(photo.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(photo.asset?.location?.coordinate.longitude ?? 0.0)", image: "", videoTitle: "", videoURL: "", height: "", width: "", thumbNailImage: "", type: "", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
+                arrPostItems.append(post)
+            case .video(v: let video):
+                var place = ""
+                getAddressFromLatLong(latitude: video.asset?.location?.coordinate.latitude ?? 0.0, longitude: video.asset?.location?.coordinate.longitude ?? 0.0, completion: { address in
+                    place = address ?? ""
+                })
+                
+                let post = PostImagesVideo(id: "", postID: "", place: place, date: video.asset?.creationDate?.dateToString(format: "dd/MM/yyyy") ?? "", time: video.asset?.creationDate?.dateToString(format: "h:mm a") ?? "", lat: "\(video.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(video.asset?.location?.coordinate.longitude ?? 0.0)", image: "", videoTitle: "", videoURL: "", height: "", width: "", thumbNailImage: "", type: "", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
+                arrPostItems.append(post)
+            }
+            
+        }
     }
     
 }
@@ -550,9 +590,15 @@ extension AddPhotoVideoVC:AddLocationVCDelegate{
     
     func setLocation(text: String, lat: Double, long: Double, address: String) {
         DispatchQueue.main.async {
-            self.placeTF.text = address
+            
+            self.arrPostItems[self.selectedIndex?.row ?? 0].lat = "\(lat)"
+            self.arrPostItems[self.selectedIndex?.row ?? 0].long = "\(long)"
             
             
+            self.getAddressFromLatLong(latitude: lat, longitude:
+                                        long, completion: { address in
+                self.placeTF.text = address
+            })
             
         }
         
@@ -572,6 +618,23 @@ extension AddPhotoVideoVC:AddLocationVCDelegate{
 //
 //       }
         
+    }
+    
+}
+
+//MARK: - text filed delegate methods -
+
+extension AddPhotoVideoVC:UITextFieldDelegate{
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        
+        if textField == dateTF {
+            arrPostItems[selectedIndex?.row ?? 0].date = dateTF.text ?? ""
+        }else if textField == timeTF {
+            arrPostItems[selectedIndex?.row ?? 0].time = timeTF.text ?? ""
+        }
+        
+        return true
     }
     
 }

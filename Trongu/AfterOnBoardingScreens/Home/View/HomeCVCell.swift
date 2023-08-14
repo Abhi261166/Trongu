@@ -11,12 +11,9 @@ class HomeCVCell: UICollectionViewCell {
     
     @IBOutlet weak var postImage: UIImageView!
     
-
     override func awakeFromNib() {
         super.awakeFromNib()
        
     }
-    
-    
     
 }

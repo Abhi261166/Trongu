@@ -10,14 +10,31 @@ class HomeVC: UIViewController {
     
     @IBOutlet weak var homeTableView: UITableView!
     
+    var viewModel:HomeVM?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         homeTableView.delegate = self
         homeTableView.dataSource = self
         homeTableView.register(UINib(nibName: "HomeTVCell", bundle: nil), forCellReuseIdentifier: "HomeTVCell")
+        setViewModel()
     }
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+       apiCall()
+    }
+    
+    func setViewModel(){
+        self.viewModel = HomeVM(observer: self)
+    }
+    
+    func apiCall(){
+        self.viewModel?.apiHomePostList()
+    }
+    
+    
     @IBAction func searchAction(_ sender: UIButton) {
         let vc = SearchVC()
         vc.hidesBottomBarWhenPushed = true
@@ -38,16 +55,35 @@ class HomeVC: UIViewController {
     
 }
 extension HomeVC: UITableViewDelegate,UITableViewDataSource{
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        
+        if self.viewModel?.arrPostList.count == 0{
+            self.homeTableView.setBackgroundView(message: "No data found")
+            return 0
+        }else{
+            self.homeTableView.setBackgroundView(message: "")
+            return self.viewModel?.arrPostList.count ?? 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTVCell", for: indexPath) as! HomeTVCell
         cell.delegate = self
         cell.controller = self
+        cell.pageController.numberOfPages =  self.viewModel?.arrPostList[indexPath.row].postImagesVideo.count ?? 0
+        cell.arrPostImagesVideosList = self.viewModel?.arrPostList[indexPath.row].postImagesVideo ?? []
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let postsCount = self.viewModel?.arrPostList.count else { return }
+        if indexPath.row == postsCount-1 && self.viewModel?.isLastPage == false {
+            print("IndexRow\(indexPath.row)")
+            self.viewModel?.apiHomePostList()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
@@ -109,4 +145,11 @@ extension HomeVC: HomeTVCellDelegate{
         self.navigationController?.pushViewController(vc, animated: true)
     }
    
+}
+
+extension HomeVC:HomeVMObserver{
+    
+    func observeGetHomeDataSucessfull() {
+        self.homeTableView.reloadData()
+    }
 }

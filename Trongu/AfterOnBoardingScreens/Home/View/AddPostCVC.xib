@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Medium.ttf">
+            <string>Poppins-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="AddPostCVC" customModule="Trongu" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="481" height="300"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="481" height="300"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RaN-Cd-ozt">
+                        <rect key="frame" x="0.0" y="0.0" width="481" height="300"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="usn-8y-1bw">
+                                <rect key="frame" x="0.0" y="0.0" width="481" height="300"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P0K-EP-4KK" customClass="DAVideoPlayerView" customModule="Trongu" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="481" height="300"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddImage_1" translatesAutoresizingMaskIntoConstraints="NO" id="Mgp-cD-miL">
+                                        <rect key="frame" x="0.0" y="0.0" width="481" height="300"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uPF-Zr-Nq7">
+                                        <rect key="frame" x="407" y="260.66666666666669" width="34" height="17"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="P0K-EP-4KK" secondAttribute="bottom" id="3mM-to-cqk"/>
+                                    <constraint firstItem="P0K-EP-4KK" firstAttribute="centerY" secondItem="usn-8y-1bw" secondAttribute="centerY" id="65B-o8-j9B"/>
+                                    <constraint firstAttribute="trailing" secondItem="uPF-Zr-Nq7" secondAttribute="trailing" constant="40" id="D9b-ZL-n6J"/>
+                                    <constraint firstItem="Mgp-cD-miL" firstAttribute="top" secondItem="usn-8y-1bw" secondAttribute="top" id="Hl8-DO-3C3"/>
+                                    <constraint firstAttribute="trailing" secondItem="Mgp-cD-miL" secondAttribute="trailing" id="KPH-4F-5Dl"/>
+                                    <constraint firstItem="Mgp-cD-miL" firstAttribute="leading" secondItem="usn-8y-1bw" secondAttribute="leading" id="KiK-G1-sPP"/>
+                                    <constraint firstItem="Mgp-cD-miL" firstAttribute="centerX" secondItem="usn-8y-1bw" secondAttribute="centerX" id="RqE-Ze-R6O"/>
+                                    <constraint firstItem="Mgp-cD-miL" firstAttribute="centerY" secondItem="usn-8y-1bw" secondAttribute="centerY" id="SGZ-HK-ZV6"/>
+                                    <constraint firstItem="P0K-EP-4KK" firstAttribute="leading" secondItem="usn-8y-1bw" secondAttribute="leading" id="WHj-rf-Acc"/>
+                                    <constraint firstAttribute="trailing" secondItem="P0K-EP-4KK" secondAttribute="trailing" id="mbH-PC-sbT"/>
+                                    <constraint firstAttribute="bottom" secondItem="Mgp-cD-miL" secondAttribute="bottom" id="sDp-4W-NQc"/>
+                                    <constraint firstItem="P0K-EP-4KK" firstAttribute="top" secondItem="usn-8y-1bw" secondAttribute="top" id="sYs-Wx-13V"/>
+                                    <constraint firstItem="P0K-EP-4KK" firstAttribute="centerX" secondItem="usn-8y-1bw" secondAttribute="centerX" id="taP-iW-xiw"/>
+                                </constraints>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AgP-ft-CJy">
+                                <rect key="frame" x="40" y="258" width="24" height="22"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="speaker.wave.2.fill" catalog="system"/>
+                                <state key="selected" image="ic_volume"/>
+                                <connections>
+                                    <action selector="volumeAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="8n5-8V-BFf"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="usn-8y-1bw" firstAttribute="top" secondItem="RaN-Cd-ozt" secondAttribute="top" id="9DC-r1-Ze4"/>
+                            <constraint firstAttribute="bottom" secondItem="AgP-ft-CJy" secondAttribute="bottom" constant="20" id="9Y9-XI-MKG"/>
+                            <constraint firstItem="AgP-ft-CJy" firstAttribute="leading" secondItem="RaN-Cd-ozt" secondAttribute="leading" constant="40" id="RaU-73-Gh6"/>
+                            <constraint firstItem="usn-8y-1bw" firstAttribute="leading" secondItem="RaN-Cd-ozt" secondAttribute="leading" id="dKv-Fc-uD9"/>
+                            <constraint firstAttribute="trailing" secondItem="usn-8y-1bw" secondAttribute="trailing" id="p7x-oT-Pa7"/>
+                            <constraint firstItem="uPF-Zr-Nq7" firstAttribute="centerY" secondItem="AgP-ft-CJy" secondAttribute="centerY" id="zGH-SP-rEl"/>
+                            <constraint firstAttribute="bottom" secondItem="usn-8y-1bw" secondAttribute="bottom" id="zPg-VL-DL0"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="RaN-Cd-ozt" secondAttribute="bottom" id="GPh-mS-VZQ"/>
+                <constraint firstItem="RaN-Cd-ozt" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="LQz-F7-GBe"/>
+                <constraint firstItem="RaN-Cd-ozt" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="O8Z-BA-TBX"/>
+                <constraint firstAttribute="trailing" secondItem="RaN-Cd-ozt" secondAttribute="trailing" id="gpd-CB-Uwg"/>
+            </constraints>
+            <connections>
+                <outlet property="postImage" destination="Mgp-cD-miL" id="wbJ-Wd-6Af"/>
+                <outlet property="scrollView" destination="usn-8y-1bw" id="fOS-db-gKP"/>
+                <outlet property="videoPlayerView" destination="P0K-EP-4KK" id="ez2-7I-JIu"/>
+                <outlet property="videoTimeLabel" destination="uPF-Zr-Nq7" id="8fI-qD-13a"/>
+                <outlet property="volumeButton" destination="AgP-ft-CJy" id="Ib5-Ra-Qer"/>
+            </connections>
+            <point key="canvasLocation" x="22.137404580152669" y="-11.971830985915494"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="AddImage_1" width="117" height="164.33332824707031"/>
+        <image name="ic_volume" width="24" height="24"/>
+        <image name="speaker.wave.2.fill" catalog="system" width="128" height="88"/>
+    </resources>
+</document>

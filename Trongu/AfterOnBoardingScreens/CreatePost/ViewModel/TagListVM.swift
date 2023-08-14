@@ -65,7 +65,7 @@ class TagListVM: NSObject {
         }
     
     
-    func apiCreatePost(tags:String,budget:String,noOffDays:String,tripCat:String,disc:String,tripComp:String,arrPosts:[YPMediaItem]){
+    func apiCreatePost(tags:String,budget:String,noOffDays:String,tripCat:String,disc:String,tripComp:String,arrPosts:[YPMediaItem],arrPosts2:[PostImagesVideo]){
         
         var arrImagesDict = [[String:Any]]()
         
@@ -75,34 +75,34 @@ class TagListVM: NSObject {
             
            switch post{
            case .photo(p: let photo):
-               getAddressFromLatLong(latitude: photo.asset?.location?.coordinate.latitude ?? 0.0, longitude: photo.asset?.location?.coordinate.longitude ?? 0.0) { address in
+               getAddressFromLatLong(latitude: Double(arrPosts2[index].lat) ?? 0.0, longitude: Double(arrPosts2[index].long) ?? 0.0) { address in
                    self.address  = address ?? ""
                }
                
                let dictLat : [String:Any] = [
                  "key": "image[\(index)][lat]",
-                 "value": "\(photo.asset?.location?.coordinate.latitude ?? 0.0)",
+                 "value": arrPosts2[index].lat,
                  "type": "text"
                ]
                arrImagesDict.append(dictLat)
                
                let dictLong : [String:Any] = [
                  "key": "image[\(index)][long]",
-                 "value": "\(photo.asset?.location?.coordinate.longitude ?? 0.0)",
+                 "value": arrPosts2[index].long,
                  "type": "text"
                ]
                arrImagesDict.append(dictLong)
                
                let dictDate : [String:Any] = [
                  "key": "image[\(index)][date]",
-                 "value": photo.asset?.creationDate?.dateToString(format: "yyyy/MM/dd") ?? "",
+                 "value":arrPosts2[index].date,
                  "type": "text"
                ]
                arrImagesDict.append(dictDate)
                
                let dictTime : [String:Any] = [
                  "key": "image[\(index)][time]",
-                 "value": photo.asset?.creationDate?.dateToString(format: "h:mm a") ?? "",
+                 "value": arrPosts2[index].time,
                  "type": "text"
                ]
                arrImagesDict.append(dictTime)
@@ -146,34 +146,34 @@ class TagListVM: NSObject {
                
                
            case .video(v: let video):
-               getAddressFromLatLong(latitude: video.asset?.location?.coordinate.latitude ?? 0.0, longitude: video.asset?.location?.coordinate.longitude ?? 0.0) { address in
+               getAddressFromLatLong(latitude: Double(arrPosts2[index].lat) ?? 0.0, longitude: Double(arrPosts2[index].long) ?? 0.0) { address in
                    self.address  = address ?? ""
                }
                
                let dictLat : [String:Any] = [
                  "key": "image[\(index)][lat]",
-                 "value": "\(video.asset?.location?.coordinate.latitude ?? 0.0)",
+                 "value": arrPosts2[index].lat,
                  "type": "text"
                ]
                arrImagesDict.append(dictLat)
                
                let dictLong : [String:Any] = [
                  "key": "image[\(index)][long]",
-                 "value": "\(video.asset?.location?.coordinate.longitude ?? 0.0)",
+                 "value": arrPosts2[index].long,
                  "type": "text"
                ]
                arrImagesDict.append(dictLong)
                
                let dictDate : [String:Any] = [
                  "key": "image[\(index)][date]",
-                 "value": video.asset?.creationDate?.dateToString(format: "yyyy/MM/dd") ?? "",
+                 "value": arrPosts2[index].date,
                  "type": "text"
                ]
                arrImagesDict.append(dictDate)
                
                let dictTime : [String:Any] = [
                  "key": "image[\(index)][time]",
-                 "value": video.asset?.creationDate?.dateToString(format: "h:mm a") ?? "",
+                 "value": arrPosts2[index].time,
                  "type": "text"
                ]
                arrImagesDict.append(dictTime)
@@ -458,6 +458,47 @@ class TagListVM: NSObject {
         }
         
         return nil
+    }
+    
+    
+    func validateCreatePostDetails(imageSelected:Bool,budget:String,noOfDays:String,tripCat:String,desc:String,tripComp:String) -> Bool {
+        let isvalidUsername = Validator.validatePrice(price: budget)
+        let isvalidEmail = Validator.validateNoOffDays(days: noOfDays)
+        let isvalidPhoneNumber = Validator.validateTripCat(tripCat: tripCat)
+        let isValidPassword = Validator.validateDescs(caption: desc)
+        let isValidConfirmPassword = Validator.validateTripComplex(tripComp: tripComp)
+
+        guard imageSelected == true else {
+            Singleton.showMessage(message: "Please select at leaset 1 video of image to post", isError: .error)
+            return false
+        }
+        guard isvalidUsername.0 == true else {
+            Singleton.showMessage(message: "\(isvalidUsername.1)", isError: .error)
+            print("isvalidUsername  \(isvalidUsername)")
+            return false
+        }
+        guard isvalidEmail.0 == true else {
+            Singleton.showMessage(message: "\(isvalidEmail.1)", isError: .error)
+            print("isvalidEmail  \(isvalidEmail)")
+            return false
+        }
+        guard isvalidPhoneNumber.0 == true else {
+            Singleton.showMessage(message: "\(isvalidPhoneNumber.1)", isError: .error)
+            print("isvalidPhoneNumber  \(isvalidPhoneNumber)")
+            return false
+        }
+        guard isValidPassword.0 == true else {
+            Singleton.showMessage(message: "\(isValidPassword.1)", isError: .error)
+            print("isValidPassword  \(isValidPassword)")
+            return false
+        }
+        guard isValidConfirmPassword.0 == true else {
+            Singleton.showMessage(message: "\(isValidConfirmPassword.1)", isError: .error)
+            print("isValidConfirmPassword  \(isValidConfirmPassword)")
+            return false
+        }
+        
+        return true
     }
     
     

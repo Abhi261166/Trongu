@@ -72,8 +72,6 @@ public extension Array where Element == YPMediaItem {
         return nil
     }
     
-    
-    
     var singleVideo: YPMediaVideo? {
         if let f = first, case let .video(v) = f {
             return v

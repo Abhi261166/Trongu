@@ -262,7 +262,7 @@ public struct YPConfigVideo {
     
     /// Defines the minimum time for the video
     /// Defaults to 3 seconds.
-    public var minimumTimeLimit: TimeInterval = 0.0
+    public var minimumTimeLimit: TimeInterval = 3.0
     
     /// The maximum duration allowed for the trimming. Change it before setting the asset, as the asset preview
     /// - Tag: trimmerMaxDuration

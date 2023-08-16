@@ -44,6 +44,7 @@ class AddPhotoVideoVC: UIViewController {
         
         addDatePicker()
         addTimePicker()
+        textFiledDelegates()
         
     }
     
@@ -123,6 +124,19 @@ class AddPhotoVideoVC: UIViewController {
         return true
     }
     
+    func checkAddressForAll() -> Bool{
+        
+        for (index, post) in arrPostItems.enumerated() {
+            
+            if post.lat != "0.0" && post.long != "0.0"{
+                    return true
+                }
+            }
+       // self.showMessage(message: "Please select address for each post item", isError: .error)
+        return false
+    }
+    
+    
     @IBAction func backAction(_ sender: UIButton) {
         popVC()
     }
@@ -139,19 +153,32 @@ class AddPhotoVideoVC: UIViewController {
         
         debugPrint("selected items is --- ",self.selectedItems)
         
-        let postStatus = checkEnterdData()
+        
+        
+        let addressForAll = checkAddressForAll()
         // With validation
         
         if arrPostItems.count != 0{
+            
+            if addressForAll{
+                let postStatus = checkEnterdData()
             if postStatus{
                 if let completion = self.completion{
                     popVC()
-                    Singleton.shared.showMessage(message: "Post images and videos added sucsessfully, Now please enter remaning information and post ", isError: .success)
+                    Singleton.shared.showMessage(message: "Post added successfully, Now please add other details for the post.", isError: .success)
                     completion(selectedItems,arrPostItems)
                 }
             }else{
                 print("Please add all text filed data")
             }
+            
+            }else{
+                self.showMessage(message: "Please select address for each post item", isError: .error)
+            //    self.showAlert(message: "Please select address for each post item", title: "Address") {
+                    
+             //   }
+            }
+            
         }else{
             Singleton.shared.showMessage(message: "Please select at least one image or video first", isError: .error)
         }
@@ -358,6 +385,7 @@ extension AddPhotoVideoVC{
         config.hidesBottomBar = false
         config.maxCameraZoomFactor = 2.0
         config.gallery.hidesRemoveButton = false
+        config.library.defaultMultipleSelection = true
         config.library.preselectedItems = selectedItems
         let picker = YPImagePicker(configuration: config)
         picker.imagePickerDelegate = self
@@ -632,6 +660,8 @@ extension AddPhotoVideoVC:UITextFieldDelegate{
             arrPostItems[selectedIndex?.row ?? 0].date = dateTF.text ?? ""
         }else if textField == timeTF {
             arrPostItems[selectedIndex?.row ?? 0].time = timeTF.text ?? ""
+        }else if textField == placeTF{
+            arrPostItems[selectedIndex?.row ?? 0].place = placeTF.text ?? ""
         }
         
         return true

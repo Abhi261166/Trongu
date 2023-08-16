@@ -13,6 +13,7 @@
 		0448179C2A7FD13C009539FB /* MentionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0448179A2A7FD13C009539FB /* MentionVC.xib */; };
 		0448179F2A7FED11009539FB /* MentionTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0448179D2A7FED11009539FB /* MentionTVC.swift */; };
 		044817A02A7FED11009539FB /* MentionTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0448179E2A7FED11009539FB /* MentionTVC.xib */; };
+		045E73522A8BA059003F04AA /* PostVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E73512A8BA059003F04AA /* PostVM.swift */; };
 		1813FBCC2A57F39D0072BD7F /* PannableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813FBCB2A57F39D0072BD7F /* PannableViewController.swift */; };
 		183DA5BD2A569E2300A82EC7 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183DA5BC2A569E2300A82EC7 /* MessageView.swift */; };
 		1842FF192A4C508400CF6F41 /* LikesTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1842FF172A4C508400CF6F41 /* LikesTVCell.swift */; };
@@ -241,7 +242,7 @@
 		31CB5E112A68080B0020E409 /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CB5E102A68080B0020E409 /* ProfileVM.swift */; };
 		31F39C172A6EAA9800B9D66F /* ChangePswrdVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F39C152A6EAA9800B9D66F /* ChangePswrdVC.swift */; };
 		31F39C182A6EAA9800B9D66F /* ChangePswrdVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31F39C162A6EAA9800B9D66F /* ChangePswrdVC.xib */; };
-		C6343D521A93B911C9149245 /* Pods_Trongu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD9C428157C56E9DCD2C346D /* Pods_Trongu.framework */; };
+		AA3C508C92F034E65420083B /* Pods_Trongu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F87BDF17E62F144805AC1E0F /* Pods_Trongu.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -251,6 +252,7 @@
 		0448179A2A7FD13C009539FB /* MentionVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MentionVC.xib; sourceTree = "<group>"; };
 		0448179D2A7FED11009539FB /* MentionTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionTVC.swift; sourceTree = "<group>"; };
 		0448179E2A7FED11009539FB /* MentionTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MentionTVC.xib; sourceTree = "<group>"; };
+		045E73512A8BA059003F04AA /* PostVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVM.swift; sourceTree = "<group>"; };
 		1813FBCB2A57F39D0072BD7F /* PannableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PannableViewController.swift; sourceTree = "<group>"; };
 		183DA5BC2A569E2300A82EC7 /* MessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		1842FF172A4C508400CF6F41 /* LikesTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesTVCell.swift; sourceTree = "<group>"; };
@@ -482,9 +484,9 @@
 		31CB5E102A68080B0020E409 /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
 		31F39C152A6EAA9800B9D66F /* ChangePswrdVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePswrdVC.swift; sourceTree = "<group>"; };
 		31F39C162A6EAA9800B9D66F /* ChangePswrdVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangePswrdVC.xib; sourceTree = "<group>"; };
-		B54C31EE03EECB4B451521B5 /* Pods-Trongu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trongu.debug.xcconfig"; path = "Target Support Files/Pods-Trongu/Pods-Trongu.debug.xcconfig"; sourceTree = "<group>"; };
-		F75F3737C26FFD8BA37D455D /* Pods-Trongu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trongu.release.xcconfig"; path = "Target Support Files/Pods-Trongu/Pods-Trongu.release.xcconfig"; sourceTree = "<group>"; };
-		FD9C428157C56E9DCD2C346D /* Pods_Trongu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trongu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		62EAC03C47266F13B4AAA61E /* Pods-Trongu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trongu.debug.xcconfig"; path = "Target Support Files/Pods-Trongu/Pods-Trongu.debug.xcconfig"; sourceTree = "<group>"; };
+		F87BDF17E62F144805AC1E0F /* Pods_Trongu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trongu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC0C81B8A48BFE6E82E005DA /* Pods-Trongu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trongu.release.xcconfig"; path = "Target Support Files/Pods-Trongu/Pods-Trongu.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -492,7 +494,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6343D521A93B911C9149245 /* Pods_Trongu.framework in Frameworks */,
+				AA3C508C92F034E65420083B /* Pods_Trongu.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1135,7 +1137,7 @@
 				1895510A2A49BC00003EC8FD /* Trongu */,
 				189551092A49BC00003EC8FD /* Products */,
 				6150A9C503DABEF9C23D0411 /* Pods */,
-				98CC1EF76EB82F75BDFA8550 /* Frameworks */,
+				FB0DB5BF4DAF69FC9E4D678E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1488,6 +1490,7 @@
 				189EC4AB2A4EBFD2001E6644 /* PostVC.xib */,
 				189EC4AE2A4EDAF5001E6644 /* PostCVCell.swift */,
 				189EC4AF2A4EDAF5001E6644 /* PostCVCell.xib */,
+				045E73512A8BA059003F04AA /* PostVM.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -1811,16 +1814,16 @@
 		6150A9C503DABEF9C23D0411 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B54C31EE03EECB4B451521B5 /* Pods-Trongu.debug.xcconfig */,
-				F75F3737C26FFD8BA37D455D /* Pods-Trongu.release.xcconfig */,
+				62EAC03C47266F13B4AAA61E /* Pods-Trongu.debug.xcconfig */,
+				FC0C81B8A48BFE6E82E005DA /* Pods-Trongu.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		98CC1EF76EB82F75BDFA8550 /* Frameworks */ = {
+		FB0DB5BF4DAF69FC9E4D678E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FD9C428157C56E9DCD2C346D /* Pods_Trongu.framework */,
+				F87BDF17E62F144805AC1E0F /* Pods_Trongu.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1832,11 +1835,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1895511C2A49BC04003EC8FD /* Build configuration list for PBXNativeTarget "Trongu" */;
 			buildPhases = (
-				7B9D58DF3EEA818DFFDC8810 /* [CP] Check Pods Manifest.lock */,
+				646B86DA0FC72C5EE50ADAFB /* [CP] Check Pods Manifest.lock */,
 				189551042A49BC00003EC8FD /* Sources */,
 				189551052A49BC00003EC8FD /* Frameworks */,
 				189551062A49BC00003EC8FD /* Resources */,
-				40BFD0B341BDB91D23952BF3 /* [CP] Embed Pods Frameworks */,
+				909247459547D933376A5463 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1969,24 +1972,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		40BFD0B341BDB91D23952BF3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Trongu/Pods-Trongu-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Trongu/Pods-Trongu-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Trongu/Pods-Trongu-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7B9D58DF3EEA818DFFDC8810 /* [CP] Check Pods Manifest.lock */ = {
+		646B86DA0FC72C5EE50ADAFB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2006,6 +1992,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		909247459547D933376A5463 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Trongu/Pods-Trongu-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Trongu/Pods-Trongu-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Trongu/Pods-Trongu-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2030,6 +2033,7 @@
 				31CB5DD92A67D2220020E409 /* CustomPickerController.swift in Sources */,
 				31CB5DF82A67D25F0020E409 /* HandlerView.swift in Sources */,
 				189551502A49BEF6003EC8FD /* UITextField+Custom.swift in Sources */,
+				045E73522A8BA059003F04AA /* PostVM.swift in Sources */,
 				1853527D2A4D792B00EAC753 /* BucketListTVCell.swift in Sources */,
 				189551432A49BEF6003EC8FD /* Double+Custom.swift in Sources */,
 				1877D92F2A4FF6E10067925F /* ReceiveVideoTVCell.swift in Sources */,
@@ -2304,7 +2308,7 @@
 		};
 		1895511D2A49BC04003EC8FD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B54C31EE03EECB4B451521B5 /* Pods-Trongu.debug.xcconfig */;
+			baseConfigurationReference = 62EAC03C47266F13B4AAA61E /* Pods-Trongu.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -2345,7 +2349,7 @@
 		};
 		1895511E2A49BC04003EC8FD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F75F3737C26FFD8BA37D455D /* Pods-Trongu.release.xcconfig */;
+			baseConfigurationReference = FC0C81B8A48BFE6E82E005DA /* Pods-Trongu.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

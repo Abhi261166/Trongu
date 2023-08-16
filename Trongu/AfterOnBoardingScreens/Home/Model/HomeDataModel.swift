@@ -16,12 +16,13 @@ struct HomeDataModel: Codable {
 
 // MARK: - Datum
 struct Post: Codable {
-    let id, userID, budget, noOfDays: String
-    let tripCategory, description, tripComplexity, status: String
-    let createdAt: String
-    let postImagesVideo: [PostImagesVideo]
-    let tripCategoryName: String
-    let tagPeople: [[TagPerson]]?
+    var id, userID, budget, noOfDays: String
+    var tripCategory, description, tripComplexity, status: String
+    var createdAt: String
+    var postImagesVideo: [PostImagesVideo] = []
+    var tripCategoryName: String
+    var tagPeople: [TagPerson]?
+    var userDetail: UserDetail
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -36,6 +37,8 @@ struct Post: Codable {
         case postImagesVideo
         case tripCategoryName = "trip_category_name"
         case tagPeople = "tag_people"
+        case userDetail = "user_detail"
+        
     }
 }
 
@@ -88,7 +91,47 @@ struct PostImagesVideo: Codable {
     }
 }
 
-// MARK: - TagPerson
+// MARK: - TagPerson -
 struct TagPerson: Codable {
     let id, name: String
+}
+
+// MARK: - UserData -
+struct UserDetail: Codable {
+    let id, googleID, facebookID, appleID: String
+    let name, userName, loginType, gender: String
+    let email: String
+    let image: String
+    let password, place, bio, dob: String
+    let ethnicity, deviceToken, deviceType, isStatus: String
+    let mailStatus, smsStatus, status, authKey: String
+    let accessToken, lat, long, verificationToken: String
+    let passwordResetToken: String
+    let expireAt, createdAt: String
+    let updatedAt: String
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case googleID = "google_id"
+        case facebookID = "facebook_id"
+        case appleID = "apple_id"
+        case name
+        case userName = "user_name"
+        case loginType = "login_type"
+        case gender, email, image, password, place, bio, dob, ethnicity
+        case deviceToken = "device_token"
+        case deviceType = "device_type"
+        case isStatus = "is_status"
+        case mailStatus = "mail_status"
+        case smsStatus = "sms_status"
+        case status
+        case authKey = "auth_key"
+        case accessToken = "access_token"
+        case lat, long
+        case verificationToken = "verification_token"
+        case passwordResetToken = "password_reset_token"
+        case expireAt = "expire_at"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+    }
 }

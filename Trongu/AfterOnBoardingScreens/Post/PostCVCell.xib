@@ -22,7 +22,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="321" height="412"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image 28" translatesAutoresizingMaskIntoConstraints="NO" id="Mvk-mM-5so">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image 28" translatesAutoresizingMaskIntoConstraints="NO" id="Mvk-mM-5so">
                         <rect key="frame" x="0.0" y="0.0" width="321" height="260"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="260" id="Y9D-U9-Hcx"/>
@@ -47,6 +47,10 @@
                 <constraint firstAttribute="trailing" secondItem="Mvk-mM-5so" secondAttribute="trailing" id="udh-Vc-IKJ"/>
             </constraints>
             <size key="customSize" width="321" height="412"/>
+            <connections>
+                <outlet property="imgPost" destination="Mvk-mM-5so" id="ASz-2N-q4v"/>
+                <outlet property="lblPostItemAddressDateTime" destination="Z6S-FK-1gn" id="Qag-og-Z02"/>
+            </connections>
             <point key="canvasLocation" x="336.64122137404581" y="115.49295774647888"/>
         </collectionViewCell>
     </objects>

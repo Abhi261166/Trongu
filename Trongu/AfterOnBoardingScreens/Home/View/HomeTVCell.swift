@@ -24,11 +24,23 @@ class HomeTVCell: UITableViewCell {
     @IBOutlet weak var pageController: UIPageControl!
     @IBOutlet weak var profileBGButton: UIButton!
     @IBOutlet weak var homeCollectionView: UICollectionView!
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblAddressPriceDays: UILabel!
+    @IBOutlet weak var lblTripComplexity: UILabel!
+    @IBOutlet weak var lblPostCreatedTime: UILabel!
+    @IBOutlet weak var lblHashTags: UILabel!
+    @IBOutlet weak var lblDesc: UILabel!
+    @IBOutlet weak var btnLikeCount: UIButton!
+    @IBOutlet weak var lblTimeAddress: UILabel!
+    
     
     var image = ["PostFirstImage","PostSecondImage"]
     var delegate: HomeTVCellDelegate?
     var controller:UIViewController?
     var arrPostImagesVideosList : [PostImagesVideo] = []
+    var lastContentOffset: CGFloat = 0
+    var timer: Timer?
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,18 +48,14 @@ class HomeTVCell: UITableViewCell {
         homeCollectionView.delegate = self
         homeCollectionView.dataSource = self
         homeCollectionView.register(UINib(nibName: "HomeCVCell", bundle: nil), forCellWithReuseIdentifier: "HomeCVCell")
-        
+        homeCollectionView.register(UINib(nibName: "AddPostCVC", bundle: nil), forCellWithReuseIdentifier: "AddPostCVC")
         pageController.hidesForSinglePage = true
-       // self.pageController.numberOfPages = arrPostImagesVideosList.count
         
      }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let witdh = scrollView.frame.width - (scrollView.contentInset.left*2)
-        let index = scrollView.contentOffset.x / witdh
-        let roundedIndex = round(index)
-        self.pageController.currentPage = Int(roundedIndex)
-    }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//
+//    }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         pageController.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
@@ -124,12 +132,19 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCVCell", for: indexPath) as! HomeCVCell
-        
+       
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddPostCVC", for: indexPath) as! AddPostCVC
         let dict = arrPostImagesVideosList[indexPath.row]
-        cell.postImage.setImage(image: dict.image)
         
-        return cell
+        switch dict.type {
+        case "0":
+            cell.setPostData(dict.image, thumbnail_image: dict.thumbNailImage)
+        case "1":
+            cell.setPostData(dict.videoURL, thumbnail_image: dict.thumbNailImage)
+        default:
+            break
+        }
+            return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -143,5 +158,80 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
 //        controller?.navigationController?.pushViewController(vc, animated: true)
   
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        
+        if (self.lastContentOffset > homeCollectionView.contentOffset.x) {
+            print("scrolling up")
+//            self.view.sendSubviewToBack(cell)
+            self.homeCollectionView.sendSubviewToBack(cell)
+        } else if (self.lastContentOffset < homeCollectionView.contentOffset.x) {
+            print("scrolling Down")
+//            self.view.sendSubviewToBack(cell)
+            self.homeCollectionView.bringSubviewToFront(cell)
+        }
+        self.lastContentOffset = homeCollectionView.contentOffset.x
+    }
+    
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let witdh = scrollView.frame.width - (scrollView.contentInset.left*2)
+        let index = scrollView.contentOffset.x / witdh
+        let roundedIndex = round(index)
+        self.pageController.currentPage = Int(roundedIndex)
+        
+        self.lastContentOffset = homeCollectionView.contentOffset.x
+        if self.timer != nil {
+            self.timer?.invalidate()
+            self.timer = nil
+        }
+        let indexPaths = self.homeCollectionView.visibleCells.map({$0.indexPath!}).sorted(by: {$0.item < $1.item})
+        indexPaths.forEach { index in
+          
+            if let cell = self.homeCollectionView.cellForItem(at: index){
+                self.homeCollectionView.bringSubviewToFront(cell)
+
+            }
+            
+        }
+        self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.playCurrentVideo), userInfo: nil, repeats: false)
+    }
+    
+    @objc func playCurrentVideo() {
+//        print("timer running")
+      //  let visibleRect = CGRect(origin: self.homeCollectionView.contentOffset, size: self.homeCollectionView.bounds.size)
+//        let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+//        guard let indexPath = self.homeCollectionView.indexPathForItem(at: visiblePoint) else { return }
+//        guard let cell = self.homeCollectionView.cellForItem(at: indexPath) as? HomeTVCell else { return }
+//        guard let videoCell = cell.homeCollectionView?.visibleCells.first as? AddPostCVC else { return }
+        
+        guard let visibleCell = homeCollectionView.visibleCells.first as? AddPostCVC else { return }
+        
+        if visibleCell.urlString?.isImageType == false {
+            if DAVideoPlayerView.player != nil {
+                DAVideoPlayerView.player?.pause()
+                DAVideoPlayerView.player?.isPlaying = false
+                DAVideoPlayerView.player = nil
+            }
+           // cell.volumButton.isSelected = Singleton.isMuted
+           // videoCell.videoPlayerView.isMuted = Singleton.isMuted
+            visibleCell.videoPlayerView.play()
+        }else{
+            if let player = DAVideoPlayerView.player {
+                player.pause()
+                DAVideoPlayerView.player = nil
+            }
+        }
+        
+    }
+    
+    func setPostData(postData : [PostImagesVideo]) {
+        
+        self.arrPostImagesVideosList = postData
+         self.pageController.numberOfPages = arrPostImagesVideosList.count
+
+    }
+    
    
 }

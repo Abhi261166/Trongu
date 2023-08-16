@@ -36,11 +36,7 @@ class AddPostCVC: UICollectionViewCell {
                let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchGestureRecognized(_:)))
                scrollView.addGestureRecognizer(pinchGesture)
                originalScale = scrollView.zoomScale
-        // Add double tap gesture recognizer to the image view
-//               let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
-//               doubleTapGesture.numberOfTapsRequired = 2
-//        postImage.addGestureRecognizer(doubleTapGesture)
-//        postImage.isUserInteractionEnabled = true
+        
         
     }
     
@@ -67,7 +63,7 @@ class AddPostCVC: UICollectionViewCell {
         } else {
             if let urlStr = url?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
                let url = URL(string: urlStr) {
-               // self.postImage.sd_setImage(with: url, placeholderImage: UIImage(named: PlaceHolderImages.coverPhotoProfile), context: nil)
+                self.postImage.setImage(image: urlStr)
                 
                 print("post image url **** \(url)")
             }

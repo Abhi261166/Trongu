@@ -130,11 +130,6 @@ extension YPSelectionsGalleryVC: UICollectionViewDelegate {
         if let mediaFilterVC = mediaFilterVC as? UIViewController {
             let navVC = UINavigationController(rootViewController: mediaFilterVC)
             navVC.navigationBar.isTranslucent = false
-            if #available(iOS 13.0, *) {
-                navVC.modalPresentationStyle = .fullScreen
-            } else {
-                navVC.modalPresentationStyle = .fullScreen
-            }
             present(navVC, animated: true, completion: nil)
         }
     }

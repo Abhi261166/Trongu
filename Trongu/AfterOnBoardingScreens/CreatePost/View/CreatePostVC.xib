@@ -299,7 +299,7 @@
                                                             <rect key="frame" x="0.0" y="27.666666666666629" width="353" height="100"/>
                                                             <subviews>
                                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qdc-DZ-EIv" customClass="GrowingTextView" customModule="GrowingTextView">
-                                                                    <rect key="frame" x="20" y="0.0" width="333" height="100"/>
+                                                                    <rect key="frame" x="14" y="0.0" width="339" height="100"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
@@ -320,7 +320,7 @@
                                                                 <constraint firstAttribute="bottom" secondItem="Qdc-DZ-EIv" secondAttribute="bottom" id="3mA-4p-Nxi"/>
                                                                 <constraint firstAttribute="height" constant="100" id="OH9-Ql-YrO"/>
                                                                 <constraint firstAttribute="trailing" secondItem="Qdc-DZ-EIv" secondAttribute="trailing" id="YFs-tz-jA8"/>
-                                                                <constraint firstItem="Qdc-DZ-EIv" firstAttribute="leading" secondItem="FCD-Qi-Ygp" secondAttribute="leading" constant="20" id="tyy-0D-wY3"/>
+                                                                <constraint firstItem="Qdc-DZ-EIv" firstAttribute="leading" secondItem="FCD-Qi-Ygp" secondAttribute="leading" constant="14" id="tyy-0D-wY3"/>
                                                                 <constraint firstItem="Qdc-DZ-EIv" firstAttribute="top" secondItem="FCD-Qi-Ygp" secondAttribute="top" id="voB-Ka-dpe"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>

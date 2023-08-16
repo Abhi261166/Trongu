@@ -502,7 +502,7 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
                     case .image:
                         self.fetchImageAndCrop(for: asset.asset, withCropRect: asset.cropRect) { image, exifMeta in
                             let photo = YPMediaPhoto(image: image.resizedImageIfNeeded(),
-                                                     exifMeta: exifMeta, asset: asset.asset)
+													 exifMeta: exifMeta, asset: asset.asset)
                             resultMediaItems.append(YPMediaItem.photo(p: photo))
                             asyncGroup.leave()
                         }

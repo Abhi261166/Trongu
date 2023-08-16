@@ -20,19 +20,27 @@ class CreatePostVC: UIViewController{
     @IBOutlet weak var lblSelectedItems: UILabel!
     
     var finalPostItems = [YPMediaItem]()
-    var arrPosts = [PostImagesVideo]()
+    var myPost = [Post]()
     var tagIds = "10"
     let pickerView = UIPickerView()
     var arrDays = ["1 day","2 days","3 days","4 days","5 days","6 days","7 days","8 days","9 days","10 days"]
     var arrTripCat = ["Business Trip","Family Trip","Friends Trip"]
     var arrTripComplexity = ["Complex","Smooth","Normal"]
     var viewModel:TagListVM?
+    var tagPeople = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         textFiledDelegates()
         setPicker()
         setViewModel()
+        
+        let UserData = UserDetail(id: "", googleID: "", facebookID: "", appleID: "", name: "", userName: "", loginType: "", gender: "", email: "", image: "", password: "", place: "", bio: "", dob: "", ethnicity: "", deviceToken: "", deviceType: "", isStatus: "", mailStatus: "", smsStatus: "", status: "", authKey: "", accessToken: "", lat: "", long: "", verificationToken: "", passwordResetToken: "", expireAt: "", createdAt: "", updatedAt: "")
+        
+        let post = Post(id: "", userID: "", budget: "", noOfDays: "", tripCategory: "", description: "", tripComplexity: "", status: "", createdAt: "", tripCategoryName: "", userDetail: UserData)
+        myPost.append(post)
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,7 +56,6 @@ class CreatePostVC: UIViewController{
         txtNoOffDays.text = ""
         txtTripComplexity.text = ""
         txtViewDesc.text = ""
-        
         
     }
     
@@ -78,7 +85,7 @@ class CreatePostVC: UIViewController{
         let vc = AddPhotoVideoVC()
         vc.completion = { posts1, posts2 in
             self.finalPostItems = posts1
-            self.arrPosts = posts2
+            self.myPost[0].postImagesVideo = posts2
             if self.finalPostItems.count != 0{
                 self.lblSelectedItems.text = "\(self.finalPostItems.count) items selected"
             }else{
@@ -88,26 +95,32 @@ class CreatePostVC: UIViewController{
         }
         vc.selectedItems = finalPostItems
         vc.selectedIndex = IndexPath(row: 0, section: 0)
-        vc.arrPostItems = arrPosts
+        vc.arrPostItems = myPost.first?.postImagesVideo ?? []
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
         
     }
     
     @IBAction func postAction(_ sender: UIButton) {
-//        let vc = AddPhotoVideoVC()
-//        vc.hidesBottomBarWhenPushed = true
-//        self.navigationController?.pushViewController(vc, animated: true)
-        //self.navigationController?.popViewController(animated: true)
-        
-        if arrPosts.count > 0{
+
+        if myPost.first?.postImagesVideo.count ?? 0 > 0{
             
             guard let viewModel = self.viewModel,
                   viewModel.validateCreatePostDetails(imageSelected: true, budget: self.txtBudget.text ?? "", noOfDays: self.txtNoOffDays.text ?? "", tripCat: "1", desc: txtViewDesc.text ?? "", tripComp: txtTripComplexity.text ?? "")else { return }
             
+            self.myPost[0].budget = self.txtBudget.text ?? ""
+            self.myPost[0].noOfDays = self.txtNoOffDays.text ?? ""
+            self.myPost[0].tripCategory = self.txtTripCategory.text ?? ""
+            self.myPost[0].description = self.txtViewDesc.text ?? ""
+            self.myPost[0].tripComplexity = self.txtTripComplexity.text ?? ""
             
-            self.viewModel?.apiCreatePost(tags: self.tagIds, budget: self.txtBudget.text ?? "", noOffDays: self.txtNoOffDays.text ?? "", tripCat: "1", disc: txtViewDesc.text ?? "", tripComp: txtTripComplexity.text ?? "", arrPosts: finalPostItems, arrPosts2: arrPosts)
-            
+            let vc = PostVC()
+            vc.arrPostYP = finalPostItems
+            vc.finalPost = myPost.first
+            vc.tagIds = tagIds
+            vc.tagPeople = tagPeople
+            vc.hidesBottomBarWhenPushed = true
+            self.pushViewController(vc, true)
         }
        
     }
@@ -135,6 +148,7 @@ extension CreatePostVC:UITextFieldDelegate{
                       optionItemListVC.completion = { name,id in
                           self.tagIds.append(id)
                           self.txtTags.text = "@\(name)"
+                          self.tagPeople = "@\(name)"
                           self.txtTags.resignFirstResponder()
                       }
                       self.present(optionItemListVC, animated: true, completion: nil)
@@ -266,12 +280,7 @@ extension CreatePostVC : CustomPickerControllerDelegate{
 }
 
 extension CreatePostVC:TagListVMObserver{
-    func observePostAddedSucessfull() {
-        setData()
-        arrPosts = []
-        finalPostItems = []
-       print("Postedddd")
-    }
+   
     func observeGetTagListSucessfull() {
         
     }

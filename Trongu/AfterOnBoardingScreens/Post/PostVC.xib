@@ -11,6 +11,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PostVC" customModule="Trongu" customModuleProvider="target">
             <connections>
+                <outlet property="lblBudget" destination="oCv-EQ-h68" id="lgC-pJ-nrX"/>
+                <outlet property="lblDesc" destination="ISb-uJ-JCQ" id="6DF-He-D4w"/>
+                <outlet property="lblNoOfDays" destination="exe-UJ-9Ek" id="FoG-NL-3MN"/>
+                <outlet property="lblTagPeople" destination="GvK-6g-7Ui" id="EsG-Ir-1DW"/>
+                <outlet property="lblTripCat" destination="nBE-OR-LpM" id="kUE-Zg-YzY"/>
+                <outlet property="lblTripComp" destination="EX6-Nl-7Qt" id="Q4O-jM-u45"/>
                 <outlet property="postCollectionView" destination="wyJ-fS-BKq" id="uKn-VO-Lw4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

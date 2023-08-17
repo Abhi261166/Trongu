@@ -5,6 +5,7 @@
 //  Created by apple on 28/06/23.
 //
 import UIKit
+import CoreLocation
 protocol HomeTVCellDelegate: NSObjectProtocol {
     //func viewUserProfile(_ indexPath: IndexPath)
     func didTapProfileBtn(_ indexPath: IndexPath)
@@ -20,6 +21,7 @@ protocol HomeTVCellDelegate: NSObjectProtocol {
 
 class HomeTVCell: UITableViewCell {
     
+    @IBOutlet weak var lblTopAddress: UILabel!
     @IBOutlet weak var otherUserProfileImage: UIImageView!
     @IBOutlet weak var pageController: UIPageControl!
     @IBOutlet weak var profileBGButton: UIButton!
@@ -40,6 +42,8 @@ class HomeTVCell: UITableViewCell {
     var arrPostImagesVideosList : [PostImagesVideo] = []
     var lastContentOffset: CGFloat = 0
     var timer: Timer?
+    var budget = ""
+    var noOfDays = ""
     
     
     override func awakeFromNib() {
@@ -174,7 +178,6 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         self.lastContentOffset = homeCollectionView.contentOffset.x
     }
     
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let witdh = scrollView.frame.width - (scrollView.contentInset.left*2)
         let index = scrollView.contentOffset.x / witdh
@@ -217,7 +220,18 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
            // cell.volumButton.isSelected = Singleton.isMuted
            // videoCell.videoPlayerView.isMuted = Singleton.isMuted
             visibleCell.videoPlayerView.play()
+            
+            getAddressFromLatLong(latitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].lat ) ?? 0.0, longitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].long ) ?? 0.0) { address in
+                self.lblTimeAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ) \(address ?? "")"
+                self.lblTopAddress.text = "\(address ?? "")"
+              //  self.lblAddressPriceDays.text = " . $\(self.budget ) . \(self.noOfDays )"
+            }
         }else{
+            getAddressFromLatLong(latitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].lat ) ?? 0.0, longitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].long ) ?? 0.0) { address in
+                self.lblTimeAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ) \(address ?? "")"
+                self.lblTopAddress.text = "\(address ?? "")"
+              //  self.lblAddressPriceDays.text = " . $\(self.budget ) . \(self.noOfDays )"
+            }
             if let player = DAVideoPlayerView.player {
                 player.pause()
                 DAVideoPlayerView.player = nil
@@ -226,11 +240,63 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         
     }
     
-    func setPostData(postData : [PostImagesVideo]) {
+    func setPostData(postData : [PostImagesVideo], budget:String , noOfDays:String) {
         
         self.arrPostImagesVideosList = postData
          self.pageController.numberOfPages = arrPostImagesVideosList.count
 
+    }
+    
+    func getAddressFromLatLong(latitude: Double, longitude: Double, completion: @escaping (String?) -> Void) {
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        let geocoder = CLGeocoder()
+
+        geocoder.reverseGeocodeLocation(location) { placemarks, error in
+            if let error = error {
+                print("Error geocoding location: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+
+            if let placemark = placemarks?.first {
+                // Create a dictionary to hold the address components
+                var addressComponents = [String]()
+
+//                if let name = placemark.name {
+//                    addressComponents.append(name)
+//                }
+
+//                if let thoroughfare = placemark.thoroughfare {
+//                    addressComponents.append(thoroughfare)
+//                }
+
+//                if let subThoroughfare = placemark.subThoroughfare {
+//                    addressComponents.append(subThoroughfare)
+//                }
+
+//                if let locality = placemark.locality {
+//                    addressComponents.append(locality)
+//                }
+
+//                if let administrativeArea = placemark.administrativeArea {
+//                    addressComponents.append(administrativeArea)
+//                }
+
+//                if let postalCode = placemark.postalCode {
+//                    addressComponents.append(postalCode)
+//                }
+
+                if let country = placemark.country {
+                    addressComponents.append(country)
+                }
+
+                // Join all the address components to get the complete address
+                let address = addressComponents.joined(separator: ", ")
+                completion(address)
+            } else {
+                completion(nil)
+            }
+        }
     }
     
    

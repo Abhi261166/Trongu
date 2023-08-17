@@ -92,13 +92,13 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
         cell.otherUserProfileImage.setImage(image: dict?.userDetail.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
         cell.lblName.text = dict?.userDetail.name
         cell.lblTripComplexity.text = dict?.tripComplexity
-       
         cell.btnLikeCount.setTitle("0 likes", for: .normal)
         cell.lblDesc.text = dict?.description
         
         getAddressFromLatLong(latitude: Double(dict?.postImagesVideo.first?.lat ?? "") ?? 0.0, longitude: Double(dict?.postImagesVideo.first?.long ?? "") ?? 0.0) { address in
-            
-            cell.lblAddressPriceDays.text = "\(address ?? "") . $\(dict?.budget ?? "") . \(dict?.noOfDays ?? "")"
+            cell.lblTimeAddress.text = "\(dict?.postImagesVideo.first?.time ?? "") \(address ?? "")"
+            cell.lblTopAddress.text = "\(address ?? "")"
+            cell.lblAddressPriceDays.text = ". $\(dict?.budget ?? "") . \(dict?.noOfDays ?? "")"
         }
         
 //        let date = getDate(dateStr: dict?.createdAt ?? "")
@@ -109,7 +109,7 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
         let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
         cell.lblPostCreatedTime.text = date.timeAgoSinceDate()
         
-        cell.setPostData(postData: self.viewModel?.arrPostList[indexPath.row].postImagesVideo ?? [])
+        cell.setPostData(postData: self.viewModel?.arrPostList[indexPath.row].postImagesVideo ?? [],budget: dict?.budget ?? "",noOfDays: dict?.noOfDays ?? "")
         return cell
     }
     
@@ -280,9 +280,9 @@ extension HomeVC{
                 // Create a dictionary to hold the address components
                 var addressComponents = [String]()
 
-                if let name = placemark.name {
-                    addressComponents.append(name)
-                }
+//                if let name = placemark.name {
+//                    addressComponents.append(name)
+//                }
 
 //                if let thoroughfare = placemark.thoroughfare {
 //                    addressComponents.append(thoroughfare)
@@ -292,9 +292,9 @@ extension HomeVC{
 //                    addressComponents.append(subThoroughfare)
 //                }
 
-                if let locality = placemark.locality {
-                    addressComponents.append(locality)
-                }
+//                if let locality = placemark.locality {
+//                    addressComponents.append(locality)
+//                }
 
 //                if let administrativeArea = placemark.administrativeArea {
 //                    addressComponents.append(administrativeArea)
@@ -304,9 +304,9 @@ extension HomeVC{
 //                    addressComponents.append(postalCode)
 //                }
 
-//                if let country = placemark.country {
-//                    addressComponents.append(country)
-//                }
+                if let country = placemark.country {
+                    addressComponents.append(country)
+                }
 
                 // Join all the address components to get the complete address
                 let address = addressComponents.joined(separator: ", ")

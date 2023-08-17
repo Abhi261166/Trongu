@@ -30,7 +30,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="464" height="616"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i1f-id-Gae">
-                                <rect key="frame" x="20" y="9.9999999999999964" width="359.33333333333331" height="58.666666666666657"/>
+                                <rect key="frame" x="20" y="9.9999999999999964" width="359.33333333333331" height="48.666666666666657"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OtherUserProfileImage" translatesAutoresizingMaskIntoConstraints="NO" id="20V-YZ-nhx">
                                         <rect key="frame" x="0.0" y="6" width="40" height="40"/>
@@ -57,14 +57,21 @@
                                             <constraint firstAttribute="height" constant="15" id="fAb-Wn-Y20"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYi-jg-zd4">
-                                        <rect key="frame" x="68" y="29.999999999999996" width="0.0" height="12.333333333333332"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="hfhjdt" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8pl-uI-mzL">
+                                        <rect key="frame" x="67" y="27" width="37.666666666666657" height="18.333333333333329"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
+                                        <color key="textColor" red="0.58039215690000001" green="0.58039215690000001" blue="0.58039215690000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hthtrhjy" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYi-jg-zd4">
+                                        <rect key="frame" x="104.66666666666669" y="27" width="50" height="18.333333333333329"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                         <color key="textColor" red="0.58039215686274503" green="0.58039215686274503" blue="0.58039215686274503" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgb-LF-D0Y">
-                                        <rect key="frame" x="0.0" y="0.0" width="359.33333333333331" height="58.666666666666664"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgb-LF-D0Y">
+                                        <rect key="frame" x="0.0" y="0.0" width="359.33333333333331" height="48.666666666666657"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <connections>
                                             <action selector="profileBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="iiJ-vQ-EuU"/>
@@ -73,32 +80,28 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="fYi-jg-zd4" firstAttribute="leading" secondItem="QiJ-CU-F9B" secondAttribute="trailing" constant="1" id="1cB-H4-Y8V"/>
-                                    <constraint firstAttribute="bottom" secondItem="QiJ-CU-F9B" secondAttribute="bottom" constant="15" id="FKu-bo-hbq"/>
-                                    <constraint firstItem="fgb-LF-D0Y" firstAttribute="top" secondItem="i1f-id-Gae" secondAttribute="top" id="L49-rq-WPv"/>
-                                    <constraint firstAttribute="trailing" secondItem="fgb-LF-D0Y" secondAttribute="trailing" id="Mwq-3K-V4m"/>
+                                    <constraint firstAttribute="bottom" secondItem="QiJ-CU-F9B" secondAttribute="bottom" constant="5" id="FKu-bo-hbq"/>
+                                    <constraint firstItem="8pl-uI-mzL" firstAttribute="centerY" secondItem="QiJ-CU-F9B" secondAttribute="centerY" id="IiC-Jj-oik"/>
+                                    <constraint firstItem="fYi-jg-zd4" firstAttribute="centerY" secondItem="8pl-uI-mzL" secondAttribute="centerY" id="PEh-um-vyv"/>
                                     <constraint firstItem="20V-YZ-nhx" firstAttribute="leading" secondItem="i1f-id-Gae" secondAttribute="leading" id="RYa-Ek-5kc"/>
+                                    <constraint firstItem="fYi-jg-zd4" firstAttribute="leading" secondItem="8pl-uI-mzL" secondAttribute="trailing" id="Sl9-R2-Tc5"/>
                                     <constraint firstItem="20V-YZ-nhx" firstAttribute="top" secondItem="i1f-id-Gae" secondAttribute="top" constant="6" id="YiU-x2-kFY"/>
                                     <constraint firstItem="QiJ-CU-F9B" firstAttribute="leading" secondItem="1w3-E9-GDd" secondAttribute="leading" id="dBK-1S-HA6"/>
                                     <constraint firstItem="1w3-E9-GDd" firstAttribute="leading" secondItem="20V-YZ-nhx" secondAttribute="trailing" constant="12" id="dt5-3t-wnK"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1w3-E9-GDd" secondAttribute="trailing" id="ggk-7I-qY7"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fYi-jg-zd4" secondAttribute="trailing" constant="20" symbolic="YES" id="hfv-2C-Nif"/>
-                                    <constraint firstItem="fgb-LF-D0Y" firstAttribute="leading" secondItem="i1f-id-Gae" secondAttribute="leading" id="ifd-vc-BYf"/>
-                                    <constraint firstItem="fYi-jg-zd4" firstAttribute="top" secondItem="i1f-id-Gae" secondAttribute="top" constant="30" id="iqU-YD-nkS"/>
-                                    <constraint firstAttribute="bottom" secondItem="fgb-LF-D0Y" secondAttribute="bottom" id="lxF-UM-Ri6"/>
                                     <constraint firstItem="QiJ-CU-F9B" firstAttribute="top" secondItem="1w3-E9-GDd" secondAttribute="bottom" constant="1" id="m8e-ri-T2a"/>
-                                    <constraint firstItem="fYi-jg-zd4" firstAttribute="centerY" secondItem="QiJ-CU-F9B" secondAttribute="centerY" id="tMR-Xg-CC6"/>
                                     <constraint firstItem="1w3-E9-GDd" firstAttribute="top" secondItem="i1f-id-Gae" secondAttribute="top" constant="5" id="uZm-2e-HXY"/>
+                                    <constraint firstItem="8pl-uI-mzL" firstAttribute="leading" secondItem="QiJ-CU-F9B" secondAttribute="trailing" id="yvt-4Q-vBP"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Easy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JAc-vz-sTa">
-                                <rect key="frame" x="384.33333333333331" y="28" width="36.666666666666686" height="22.666666666666671"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Easy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JAc-vz-sTa">
+                                <rect key="frame" x="384.33333333333331" y="23" width="36.666666666666686" height="22.666666666666671"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iCL-dg-GvR">
-                                <rect key="frame" x="423" y="24.333333333333329" width="25" height="30"/>
+                                <rect key="frame" x="423" y="19.333333333333329" width="25" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="bZ1-Ab-Jk1"/>
                                     <constraint firstAttribute="height" constant="30" id="l1v-p2-ado"/>
@@ -109,21 +112,8 @@
                                     <action selector="menuAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="nGa-sh-SDv"/>
                                 </connections>
                             </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Z9w-Td-zzj">
-                                <rect key="frame" x="0.0" y="73.666666666666686" width="464" height="350"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="350" id="PJo-Re-M7w"/>
-                                </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ryd-4G-Vvy">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                            </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nmk-z3-3lY">
-                                <rect key="frame" x="12" y="433.66666666666669" width="440" height="177.33333333333331"/>
+                                <rect key="frame" x="12" y="423.66666666666669" width="440" height="187.33333333333331"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HSB-CY-cq7">
                                         <rect key="frame" x="0.0" y="0.0" width="440" height="30"/>
@@ -299,10 +289,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jwf-FG-OaK">
-                                        <rect key="frame" x="5" y="30" width="435" height="147.33333333333334"/>
+                                        <rect key="frame" x="5" y="30" width="435" height="157.33333333333334"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ih-x9-N6r">
-                                                <rect key="frame" x="0.0" y="0.0" width="44" height="101.66666666666667"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="44" height="94.666666666666671"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins Medium" pointSize="14"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="0 likes">
@@ -313,25 +303,25 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The journey of a thousand miles begins with a single step." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bSp-kh-XL5">
-                                                <rect key="frame" x="0.0" y="101.66666666666669" width="435" height="17"/>
+                                                <rect key="frame" x="0.0" y="94.666666666666686" width="435" height="17"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ag4-fK-Z36">
-                                                <rect key="frame" x="0.0" y="121.66666666666669" width="435" height="0.0"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 AM India" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ag4-fK-Z36">
+                                                <rect key="frame" x="0.0" y="114.66666666666669" width="435" height="17"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
                                                 <color key="textColor" red="0.48627450980392156" green="0.48627450980392156" blue="0.48627450980392156" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ERz-Za-BEZ">
-                                                <rect key="frame" x="0.0" y="124.66666666666669" width="435" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="134.66666666666669" width="435" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
                                                 <color key="textColor" red="0.2196078431372549" green="0.34509803921568627" blue="0.59607843137254901" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 days ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPy-wx-c7g">
-                                                <rect key="frame" x="0.0" y="127.66666666666671" width="435" height="19.666666666666657"/>
+                                                <rect key="frame" x="0.0" y="137.66666666666669" width="435" height="19.666666666666657"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="19.670000000000002" id="HKe-AM-0Ms"/>
                                                 </constraints>
@@ -371,6 +361,19 @@
                                     <constraint firstAttribute="bottom" secondItem="jwf-FG-OaK" secondAttribute="bottom" id="zZC-nf-xGb"/>
                                 </constraints>
                             </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Z9w-Td-zzj">
+                                <rect key="frame" x="0.0" y="63.666666666666657" width="464" height="350"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="350" id="PJo-Re-M7w"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ryd-4G-Vvy">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -408,6 +411,7 @@
                 <outlet property="lblName" destination="1w3-E9-GDd" id="9ie-Md-AI9"/>
                 <outlet property="lblPostCreatedTime" destination="bPy-wx-c7g" id="xfD-qS-8CC"/>
                 <outlet property="lblTimeAddress" destination="ag4-fK-Z36" id="tBF-fZ-WsQ"/>
+                <outlet property="lblTopAddress" destination="8pl-uI-mzL" id="6rd-Q4-kh7"/>
                 <outlet property="lblTripComplexity" destination="JAc-vz-sTa" id="w7m-3e-JOi"/>
                 <outlet property="otherUserProfileImage" destination="20V-YZ-nhx" id="RcR-pd-1qT"/>
                 <outlet property="pageController" destination="znA-X2-pHY" id="CTG-oh-xrb"/>

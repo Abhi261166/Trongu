@@ -6,6 +6,7 @@
 
 
 import UIKit
+import Kingfisher
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
 
     var dotView: UIView?
@@ -56,6 +57,19 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         }
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tabBar.items?.last?.setImageFromUrl()
+        
+    }
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        
+        self.tabBar.items?.last?.setImageFromUrl()
+    }
+           
 }
 //    override func viewDidLayoutSubviews() {
 //           super.viewDidLayoutSubviews()
@@ -98,3 +112,34 @@ extension UITabBar {
     }
 }
 
+
+extension UITabBarItem {
+    func setImageFromUrl() {
+        let imgUrl = UserDefaultsCustom.getUserData()?.image
+        let defImg = "ic_profilePlaceHolder"
+        let fghj = UIImage(named: defImg)?.withRenderingMode(.alwaysOriginal).roundedImageWithBorder(width: 0)
+        self.image = fghj?.withRenderingMode(.alwaysOriginal)
+        self.selectedImage = fghj?.withRenderingMode(.alwaysOriginal).roundedImageWithBorder(width: 2,color: .systemOrange)
+        if let imageUrl1 = imgUrl, let url = URL(string: imageUrl1) {
+            let targetSize = CGSize(width: 28.0, height: 28.0)
+            let resize = ResizingImageProcessor(referenceSize: targetSize, mode: .aspectFill)
+            let crop = CroppingImageProcessor(size: targetSize)
+            let round = RoundCornerImageProcessor(cornerRadius: targetSize.height / 2,backgroundColor: UIColor(named: "White"))
+
+            let processor = ((resize |> crop) |> round)
+
+            KingfisherManager.shared.retrieveImage(with: url,options: [ .processor(processor), .scaleFactor(UIScreen.main.scale)],completionHandler: { result in
+                switch result {
+                case .success(let value):
+                    let img = value.image
+                    self.image = img.roundedImageWithBorder(width: 0,color: .clear)//.withRenderingMode(.automatic).roundedImageWithBorder(width: 0)
+                    self.selectedImage = img.roundedImageWithBorder(width: 2,color: .systemOrange)//withRenderingMode(.automatic).roundedImageWithBorder(width: 1)
+
+                    //                    self.selectedImage?.sd_roundedCornerImage(withRadius: (self.selectedImage?.size.height ?? 0) / 2, corners: SDRectCorner.allCorners, borderWidth: 5, borderColor: .red)
+                case .failure(let error):
+                    print("Failed to load image, error: \(error)")
+                }
+            })
+        }
+    }
+}

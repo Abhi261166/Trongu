@@ -40,6 +40,7 @@ class CreatePostVC: UIViewController{
         let post = Post(id: "", userID: "", budget: "", noOfDays: "", tripCategory: "", description: "", tripComplexity: "", status: "", createdAt: "", tripCategoryName: "", userDetail: UserData)
         myPost.append(post)
         
+        txtViewDesc.delegate = self
         
     }
     
@@ -87,7 +88,12 @@ class CreatePostVC: UIViewController{
             self.finalPostItems = posts1
             self.myPost[0].postImagesVideo = posts2
             if self.finalPostItems.count != 0{
-                self.lblSelectedItems.text = "\(self.finalPostItems.count) items selected"
+                if self.finalPostItems.count == 1{
+                    self.lblSelectedItems.text = "\(self.finalPostItems.count) item selected"
+                }else{
+                    self.lblSelectedItems.text = "\(self.finalPostItems.count) items selected"
+                }
+                
             }else{
                 self.lblSelectedItems.text = ""
             }
@@ -285,4 +291,15 @@ extension CreatePostVC:TagListVMObserver{
         
     }
     
+}
+
+extension CreatePostVC:UITextViewDelegate{
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+         let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
+        if newText.count > 200{
+            Singleton.showMessage(message: "Discription is too long.", isError: .error)
+        }
+         return newText.count < 201
+    }
+     
 }

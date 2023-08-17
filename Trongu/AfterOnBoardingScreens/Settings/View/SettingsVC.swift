@@ -92,11 +92,11 @@ extension SettingsVC: UITableViewDelegate,UITableViewDataSource{
                     present(safariCC, animated: true, completion: nil)
                 }
             case 3:
-                print("sdsdsd")
+            //    print("sdsdsd")
             
-                //             let vc = FeedbackVC()()
-                //             vc.hidesBottomBarWhenPushed = true
-                //             self.pushViewController(vc, true)
+                let vc = FeedbackVC()
+                vc.hidesBottomBarWhenPushed = true
+                self.pushViewController(vc, true)
             case 4:
                 print("AboutUs")
                 
@@ -165,9 +165,9 @@ extension SettingsVC: UITableViewDelegate,UITableViewDataSource{
                 print("sdsddefwsd")
             case 4:
                 print("sdsdsd")
-                //             let vc = FeedbackVC()()
-                //             vc.hidesBottomBarWhenPushed = true
-                //             self.pushViewController(vc, true)
+                             let vc = FeedbackVC()
+                             vc.hidesBottomBarWhenPushed = true
+                             self.pushViewController(vc, true)
             case 5:
                 print("AboutUs")
                 

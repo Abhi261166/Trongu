@@ -117,7 +117,7 @@ class AddPhotoVideoVC: UIViewController {
         for (index, post) in arrPostItems.enumerated() {
             
             if post.lat == "0.0" && post.long == "0.0"{
-                    self.showMessage(message: "Please select address for \(index + 1) post item", isError: .error)
+                    self.showMessage(message: "Please select address for each post item", isError: .error)
                     return false
                 }
             }

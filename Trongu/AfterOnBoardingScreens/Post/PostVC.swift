@@ -114,9 +114,9 @@ extension PostVC{
                 // Create a dictionary to hold the address components
                 var addressComponents = [String]()
 
-                if let name = placemark.name {
-                    addressComponents.append(name)
-                }
+//                if let name = placemark.name {
+//                    addressComponents.append(name)
+//                }
 
 //                if let thoroughfare = placemark.thoroughfare {
 //                    addressComponents.append(thoroughfare)
@@ -126,9 +126,9 @@ extension PostVC{
 //                    addressComponents.append(subThoroughfare)
 //                }
 
-                if let locality = placemark.locality {
-                    addressComponents.append(locality)
-                }
+//                if let locality = placemark.locality {
+//                    addressComponents.append(locality)
+//                }
 
 //                if let administrativeArea = placemark.administrativeArea {
 //                    addressComponents.append(administrativeArea)
@@ -138,9 +138,9 @@ extension PostVC{
 //                    addressComponents.append(postalCode)
 //                }
 
-//                if let country = placemark.country {
-//                    addressComponents.append(country)
-//                }
+                if let country = placemark.country {
+                    addressComponents.append(country)
+                }
 
                 // Join all the address components to get the complete address
                 let address = addressComponents.joined(separator: ", ")

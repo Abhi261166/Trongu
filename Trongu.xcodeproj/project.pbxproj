@@ -159,6 +159,7 @@
 		18A0F8812A4C322100E34ED6 /* replyCommentTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A0F87F2A4C322100E34ED6 /* replyCommentTVCell.xib */; };
 		18A0F8882A4C4B7300E34ED6 /* LikesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0F8862A4C4B7300E34ED6 /* LikesVC.swift */; };
 		18A0F8892A4C4B7300E34ED6 /* LikesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A0F8872A4C4B7300E34ED6 /* LikesVC.xib */; };
+		18C459812A8F6232007A3C18 /* DeleteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C459802A8F6232007A3C18 /* DeleteVM.swift */; };
 		18CEA5882A50352F007AF695 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEA5862A50352F007AF695 /* UserProfileVC.swift */; };
 		18CEA5892A50352F007AF695 /* UserProfileVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18CEA5872A50352F007AF695 /* UserProfileVC.xib */; };
 		18D1D0182A7CED9000EDFE70 /* CreatePostVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D1D0172A7CED9000EDFE70 /* CreatePostVM.swift */; };
@@ -400,6 +401,7 @@
 		18A0F87F2A4C322100E34ED6 /* replyCommentTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = replyCommentTVCell.xib; sourceTree = "<group>"; };
 		18A0F8862A4C4B7300E34ED6 /* LikesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesVC.swift; sourceTree = "<group>"; };
 		18A0F8872A4C4B7300E34ED6 /* LikesVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikesVC.xib; sourceTree = "<group>"; };
+		18C459802A8F6232007A3C18 /* DeleteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteVM.swift; sourceTree = "<group>"; };
 		18CEA5862A50352F007AF695 /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		18CEA5872A50352F007AF695 /* UserProfileVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserProfileVC.xib; sourceTree = "<group>"; };
 		18D1D0172A7CED9000EDFE70 /* CreatePostVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostVM.swift; sourceTree = "<group>"; };
@@ -504,18 +506,10 @@
 		1842FF1B2A4C68CE00CF6F41 /* ReportPopUp */ = {
 			isa = PBXGroup;
 			children = (
-				1842FF1E2A4C68ED00CF6F41 /* Model */,
+				18C4597F2A8F6205007A3C18 /* ViewModel */,
 				1842FF1D2A4C68E600CF6F41 /* View */,
-				1842FF1C2A4C68DB00CF6F41 /* ViewModel */,
 			);
 			path = ReportPopUp;
-			sourceTree = "<group>";
-		};
-		1842FF1C2A4C68DB00CF6F41 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		1842FF1D2A4C68E600CF6F41 /* View */ = {
@@ -525,13 +519,6 @@
 				1842FF202A4C691000CF6F41 /* ReportPopUpVC.xib */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		1842FF1E2A4C68ED00CF6F41 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		1842FF232A4C6DCA00CF6F41 /* Filter */ = {
@@ -1541,6 +1528,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		18C4597F2A8F6205007A3C18 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				18C459802A8F6232007A3C18 /* DeleteVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		18CEA5822A5034E2007AF695 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -2131,6 +2126,7 @@
 				189551542A49BF60003EC8FD /* Constant.swift in Sources */,
 				189EC4A32A4EB3D1001E6644 /* AddPhotoVideoVC.swift in Sources */,
 				187B6ABE2A53FE75008E1399 /* SettingsTVCell.swift in Sources */,
+				18C459812A8F6232007A3C18 /* DeleteVM.swift in Sources */,
 				184FE0CA2A4D982D009D666D /* OtherUserProfileCVCell.swift in Sources */,
 				189EC4B92A4EE379001E6644 /* MessageTVCell.swift in Sources */,
 				189551462A49BEF6003EC8FD /* UIViewController+Custom.swift in Sources */,

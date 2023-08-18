@@ -18,9 +18,13 @@ class CreatePostVC: UIViewController{
     @IBOutlet weak var txtTripComplexity: UITextField!
     @IBOutlet weak var txtViewDesc: UITextView!
     @IBOutlet weak var lblSelectedItems: UILabel!
+    @IBOutlet weak var lblCreatePost: UILabel!
+    @IBOutlet weak var btnback: UIButton!
+    
     
     var finalPostItems = [YPMediaItem]()
     var myPost = [Post]()
+    var images : [UIImage] = []
     var tagIds = "10"
     let pickerView = UIPickerView()
     var arrDays = ["1 day","2 days","3 days","4 days","5 days","6 days","7 days","8 days","9 days","10 days"]
@@ -28,6 +32,7 @@ class CreatePostVC: UIViewController{
     var arrTripComplexity = ["Complex","Smooth","Normal"]
     var viewModel:TagListVM?
     var tagPeople = ""
+    var comeFrom:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,28 +40,47 @@ class CreatePostVC: UIViewController{
         setPicker()
         setViewModel()
         
-        let UserData = UserDetail(id: "", googleID: "", facebookID: "", appleID: "", name: "", userName: "", loginType: "", gender: "", email: "", image: "", password: "", place: "", bio: "", dob: "", ethnicity: "", deviceToken: "", deviceType: "", isStatus: "", mailStatus: "", smsStatus: "", status: "", authKey: "", accessToken: "", lat: "", long: "", verificationToken: "", passwordResetToken: "", expireAt: "", createdAt: "", updatedAt: "")
-        
-        let post = Post(id: "", userID: "", budget: "", noOfDays: "", tripCategory: "", description: "", tripComplexity: "", status: "", createdAt: "", tripCategoryName: "", userDetail: UserData)
-        myPost.append(post)
-        
+        if self.comeFrom == "Edit"{
+            btnback.isHidden = false
+            lblCreatePost.text = "Edit Post"
+            
+            if self.myPost[0].postImagesVideo.count != 0{
+                if self.myPost[0].postImagesVideo.count == 1{
+                    self.lblSelectedItems.text = "\(self.myPost[0].postImagesVideo.count) item selected"
+                }else{
+                    self.lblSelectedItems.text = "\(self.myPost[0].postImagesVideo.count) items selected"
+                }
+                
+            }else{
+                self.lblSelectedItems.text = ""
+            }
+            
+        }else{
+            btnback.isHidden = true
+            lblCreatePost.text = "Create Post"
+            let UserData = UserDetail(id: "", googleID: "", facebookID: "", appleID: "", name: "", userName: "", loginType: "", gender: "", email: "", image: "", password: "", place: "", bio: "", dob: "", ethnicity: "", deviceToken: "", deviceType: "", isStatus: "", mailStatus: "", smsStatus: "", status: "", authKey: "", accessToken: "", lat: "", long: "", verificationToken: "", passwordResetToken: "", expireAt: "", createdAt: "", updatedAt: "")
+            
+            let post = Post(id: "", userID: "", budget: "", noOfDays: "", tripCategory: "", description: "", tripComplexity: "", status: "", createdAt: "", tripCategoryName: "", userDetail: UserData)
+            myPost.append(post)
+            
+            
+        }
         txtViewDesc.delegate = self
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       // setData()
+        setData()
     }
     
     func setData(){
         
-        txtBudget.text = ""
-        txtNoOffDays.text = ""
-        txtTripCategory.text = ""
-        txtNoOffDays.text = ""
-        txtTripComplexity.text = ""
-        txtViewDesc.text = ""
+        txtBudget.text = myPost[0].budget
+        txtNoOffDays.text = myPost[0].noOfDays
+        txtTripCategory.text = myPost[0].tripCategory
+        txtTripComplexity.text = myPost[0].tripComplexity
+        txtViewDesc.text = myPost[0].description
         
     }
     
@@ -82,26 +106,54 @@ class CreatePostVC: UIViewController{
         
     }
     
+    @IBAction func actionBack(_ sender: Any) {
+        
+        popVC()
+    }
+    
     @IBAction func addImageAction(_ sender: UIButton) {
         let vc = AddPhotoVideoVC()
-        vc.completion = { posts1, posts2 in
-            self.finalPostItems = posts1
-            self.myPost[0].postImagesVideo = posts2
-            if self.finalPostItems.count != 0{
-                if self.finalPostItems.count == 1{
-                    self.lblSelectedItems.text = "\(self.finalPostItems.count) item selected"
+        vc.completion = { posts1, posts2 ,images in
+            
+            if self.comeFrom == "Edit"{
+                self.myPost[0].postImagesVideo = posts2
+                if self.myPost[0].postImagesVideo.count != 0{
+                    if self.myPost[0].postImagesVideo.count == 1{
+                        self.lblSelectedItems.text = "\(self.myPost[0].postImagesVideo.count) item selected"
+                    }else{
+                        self.lblSelectedItems.text = "\(self.myPost[0].postImagesVideo.count) items selected"
+                    }
+                    
                 }else{
-                    self.lblSelectedItems.text = "\(self.finalPostItems.count) items selected"
+                    self.lblSelectedItems.text = ""
                 }
                 
             }else{
-                self.lblSelectedItems.text = ""
+                self.images = images
+                self.finalPostItems = posts1
+                self.myPost[0].postImagesVideo = posts2
+                if self.finalPostItems.count != 0{
+                    if self.myPost[0].postImagesVideo.count == 1{
+                        self.lblSelectedItems.text = "\(self.myPost[0].postImagesVideo.count) item selected"
+                    }else{
+                        self.lblSelectedItems.text = "\(self.myPost[0].postImagesVideo.count) items selected"
+                    }
+                    
+                }else{
+                    self.lblSelectedItems.text = ""
+                }
+                print("finalPostItems count --- ",self.finalPostItems.count)
             }
-            print("finalPostItems count --- ",self.finalPostItems.count)
         }
         vc.selectedItems = finalPostItems
         vc.selectedIndex = IndexPath(row: 0, section: 0)
         vc.arrPostItems = myPost.first?.postImagesVideo ?? []
+        
+        if self.comeFrom == "Edit"{
+            vc.arrPostItems = myPost[0].postImagesVideo
+            vc.comeFrom = "Edit"
+        }
+        
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
         
@@ -125,6 +177,10 @@ class CreatePostVC: UIViewController{
             vc.finalPost = myPost.first
             vc.tagIds = tagIds
             vc.tagPeople = tagPeople
+            if self.comeFrom == "Edit"{
+                vc.comeForm = "Edit"
+            }
+            vc.images = self.images
             vc.hidesBottomBarWhenPushed = true
             self.pushViewController(vc, true)
         }

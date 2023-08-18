@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PostVC" customModule="Trongu" customModuleProvider="target">
             <connections>
+                <outlet property="btnPost" destination="sp0-sO-Bew" id="8CU-Jd-GfU"/>
                 <outlet property="lblBudget" destination="oCv-EQ-h68" id="lgC-pJ-nrX"/>
                 <outlet property="lblDesc" destination="ISb-uJ-JCQ" id="6DF-He-D4w"/>
                 <outlet property="lblNoOfDays" destination="exe-UJ-9Ek" id="FoG-NL-3MN"/>

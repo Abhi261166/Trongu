@@ -171,10 +171,25 @@ extension HomeVC: HomeTVCellDelegate{
     }
     
     func didTapMenu(_ indexPath: IndexPath) {
-       let vc = ReportPopUpVC()
-        vc.controller = self
-        vc.modalPresentationStyle = .overFullScreen
-        self.present(vc, true)
+        
+        if self.viewModel?.arrPostList[indexPath.row].userDetail.id == UserDefaultsCustom.getUserData()?.id{
+            
+            let vc = ReportPopUpVC()
+             vc.controller = self
+             vc.objMyPost = self.viewModel?.arrPostList[indexPath.row]
+             vc.completion = {
+                 self.apiCall()
+             }
+             vc.modalPresentationStyle = .overFullScreen
+             self.present(vc, true)
+            
+        }else {
+            let vc = BlockReportPopUpVC()
+             vc.controller = self
+             vc.modalPresentationStyle = .overFullScreen
+             self.present(vc, true)
+        }
+        
     }
     
     func didTapLike(_ indexPath: IndexPath) {

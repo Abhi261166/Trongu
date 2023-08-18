@@ -9,6 +9,9 @@ import UIKit
 
 class BlockReportPopUpVC: UIViewController,UIGestureRecognizerDelegate {
 
+    
+    var controller: UIViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

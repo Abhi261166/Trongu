@@ -11,13 +11,25 @@ class ReportPopUpVC: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var deleteButton: UIButton!
     
+    var objMyPost:Post?
     var controller:UIViewController?
+    var viewModel:DeleteVM?
+    var completion : (() -> Void)? = nil
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setPopUpDismiss()
+        setViewModel()
     }
-    // MARK: - Functions
+    
+    func setViewModel(){
+        self.viewModel = DeleteVM(observer: self)
+    }
+    
+    
+    // MARK: - Functions -
     
     func setPopUpDismiss() {
         var tapGesture = UITapGestureRecognizer()
@@ -33,12 +45,30 @@ class ReportPopUpVC: UIViewController, UIGestureRecognizerDelegate {
 
     @IBAction func editPostAction(_ sender: UIButton) {
         dismiss(animated: true)
-        let vc = EditPostVC()
+        let vc = CreatePostVC()
+        vc.hidesBottomBarWhenPushed = true
+        vc.comeFrom = "Edit"
+        vc.myPost.append(objMyPost!)
         controller?.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func deleteAction(_ sender: UIButton) {
-        self.dismiss(animated: true)
+        
+        self.viewModel?.apiDeletePost(postId: objMyPost?.id ?? "")
+        
+    }
+    
+}
+
+extension ReportPopUpVC:DeleteVMObserver{
+    
+    func observeDeletePostSucessfull() {
+        
+        if let completion = completion{
+            self.dismiss(animated: true)
+            completion()
+        }
+        
     }
     
 }

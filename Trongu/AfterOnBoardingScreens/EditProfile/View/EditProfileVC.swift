@@ -94,8 +94,8 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-      
-       if textField == userNameTF || textField == nameTF  || textField == addPlaceTF {
+      //|| textField == nameTF  || textField == addPlaceTF
+       if textField == userNameTF{
             if string == " " {
                 return false
             }else{}

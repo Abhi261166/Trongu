@@ -18,12 +18,15 @@ class PostVC: UIViewController {
     @IBOutlet weak var lblTripComp: UILabel!
     @IBOutlet weak var lblDesc: UILabel!
     @IBOutlet weak var lblTripCat: UILabel!
+    @IBOutlet weak var btnPost: UIButton!
     
     var arrPostYP = [YPMediaItem]()
     var finalPost:Post?
     var tagIds = ""
     var tagPeople = ""
     var viewModel:PostVM?
+    var images:[UIImage] = []
+    var comeForm:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +39,13 @@ class PostVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setData()
+        
+        if self.comeForm == "Edit"{
+            btnPost.setTitle("Update Post", for: .normal)
+        }else{
+            btnPost.setTitle("Post", for: .normal)
+        }
+        
     }
     
     func setData(){
@@ -61,32 +71,59 @@ class PostVC: UIViewController {
     
     @IBAction func postAction(_ sender: UIButton) {
        
-        self.viewModel?.apiCreatePost(tags: self.tagIds, budget: finalPost?.budget ?? "", noOffDays: finalPost?.noOfDays ?? "", tripCat: "1", disc: finalPost?.description ?? "", tripComp: finalPost?.tripComplexity ?? "", arrPosts: arrPostYP, arrPosts2: finalPost?.postImagesVideo ?? [])
+        if self.comeForm == "Edit"{
+            
+            self.viewModel?.apiUpdatePost(postId: finalPost?.id ?? "", tags: self.tagIds, budget: finalPost?.budget ?? "", noOffDays: finalPost?.noOfDays ?? "", tripCat: "1", disc: finalPost?.description ?? "", tripComp: finalPost?.tripComplexity ?? "", arrPosts: arrPostYP, arrPosts2: finalPost?.postImagesVideo ?? [])
+            
+        }else{
+            self.viewModel?.apiCreatePost(tags: self.tagIds, budget: finalPost?.budget ?? "", noOffDays: finalPost?.noOfDays ?? "", tripCat: "1", disc: finalPost?.description ?? "", tripComp: finalPost?.tripComplexity ?? "", arrPosts: arrPostYP, arrPosts2: finalPost?.postImagesVideo ?? [], images: images)
+        }
         
     }
     
 }
 extension PostVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         return finalPost?.postImagesVideo.count ?? 0
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostCVCell", for: indexPath) as! PostCVCell
         
-        let post = arrPostYP[indexPath.row]
-       switch post{
-       case .photo(p: let photo):
-           cell.imgPost.image = photo.image
-          
-       case .video(v: let video):
-           cell.imgPost.image = video.thumbnail
-           
-       }
-        
-        getAddressFromLatLong(latitude: Double(finalPost?.postImagesVideo[indexPath.row].lat ?? "") ?? 0.0, longitude: Double(finalPost?.postImagesVideo[indexPath.row].long ?? "") ?? 0.0) { address in
+        if self.comeForm == "Edit"{
             
-            cell.lblPostItemAddressDateTime.text = "\(address ?? ""), \(self.finalPost?.postImagesVideo[indexPath.row].date ?? ""), \(self.finalPost?.postImagesVideo[indexPath.row].time ?? "")"
+            if finalPost?.postImagesVideo[indexPath.row].type == "0"{
+                cell.imgPost.setImage(image: finalPost?.postImagesVideo[indexPath.row].image)
+            }else{
+                cell.imgPost.setImage(image: finalPost?.postImagesVideo[indexPath.row].thumbNailImage)
+            }
+            
+            getAddressFromLatLong(latitude: Double(finalPost?.postImagesVideo[indexPath.row].lat ?? "") ?? 0.0, longitude: Double(finalPost?.postImagesVideo[indexPath.row].long ?? "") ?? 0.0) { address in
+                
+                cell.lblPostItemAddressDateTime.text = "\(address ?? ""), \(self.finalPost?.postImagesVideo[indexPath.row].date ?? ""), \(self.finalPost?.postImagesVideo[indexPath.row].time ?? "")"
+            }
+            
+        }else{
+            
+//            let post = arrPostYP[indexPath.row]
+//            switch post{
+//            case .photo(p: let photo):
+//                cell.imgPost.image = photo.image
+//
+//            case .video(v: let video):
+//                cell.imgPost.image = video.thumbnail
+//
+//            }
+            
+            cell.imgPost.image = images[indexPath.row]
+            
+            getAddressFromLatLong(latitude: Double(finalPost?.postImagesVideo[indexPath.row].lat ?? "") ?? 0.0, longitude: Double(finalPost?.postImagesVideo[indexPath.row].long ?? "") ?? 0.0) { address in
+                
+                cell.lblPostItemAddressDateTime.text = "\(address ?? ""), \(self.finalPost?.postImagesVideo[indexPath.row].date ?? ""), \(self.finalPost?.postImagesVideo[indexPath.row].time ?? "")"
+            }
+            
         }
            
         return cell
@@ -156,7 +193,11 @@ extension PostVC{
 extension PostVC:PostVMObserver{
     func observePostAddedSucessfull() {
         
-        self.showMessage(message: "Post added successfully", isError: .success)
+        if self.comeForm == "Edit"{
+            self.showMessage(message: "Post updated successfully", isError: .success)
+        }else{
+            self.showMessage(message: "Post added successfully", isError: .success)
+        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [self] in
            

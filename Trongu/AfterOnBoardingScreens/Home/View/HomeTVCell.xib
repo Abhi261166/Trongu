@@ -132,6 +132,7 @@
                                                                 </constraints>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <state key="normal" image="ic_Like"/>
+                                                                <state key="selected" image="ic_liked"/>
                                                                 <connections>
                                                                     <action selector="likeAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="CYr-bs-8tQ"/>
                                                                 </connections>
@@ -250,6 +251,7 @@
                                                                 </constraints>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <state key="normal" image="ic_Dislike"/>
+                                                                <state key="selected" image="ic_disliked"/>
                                                                 <connections>
                                                                     <action selector="dislikeAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="QLR-zd-CqK"/>
                                                                 </connections>
@@ -403,6 +405,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btnDislike" destination="rGk-hQ-DkT" id="Nof-Ke-YyK"/>
+                <outlet property="btnLike" destination="zyA-eq-2Be" id="aeJ-gU-8Sy"/>
                 <outlet property="btnLikeCount" destination="6Ih-x9-N6r" id="7YH-Mp-3gc"/>
                 <outlet property="homeCollectionView" destination="Z9w-Td-zzj" id="fVK-pU-MMc"/>
                 <outlet property="lblAddressPriceDays" destination="fYi-jg-zd4" id="Dyu-YQ-uGM"/>
@@ -430,6 +434,8 @@
         <image name="ic_Map" width="20" height="21.333333969116211"/>
         <image name="ic_Share" width="21.333333969116211" height="17.666666030883789"/>
         <image name="ic_ThreeDot" width="3" height="16"/>
+        <image name="ic_disliked" width="20" height="21"/>
+        <image name="ic_liked" width="19" height="20"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

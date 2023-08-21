@@ -30,5 +30,4 @@ class BlockReportPopUpVC: UIViewController,UIGestureRecognizerDelegate {
         self.dismiss(animated: true) {}
     }
 
-
 }

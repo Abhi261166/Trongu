@@ -50,6 +50,9 @@ class HomeVC: UIViewController {
         self.viewModel?.apiHomePostList()
     }
     
+  
+    
+    
     
     @IBAction func searchAction(_ sender: UIButton) {
         let vc = SearchVC()
@@ -92,13 +95,27 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
         cell.otherUserProfileImage.setImage(image: dict?.userDetail.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
         cell.lblName.text = dict?.userDetail.name
         cell.lblTripComplexity.text = dict?.tripComplexity
-        cell.btnLikeCount.setTitle("0 likes", for: .normal)
+        
         cell.lblDesc.text = dict?.description
         
         getAddressFromLatLong(latitude: Double(dict?.postImagesVideo.first?.lat ?? "") ?? 0.0, longitude: Double(dict?.postImagesVideo.first?.long ?? "") ?? 0.0) { address in
             cell.lblTimeAddress.text = "\(dict?.postImagesVideo.first?.time ?? "") \(address ?? "")"
             cell.lblTopAddress.text = "\(address ?? "")"
             cell.lblAddressPriceDays.text = ". $\(dict?.budget ?? "") . \(dict?.noOfDays ?? "")"
+        }
+        
+        if dict?.isLike == "1"{
+            cell.btnLike.isSelected = true
+        }else{
+            cell.btnLike.isSelected = false
+        }
+        
+        if dict?.post_liked_count == "1"{
+            cell.btnLikeCount.setTitle("\(dict?.post_liked_count ?? "0") like", for: .normal)
+        }else if dict?.post_liked_count == "0"{
+            cell.btnLikeCount.setTitle("0 likes", for: .normal)
+        }else {
+            cell.btnLikeCount.setTitle("\(dict?.post_liked_count ?? "0") likes", for: .normal)
         }
         
 //        let date = getDate(dateStr: dict?.createdAt ?? "")
@@ -194,10 +211,13 @@ extension HomeVC: HomeTVCellDelegate{
     
     func didTapLike(_ indexPath: IndexPath) {
         
+        self.viewModel?.apiLikePost(postId: self.viewModel?.arrPostList[indexPath.row].id ?? "", type: "1")
+        
     }
     
     func didTapComment(_ indexPath: IndexPath) {
         let vc = CommentVC()
+        vc.postId = self.viewModel?.arrPostList[indexPath.row].id
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -336,6 +356,11 @@ extension HomeVC{
 }
 
 extension HomeVC:HomeVMObserver{
+    
+    func observeLikedSucessfull() {
+        self.apiCall()
+    }
+    
     
     func observeGetHomeDataSucessfull() {
         self.homeTableView.reloadData()

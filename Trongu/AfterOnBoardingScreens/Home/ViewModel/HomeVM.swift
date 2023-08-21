@@ -9,6 +9,8 @@ import Foundation
 
 protocol HomeVMObserver: NSObjectProtocol {
     func observeGetHomeDataSucessfull()
+    func observeLikedSucessfull()
+    
 }
 
 class HomeVM: NSObject {
@@ -24,7 +26,7 @@ class HomeVM: NSObject {
         self.observer = observer
     }
     
-//MARK: - Home Posts List Api -
+    //MARK: - Home Posts List Api -
     
     func apiHomePostList() {
         var params = JSON()
@@ -32,7 +34,7 @@ class HomeVM: NSObject {
         params["page_no"] = pageNo + 1
         print("params : ", params)
         
-// add loader
+        // add loader
         ActivityIndicator.shared.showActivityIndicator()
         ApiHandler.callWithMultipartForm(apiName: API.Name.postList, params: params) { [weak self] succeeded, response, data in
             DispatchQueue.main.async {
@@ -61,6 +63,35 @@ class HomeVM: NSObject {
                 }
             }
         }
+    }
+    
+    //MARK: - like Post APi -
+    
+    func apiLikePost(postId:String,type:String) {
+        var params = JSON()
+        params["post_id"] = postId
+        params["type"] = type
+        
+        print("params : ", params)
+        
+        // add loader
+        //  ActivityIndicator.shared.showActivityIndicator()
+        ApiHandler.callWithMultipartForm(apiName: API.Name.likePost, params: params) { [weak self] succeeded, response, data in
+            DispatchQueue.main.async {
+                //       ActivityIndicator.shared.hideActivityIndicator()
+                if let self = self{
+                    if succeeded == true {
+                        self.observer?.observeLikedSucessfull()
+                    } else {
+                        if let message = response["message"] as? String {
+                            self.showMessage(message: message, isError: .error)
+                        }
+                    }
+                }
+            }
         }
+    }
+    
+    
 }
 

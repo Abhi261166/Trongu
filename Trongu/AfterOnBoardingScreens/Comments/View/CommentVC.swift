@@ -11,15 +11,35 @@ class CommentVC: UIViewController {
 
     @IBOutlet weak var commentTableView: UITableView!
     
+    var viewModel:CommentVM?
+    var postId:String?
+    
     var replyComment = [("Darien","Darien","Same, me too"),("Ellipse 25","Alex","haha sometime i’m lazy to do it")]
     override func viewDidLoad() {
         super.viewDidLoad()
 
-       
+        setViewModel()
         self.commentTableView.delegate = self
         self.commentTableView.dataSource = self
         self.commentTableView.register(UINib(nibName: "CommentTVCell", bundle: nil), forCellReuseIdentifier: "CommentTVCell")
         self.commentTableView.register(UINib(nibName: "replyCommentTVCell", bundle: nil), forCellReuseIdentifier: "replyCommentTVCell")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        apiCall()
+    }
+    
+    func setViewModel(){
+        
+        self.viewModel = CommentVM(observer: self)
+        
+    }
+    
+    func apiCall(){
+        
+        self.viewModel?.apiCommentList(postId: postId ?? "")
+        
     }
     
     @IBAction func backAction(_ sender: UIButton) {
@@ -29,7 +49,14 @@ class CommentVC: UIViewController {
 }
 extension CommentVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        
+        if self.viewModel?.arrCommentList.count == 0{
+            self.commentTableView.setBackgroundView(message: "No data found")
+            return 0
+        }else{
+            self.commentTableView.setBackgroundView(message: "")
+            return self.viewModel?.arrCommentList.count ?? 0
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -54,9 +81,7 @@ extension CommentVC: UITableViewDelegate,UITableViewDataSource{
             cell1.profileImage.image = UIImage(named: replyComment[indexPath.row].0)
             cell1.nameLabel.text = "\(replyComment[indexPath.row].1)"
             cell1.massageLabel.text = "\(replyComment[indexPath.row].2)"
-            if indexPath.row == 1{
-                cell1.emojiImage.isHidden = true
-            }
+           
             return cell1
         }else{
             guard let cell2 = tableView.dequeueReusableCell(withIdentifier: "CommentTVCell", for: indexPath) as? CommentTVCell
@@ -70,4 +95,12 @@ extension CommentVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+}
+
+extension CommentVC:CommentVMObserver{
+    
+    func observeGetCommentListSucessfull() {
+        commentTableView.reloadData()
+    }
+    
 }

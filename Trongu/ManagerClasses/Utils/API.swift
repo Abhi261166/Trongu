@@ -48,6 +48,9 @@ class API {
         static let tagList                = "j1/trongu/api/v1/users/followers-following-listing"
         static let postList               = "j1/trongu/api/v1/users/home-listing"
         static let deletePost             = "j1/trongu/api/v1/users/post-del"
+        static let likePost               = "j1/trongu/api/v1/users/add-like-post"
+        static let commentList            = "j1/trongu/api/v1/users/comment-listing"
+        
    
     }
     

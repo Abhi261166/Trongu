@@ -13,6 +13,8 @@ class CommentTVCell: UITableViewCell {
     @IBOutlet weak var sepratorView: UIView!
     @IBOutlet weak var replyLabel: UILabel!
     @IBOutlet weak var seeReplyView: UIView!
+    @IBOutlet weak var replyView: UIView!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

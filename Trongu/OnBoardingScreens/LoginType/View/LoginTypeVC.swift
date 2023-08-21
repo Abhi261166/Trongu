@@ -125,6 +125,10 @@ class LoginTypeVC: UIViewController {
         }
     }
     
+    
+    
+    
+    
     @IBAction func continueWithEmailAction(_ sender: UIButton) {
         appleLogin()
     }
@@ -139,6 +143,13 @@ class LoginTypeVC: UIViewController {
     
     @IBAction func signUpAction(_ sender: UIButton) {
         let vc = SignUpVC()
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
+    @IBAction func actionLoginWithEmail(_ sender: UIButton) {
+        
+        let vc = LoginVc()
         self.navigationController?.pushViewController(vc, animated: true)
         
     }

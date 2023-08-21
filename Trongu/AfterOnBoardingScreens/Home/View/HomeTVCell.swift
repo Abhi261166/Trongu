@@ -34,6 +34,8 @@ class HomeTVCell: UITableViewCell {
     @IBOutlet weak var lblDesc: UILabel!
     @IBOutlet weak var btnLikeCount: UIButton!
     @IBOutlet weak var lblTimeAddress: UILabel!
+    @IBOutlet weak var btnDislike: UIButton!
+    @IBOutlet weak var btnLike: UIButton!
     
     
     var image = ["PostFirstImage","PostSecondImage"]
@@ -82,6 +84,7 @@ class HomeTVCell: UITableViewCell {
     }
     
     @IBAction func likeAction(_ sender: UIButton) {
+        sender.isSelected.toggle()
         if let indexPath = self.indexPath {
             self.delegate?.didTapLike(indexPath)
         }
@@ -113,6 +116,7 @@ class HomeTVCell: UITableViewCell {
     }
     
     @IBAction func dislikeAction(_ sender: UIButton) {
+        sender.isSelected.toggle()
         if let indexPath = self.indexPath {
             self.delegate?.didTapDislike(indexPath)
         }

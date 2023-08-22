@@ -9,12 +9,17 @@ import UIKit
 
 class CommentTVCell: UITableViewCell {
     
-    
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var imgProfile: UIImageView!
+    @IBOutlet weak var lblTime: UILabel!
     @IBOutlet weak var sepratorView: UIView!
-    @IBOutlet weak var replyLabel: UILabel!
+    @IBOutlet weak var btnReply: UIButton!
     @IBOutlet weak var seeReplyView: UIView!
     @IBOutlet weak var replyView: UIView!
-    
+    @IBOutlet weak var lblComment: UILabel!
+    @IBOutlet weak var btnViewReplys: UIButton!
+    @IBOutlet weak var imgArrow: UIImageView!
+    @IBOutlet weak var lblSeeReply: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

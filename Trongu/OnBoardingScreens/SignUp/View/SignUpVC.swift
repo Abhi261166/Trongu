@@ -816,7 +816,7 @@ extension SignUpVC : UITextFieldDelegate {
             }else{
               return true
             }
-        } else if textField == nameTF || textField == userNameTF || textField == addPlaceTF {
+        } else if textField == nameTF{
             if  string == " " {
                   
                     return false
@@ -824,10 +824,6 @@ extension SignUpVC : UITextFieldDelegate {
                   return true
                 }
         }else {
-            
-            
-            
-            
             return true
         }
     }

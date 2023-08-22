@@ -248,9 +248,9 @@ extension HomeVC: HomeTVCellDelegate{
     }
     
     func didTapLikecountList(_ indexPath: IndexPath) {
-        let vc = LikesVC()
-        vc.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = LikesVC()
+//        vc.hidesBottomBarWhenPushed = true
+//        self.navigationController?.pushViewController(vc, animated: true)
     }
    
 }
@@ -360,7 +360,6 @@ extension HomeVC:HomeVMObserver{
     func observeLikedSucessfull() {
         self.apiCall()
     }
-    
     
     func observeGetHomeDataSucessfull() {
         self.homeTableView.reloadData()

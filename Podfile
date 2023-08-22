@@ -24,7 +24,7 @@ pod 'Kingfisher'
 pod 'FacebookCore'
 pod 'FacebookLogin'
 pod 'FacebookShare'
-
+pod 'GoogleMaps'
 
  post_install do |installer|
      installer.pods_project.targets.each do |target|

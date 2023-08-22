@@ -55,6 +55,7 @@ class HomeTVCell: UITableViewCell {
         homeCollectionView.dataSource = self
         homeCollectionView.register(UINib(nibName: "HomeCVCell", bundle: nil), forCellWithReuseIdentifier: "HomeCVCell")
         homeCollectionView.register(UINib(nibName: "AddPostCVC", bundle: nil), forCellWithReuseIdentifier: "AddPostCVC")
+        homeCollectionView.register(UINib(nibName: "MapCVC", bundle: nil), forCellWithReuseIdentifier: "MapCVC")
         pageController.hidesForSinglePage = true
         
      }
@@ -136,23 +137,33 @@ class HomeTVCell: UITableViewCell {
 extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return arrPostImagesVideosList.count
+        
+        return arrPostImagesVideosList.count + 1
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddPostCVC", for: indexPath) as! AddPostCVC
-        let dict = arrPostImagesVideosList[indexPath.row]
+        let mapCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MapCVC", for: indexPath) as! MapCVC
         
-        switch dict.type {
-        case "0":
-            cell.setPostData(dict.image, thumbnail_image: dict.thumbNailImage)
-        case "1":
-            cell.setPostData(dict.videoURL, thumbnail_image: dict.thumbNailImage)
-        default:
-            break
+        if indexPath.row == arrPostImagesVideosList.count{
+            
+            return mapCell
+        }else{
+            let dict = arrPostImagesVideosList[indexPath.row]
+            switch dict.type {
+            case "0":
+                cell.setPostData(dict.image, thumbnail_image: dict.thumbNailImage)
+            case "1":
+                cell.setPostData(dict.videoURL, thumbnail_image: dict.thumbNailImage)
+            default:
+                break
+            }
+                return cell
         }
-            return cell
+        
+       
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -230,7 +241,7 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
                 self.lblTopAddress.text = "\(address ?? "")"
               //  self.lblAddressPriceDays.text = " . $\(self.budget ) . \(self.noOfDays )"
             }
-        }else{
+        }else if visibleCell.urlString?.isImageType == true {
             getAddressFromLatLong(latitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].lat ) ?? 0.0, longitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].long ) ?? 0.0) { address in
                 self.lblTimeAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ) \(address ?? "")"
                 self.lblTopAddress.text = "\(address ?? "")"
@@ -240,6 +251,9 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
                 player.pause()
                 DAVideoPlayerView.player = nil
             }
+        }else{
+            print("In map cell")
+            
         }
         
     }
@@ -247,7 +261,7 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     func setPostData(postData : [PostImagesVideo], budget:String , noOfDays:String) {
         
         self.arrPostImagesVideosList = postData
-         self.pageController.numberOfPages = arrPostImagesVideosList.count
+         self.pageController.numberOfPages = arrPostImagesVideosList.count + 1
 
     }
     

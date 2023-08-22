@@ -56,7 +56,7 @@ class CommentVM: NSObject {
                         }
                     } else {
                         if let message = response["message"] as? String {
-                          //  self.showMessage(message: message, isError: .error)
+                            self.showMessage(message: message, isError: .error)
                         }
                     }
                 }

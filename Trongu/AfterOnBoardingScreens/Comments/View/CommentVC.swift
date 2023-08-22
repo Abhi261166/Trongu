@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class CommentVC: UIViewController {
 
     @IBOutlet weak var commentTableView: UITableView!
@@ -15,6 +16,8 @@ class CommentVC: UIViewController {
     var postId:String?
     
     var replyComment = [("Darien","Darien","Same, me too"),("Ellipse 25","Alex","haha sometime i’m lazy to do it")]
+    var isOpened = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -51,7 +54,7 @@ extension CommentVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         
         if self.viewModel?.arrCommentList.count == 0{
-            self.commentTableView.setBackgroundView(message: "No data found")
+            self.commentTableView.setBackgroundView(message: "No comments yet")
             return 0
         }else{
             self.commentTableView.setBackgroundView(message: "")
@@ -60,40 +63,59 @@ extension CommentVC: UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 1
-        } else if section == 1{
-            return replyComment.count
+        
+        let section = self.viewModel?.arrCommentList[section]
+        
+        if self.isOpened{
+            return (section?.replyComment.count ?? 0) + 1
         }else{
             return 1
         }
+        
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0{
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTVCell", for: indexPath) as? CommentTVCell
-            else{return UITableViewCell()}
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTVCell", for: indexPath) as? CommentTVCell
+        else{return UITableViewCell()}
+        
+        guard let cell1 = tableView.dequeueReusableCell(withIdentifier: "replyCommentTVCell", for: indexPath) as? replyCommentTVCell else{return UITableViewCell()}
+        
+        if indexPath.row == 0{
+            let dict = self.viewModel?.arrCommentList[indexPath.row]
+            cell.imgProfile.setImage(image: dict?.userImage , placeholder: UIImage(named: "ic_profilePlaceHolder"))
+            cell.lblName.text = dict?.name
+            cell.lblComment.text = dict?.comment
+            let timestamp = Int(dict?.createdAt ?? "") ?? 0
+            let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
+            cell.lblTime.text = date.dateToString(format: "hh:mm")
+            cell.lblSeeReply.text = "See Reply (\(dict?.replyCommentCount ?? "0"))"
             cell.sepratorView.isHidden = true
-            print("CommentTVCell")
+          //  cell.btnViewReplys.tag = indexPath
+            
             return cell
-        } else if indexPath.section == 1 {
-            guard let cell1 = tableView.dequeueReusableCell(withIdentifier: "replyCommentTVCell", for: indexPath) as? replyCommentTVCell else{return UITableViewCell()}
-            print("replyCommentTVCell")
+        } else {
+            
             cell1.profileImage.image = UIImage(named: replyComment[indexPath.row].0)
             cell1.nameLabel.text = "\(replyComment[indexPath.row].1)"
             cell1.massageLabel.text = "\(replyComment[indexPath.row].2)"
            
             return cell1
-        }else{
-            guard let cell2 = tableView.dequeueReusableCell(withIdentifier: "CommentTVCell", for: indexPath) as? CommentTVCell
-            else{return UITableViewCell()}
-            print("CommentTVCell")
-            cell2.seeReplyView.isHidden = true
-            cell2.replyLabel.isHidden = true
-            return cell2
         }
+        
     }
+    
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let commentsCount = self.viewModel?.arrCommentList.count else { return }
+        if indexPath.row == commentsCount-1 && self.viewModel?.isLastPage == false {
+            print("IndexRow\(indexPath.row)")
+            self.viewModel?.apiCommentList(postId: self.postId ?? "")
+        }
     }
 }
 

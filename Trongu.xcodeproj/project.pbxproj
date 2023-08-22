@@ -15,6 +15,8 @@
 		044817A02A7FED11009539FB /* MentionTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0448179E2A7FED11009539FB /* MentionTVC.xib */; };
 		045E73522A8BA059003F04AA /* PostVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E73512A8BA059003F04AA /* PostVM.swift */; };
 		1813FBCC2A57F39D0072BD7F /* PannableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813FBCB2A57F39D0072BD7F /* PannableViewController.swift */; };
+		1824666C2A948E4200EA47A7 /* MapCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1824666A2A948E4200EA47A7 /* MapCVC.swift */; };
+		1824666D2A948E4200EA47A7 /* MapCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1824666B2A948E4200EA47A7 /* MapCVC.xib */; };
 		183DA5BD2A569E2300A82EC7 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183DA5BC2A569E2300A82EC7 /* MessageView.swift */; };
 		1842FF192A4C508400CF6F41 /* LikesTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1842FF172A4C508400CF6F41 /* LikesTVCell.swift */; };
 		1842FF1A2A4C508400CF6F41 /* LikesTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1842FF182A4C508400CF6F41 /* LikesTVCell.xib */; };
@@ -257,6 +259,8 @@
 		0448179E2A7FED11009539FB /* MentionTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MentionTVC.xib; sourceTree = "<group>"; };
 		045E73512A8BA059003F04AA /* PostVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVM.swift; sourceTree = "<group>"; };
 		1813FBCB2A57F39D0072BD7F /* PannableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PannableViewController.swift; sourceTree = "<group>"; };
+		1824666A2A948E4200EA47A7 /* MapCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCVC.swift; sourceTree = "<group>"; };
+		1824666B2A948E4200EA47A7 /* MapCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapCVC.xib; sourceTree = "<group>"; };
 		183DA5BC2A569E2300A82EC7 /* MessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		1842FF172A4C508400CF6F41 /* LikesTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesTVCell.swift; sourceTree = "<group>"; };
 		1842FF182A4C508400CF6F41 /* LikesTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikesTVCell.xib; sourceTree = "<group>"; };
@@ -1104,6 +1108,8 @@
 				18944A8B2A89EB41005E07EC /* AddPostCVC.xib */,
 				18944A8E2A89EC27005E07EC /* DAVideoPlayerView.swift */,
 				18944A902A8A005C005E07EC /* AVAssetManager.swift */,
+				1824666A2A948E4200EA47A7 /* MapCVC.swift */,
+				1824666B2A948E4200EA47A7 /* MapCVC.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1841,6 +1847,7 @@
 				189551052A49BC00003EC8FD /* Frameworks */,
 				189551062A49BC00003EC8FD /* Resources */,
 				909247459547D933376A5463 /* [CP] Embed Pods Frameworks */,
+				00EEF221C3892B44EE91DC22 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1927,6 +1934,7 @@
 				18EF10D82A542FF7005D55AB /* MediaTVCell.xib in Resources */,
 				1873EF9D2A4C068F00C6CE96 /* HomeCVCell.xib in Resources */,
 				18CEA5892A50352F007AF695 /* UserProfileVC.xib in Resources */,
+				1824666D2A948E4200EA47A7 /* MapCVC.xib in Resources */,
 				186679BC2A4AAC6F00522429 /* Poppins-Light.ttf in Resources */,
 				189EC4A82A4EB864001E6644 /* AddPhotoVideoCVCell.xib in Resources */,
 				189EC4AD2A4EBFD2001E6644 /* PostVC.xib in Resources */,
@@ -1973,6 +1981,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		00EEF221C3892B44EE91DC22 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Trongu/Pods-Trongu-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Trongu/Pods-Trongu-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Trongu/Pods-Trongu-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		646B86DA0FC72C5EE50ADAFB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2159,6 +2184,7 @@
 				18944A8F2A89EC27005E07EC /* DAVideoPlayerView.swift in Sources */,
 				188D8E842A52AE0100083DC0 /* FollowersVC.swift in Sources */,
 				18A0F8882A4C4B7300E34ED6 /* LikesVC.swift in Sources */,
+				1824666C2A948E4200EA47A7 /* MapCVC.swift in Sources */,
 				1877D9342A5005AD0067925F /* HeaderTableViewCell.swift in Sources */,
 				187B6AC62A54081E008E1399 /* FeedbackVC.swift in Sources */,
 				18FC21192A4FF2500064F471 /* ReplyPhotoCVCell.swift in Sources */,

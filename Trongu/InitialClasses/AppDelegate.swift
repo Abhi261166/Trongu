@@ -12,6 +12,7 @@ import FirebaseAuth
 import FBSDKCoreKit
 import GoogleSignIn
 //import GooglePlaces
+import GoogleMaps
 
 
 
@@ -33,7 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     application,
                     didFinishLaunchingWithOptions: launchOptions
                 )
-//        GMSPlacesClient.provideAPIKey("")
+        
+        GMSServices.provideAPIKey("AIzaSyAfI25bSC3rD6gteJIHFCZ7vBCglGl6OkE")
+     //   GMSPlacesClient.provideAPIKey("AIzaSyAfI25bSC3rD6gteJIHFCZ7vBCglGl6OkE")
         return true
     }
     

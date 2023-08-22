@@ -59,12 +59,6 @@
                                 <color key="textColor" red="0.63137254899999995" green="0.63137254899999995" blue="0.63137254899999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reply" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IKT-ih-rms">
-                                <rect key="frame" x="128.66666666666666" y="67.666666666666671" width="39" height="19.666666666666671"/>
-                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins Medium" pointSize="14"/>
-                                <color key="textColor" red="0.63137254899999995" green="0.63137254899999995" blue="0.63137254899999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i9W-lt-nA6">
                                 <rect key="frame" x="85" y="89.333333333333329" width="115" height="30"/>
                                 <subviews>
@@ -74,7 +68,7 @@
                                         <color key="textColor" red="0.63137254899999995" green="0.63137254899999995" blue="0.63137254899999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Vector" translatesAutoresizingMaskIntoConstraints="NO" id="tve-vB-zW1">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tve-vB-zW1">
                                         <rect key="frame" x="97" y="7.6666666666666714" width="15" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="15" id="I5R-c3-OpG"/>
@@ -101,17 +95,25 @@
                                     <constraint firstItem="wPh-4n-hho" firstAttribute="leading" secondItem="i9W-lt-nA6" secondAttribute="leading" id="ttD-FN-Jri"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gqf-Jm-reu">
+                                <rect key="frame" x="133.66666666666666" y="61.666666666666671" width="38" height="32"/>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Reply">
+                                    <color key="titleColor" red="0.63137254899999995" green="0.63137254899999995" blue="0.63137254899999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="zqT-J2-cUR" firstAttribute="top" secondItem="4ki-jQ-k8X" secondAttribute="bottom" constant="5" id="1Er-uD-ivG"/>
-                            <constraint firstItem="IKT-ih-rms" firstAttribute="centerY" secondItem="zqT-J2-cUR" secondAttribute="centerY" id="6SU-za-vtM"/>
                             <constraint firstItem="i9W-lt-nA6" firstAttribute="leading" secondItem="Aht-Ze-vPA" secondAttribute="leading" id="Frr-BH-APZ"/>
                             <constraint firstItem="Aht-Ze-vPA" firstAttribute="top" secondItem="yyB-Be-xFM" secondAttribute="top" constant="13" id="KOG-Aq-dvo"/>
+                            <constraint firstItem="gqf-Jm-reu" firstAttribute="leading" secondItem="zqT-J2-cUR" secondAttribute="trailing" constant="15" id="ZCX-ej-GL3"/>
                             <constraint firstItem="i9W-lt-nA6" firstAttribute="top" secondItem="zqT-J2-cUR" secondAttribute="bottom" constant="2" id="eTY-2G-sT0"/>
+                            <constraint firstItem="gqf-Jm-reu" firstAttribute="centerY" secondItem="zqT-J2-cUR" secondAttribute="centerY" id="edL-OO-rmq"/>
                             <constraint firstItem="Cze-Dc-9hU" firstAttribute="leading" secondItem="yyB-Be-xFM" secondAttribute="leading" constant="20" id="guw-Mh-pZl"/>
                             <constraint firstItem="Cze-Dc-9hU" firstAttribute="top" secondItem="yyB-Be-xFM" secondAttribute="top" constant="10" id="hhx-LZ-cAy"/>
-                            <constraint firstItem="IKT-ih-rms" firstAttribute="leading" secondItem="zqT-J2-cUR" secondAttribute="trailing" constant="10" id="lxm-8x-aMJ"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="i9W-lt-nA6" secondAttribute="bottom" constant="5" id="ouQ-zV-Id1"/>
                             <constraint firstItem="4ki-jQ-k8X" firstAttribute="leading" secondItem="Aht-Ze-vPA" secondAttribute="leading" id="ov2-Xg-jAP"/>
                             <constraint firstItem="Aht-Ze-vPA" firstAttribute="leading" secondItem="Cze-Dc-9hU" secondAttribute="trailing" constant="15" id="uT2-91-r8z"/>
@@ -139,7 +141,14 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="replyLabel" destination="IKT-ih-rms" id="7f4-LN-h8M"/>
+                <outlet property="btnReply" destination="gqf-Jm-reu" id="zmh-Eh-cls"/>
+                <outlet property="btnViewReplys" destination="2Pe-Od-0H5" id="Gi2-Sn-XKj"/>
+                <outlet property="imgArrow" destination="tve-vB-zW1" id="Hfk-92-tED"/>
+                <outlet property="imgProfile" destination="Cze-Dc-9hU" id="kwc-1h-f6I"/>
+                <outlet property="lblComment" destination="4ki-jQ-k8X" id="ShB-Hc-QsA"/>
+                <outlet property="lblName" destination="Aht-Ze-vPA" id="Qph-5F-FeK"/>
+                <outlet property="lblSeeReply" destination="wPh-4n-hho" id="aac-g7-ipY"/>
+                <outlet property="lblTime" destination="zqT-J2-cUR" id="ik5-qY-Ifu"/>
                 <outlet property="replyView" destination="i9W-lt-nA6" id="opa-Aw-l8Q"/>
                 <outlet property="seeReplyView" destination="i9W-lt-nA6" id="a8x-kR-9ke"/>
                 <outlet property="sepratorView" destination="NdN-GP-4XL" id="XwL-Pl-aHm"/>
@@ -149,7 +158,6 @@
     </objects>
     <resources>
         <image name="AlexImage" width="46" height="46"/>
-        <image name="Vector" width="7" height="4"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

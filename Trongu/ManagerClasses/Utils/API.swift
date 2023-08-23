@@ -50,8 +50,9 @@ class API {
         static let deletePost             = "j1/trongu/api/v1/users/post-del"
         static let likePost               = "j1/trongu/api/v1/users/add-like-post"
         static let commentList            = "j1/trongu/api/v1/users/comment-listing"
+        static let addcomment             = "j1/trongu/api/v1/users/add-reply-comment"
+        static let profilePostDetails     = "j1/trongu/api/v1/users/get-user-details"
         
-   
     }
     
     struct keys {

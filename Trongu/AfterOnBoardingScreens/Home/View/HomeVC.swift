@@ -50,9 +50,6 @@ class HomeVC: UIViewController {
         self.viewModel?.apiHomePostList()
     }
     
-  
-    
-    
     
     @IBAction func searchAction(_ sender: UIButton) {
         let vc = SearchVC()
@@ -106,16 +103,21 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
         
         if dict?.isLike == "1"{
             cell.btnLike.isSelected = true
+            cell.btnDislike.isSelected = false
+        }else if dict?.isLike == "0"{
+            cell.btnLike.isSelected = false
+            cell.btnDislike.isSelected = false
         }else{
+            cell.btnDislike.isSelected = true
             cell.btnLike.isSelected = false
         }
         
-        if dict?.post_liked_count == "1"{
-            cell.btnLikeCount.setTitle("\(dict?.post_liked_count ?? "0") like", for: .normal)
-        }else if dict?.post_liked_count == "0"{
+        if dict?.post_like_count == "1"{
+            cell.btnLikeCount.setTitle("\(dict?.post_like_count ?? "0") like", for: .normal)
+        }else if dict?.post_like_count == "0"{
             cell.btnLikeCount.setTitle("0 likes", for: .normal)
         }else {
-            cell.btnLikeCount.setTitle("\(dict?.post_liked_count ?? "0") likes", for: .normal)
+            cell.btnLikeCount.setTitle("\(dict?.post_like_count ?? "0") likes", for: .normal)
         }
         
 //        let date = getDate(dateStr: dict?.createdAt ?? "")
@@ -177,14 +179,15 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
        
     }
     
+    
  
 }
 extension HomeVC: HomeTVCellDelegate{
     
     func didTapProfileBtn(_ indexPath: IndexPath) {
-        let vc = OtherUserProfileVC()
-        vc.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = OtherUserProfileVC()
+//        vc.hidesBottomBarWhenPushed = true
+//        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func didTapMenu(_ indexPath: IndexPath) {
@@ -244,6 +247,8 @@ extension HomeVC: HomeTVCellDelegate{
     }
     
     func didTapDislike(_ indexPath: IndexPath) {
+        
+        self.viewModel?.apiLikePost(postId: self.viewModel?.arrPostList[indexPath.row].id ?? "", type: "2")
         
     }
     

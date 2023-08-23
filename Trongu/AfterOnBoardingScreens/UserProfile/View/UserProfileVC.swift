@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class UserProfileVC: UIViewController {
     
@@ -54,11 +55,19 @@ class UserProfileVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
         hitGetProfileApi()
-   
+        hitGetProfilePostsApi()
     }
     func hitGetProfileApi(){
         
         self.viewModel?.apiGetProfile()
+        
+    }
+    
+    func hitGetProfilePostsApi(){
+        self.viewModel?.arrPostList = []
+        self.viewModel?.pageNo = 0
+        self.viewModel?.apiProfilePostDetails(type: "1", userId: "")
+        
     }
     
     @IBAction func settingsAction(_ sender: UIButton) {
@@ -68,6 +77,7 @@ class UserProfileVC: UIViewController {
     }
     @IBAction func galleryAction(_ sender: UIButton) {
         sender.isSelected.toggle()
+        hitGetProfilePostsApi()
         self.isSelected = "Gallery"
         self.userProfileCollectionView.reloadData()
         galleryButton.isUserInteractionEnabled = false
@@ -141,7 +151,13 @@ class UserProfileVC: UIViewController {
 extension UserProfileVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if isSelected == "Gallery"{
-            return gallery.count
+            if self.viewModel?.arrPostList.count == 0{
+                self.userProfileCollectionView.setBackgroundView(message: "No posts yet")
+                return 0
+            }else{
+                self.userProfileCollectionView.setBackgroundView(message: "")
+                return self.viewModel?.arrPostList.count ?? 0
+            }
         }else{
             return bucketList.count
         }
@@ -149,21 +165,108 @@ extension UserProfileVC: UICollectionViewDelegate,UICollectionViewDataSource,UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if isSelected == "Gallery"{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OtherUserProfileCVCell", for: indexPath) as! OtherUserProfileCVCell
-            cell.postImage.image = UIImage(named: gallery[indexPath.row])
+            
+            let dict = self.viewModel?.arrPostList[indexPath.row]
+            
+            if dict?.postImagesVideo.first?.type == "0"{
+                cell.postImage.setImage(image: dict?.postImagesVideo.first?.image)
+            }else{
+                cell.postImage.setImage(image: dict?.postImagesVideo.first?.thumbNailImage)
+            }
+            
+            getAddressFromLatLong(latitude: Double(dict?.postImagesVideo.first?.lat ?? "") ?? 0.0, longitude: Double(dict?.postImagesVideo.first?.long ?? "") ?? 0.0) { address in
+               
+                cell.lblAddress.text = address
+                
+            }
+            
+           
             return cell
+            
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OtherUserProfileCVCell", for: indexPath) as! OtherUserProfileCVCell
+            
                 cell.postImage.image = UIImage(named: bucketList[indexPath.row])
+            
                 return cell
+            
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (collectionView.frame.size.width / 3), height:120)
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let postsCount = self.viewModel?.arrPostList.count else { return }
+        if indexPath.row == postsCount-1 && self.viewModel?.isLastPage == false {
+            print("IndexRow\(indexPath.row)")
+            self.viewModel?.apiProfilePostDetails(type: "1", userId: "")
+        }
+    }
+    
+    
+    func getAddressFromLatLong(latitude: Double, longitude: Double, completion: @escaping (String?) -> Void) {
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        let geocoder = CLGeocoder()
+
+        geocoder.reverseGeocodeLocation(location) { placemarks, error in
+            if let error = error {
+                print("Error geocoding location: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+
+            if let placemark = placemarks?.first {
+                // Create a dictionary to hold the address components
+                var addressComponents = [String]()
+
+//                if let name = placemark.name {
+//                    addressComponents.append(name)
+//                }
+
+//                if let thoroughfare = placemark.thoroughfare {
+//                    addressComponents.append(thoroughfare)
+//                }
+
+//                if let subThoroughfare = placemark.subThoroughfare {
+//                    addressComponents.append(subThoroughfare)
+//                }
+
+//                if let locality = placemark.locality {
+//                    addressComponents.append(locality)
+//                }
+
+//                if let administrativeArea = placemark.administrativeArea {
+//                    addressComponents.append(administrativeArea)
+//                }
+
+//                if let postalCode = placemark.postalCode {
+//                    addressComponents.append(postalCode)
+//                }
+
+                if let country = placemark.country {
+                    addressComponents.append(country)
+                }
+
+                // Join all the address components to get the complete address
+                let address = addressComponents.joined(separator: ", ")
+                completion(address)
+            } else {
+                completion(nil)
+            }
+        }
+    }
+    
 }
 
 extension UserProfileVC : ProfileVMObserver{
+    
+    func observeGetProfilePostsSucessfull() {
+        
+        self.userProfileCollectionView.reloadData()
+        
+    }
+    
     func observeGetProfileSucessfull() {
         DispatchQueue.main.async {
             self.setProfileData()

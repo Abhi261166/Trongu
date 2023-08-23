@@ -1,14 +1,14 @@
 //
-//  CommentTVCell.swift
+//  CommentTableViewHeaderFooter.swift
 //  Trongu
 //
-//  Created by apple on 28/06/23.
+//  Created by apple on 23/08/23.
 //
 
 import UIKit
 
-class CommentTVCell: UITableViewCell {
-    
+class CommentTableViewHeaderFooter: UITableViewHeaderFooterView {
+
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var imgProfile: UIImageView!
     @IBOutlet weak var lblTime: UILabel!
@@ -19,17 +19,12 @@ class CommentTVCell: UITableViewCell {
     @IBOutlet weak var btnViewReplys: UIButton!
     @IBOutlet weak var imgArrow: UIImageView!
     @IBOutlet weak var lblSeeReply: UILabel!
+    
     @IBOutlet weak var heightConsSeeAllReplys: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
 }

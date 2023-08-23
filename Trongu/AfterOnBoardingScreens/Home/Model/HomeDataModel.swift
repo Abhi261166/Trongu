@@ -17,7 +17,7 @@ struct HomeDataModel: Codable {
 // MARK: - Datum
 struct Post: Codable {
     var id, userID, budget, noOfDays: String
-    var isLike,post_liked_count:String?
+    var isLike,post_like_count:String?
     var tripCategory, description, tripComplexity, status: String
     var createdAt: String
     var postImagesVideo: [PostImagesVideo] = []
@@ -40,7 +40,7 @@ struct Post: Codable {
         case tagPeople = "tag_people"
         case userDetail = "user_detail"
         case isLike = "is_like"
-        case post_liked_count = "post_liked_count"
+        case post_like_count = "post_like_count"
         
     }
 }

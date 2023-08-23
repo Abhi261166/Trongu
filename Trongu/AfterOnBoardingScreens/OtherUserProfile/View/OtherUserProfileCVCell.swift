@@ -11,6 +11,7 @@ class OtherUserProfileCVCell: UICollectionViewCell {
     
     @IBOutlet weak var postImage: UIImageView!
     
+    @IBOutlet weak var lblAddress: UILabel!
     @IBOutlet weak var locationView: UIView!
     
     override func awakeFromNib() {

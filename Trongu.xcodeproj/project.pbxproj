@@ -17,6 +17,8 @@
 		1813FBCC2A57F39D0072BD7F /* PannableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813FBCB2A57F39D0072BD7F /* PannableViewController.swift */; };
 		1824666C2A948E4200EA47A7 /* MapCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1824666A2A948E4200EA47A7 /* MapCVC.swift */; };
 		1824666D2A948E4200EA47A7 /* MapCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1824666B2A948E4200EA47A7 /* MapCVC.xib */; };
+		183CF2902A95F3E1000A82B3 /* CommentTableViewHeaderFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183CF28F2A95F3E1000A82B3 /* CommentTableViewHeaderFooter.swift */; };
+		183CF2942A95F426000A82B3 /* CommentTableViewHeaderFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 183CF2932A95F426000A82B3 /* CommentTableViewHeaderFooter.xib */; };
 		183DA5BD2A569E2300A82EC7 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183DA5BC2A569E2300A82EC7 /* MessageView.swift */; };
 		1842FF192A4C508400CF6F41 /* LikesTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1842FF172A4C508400CF6F41 /* LikesTVCell.swift */; };
 		1842FF1A2A4C508400CF6F41 /* LikesTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1842FF182A4C508400CF6F41 /* LikesTVCell.xib */; };
@@ -261,6 +263,8 @@
 		1813FBCB2A57F39D0072BD7F /* PannableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PannableViewController.swift; sourceTree = "<group>"; };
 		1824666A2A948E4200EA47A7 /* MapCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCVC.swift; sourceTree = "<group>"; };
 		1824666B2A948E4200EA47A7 /* MapCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapCVC.xib; sourceTree = "<group>"; };
+		183CF28F2A95F3E1000A82B3 /* CommentTableViewHeaderFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewHeaderFooter.swift; sourceTree = "<group>"; };
+		183CF2932A95F426000A82B3 /* CommentTableViewHeaderFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentTableViewHeaderFooter.xib; sourceTree = "<group>"; };
 		183DA5BC2A569E2300A82EC7 /* MessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		1842FF172A4C508400CF6F41 /* LikesTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesTVCell.swift; sourceTree = "<group>"; };
 		1842FF182A4C508400CF6F41 /* LikesTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikesTVCell.xib; sourceTree = "<group>"; };
@@ -903,6 +907,8 @@
 				18A0F87B2A4C2F9500E34ED6 /* CommentTVCell.xib */,
 				18A0F87E2A4C322100E34ED6 /* replyCommentTVCell.swift */,
 				18A0F87F2A4C322100E34ED6 /* replyCommentTVCell.xib */,
+				183CF28F2A95F3E1000A82B3 /* CommentTableViewHeaderFooter.swift */,
+				183CF2932A95F426000A82B3 /* CommentTableViewHeaderFooter.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1926,6 +1932,7 @@
 				186679BA2A4AA72A00522429 /* LoginTypeVC.xib in Resources */,
 				1864CA2D2A4AC34700B94360 /* ForgotPasswordVC.xib in Resources */,
 				18EF10C02A541F2A005D55AB /* FeedbackPopUpVC.xib in Resources */,
+				183CF2942A95F426000A82B3 /* CommentTableViewHeaderFooter.xib in Resources */,
 				184FE0CB2A4D982D009D666D /* OtherUserProfileCVCell.xib in Resources */,
 				1842FF1A2A4C508400CF6F41 /* LikesTVCell.xib in Resources */,
 				1886045B2A4EFEE100387D35 /* ReplyMessageTVCell.xib in Resources */,
@@ -2171,6 +2178,7 @@
 				31CB5DBF2A67D1BC0020E409 /* GoogleManager.swift in Sources */,
 				1895515A2A49BFDF003EC8FD /* TabBarController.swift in Sources */,
 				31CB5DC12A67D1BC0020E409 /* ImagePicker.swift in Sources */,
+				183CF2902A95F3E1000A82B3 /* CommentTableViewHeaderFooter.swift in Sources */,
 				1849346E2A55408000729656 /* DetailVC.swift in Sources */,
 				31CB5DF22A67D25F0020E409 /* GalleryAlbumTableView.swift in Sources */,
 				187B6ABA2A53FE58008E1399 /* SettingsVC.swift in Sources */,

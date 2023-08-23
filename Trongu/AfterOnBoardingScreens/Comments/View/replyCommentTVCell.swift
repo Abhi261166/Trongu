@@ -13,6 +13,7 @@ class replyCommentTVCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var massageLabel: UILabel!
     @IBOutlet weak var emojiImage: UIImageView!
+    @IBOutlet weak var lblTime: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

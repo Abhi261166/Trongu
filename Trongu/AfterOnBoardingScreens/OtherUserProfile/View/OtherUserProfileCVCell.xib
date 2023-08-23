@@ -79,6 +79,7 @@
             </constraints>
             <size key="customSize" width="258" height="243"/>
             <connections>
+                <outlet property="lblAddress" destination="L1t-ex-EfL" id="U9j-ZW-kdh"/>
                 <outlet property="locationView" destination="qJ1-90-1PS" id="HnK-gJ-41r"/>
                 <outlet property="postImage" destination="2hK-Sv-yDg" id="1ll-4b-cG7"/>
             </connections>

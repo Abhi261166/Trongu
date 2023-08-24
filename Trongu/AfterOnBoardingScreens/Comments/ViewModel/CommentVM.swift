@@ -17,7 +17,7 @@ class CommentVM: NSObject {
     
     var observer: CommentVMObserver?
     var arrCommentList:[Comment] = []
-    var perPage = 10
+    var perPage = 20
     var pageNo = 0
     var isLastPage: Bool = false
     

@@ -8,10 +8,19 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Regular.ttf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeVC" customModule="Trongu" customModuleProvider="target">
             <connections>
+                <outlet property="btnBack" destination="Hqw-vq-IEJ" id="3ay-v2-Mzz"/>
                 <outlet property="homeTableView" destination="hFf-UJ-FUf" id="jnH-JS-9zC"/>
+                <outlet property="imgLogo" destination="8wv-0M-lcm" id="vaz-pS-6Qm"/>
+                <outlet property="lblTitle" destination="t3L-vE-B6Z" id="EUY-lL-s5E"/>
+                <outlet property="stackView" destination="YWI-BR-omK" id="Myz-nt-Usr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -33,53 +42,76 @@
                                         <constraint firstAttribute="width" constant="70" id="ohc-jP-RnG"/>
                                     </constraints>
                                 </imageView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hY5-AN-UDW">
-                                    <rect key="frame" x="323" y="10" width="30" height="30"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="YWI-BR-omK">
+                                    <rect key="frame" x="255" y="10" width="98" height="30"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j9R-Hh-CVy">
+                                            <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="Thr-Ta-IaL"/>
+                                                <constraint firstAttribute="width" constant="30" id="qEE-5p-kly"/>
+                                            </constraints>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" image="ic_Search"/>
+                                            <connections>
+                                                <action selector="searchAction:" destination="-1" eventType="touchUpInside" id="OKu-jV-ABw"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5NW-D9-5fY">
+                                            <rect key="frame" x="34" y="0.0" width="30" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="Le1-ET-Sab"/>
+                                                <constraint firstAttribute="width" constant="30" id="UAF-zR-9S7"/>
+                                            </constraints>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" image="ic_Notification"/>
+                                            <connections>
+                                                <action selector="notificationAction:" destination="-1" eventType="touchUpInside" id="NRa-ah-XF2"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hY5-AN-UDW">
+                                            <rect key="frame" x="68" y="0.0" width="30" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="48S-9P-0sI"/>
+                                                <constraint firstAttribute="width" constant="30" id="gKW-LG-FU0"/>
+                                            </constraints>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" image="ic_Filter"/>
+                                            <connections>
+                                                <action selector="filterAction:" destination="-1" eventType="touchUpInside" id="e3T-Of-JjA"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t3L-vE-B6Z">
+                                    <rect key="frame" x="145" y="9.6666666666666714" width="63" height="31"/>
+                                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="22"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hqw-vq-IEJ">
+                                    <rect key="frame" x="0.0" y="13" width="24" height="24"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="30" id="48S-9P-0sI"/>
-                                        <constraint firstAttribute="width" constant="30" id="gKW-LG-FU0"/>
+                                        <constraint firstAttribute="height" constant="24" id="2bX-dr-Bqb"/>
+                                        <constraint firstAttribute="width" constant="24" id="yBK-Xr-Hag"/>
                                     </constraints>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" image="ic_Filter"/>
+                                    <state key="normal" image="ic_Back"/>
                                     <connections>
-                                        <action selector="filterAction:" destination="-1" eventType="touchUpInside" id="e3T-Of-JjA"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5NW-D9-5fY">
-                                    <rect key="frame" x="289" y="10" width="30" height="30"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="30" id="Le1-ET-Sab"/>
-                                        <constraint firstAttribute="width" constant="30" id="UAF-zR-9S7"/>
-                                    </constraints>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" image="ic_Notification"/>
-                                    <connections>
-                                        <action selector="notificationAction:" destination="-1" eventType="touchUpInside" id="NRa-ah-XF2"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j9R-Hh-CVy">
-                                    <rect key="frame" x="255" y="10" width="30" height="30"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="30" id="Thr-Ta-IaL"/>
-                                        <constraint firstAttribute="width" constant="30" id="qEE-5p-kly"/>
-                                    </constraints>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" image="ic_Search"/>
-                                    <connections>
-                                        <action selector="searchAction:" destination="-1" eventType="touchUpInside" id="OKu-jV-ABw"/>
+                                        <action selector="actionBack:" destination="-1" eventType="touchUpInside" id="tOO-5J-HqU"/>
                                     </connections>
                                 </button>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="j9R-Hh-CVy" firstAttribute="centerY" secondItem="3Ti-sA-bhW" secondAttribute="centerY" id="2u3-Bo-Zdc"/>
+                                <constraint firstItem="t3L-vE-B6Z" firstAttribute="centerY" secondItem="8wv-0M-lcm" secondAttribute="centerY" id="7aI-oD-pqE"/>
                                 <constraint firstItem="8wv-0M-lcm" firstAttribute="leading" secondItem="3Ti-sA-bhW" secondAttribute="leading" id="BNP-j3-ldA"/>
-                                <constraint firstItem="5NW-D9-5fY" firstAttribute="leading" secondItem="j9R-Hh-CVy" secondAttribute="trailing" constant="4" id="DZb-9u-7qP"/>
-                                <constraint firstItem="5NW-D9-5fY" firstAttribute="centerY" secondItem="3Ti-sA-bhW" secondAttribute="centerY" id="Fwo-Tp-Dnp"/>
+                                <constraint firstItem="Hqw-vq-IEJ" firstAttribute="leading" secondItem="3Ti-sA-bhW" secondAttribute="leading" id="Dbq-Sf-227"/>
+                                <constraint firstItem="Hqw-vq-IEJ" firstAttribute="centerY" secondItem="t3L-vE-B6Z" secondAttribute="centerY" id="Fom-UL-e7D"/>
                                 <constraint firstItem="8wv-0M-lcm" firstAttribute="centerY" secondItem="3Ti-sA-bhW" secondAttribute="centerY" id="Q3s-pj-gk2"/>
-                                <constraint firstItem="hY5-AN-UDW" firstAttribute="leading" secondItem="5NW-D9-5fY" secondAttribute="trailing" constant="4" id="QP6-Cv-sSh"/>
                                 <constraint firstAttribute="height" constant="50" id="bka-wg-Xw6"/>
-                                <constraint firstItem="hY5-AN-UDW" firstAttribute="centerY" secondItem="3Ti-sA-bhW" secondAttribute="centerY" id="pZe-5W-wxe"/>
-                                <constraint firstAttribute="trailing" secondItem="hY5-AN-UDW" secondAttribute="trailing" id="wfX-9R-NgR"/>
+                                <constraint firstAttribute="trailing" secondItem="YWI-BR-omK" secondAttribute="trailing" id="gXf-it-KTm"/>
+                                <constraint firstItem="YWI-BR-omK" firstAttribute="centerY" secondItem="8wv-0M-lcm" secondAttribute="centerY" id="iHX-3O-S60"/>
+                                <constraint firstItem="t3L-vE-B6Z" firstAttribute="centerX" secondItem="3Ti-sA-bhW" secondAttribute="centerX" id="sXv-yh-8DO"/>
                             </constraints>
                         </view>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="hFf-UJ-FUf">
@@ -112,6 +144,7 @@
     </objects>
     <resources>
         <image name="AppLogo" width="77" height="40"/>
+        <image name="ic_Back" width="24" height="24"/>
         <image name="ic_Filter" width="16" height="18.333333969116211"/>
         <image name="ic_Notification" width="16.666666030883789" height="18.666666030883789"/>
         <image name="ic_Search" width="19" height="19"/>

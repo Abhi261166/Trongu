@@ -20,7 +20,7 @@ class ProfileVM: NSObject {
     var observer: ProfileVMObserver?
     var userData:UserData?
     var arrPostList:[Post] = []
-    var perPage = 10
+    var perPage = 20
     var pageNo = 0
     var isLastPage: Bool = false
     

@@ -21,6 +21,7 @@ protocol HomeTVCellDelegate: NSObjectProtocol {
 
 class HomeTVCell: UITableViewCell {
     
+    //MARK: - IB Outlets -
     @IBOutlet weak var lblTopAddress: UILabel!
     @IBOutlet weak var otherUserProfileImage: UIImageView!
     @IBOutlet weak var pageController: UIPageControl!
@@ -37,6 +38,7 @@ class HomeTVCell: UITableViewCell {
     @IBOutlet weak var btnDislike: UIButton!
     @IBOutlet weak var btnLike: UIButton!
     
+    //MARK: - Variables -
     
     var image = ["PostFirstImage","PostSecondImage"]
     var delegate: HomeTVCellDelegate?
@@ -46,6 +48,8 @@ class HomeTVCell: UITableViewCell {
     var timer: Timer?
     var budget = ""
     var noOfDays = ""
+    var address : [String] = []
+    
     
     
     override func awakeFromNib() {
@@ -64,6 +68,7 @@ class HomeTVCell: UITableViewCell {
 //
 //    }
     
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         pageController.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
     }
@@ -72,6 +77,7 @@ class HomeTVCell: UITableViewCell {
         pageController.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
     }
         
+    
     @IBAction func profileBtnAction(_ sender: UIButton) {
         if let indexPath = self.indexPath {
             self.delegate?.didTapProfileBtn(indexPath)
@@ -148,7 +154,9 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         let mapCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MapCVC", for: indexPath) as! MapCVC
         
         if indexPath.row == arrPostImagesVideosList.count{
-            
+            mapCell.setLatLongData(post: arrPostImagesVideosList)
+            mapCell.btnGoToPost.tag = indexPath.row
+            mapCell.btnGoToPost.addTarget(self, action: #selector(actionGoToPost),for: .touchUpInside)
             return mapCell
         }else{
             let dict = arrPostImagesVideosList[indexPath.row]
@@ -192,6 +200,12 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         }
         self.lastContentOffset = homeCollectionView.contentOffset.x
     }
+    
+    @objc func actionGoToPost(sender:UIButton){
+        
+        homeCollectionView.scrollToItem(at: IndexPath(item: sender.tag - 1, section: 0), at: .right, animated: true)
+    }
+    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let witdh = scrollView.frame.width - (scrollView.contentInset.left*2)
@@ -239,6 +253,8 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             getAddressFromLatLong(latitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].lat ) ?? 0.0, longitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].long ) ?? 0.0) { address in
                 self.lblTimeAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ) \(address ?? "")"
                 self.lblTopAddress.text = "\(address ?? "")"
+                
+                
               //  self.lblAddressPriceDays.text = " . $\(self.budget ) . \(self.noOfDays )"
             }
         }else if visibleCell.urlString?.isImageType == true {

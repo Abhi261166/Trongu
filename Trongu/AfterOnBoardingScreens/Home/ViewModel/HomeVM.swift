@@ -17,7 +17,7 @@ class HomeVM: NSObject {
     
     var observer: HomeVMObserver?
     var arrPostList:[Post] = []
-    var perPage = 10
+    var perPage = 20
     var pageNo = 0
     var isLastPage: Bool = false
     

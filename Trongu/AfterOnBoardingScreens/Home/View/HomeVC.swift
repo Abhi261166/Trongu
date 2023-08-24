@@ -9,13 +9,19 @@ import UIKit
 import CoreLocation
 class HomeVC: UIViewController {
     
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var imgLogo: UIImageView!
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var homeTableView: UITableView!
+    
     
     var viewModel:HomeVM?
     var lastContentOffset: CGFloat = 0
     var timer: Timer?
-
-    
+    var comeFrom = false
+    var index:IndexPath?
+    var arrPostList:[Post] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +33,22 @@ class HomeVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       apiCall()
+        if comeFrom{
+            btnBack.isHidden = false
+            stackView.isHidden = true
+            imgLogo.isHidden = true
+            lblTitle.isHidden = false
+            self.viewModel?.arrPostList = self.arrPostList
+            homeTableView.scrollToRow(at: self.index!, at: .top, animated: false)
+            
+        }else{
+            btnBack.isHidden = true
+            stackView.isHidden = false
+            imgLogo.isHidden = false
+            lblTitle.isHidden = true
+            apiCall()
+        }
+ 
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -50,6 +71,9 @@ class HomeVC: UIViewController {
         self.viewModel?.apiHomePostList()
     }
     
+    @IBAction func actionBack(_ sender: UIButton) {
+        popVC()
+    }
     
     @IBAction func searchAction(_ sender: UIButton) {
         let vc = SearchVC()
@@ -70,6 +94,9 @@ class HomeVC: UIViewController {
     }
     
 }
+
+//MARK: - UItableView Delegates and DataSource -
+
 extension HomeVC: UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -136,7 +163,7 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
         guard let postsCount = self.viewModel?.arrPostList.count else { return }
         if indexPath.row == postsCount-1 && self.viewModel?.isLastPage == false {
             print("IndexRow\(indexPath.row)")
-            self.viewModel?.apiHomePostList()
+           // self.viewModel?.apiHomePostList()
         }
         
         if (self.lastContentOffset > tableView.contentOffset.y) {
@@ -182,6 +209,8 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
     
  
 }
+
+
 extension HomeVC: HomeTVCellDelegate{
     
     func didTapProfileBtn(_ indexPath: IndexPath) {

@@ -57,7 +57,10 @@
 		<key>UIUserInterfaceStyle</key>
 		<false/>
 	</dict>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Trongu requires access to your device&apos;s microphone to enable voice recording and recognition features. This permission allows you to create videos.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

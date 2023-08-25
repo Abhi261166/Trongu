@@ -53,6 +53,12 @@ class API {
         static let addcomment             = "j1/trongu/api/v1/users/add-reply-comment"
         static let profilePostDetails     = "j1/trongu/api/v1/users/get-user-details"
         
+        // search Apis
+        
+        static let search                 = "j1/trongu/api/v1/users/search-names-with-type"
+        static let recentSearch           = "j1/trongu/api/v1/users/recet-search-listing"
+        static let addToRecent            = "j1/trongu/api/v1/users/add-recent-search"
+        static let deleteFromRecent       = "j1/trongu/api/v1/users/comment-listing"
         
         
     }

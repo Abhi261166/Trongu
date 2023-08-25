@@ -14,6 +14,8 @@
 		0448179F2A7FED11009539FB /* MentionTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0448179D2A7FED11009539FB /* MentionTVC.swift */; };
 		044817A02A7FED11009539FB /* MentionTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0448179E2A7FED11009539FB /* MentionTVC.xib */; };
 		045E73522A8BA059003F04AA /* PostVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E73512A8BA059003F04AA /* PostVM.swift */; };
+		180497532A98703900B9B3F9 /* SearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180497522A98703900B9B3F9 /* SearchVM.swift */; };
+		180497552A98705700B9B3F9 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180497542A98705700B9B3F9 /* SearchModel.swift */; };
 		1813FBCC2A57F39D0072BD7F /* PannableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813FBCB2A57F39D0072BD7F /* PannableViewController.swift */; };
 		1824666C2A948E4200EA47A7 /* MapCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1824666A2A948E4200EA47A7 /* MapCVC.swift */; };
 		1824666D2A948E4200EA47A7 /* MapCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1824666B2A948E4200EA47A7 /* MapCVC.xib */; };
@@ -260,6 +262,8 @@
 		0448179D2A7FED11009539FB /* MentionTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionTVC.swift; sourceTree = "<group>"; };
 		0448179E2A7FED11009539FB /* MentionTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MentionTVC.xib; sourceTree = "<group>"; };
 		045E73512A8BA059003F04AA /* PostVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVM.swift; sourceTree = "<group>"; };
+		180497522A98703900B9B3F9 /* SearchVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVM.swift; sourceTree = "<group>"; };
+		180497542A98705700B9B3F9 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		1813FBCB2A57F39D0072BD7F /* PannableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PannableViewController.swift; sourceTree = "<group>"; };
 		1824666A2A948E4200EA47A7 /* MapCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCVC.swift; sourceTree = "<group>"; };
 		1824666B2A948E4200EA47A7 /* MapCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapCVC.xib; sourceTree = "<group>"; };
@@ -515,6 +519,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		180497502A98700600B9B3F9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				180497522A98703900B9B3F9 /* SearchVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		180497512A98700F00B9B3F9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				180497542A98705700B9B3F9 /* SearchModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		1842FF1B2A4C68CE00CF6F41 /* ReportPopUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -640,18 +660,11 @@
 		185352672A4D57E000EAC753 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				1853526A2A4D57F800EAC753 /* Model */,
+				180497512A98700F00B9B3F9 /* Model */,
+				180497502A98700600B9B3F9 /* ViewModel */,
 				185352692A4D57F100EAC753 /* View */,
-				185352682A4D57E900EAC753 /* ViewModel */,
 			);
 			path = Search;
-			sourceTree = "<group>";
-		};
-		185352682A4D57E900EAC753 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		185352692A4D57F100EAC753 /* View */ = {
@@ -663,13 +676,6 @@
 				185352702A4D5A5600EAC753 /* SearchTVCell.xib */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		1853526A2A4D57F800EAC753 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		185352732A4D761700EAC753 /* BucketList */ = {
@@ -2146,6 +2152,7 @@
 				31CB5DCB2A67D1BC0020E409 /* DocumentPickerController.swift in Sources */,
 				31CB5DCA2A67D1BC0020E409 /* DefaultManager.swift in Sources */,
 				31CB5DBB2A67D1BC0020E409 /* SearchGooglePlaces.swift in Sources */,
+				180497552A98705700B9B3F9 /* SearchModel.swift in Sources */,
 				18A0E8CE2A9394900014A6C0 /* CommentModel.swift in Sources */,
 				188D8E7C2A52A5D500083DC0 /* MapFilterVC.swift in Sources */,
 				1895513C2A49BEF6003EC8FD /* CustomTextField.swift in Sources */,
@@ -2160,6 +2167,7 @@
 				31CB5DD02A67D1BC0020E409 /* HttpManager.swift in Sources */,
 				186DA22D2A81030300D4F879 /* AddLocationTableViewCell.swift in Sources */,
 				189BC6442A4BF22A00C97BCA /* HomeTVCell.swift in Sources */,
+				180497532A98703900B9B3F9 /* SearchVM.swift in Sources */,
 				1895514F2A49BEF6003EC8FD /* UIFont+Custom.swift in Sources */,
 				185352712A4D5A5600EAC753 /* SearchTVCell.swift in Sources */,
 				18EF10C72A54278F005D55AB /* BlockedVC.swift in Sources */,

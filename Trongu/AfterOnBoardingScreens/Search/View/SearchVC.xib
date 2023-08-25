@@ -16,7 +16,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchVC" customModule="Trongu" customModuleProvider="target">
             <connections>
+                <outlet property="bottomConstraint" destination="h0v-iE-870" id="sef-hr-ftV"/>
                 <outlet property="crossButton" destination="MNr-5g-xAB" id="UMW-N4-CvX"/>
+                <outlet property="recentLable" destination="wJr-1g-nBj" id="Wze-dN-xAC"/>
                 <outlet property="searchTF" destination="BpS-gx-fwm" id="Xu4-XO-KYY"/>
                 <outlet property="searchTableView" destination="fnf-VC-7o3" id="Gt8-ZE-HyQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

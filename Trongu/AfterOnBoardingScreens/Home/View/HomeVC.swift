@@ -141,9 +141,12 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
         
         if dict?.post_like_count == "1"{
             cell.btnLikeCount.setTitle("\(dict?.post_like_count ?? "0") like", for: .normal)
+            cell.heightConsLikeButton.constant = 30
         }else if dict?.post_like_count == "0"{
-            cell.btnLikeCount.setTitle("0 likes", for: .normal)
+            cell.heightConsLikeButton.constant = 0
+            cell.btnLikeCount.setTitle("", for: .normal)
         }else {
+            cell.heightConsLikeButton.constant = 30
             cell.btnLikeCount.setTitle("\(dict?.post_like_count ?? "0") likes", for: .normal)
         }
         

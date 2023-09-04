@@ -37,6 +37,7 @@ class HomeTVCell: UITableViewCell {
     @IBOutlet weak var lblTimeAddress: UILabel!
     @IBOutlet weak var btnDislike: UIButton!
     @IBOutlet weak var btnLike: UIButton!
+    @IBOutlet weak var heightConsLikeButton: NSLayoutConstraint!
     
     //MARK: - Variables -
     

@@ -27,6 +27,7 @@ class PostVC: UIViewController {
     var viewModel:PostVM?
     var images:[UIImage] = []
     var comeForm:String?
+    var places:[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,8 +46,24 @@ class PostVC: UIViewController {
         }else{
             btnPost.setTitle("Post", for: .normal)
         }
+        places = []
+        getPlaces()
+        
+        print("Places --- ",places)
         
     }
+    
+    
+    func getPlaces(){
+        
+        for index in 0...((finalPost?.postImagesVideo.count ?? 0) - 1 ){
+            getAddressFromLatLong(latitude: Double(finalPost?.postImagesVideo[index].lat ?? "") ?? 0.0, longitude: Double(finalPost?.postImagesVideo[index].long ?? "") ?? 0.0) { address in
+                self.places.append(address ?? "")
+            }
+        }
+        
+    }
+    
     
     func setData(){
         
@@ -73,10 +90,10 @@ class PostVC: UIViewController {
        
         if self.comeForm == "Edit"{
             
-            self.viewModel?.apiUpdatePost(postId: finalPost?.id ?? "", tags: self.tagIds, budget: finalPost?.budget ?? "", noOffDays: finalPost?.noOfDays ?? "", tripCat: "1", disc: finalPost?.description ?? "", tripComp: finalPost?.tripComplexity ?? "", arrPosts: arrPostYP, arrPosts2: finalPost?.postImagesVideo ?? [])
+            self.viewModel?.apiUpdatePost(postId: finalPost?.id ?? "", tags: self.tagIds, budget: finalPost?.budget ?? "", noOffDays: finalPost?.noOfDays ?? "", tripCat: "1", disc: finalPost?.description ?? "", tripComp: finalPost?.tripComplexity ?? "", arrPosts: arrPostYP, arrPosts2: finalPost?.postImagesVideo ?? [], address: places)
             
         }else{
-            self.viewModel?.apiCreatePost(tags: self.tagIds, budget: finalPost?.budget ?? "", noOffDays: finalPost?.noOfDays ?? "", tripCat: "1", disc: finalPost?.description ?? "", tripComp: finalPost?.tripComplexity ?? "", arrPosts: arrPostYP, arrPosts2: finalPost?.postImagesVideo ?? [], images: images)
+            self.viewModel?.apiCreatePost(tags: self.tagIds, budget: finalPost?.budget ?? "", noOffDays: finalPost?.noOfDays ?? "", tripCat: "1", disc: finalPost?.description ?? "", tripComp: finalPost?.tripComplexity ?? "", arrPosts: arrPostYP, arrPosts2: finalPost?.postImagesVideo ?? [], images: images, address: places)
         }
         
     }
@@ -130,7 +147,7 @@ extension PostVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.size.width, height: 290)
+        return CGSize(width: collectionView.frame.size.width, height: 300)
     }
 }
 

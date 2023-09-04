@@ -7,6 +7,7 @@
 
 import UIKit
 import GrowingTextView
+import IQKeyboardManager
 
 class CommentVC: UIViewController {
 
@@ -25,17 +26,9 @@ class CommentVC: UIViewController {
     var replyToId = "0"
     var commentId = "0"
     var keyboardHieght : CGFloat?
+    var keyboard: KeyboardVM?
     
-    deinit {
-        
-        NotificationCenter.default.removeObserver(self)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
-        
-        print("deinit calles SingleChatController")
-    }
-    
+
     //MARK: - LifeCycle Methods -
     
     override func viewDidLoad() {
@@ -48,36 +41,25 @@ class CommentVC: UIViewController {
         self.commentTableView.register(UINib(nibName: "replyCommentTVCell", bundle: nil), forCellReuseIdentifier: "replyCommentTVCell")
         self.commentTableView.register(UINib(nibName: "CommentTableViewHeaderFooter", bundle: nil), forHeaderFooterViewReuseIdentifier: "CommentTableViewHeaderFooter")
         txtVwComment.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.scrollTable(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
+
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        IQKeyboardManager.shared().isEnabled = false
         apiCall()
+        keyboard = KeyboardVM()
+        keyboard?.setKeyboardNotification(self)
     }
     
-    //    MARK: - KeyBoard Methodes -
-    
-    @objc fileprivate func keyboardWillShow(_ notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            // Do something with size
-            
-            self.keyboardHieght = keyboardSize.height
-            bottomCons.constant = keyboardSize.height
-        }
+    override func viewWillDisappear(_ animated: Bool) {
+        IQKeyboardManager.shared().isEnabled = true
+      //  self.viewModel?.apiUpdateSeenStatus()
+        keyboard?.removeKeyboardNotification()
     }
+    
 
-    @objc fileprivate func keyboardWillHide(_ notification: Notification) {
-        bottomCons.constant = 0
-    }
-    
-    @objc fileprivate func scrollTable(_ notification: Notification) {
-       // self.scrollToBottom(isScrolled: true)
-    }
     
     //MARK: - Coustom Methods -
     
@@ -319,6 +301,30 @@ extension CommentVC:UITextViewDelegate{
         self.isReply = false
         self.commentId = "0"
         self.replyToId = "0"
+    }
+    
+}
+
+extension CommentVC: KeyboardVMObserver {
+    
+    func keyboard(didChange height: CGFloat, duration: Double, animation: UIView.AnimationOptions) {
+        if txtVwComment.isFirstResponder {
+            if bottomCons.constant == height {
+                return
+            }
+        } else {
+            if bottomCons.constant == 0 {
+                return
+            }
+        }
+        print("height is \(height)")
+        self.bottomCons.constant = height
+        self.view.setNeedsUpdateConstraints()
+        UIView.animate(withDuration: duration, delay: 0.0, options: animation, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        }, completion: { finished in
+            //self.scrollToBottom(isScrolled: false)
+        })
     }
     
 }

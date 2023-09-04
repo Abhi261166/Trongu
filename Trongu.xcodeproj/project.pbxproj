@@ -143,6 +143,7 @@
 		1895515A2A49BFDF003EC8FD /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189551592A49BFDF003EC8FD /* TabBarController.swift */; };
 		189BC6442A4BF22A00C97BCA /* HomeTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189BC6422A4BF22A00C97BCA /* HomeTVCell.swift */; };
 		189BC6452A4BF22A00C97BCA /* HomeTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 189BC6432A4BF22A00C97BCA /* HomeTVCell.xib */; };
+		189DA7EA2AA5C4A6009E76C6 /* KeyboardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DA7E92AA5C4A6009E76C6 /* KeyboardVM.swift */; };
 		189EC4932A4E9352001E6644 /* BlockReportPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189EC4912A4E9352001E6644 /* BlockReportPopUpVC.swift */; };
 		189EC4942A4E9352001E6644 /* BlockReportPopUpVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 189EC4922A4E9352001E6644 /* BlockReportPopUpVC.xib */; };
 		189EC49B2A4E9F3D001E6644 /* CreatePostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189EC4992A4E9F3D001E6644 /* CreatePostVC.swift */; };
@@ -393,6 +394,7 @@
 		189551762A49C74E003EC8FD /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		189BC6422A4BF22A00C97BCA /* HomeTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTVCell.swift; sourceTree = "<group>"; };
 		189BC6432A4BF22A00C97BCA /* HomeTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTVCell.xib; sourceTree = "<group>"; };
+		189DA7E92AA5C4A6009E76C6 /* KeyboardVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardVM.swift; path = "../../../../../../../Downloads/Findr 3/Findr/KeyboardVM.swift"; sourceTree = "<group>"; };
 		189EC4912A4E9352001E6644 /* BlockReportPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockReportPopUpVC.swift; sourceTree = "<group>"; };
 		189EC4922A4E9352001E6644 /* BlockReportPopUpVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BlockReportPopUpVC.xib; sourceTree = "<group>"; };
 		189EC4992A4E9F3D001E6644 /* CreatePostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostVC.swift; sourceTree = "<group>"; };
@@ -907,6 +909,7 @@
 		187F904C2A4C1AC900C00867 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				189DA7E92AA5C4A6009E76C6 /* KeyboardVM.swift */,
 				187F904E2A4C1AFF00C00867 /* CommentVC.swift */,
 				187F904F2A4C1AFF00C00867 /* CommentVC.xib */,
 				18A0F87A2A4C2F9500E34ED6 /* CommentTVCell.swift */,
@@ -2190,6 +2193,7 @@
 				1849346E2A55408000729656 /* DetailVC.swift in Sources */,
 				31CB5DF22A67D25F0020E409 /* GalleryAlbumTableView.swift in Sources */,
 				187B6ABA2A53FE58008E1399 /* SettingsVC.swift in Sources */,
+				189DA7EA2AA5C4A6009E76C6 /* KeyboardVM.swift in Sources */,
 				31CB5DCC2A67D1BC0020E409 /* AppNavigation.swift in Sources */,
 				31CB5DF72A67D25F0020E409 /* ThumbSelectorView.swift in Sources */,
 				189551572A49BF96003EC8FD /* Extension.swift in Sources */,

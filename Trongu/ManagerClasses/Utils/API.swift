@@ -60,6 +60,8 @@ class API {
         static let addToRecent            = "j1/trongu/api/v1/users/add-recent-search"
         static let deleteFromRecent       = "j1/trongu/api/v1/users/comment-listing"
         
+        // Setting Api
+        static let accountType            = "j1/trongu/api/v1/users/user-public-private"
         
     }
     

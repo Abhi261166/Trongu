@@ -14,9 +14,11 @@ class SettingsVC: UIViewController, LogoutVMObserver {
     
     @IBOutlet weak var settingsTableView: UITableView!
     
-    var settings = ["Contact Us","Change Password","About Us","Terms & Conditions","Feedback","Public/Private ","Blocked","Delete Account","Logout"]
-    var setting2 = ["Contact Us","About Us","Terms & Conditions","Feedback","Public/Private ","Blocked","Delete Account","Logout"]
+    var settings = ["Contact Us","Change Password","About Us","Terms & Conditions","Feedback","Private account","Blocked","Delete Account","Logout"]
+    var setting2 = ["Contact Us","About Us","Terms & Conditions","Feedback","Private account","Blocked","Delete Account","Logout"]
     var viewModel: LogoutVM?
+    var isSelected = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setViewModel()
@@ -72,6 +74,31 @@ extension SettingsVC: UITableViewDelegate,UITableViewDataSource{
         }else{
             cell.titleLabel.text = settings[indexPath.row]
         }
+        
+        cell.imgNext.isHidden = false
+        
+        if UserDefaultsCustom.getUserData()?.login_type == "0"{
+            if indexPath.row == 4{
+                cell.imgNext.isHidden = true
+                cell.btnSwitch.isHidden = false
+                cell.btnSwitch.isEnabled = true
+                cell.btnSwitch.tag = indexPath.row
+                cell.btnSwitch.isSelected = isSelected
+                cell.btnSwitch.addTarget(self, action: #selector(actionSwitchPublicPrivate),for: .touchUpInside)
+            }
+            
+        }else{
+            if indexPath.row == 5{
+                cell.imgNext.isHidden = true
+                cell.btnSwitch.tag = indexPath.row
+                cell.btnSwitch.isHidden = false
+                cell.btnSwitch.isEnabled = true
+                cell.btnSwitch.isSelected = isSelected
+                cell.btnSwitch.addTarget(self, action: #selector(actionSwitchPublicPrivate),for: .touchUpInside)
+                
+            }
+        }
+        
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -98,7 +125,7 @@ extension SettingsVC: UITableViewDelegate,UITableViewDataSource{
                 vc.hidesBottomBarWhenPushed = true
                 self.pushViewController(vc, true)
             case 4:
-                print("AboutUs")
+                print("Private Account")
                 
                 
             case 5:
@@ -169,8 +196,7 @@ extension SettingsVC: UITableViewDelegate,UITableViewDataSource{
                              vc.hidesBottomBarWhenPushed = true
                              self.pushViewController(vc, true)
             case 5:
-                print("AboutUs")
-                
+                print("Private Account")
                 
             case 6:
                 print("AboutUs")
@@ -216,4 +242,11 @@ extension SettingsVC: UITableViewDelegate,UITableViewDataSource{
             }
         }
     }
+    
+    @objc func actionSwitchPublicPrivate(sender:UIButton){
+        isSelected.toggle()
+        settingsTableView.reload(row: sender.tag)
+        
+    }
+    
 }

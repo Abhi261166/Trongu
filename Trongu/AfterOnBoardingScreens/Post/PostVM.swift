@@ -22,7 +22,7 @@ class PostVM: NSObject {
         self.observer = observer
     }
     
-    func apiCreatePost(tags:String,budget:String,noOffDays:String,tripCat:String,disc:String,tripComp:String,arrPosts:[YPMediaItem],arrPosts2:[PostImagesVideo],images:[UIImage]){
+    func apiCreatePost(tags:String,budget:String,noOffDays:String,tripCat:String,disc:String,tripComp:String,arrPosts:[YPMediaItem],arrPosts2:[PostImagesVideo],images:[UIImage],address:[String]){
         
         var arrImagesDict = [[String:Any]]()
         
@@ -67,7 +67,7 @@ class PostVM: NSObject {
                let dictPlace : [String
                            :Any] = [
                  "key": "image[\(index)][place]",
-                 "value": self.address,
+                 "value": address[index],
                  "type": "text"
                ]
                arrImagesDict.append(dictPlace)
@@ -138,7 +138,7 @@ class PostVM: NSObject {
                let dictPlace : [String
                            :Any] = [
                  "key": "image[\(index)][place]",
-                 "value": self.address,
+                 "value": address[index],
                  "type": "text"
                ]
                arrImagesDict.append(dictPlace)
@@ -310,7 +310,7 @@ class PostVM: NSObject {
     // Star update post
     
     
-    func apiUpdatePost(postId:String,tags:String,budget:String,noOffDays:String,tripCat:String,disc:String,tripComp:String,arrPosts:[YPMediaItem],arrPosts2:[PostImagesVideo]){
+    func apiUpdatePost(postId:String,tags:String,budget:String,noOffDays:String,tripCat:String,disc:String,tripComp:String,arrPosts:[YPMediaItem],arrPosts2:[PostImagesVideo],address:[String]){
         
         var arrImagesDict = [[String:Any]]()
         
@@ -355,7 +355,7 @@ class PostVM: NSObject {
                let dictPlace : [String
                            :Any] = [
                  "key": "image[\(index)][place]",
-                 "value": self.address,
+                 "value": address[index],
                  "type": "text"
                ]
                arrImagesDict.append(dictPlace)
@@ -436,7 +436,7 @@ class PostVM: NSObject {
                let dictPlace : [String
                            :Any] = [
                  "key": "image[\(index)][place]",
-                 "value": self.address,
+                 "value": address[index],
                  "type": "text"
                ]
                arrImagesDict.append(dictPlace)

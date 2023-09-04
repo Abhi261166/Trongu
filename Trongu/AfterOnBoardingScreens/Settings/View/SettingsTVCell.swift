@@ -10,7 +10,8 @@ import UIKit
 class SettingsTVCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
-  
+    @IBOutlet weak var btnSwitch: UIButton!
+    @IBOutlet weak var imgNext: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

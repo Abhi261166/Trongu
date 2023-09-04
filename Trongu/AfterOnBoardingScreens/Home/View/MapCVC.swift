@@ -62,7 +62,7 @@ class MapCVC: UICollectionViewCell,MKMapViewDelegate{
         for index in 0...post.count - 1{
             
             
-            let data = (CLLocationCoordinate2D(latitude: Double(post[index].lat) ?? 0.0, longitude: Double(post[index].long) ?? 0.0), "\(post[index].time), india")
+            let data = (CLLocationCoordinate2D(latitude: Double(post[index].lat) ?? 0.0, longitude: Double(post[index].long) ?? 0.0), "\(post[index].time), \(post[index].place)")
             
             locations.append(data)
             

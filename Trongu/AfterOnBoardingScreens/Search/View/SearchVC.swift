@@ -18,6 +18,7 @@ class SearchVC: UIViewController,UITextFieldDelegate {
     
     var timer: Timer?
     var viewModel:SearchVM?
+    var isRecentSearch = false
     
     deinit{
         NotificationCenter.default.removeObserver(self)
@@ -37,10 +38,23 @@ class SearchVC: UIViewController,UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        searchApiCall()
+    }
 
     func setViewModel() {
+        
         self.viewModel = SearchVM(observer: self)
     }
+    
+    func searchApiCall(){
+        isRecentSearch = true
+        self.viewModel?.pageNo = 0
+        self.viewModel?.isLastPage = false
+        self.viewModel?.apiSearch(text: "")
+    }
+    
     
     @objc fileprivate func keyboardWillShow(_ notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
@@ -55,6 +69,29 @@ class SearchVC: UIViewController,UITextFieldDelegate {
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         updateCrossButtonVisibility()
+        if timer != nil {
+            timer?.invalidate()
+            timer = nil
+        }
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.searchTimerAction(_:)), userInfo: textField.text, repeats: false)
+    }
+    
+    
+    @objc func searchTimerAction(_ timer:Timer) {
+        guard let searchText = timer.userInfo as? String else{return}
+        print(searchText)
+        
+        if searchText.count > 0 {
+            isRecentSearch = false
+            self.viewModel?.pageNo = 0
+            self.viewModel?.isLastPage = false
+            self.viewModel?.apiSearch(text: searchText)
+        }else{
+            isRecentSearch = true
+            self.viewModel?.pageNo = 0
+            self.viewModel?.isLastPage = false
+            self.viewModel?.apiSearch(text: "")
+        }
     }
     
     func updateCrossButtonVisibility() {
@@ -75,6 +112,13 @@ class SearchVC: UIViewController,UITextFieldDelegate {
 
 extension SearchVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//
+//        if isRecentSearch{
+//            return viewModel?.arrRecentSearchUserAndPlace.count ?? 0
+//        }else{
+//            return viewModel?.arrUserAndPlace.count ?? 0
+//        }
+        
         return 2
     }
     
@@ -86,18 +130,21 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
+    }
+    
 }
 
 extension SearchVC:SearchVMObserver{
     
     func observeSearchSucessfull() {
         
-    }
-    
-    func setRecentSucessfull() {
+        searchTableView.reloadData()
         
     }
-    
+        
     func setSearchSucessfull() {
         
     }

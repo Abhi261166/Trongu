@@ -9,15 +9,16 @@ import UIKit
 
 protocol SearchVMObserver: NSObjectProtocol {
     func observeSearchSucessfull()
-    func setRecentSucessfull()
     func setSearchSucessfull()
 }
 
 class SearchVM: NSObject {
 
     var observer: SearchVMObserver?
-    var userArray:[UserData] = []
+    var arrUserAndPlace:[Search] = []
+    var arrRecentSearchUserAndPlace:[RecentSearch] = []
     var otherUserData:UserData?
+    
     var perPage = 10
     var pageNo = 0
     var isLastPage: Bool = false
@@ -28,58 +29,52 @@ class SearchVM: NSObject {
     }
     
     //MARK: Search Api
-//    func apiSearch(text: String) {
-//        var params = JSON()
-//        params["per_page"] = perPage
-//        params["pageno"] = pageNo + 1
-//        params["search"] = text
-//        if text == ""{
-//            params["type"] = self.type
-//        }
-//
-//        print("params : ", params)
-////        add loader
-//      //  ActivityIndicator.shared.showActivityIndicator()
-//        ApiHandler.callWithMultipartForm(apiName: API.Name.recentSearch, params: params) { [weak self] succeeded, response, data in
-//            DispatchQueue.main.async {
-////        remove loader
-//       // ActivityIndicator.shared.hideActivityIndicator()
-//                if let self = self {
-//                    if succeeded == true, let data {
-//                        let decoder = JSONDecoder()
-//                        do {
-//                            let decoded = try decoder.decode(SearchModel.self, from: data)
-//
-//                            if self.pageNo == 0 {
-//                                self.userArray.removeAll()
-//                            }
-//
-//                            if let users = decoded.data {
-//                                self.isLastPage = users.count < (self.perPage)
-//
-//
-//                             //   self.userArray.append(contentsOf: users)
-//                                print("SearchUsers:-\(users.count)")
-//
-//                                for user in users{
-//
-//                                    if UserDefaultsCustom.userId == user.id{
-//
-//                                    }else{
-//                                        self.userArray.append(user)
-//                                    }
-//                                }
-//                            }
-//                            self.pageNo += 1
-//                            self.observer?.observeSearchSucessfull()
-//                        } catch {
-//                            print("error", error)
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
+    func apiSearch(text: String) {
+        var params = JSON()
+        params["per_page"] = perPage
+        params["pageno"] = pageNo + 1
+        params["search"] = text
+        if text == ""{
+            params["type"] = self.type
+        }
+
+        print("params : ", params)
+//        add loader
+      //  ActivityIndicator.shared.showActivityIndicator()
+        ApiHandler.callWithMultipartForm(apiName: API.Name.search, params: params) { [weak self] succeeded, response, data in
+            DispatchQueue.main.async {
+//        remove loader
+       // ActivityIndicator.shared.hideActivityIndicator()
+                if let self = self {
+                    if succeeded == true, let data {
+                        let decoder = JSONDecoder()
+                        do {
+                            let decoded = try decoder.decode(SearchModel.self, from: data)
+
+                            if self.pageNo == 0 {
+                                self.arrUserAndPlace.removeAll()
+                            }
+
+                            if let data = decoded.search {
+                                self.isLastPage = data.count < (self.perPage)
+                                self.arrUserAndPlace.append(contentsOf: data)
+                            }
+                            
+                            if let data = decoded.recentSearch {
+                               // self.isLastPage = data.count < (self.perPage)
+                                self.arrRecentSearchUserAndPlace.append(contentsOf: data)
+                            }
+                            
+                            self.pageNo += 1
+                            self.observer?.observeSearchSucessfull()
+                        } catch {
+                            print("error", error)
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     
 //    // MARK: Get other user profile Api

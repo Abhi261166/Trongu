@@ -52,16 +52,20 @@ class API {
         static let commentList            = "j1/trongu/api/v1/users/comment-listing"
         static let addcomment             = "j1/trongu/api/v1/users/add-reply-comment"
         static let profilePostDetails     = "j1/trongu/api/v1/users/get-user-details"
+        static let likesList              = "j1/trongu/api/v1/users/post-like"
+        static let searchLikesList        = "j1/trongu/api/v1/users/search-post-like-with-name-user-name"
+        
         
         // search Apis
         
-        static let search                 = "j1/trongu/api/v1/users/search-names-with-type"
-        static let recentSearch           = "j1/trongu/api/v1/users/recet-search-listing"
+      //  static let search                 = "j1/trongu/api/v1/users/search-names-with-type"
+        static let search                 = "j1/trongu/api/v1/users/recet-search-listing"
         static let addToRecent            = "j1/trongu/api/v1/users/add-recent-search"
         static let deleteFromRecent       = "j1/trongu/api/v1/users/comment-listing"
         
         // Setting Api
         static let accountType            = "j1/trongu/api/v1/users/user-public-private"
+        
         
     }
     

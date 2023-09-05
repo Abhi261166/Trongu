@@ -13,7 +13,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        registerNotification()
         self.delegate = self
         tabBar.backgroundColor = .white
 //        tabBar.unselectedItemTintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -69,7 +69,16 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         self.tabBar.items?.last?.setImageFromUrl()
     }
-           
+         
+    
+    func registerNotification() {
+           NotificationCenter.default.addObserver(self, selector: #selector(self.setImageFromUrl), name: .init("updateUserImage"), object: nil)
+       }
+    
+    @objc func setImageFromUrl(){
+        self.tabBar.items?.last?.setImageFromUrl()
+    }
+    
 }
 //    override func viewDidLayoutSubviews() {
 //           super.viewDidLayoutSubviews()

@@ -168,6 +168,8 @@
 		18A0F8812A4C322100E34ED6 /* replyCommentTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A0F87F2A4C322100E34ED6 /* replyCommentTVCell.xib */; };
 		18A0F8882A4C4B7300E34ED6 /* LikesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0F8862A4C4B7300E34ED6 /* LikesVC.swift */; };
 		18A0F8892A4C4B7300E34ED6 /* LikesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A0F8872A4C4B7300E34ED6 /* LikesVC.xib */; };
+		18ABC7442AA70DD1004E90F8 /* LikesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ABC7432AA70DD1004E90F8 /* LikesVM.swift */; };
+		18ABC7472AA70E05004E90F8 /* LikesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ABC7462AA70E05004E90F8 /* LikesModel.swift */; };
 		18C459812A8F6232007A3C18 /* DeleteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C459802A8F6232007A3C18 /* DeleteVM.swift */; };
 		18CEA5882A50352F007AF695 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEA5862A50352F007AF695 /* UserProfileVC.swift */; };
 		18CEA5892A50352F007AF695 /* UserProfileVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18CEA5872A50352F007AF695 /* UserProfileVC.xib */; };
@@ -419,6 +421,8 @@
 		18A0F87F2A4C322100E34ED6 /* replyCommentTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = replyCommentTVCell.xib; sourceTree = "<group>"; };
 		18A0F8862A4C4B7300E34ED6 /* LikesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesVC.swift; sourceTree = "<group>"; };
 		18A0F8872A4C4B7300E34ED6 /* LikesVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikesVC.xib; sourceTree = "<group>"; };
+		18ABC7432AA70DD1004E90F8 /* LikesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesVM.swift; sourceTree = "<group>"; };
+		18ABC7462AA70E05004E90F8 /* LikesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesModel.swift; sourceTree = "<group>"; };
 		18C459802A8F6232007A3C18 /* DeleteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteVM.swift; sourceTree = "<group>"; };
 		18CEA5862A50352F007AF695 /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		18CEA5872A50352F007AF695 /* UserProfileVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserProfileVC.xib; sourceTree = "<group>"; };
@@ -1523,18 +1527,11 @@
 		18A0F8822A4C4B3600E34ED6 /* Likes */ = {
 			isa = PBXGroup;
 			children = (
-				18A0F8852A4C4B5200E34ED6 /* Model */,
+				18ABC7422AA70DB5004E90F8 /* Model */,
+				18ABC7412AA70DAC004E90F8 /* ViewModel */,
 				18A0F8842A4C4B4B00E34ED6 /* View */,
-				18A0F8832A4C4B4100E34ED6 /* ViewModel */,
 			);
 			path = Likes;
-			sourceTree = "<group>";
-		};
-		18A0F8832A4C4B4100E34ED6 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		18A0F8842A4C4B4B00E34ED6 /* View */ = {
@@ -1548,9 +1545,18 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		18A0F8852A4C4B5200E34ED6 /* Model */ = {
+		18ABC7412AA70DAC004E90F8 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				18ABC7432AA70DD1004E90F8 /* LikesVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		18ABC7422AA70DB5004E90F8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				18ABC7462AA70E05004E90F8 /* LikesModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2067,6 +2073,7 @@
 				186679B92A4AA72A00522429 /* LoginTypeVC.swift in Sources */,
 				18A0F87C2A4C2F9500E34ED6 /* CommentTVCell.swift in Sources */,
 				31C5D8332A6F8CB5008D7EAB /* ChangePasswordVM.swift in Sources */,
+				18ABC7442AA70DD1004E90F8 /* LikesVM.swift in Sources */,
 				1842FF292A4C6E1000CF6F41 /* FilterScreenVC.swift in Sources */,
 				31CB5DBD2A67D1BC0020E409 /* IAPHelper.swift in Sources */,
 				31CB5DFE2A67D25F0020E409 /* GridViewCell.swift in Sources */,
@@ -2177,6 +2184,7 @@
 				189551542A49BF60003EC8FD /* Constant.swift in Sources */,
 				189EC4A32A4EB3D1001E6644 /* AddPhotoVideoVC.swift in Sources */,
 				187B6ABE2A53FE75008E1399 /* SettingsTVCell.swift in Sources */,
+				18ABC7472AA70E05004E90F8 /* LikesModel.swift in Sources */,
 				18C459812A8F6232007A3C18 /* DeleteVM.swift in Sources */,
 				184FE0CA2A4D982D009D666D /* OtherUserProfileCVCell.swift in Sources */,
 				189EC4B92A4EE379001E6644 /* MessageTVCell.swift in Sources */,

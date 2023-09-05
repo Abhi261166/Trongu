@@ -54,6 +54,7 @@ class UserProfileVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
         hitGetProfileApi()
         hitGetProfilePostsApi()
     }
@@ -137,6 +138,17 @@ class UserProfileVC: UIViewController {
     
     @IBAction func editProfileAction(_ sender: UIButton) {
         let vc = EditProfileVC()
+        vc.completion = {
+         //   self.navigationController?.tabBarController?.selectedIndex = 3
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [self] in
+               
+                self.navigationController?.tabBarController?.selectedIndex = 4
+               
+            })
+           
+        }
+        
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }

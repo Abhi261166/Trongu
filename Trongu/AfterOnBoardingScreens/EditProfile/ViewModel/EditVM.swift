@@ -85,6 +85,7 @@ class EditVM: NSObject {
                             editImage.setCacheAt(url: url)
                         }
                     }
+                    NotificationCenter.default.post(name: .init("updateUserImage"), object: nil)
                     self.observer?.observeGetEditProfileSucessfull()
                 } else {
                     self.showMessage(message: response["message"] as? String ?? "" , isError: .error)

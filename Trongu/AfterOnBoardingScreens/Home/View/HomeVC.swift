@@ -33,6 +33,8 @@ class HomeVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+       // self.tabBarController?.tabBar.isHidden = false
         if comeFrom{
             btnBack.isHidden = false
             stackView.isHidden = true
@@ -285,9 +287,10 @@ extension HomeVC: HomeTVCellDelegate{
     }
     
     func didTapLikecountList(_ indexPath: IndexPath) {
-//        let vc = LikesVC()
-//        vc.hidesBottomBarWhenPushed = true
-//        self.navigationController?.pushViewController(vc, animated: true)
+        let vc = LikesVC()
+        vc.postId = self.viewModel?.arrPostList[indexPath.row].id
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
    
 }

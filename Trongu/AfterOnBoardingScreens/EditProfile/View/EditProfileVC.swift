@@ -29,6 +29,8 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
     var selectGender = String()
     var selectEthnicity = String()
     var viewModel: EditVM?
+    var completion : (() -> Void)? = nil
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -278,7 +280,11 @@ extension EditProfileVC : UITextFieldDelegate {
 }
 extension EditProfileVC : EditVMObserver{
     func observeGetEditProfileSucessfull() {
-        self.popViewController(true)
+        if let completion = completion{
+            self.popViewController(true)
+            completion()
+        }
+        
     }
     
 }

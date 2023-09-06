@@ -137,9 +137,10 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
             Trongu.showAlert(title: Constants.AppName, message: Constants.blankPlace, view: self)
         }else if (ethnicityTF.text?.isEmpty)!{
             Trongu.showAlert(title: Constants.AppName, message: Constants.blankEthnicity, view: self)
-        }else if (bioTextView.text?.isEmpty)!{
-            Trongu.showAlert(title: Constants.AppName, message: "Enter bio details", view: self)
         }
+//        else if (bioTextView.text?.isEmpty)!{
+//            Trongu.showAlert(title: Constants.AppName, message: "Enter bio details", view: self)
+//        }
         else{
             viewModel?.apiEditProfile(name: self.nameTF.text ?? "", username: self.userNameTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOfBirthTF.text ?? "", gender: self.selectGender ?? "", ethnicity: selectEthnicity, lat: UserDefaultsCustom.getUserData()?.lat ?? "", long: UserDefaultsCustom.getUserData()?.long ?? "",bio: self.bioTextView.text)
 //            let vc = TabBarController()

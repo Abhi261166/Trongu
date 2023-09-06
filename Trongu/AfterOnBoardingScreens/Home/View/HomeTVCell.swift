@@ -136,6 +136,13 @@ class HomeTVCell: UITableViewCell {
         }
     }
     
+    @IBAction func PageCotrolAction(_ sender: UIPageControl) {
+        var indexPath: IndexPath!
+        let current = pageController.currentPage
+                indexPath = IndexPath(item: current, section: 0)
+                homeCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
@@ -207,12 +214,18 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         homeCollectionView.scrollToItem(at: IndexPath(item: sender.tag - 1, section: 0), at: .right, animated: true)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        0
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        0
+    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let witdh = scrollView.frame.width - (scrollView.contentInset.left*2)
-        let index = scrollView.contentOffset.x / witdh
-        let roundedIndex = round(index)
-        self.pageController.currentPage = Int(roundedIndex)
+//        let witdh = scrollView.frame.width - (scrollView.contentInset.left*2)
+//        let index = scrollView.contentOffset.x / witdh
+//        let roundedIndex = round(index)
+//        self.pageController.currentPage = Int(roundedIndex)
         
         self.lastContentOffset = homeCollectionView.contentOffset.x
         if self.timer != nil {
@@ -228,6 +241,14 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             }
             
         }
+        
+        let visibleRect = CGRect(origin: self.homeCollectionView.contentOffset, size: self.homeCollectionView.frame.size)
+        let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+        if let VisibleIndexpath = self.homeCollectionView.indexPathForItem(at: visiblePoint) {
+            print("VisibleIndexpath:- \(VisibleIndexpath)")
+            self.pageController.currentPage = VisibleIndexpath.item
+        }
+        
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.playCurrentVideo), userInfo: nil, repeats: false)
     }
     

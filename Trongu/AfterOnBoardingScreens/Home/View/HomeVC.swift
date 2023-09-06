@@ -127,7 +127,7 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
         getAddressFromLatLong(latitude: Double(dict?.postImagesVideo.first?.lat ?? "") ?? 0.0, longitude: Double(dict?.postImagesVideo.first?.long ?? "") ?? 0.0) { address in
             cell.lblTimeAddress.text = "\(dict?.postImagesVideo.first?.time ?? "") \(address ?? "")"
             cell.lblTopAddress.text = "\(address ?? "")"
-            cell.lblAddressPriceDays.text = ". $\(dict?.budget ?? "") . \(dict?.noOfDays ?? "")"
+            cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") \(dict?.noOfDays ?? "")"
         }
         
         if dict?.isLike == "1"{
@@ -397,8 +397,26 @@ extension HomeVC{
 
 extension HomeVC:HomeVMObserver{
     
+    func observeGetProfilePostsSucessfull() {
+        
+        self.homeTableView.reloadData()
+        if DAVideoPlayerView.player?.isPlaying != true {
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+                self.playCurrentVideo()
+            }
+        }
+        
+    }
+    
     func observeLikedSucessfull() {
-        self.apiCall()
+        if comeFrom{
+            self.viewModel?.arrPostList = []
+            self.viewModel?.pageNo = 0
+            self.viewModel?.apiProfilePostDetails(type: "1", userId: "")
+        }else{
+            self.apiCall()
+        }
+       
     }
     
     func observeGetHomeDataSucessfull() {

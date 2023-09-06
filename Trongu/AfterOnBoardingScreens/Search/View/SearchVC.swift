@@ -113,20 +113,32 @@ class SearchVC: UIViewController,UITextFieldDelegate {
 extension SearchVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //
-//        if isRecentSearch{
-//            return viewModel?.arrRecentSearchUserAndPlace.count ?? 0
-//        }else{
-//            return viewModel?.arrUserAndPlace.count ?? 0
-//        }
+        if isRecentSearch{
+            return viewModel?.arrRecentSearchUserAndPlace.count ?? 0
+        }else{
+            return viewModel?.arrUserAndPlace.count ?? 0
+        }
         
-        return 2
+      //  return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTVCell", for: indexPath) as! SearchTVCell
-        if indexPath.row == 0 {
-            cell.locationView.isHidden = true
+     
+        let dictSearch = self.viewModel?.arrUserAndPlace[indexPath.row]
+        let dictRecentSearch = self.viewModel?.arrRecentSearchUserAndPlace[indexPath.row]
+     
+        if isRecentSearch{
+            
+            cell.nameLabel.text = dictRecentSearch?.name
+            cell.profileImage.setImage(image: dictRecentSearch?.image,placeholder:UIImage(named: "ic_profilePlaceHolder"))
+            
+        }else{
+            
+            
         }
+        
+        
         return cell
     }
     

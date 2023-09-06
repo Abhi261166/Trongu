@@ -21,6 +21,14 @@ class BucketListVC: UIViewController {
         self.bucketListTableView.delegate = self
         self.bucketListTableView.dataSource = self
         self.bucketListTableView.register(UINib(nibName: "BucketListTVCell", bundle: nil), forCellReuseIdentifier: "BucketListTVCell")
+        
+        let deviceTimeZone = TimeZone.current
+
+        // You can also get the time zone abbreviation if needed
+        let timeZoneAbbreviation = deviceTimeZone.abbreviation() ?? "Unknown"
+
+        print("Device Time Zone: \(deviceTimeZone.identifier)")
+        print("Time Zone Abbreviation: \(timeZoneAbbreviation)")
        
     }
     override func viewWillAppear(_ animated: Bool) {

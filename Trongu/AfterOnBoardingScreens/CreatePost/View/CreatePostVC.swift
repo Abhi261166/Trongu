@@ -28,7 +28,7 @@ class CreatePostVC: UIViewController{
     var tagIds = "10"
     let pickerView = UIPickerView()
     var arrDays = ["1 day","2 days","3 days","4 days","5 days","6 days","7 days","8 days","9 days","10 days"]
-    var arrTripCat = ["Business Trip","Family Trip","Friends Trip"]
+    var arrTripCat = ["Business Trip","Family Trip","Friends Trip","Solo Trip"]
     var arrTripComplexity = ["Complex","Smooth","Normal"]
     var viewModel:TagListVM?
     var tagPeople = ""
@@ -146,6 +146,7 @@ class CreatePostVC: UIViewController{
             }
         }
         vc.selectedItems = finalPostItems
+        vc.images = self.images
         vc.selectedIndex = IndexPath(row: 0, section: 0)
         vc.arrPostItems = myPost.first?.postImagesVideo ?? []
         

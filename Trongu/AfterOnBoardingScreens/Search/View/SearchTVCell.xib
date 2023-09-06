@@ -42,7 +42,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jSe-9j-gLV">
-                                <rect key="frame" x="95" y="24" width="316" height="52"/>
+                                <rect key="frame" x="95" y="35" width="316" height="30"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MvS-re-rLT">
                                         <rect key="frame" x="0.0" y="0.0" width="316" height="30"/>
@@ -63,7 +63,7 @@
                                             <constraint firstAttribute="trailing" secondItem="CZM-eW-5CG" secondAttribute="trailing" id="uAM-Bk-z6j"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hW1-th-OPj">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hW1-th-OPj">
                                         <rect key="frame" x="0.0" y="30" width="316" height="22"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1890 White Avenue, USA" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-PD-jGV">

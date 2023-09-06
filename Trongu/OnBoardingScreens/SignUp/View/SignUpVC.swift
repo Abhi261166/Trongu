@@ -816,14 +816,16 @@ extension SignUpVC : UITextFieldDelegate {
             }else{
               return true
             }
-        } else if textField == nameTF{
-            if  string == " " {
-                  
-                    return false
-                }else{
-                  return true
-                }
-        }else {
+        }
+//        else if textField == nameTF{
+//            if  string == " " {
+//
+//                    return false
+//                }else{
+//                  return true
+//                }
+//        }
+        else {
             return true
         }
     }
@@ -851,7 +853,7 @@ extension UITextField {
         } else {
             // Fallback on earlier versions
         }
-        datePicker.maximumDate = Calendar.current.date(byAdding: .year, value: -18, to: Date())
+        datePicker.maximumDate = Calendar.current.date(byAdding: .year, value: 0, to: Date())
         datePicker.minimumDate = Calendar.current.date(byAdding: .year, value: -100, to: Date())
         
         self.inputView = datePicker

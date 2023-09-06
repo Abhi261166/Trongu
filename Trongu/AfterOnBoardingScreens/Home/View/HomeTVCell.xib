@@ -272,6 +272,9 @@
                                                 </constraints>
                                                 <color key="pageIndicatorTintColor" red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="currentPageIndicatorTintColor" red="0.92941176469999998" green="0.57254901960000004" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <connections>
+                                                    <action selector="PageCotrolAction:" destination="KGk-i7-Jjw" eventType="valueChanged" id="EwK-Or-GvS"/>
+                                                </connections>
                                             </pageControl>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

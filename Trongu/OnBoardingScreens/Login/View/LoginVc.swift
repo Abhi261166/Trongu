@@ -59,9 +59,11 @@ class LoginVc: UIViewController,UITextFieldDelegate {
     func validation() {
         if (emailTF.text?.isEmpty)!{
             Trongu.showAlert(title: Constants.AppName, message: Constants.blankEmail, view: self)
-        }else if emailTF.text?.isValidEmail == false {
-            Trongu.showAlert(title: Constants.AppName, message: Constants.validEmail, view: self)
-        }else if(passwordTF.text?.isEmpty)!{
+        }
+//        else if emailTF.text?.isValidEmail == false {
+//            Trongu.showAlert(title: Constants.AppName, message: Constants.validEmail, view: self)
+//        }
+        else if(passwordTF.text?.isEmpty)!{
             Trongu.showAlert(title: Constants.AppName, message: Constants.blankPassword, view: self)
         }else if passwordTF?.isValidPassword() == false {
             Trongu.showAlert(title: Constants.AppName, message: Constants.minimumRangeSet, view: self)

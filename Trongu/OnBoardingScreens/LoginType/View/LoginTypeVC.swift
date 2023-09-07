@@ -134,7 +134,8 @@ class LoginTypeVC: UIViewController {
     }
     
     @IBAction func continueWithFacebookAction(_ sender: UIButton) {
-        fbLogin()
+       // fbLogin()
+        Singleton.shared.showErrorMessage(error: "Not implemented yet.", isError: .message)
     }
     
     @IBAction func continueWithGoogleAction(_ sender: UIButton) {

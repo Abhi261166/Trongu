@@ -30,6 +30,8 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     @IBOutlet weak var genderTF: UITextField!
     @IBOutlet weak var ethnicityTF: UITextField!
     @IBOutlet weak var termAndConditionBtn: UIButton!
+    @IBOutlet weak var bioTextView: UITextView!
+    
     var viewModel: SignUpVM?
     var selectGender = String()
     var selectEthnicity = String()
@@ -164,13 +166,36 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         addPlaceTF.delegate = self
         
     }
+    
+    func openGalaryPhoto(tag: Int) {
+        self.viewModel?.imagePicker.setImagePicker(imagePickerType: .both, tag: tag, controller: self)
+        self.viewModel?.imagePicker.imageCallBack = {[weak self] (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let data):
+                    if let data1 = data {
+                        if tag == 1 {
+                            self?.viewModel?.editImage = data
+                            self?.profileImage.image = data1.image
+                        } else {
+                            self?.viewModel?.edit_cover_Image = data1
+                           // self?.coverPhotoButton.setImage(data1.image, for: .normal)
+                        }
+                    }
+                case .error(let message):
+                    Singleton.shared.showErrorMessage(error: message, isError: .error)
+                }
+            }
+        }
+    }
+    
     func validateSignUpDetails() -> Bool {
         let isvalidUsername = Validator.validateUserName(name: userNameTF.text ?? "")
         let isvalidname = Validator.validateName(name: nameTF.text ?? "")
         
         let isvalidEmail = Validator.validateEmail(candidate: emailAddressTF.text ?? "")
         let isValidPassword = Validator.validateOldPassword(password: passwordTF.text ?? "")
-        let isValidConPassword = Validator.validateConfirmPassword(password: passwordTF.text ?? "", confirmPass: confirmPasswordTF.text ?? "")
+        let isValidConPassword = Validator.validateConfirmPassword(password: passwordTF.text ?? "", confirmPass: confirmPasswordTF.text ?? "" ,val: "confirm")
         let isvalidPlace = Validator.validatePlace(place: addPlaceTF.text ?? "")
         let isvalidDob = Validator.validDOB(dob: dateOFbirthTF.text ?? "")
 
@@ -294,7 +319,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 self.selectEthnicity
             }
             print(self.selectGender,self.selectEthnicity,"FSDdsf")
-            viewModel?.apiSignup(name:self.nameTF.text ?? "", email:self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender:self.selectGender ?? "0", ethnicity:self.selectEthnicity ?? "1", lat:latitude ?? "", long:longitude ?? "",username:userNameTF.text ?? "")
+            viewModel?.apiSignup(name:self.nameTF.text ?? "", email:self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender:self.selectGender ?? "0", ethnicity:self.selectEthnicity ?? "1", lat:latitude ?? "", long:longitude ?? "",username:userNameTF.text ?? "", bio: self.bioTextView.text.trim)
             
         }
         
@@ -413,7 +438,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }else{
                 self.selectEthnicity
             }
-            viewModel?.googleSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender ?? "0", ethnicity: self.selectEthnicity ?? "1", lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",googleId: googleId)
+            viewModel?.googleSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender ?? "0", ethnicity: self.selectEthnicity ?? "1", lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",googleId: googleId, bio: bioTextView.text.trim)
         }
         //        else{
         //            if selectGender == "" {
@@ -469,7 +494,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 self.selectEthnicity
             }
             //            viewModel?.fbSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender ?? "0", ethnicity: self.selectEthnicity ?? "1", lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",fbId: fbId)
-            viewModel?.googleSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender ?? "0", ethnicity: self.selectEthnicity ?? "1", lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",googleId: googleId)
+            viewModel?.googleSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender ?? "0", ethnicity: self.selectEthnicity ?? "1", lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",googleId: googleId, bio: bioTextView.text.trim)
         }
         //        else{
         //            if selectGender == "" {
@@ -527,7 +552,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }
             //            viewModel?.appleSignUp(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender ?? "0", ethnicity: self.selectEthnicity ?? "1", lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",appleId: appleID)
             
-            viewModel?.googleSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender ?? "0", ethnicity: self.selectEthnicity ?? "1", lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",googleId: googleId)
+            viewModel?.googleSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender ?? "0", ethnicity: self.selectEthnicity ?? "1", lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",googleId: googleId, bio: bioTextView.text.trim)
             
         }
         //        else{
@@ -562,31 +587,32 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }
     
     @IBAction func addPhotoAction(_ sender: UIButton) {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let action = UIAlertAction(title: "Camera", style: .default){ [self] action in
-            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                imagePickerController.sourceType = .camera;
-                imagePickerController.allowsEditing = true
-                self.imagePickerController.delegate = self
-                self.present(imagePickerController, animated: true, completion: nil)
-            }
-            else{
-                let alert = UIAlertController(title: "Camera not found", message: "This device has no camera", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default,handler: nil))
-                present(alert, animated: true,completion: nil)
-            }
-        }
-        let action1 = UIAlertAction(title: "Gallery", style: .default){ action in
-            self.imagePickerController.allowsEditing = false
-            self.imagePickerController.sourceType = .photoLibrary
-            self.imagePickerController.delegate = self
-            self.present(self.imagePickerController, animated: true, completion: nil)
-        }
-        let action2 = UIAlertAction(title: "Cancel", style: .cancel)
-        alert.addAction(action)
-        alert.addAction(action1)
-        alert.addAction(action2)
-        present(alert, animated: true, completion: nil)
+//        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//        let action = UIAlertAction(title: "Camera", style: .default){ [self] action in
+//            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+//                imagePickerController.sourceType = .camera;
+//                imagePickerController.allowsEditing = true
+//                self.imagePickerController.delegate = self
+//                self.present(imagePickerController, animated: true, completion: nil)
+//            }
+//            else{
+//                let alert = UIAlertController(title: "Camera not found", message: "This device has no camera", preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "Ok", style: .default,handler: nil))
+//                present(alert, animated: true,completion: nil)
+//            }
+//        }
+//        let action1 = UIAlertAction(title: "Gallery", style: .default){ action in
+//            self.imagePickerController.allowsEditing = false
+//            self.imagePickerController.sourceType = .photoLibrary
+//            self.imagePickerController.delegate = self
+//            self.present(self.imagePickerController, animated: true, completion: nil)
+//        }
+//        let action2 = UIAlertAction(title: "Cancel", style: .cancel)
+//        alert.addAction(action)
+//        alert.addAction(action1)
+//        alert.addAction(action2)
+//        present(alert, animated: true, completion: nil)
+        self.openGalaryPhoto(tag: 1)
     }
     
     @IBAction func passwordHideAction(_ sender: UIButton) {
@@ -660,7 +686,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 }else{
                     self.selectEthnicity
                 }
-                viewModel?.googleSignup(name:self.nameTF.text ?? "", email:self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender:self.selectGender ?? "0", ethnicity:self.selectEthnicity ?? "1", lat:latitude ?? "", long:longitude ?? "",username:userNameTF.text ?? "",googleId:googleId)
+                viewModel?.googleSignup(name:self.nameTF.text ?? "", email:self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender:self.selectGender ?? "0", ethnicity:self.selectEthnicity ?? "1", lat:latitude ?? "", long:longitude ?? "",username:userNameTF.text ?? "",googleId:googleId, bio: bioTextView.text.trim)
             }
            
         
@@ -681,7 +707,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     self.selectEthnicity
                 }
                 print(self.selectGender,self.selectEthnicity,"FSDdsf")
-                viewModel?.apiSignup(name:self.nameTF.text ?? "", email:self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender:self.selectGender ?? "0", ethnicity:self.selectEthnicity ?? "1", lat:latitude ?? "", long:longitude ?? "",username:userNameTF.text ?? "")
+                viewModel?.apiSignup(name:self.nameTF.text ?? "", email:self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender:self.selectGender ?? "0", ethnicity:self.selectEthnicity ?? "1", lat:latitude ?? "", long:longitude ?? "",username:userNameTF.text ?? "", bio: self.bioTextView.text.trim)
             }
             
               
@@ -817,14 +843,14 @@ extension SignUpVC : UITextFieldDelegate {
               return true
             }
         }
-//        else if textField == nameTF{
-//            if  string == " " {
-//
-//                    return false
-//                }else{
-//                  return true
-//                }
-//        }
+        else if textField == userNameTF{
+            if  string == " " {
+
+                    return false
+                }else{
+                  return true
+                }
+        }
         else {
             return true
         }

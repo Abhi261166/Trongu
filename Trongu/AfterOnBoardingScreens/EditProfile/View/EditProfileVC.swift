@@ -20,8 +20,8 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
     @IBOutlet weak var confirmPasswordHideButton: UIButton!
     @IBOutlet weak var addPlaceTF: UITextField!
     @IBOutlet weak var ethnicityTF: UITextField!
-    
     @IBOutlet weak var bioTextView: UITextView!
+    
     var genderPicker = ["Male","Female"]
     var ethnicityPicker = ["White","Black","Asian"]
     let pickerView = UIPickerView()
@@ -34,7 +34,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        dateOfBirthTF.addInputViewDatePicker(target: self, selector: #selector(doneButtonPressed))
         passwordTF.isSecureTextEntry = true
         confirmPasswordTF.isSecureTextEntry = true
         setData()
@@ -84,6 +84,22 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
         self.selectEthnicity = UserDefaultsCustom.getUserData()?.ethnicity ?? ""
         bioTextView.text = UserDefaultsCustom.getUserData()?.bio
         
+    }
+    
+    @objc func doneButtonPressed() {
+        if let  datePicker = self.dateOfBirthTF.inputView as? UIDatePicker {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .short
+            dateFormatter.dateFormat = "dd-MM-yyyy"
+            if #available(iOS 13.4, *) {
+                datePicker.preferredDatePickerStyle = .wheels
+            } else {
+                // Fallback on earlier versions
+            }
+            self.dateOfBirthTF.text = dateFormatter.string(from: datePicker.date)
+            print(dateOfBirthTF.text!)
+        }
+        self.dateOfBirthTF.resignFirstResponder()
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -142,7 +158,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
 //            Trongu.showAlert(title: Constants.AppName, message: "Enter bio details", view: self)
 //        }
         else{
-            viewModel?.apiEditProfile(name: self.nameTF.text ?? "", username: self.userNameTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOfBirthTF.text ?? "", gender: self.selectGender ?? "", ethnicity: selectEthnicity, lat: UserDefaultsCustom.getUserData()?.lat ?? "", long: UserDefaultsCustom.getUserData()?.long ?? "",bio: self.bioTextView.text)
+            viewModel?.apiEditProfile(name: self.nameTF.text ?? "", username: self.userNameTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOfBirthTF.text ?? "", gender: self.selectGender ?? "", ethnicity: selectEthnicity, lat: UserDefaultsCustom.getUserData()?.lat ?? "", long: UserDefaultsCustom.getUserData()?.long ?? "",bio: self.bioTextView.text.trim)
 //            let vc = TabBarController()
 //            self.navigationController?.pushViewController(vc, animated: true)
         }

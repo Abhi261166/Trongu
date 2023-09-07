@@ -58,7 +58,7 @@ class Validator {
             return (false, "Please enter at maximum 20 Characters for username")
         }
         guard name.count > 0  else {
-            return (false, "Please enter name")
+            return (false, "Please enter username")
         }
         guard name.count > 3  else {
             return (false, "Please enter at least four Characters for username")
@@ -123,7 +123,7 @@ class Validator {
     static public func validatePlace(place: String) -> (Bool,String) {
       
         guard place.count > 0  else {
-            return (false, "Please enter place")
+            return (false, "please enter your location")
         }
         
         return (true, "")
@@ -410,7 +410,7 @@ class Validator {
         }
         
         guard pwd == password else {
-            return (false, "New password and \(val) password are not matching")
+            return (false, "Oops! It looks like the password and confirm password fields don't match.")
         }
         
         return (true,"Please enter valid \(val)password")

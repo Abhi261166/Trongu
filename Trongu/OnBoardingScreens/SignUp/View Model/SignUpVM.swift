@@ -11,7 +11,12 @@ protocol SignUpVMObserver: NSObjectProtocol {
     func observeSignUpSucessfull()
 }
 class SignUpVM: NSObject {
+    
     var observer: SignUpVMObserver?
+    var editImage: PickerData?
+    var imagePicker = GetImageFromPicker()
+    var edit_cover_Image: PickerData?
+    
     
     init(observer: SignUpVMObserver?) {
         self.observer = observer
@@ -44,7 +49,7 @@ class SignUpVM: NSObject {
 //        return true
 //    }
     func apiSignup(name:String,email:String,pswrd:String,place:String,birthDate:String,gender:String,ethnicity:String,
-                   lat :String, long:String,username:String){
+                   lat :String, long:String,username:String,bio:String){
         var params = JSON()
         params["user_name"] = username
         params["name"] = name
@@ -59,36 +64,57 @@ class SignUpVM: NSObject {
         params["lat"] = lat
         params["long"] = long
         params["login_type"] = "1"
+        params["bio"] = bio
         print(params,"Okkk")
         AppDefaults.password = pswrd
         
+        
         ActivityIndicator.shared.showActivityIndicator()
-        ApiHandler.callWithMultipartForm(apiName: API.Name.signup, params: params) { [weak self] succeeded, response, data in
+        ApiHandler.updateProfile(apiName: API.Name.signup, params: params, profilePhoto: editImage) { succeeded, response, data in
+    ActivityIndicator.shared.hideActivityIndicator()
             DispatchQueue.main.async {
-                ActivityIndicator.shared.hideActivityIndicator()
-                if let self = self{
-                    if succeeded == true, let data{
-                        let decoder = JSONDecoder()
+                print("api responce in Home screen : \(response)")
+                if succeeded == true {
+                    if let message = response["message"] as? String {
+                        self.showMessage(message: message, isError: .success)
+                    }
+                    self.observer?.observeSignUpSucessfull()
+                } else {
+                    self.showMessage(message: response["message"] as? String ?? "" , isError: .error)
+                }
+            }
+  
+        }
+        
+        
+        
+//        ActivityIndicator.shared.showActivityIndicator()
+//        ApiHandler.callWithMultipartForm(apiName: API.Name.signup, params: params) { [weak self] succeeded, response, data in
+//            DispatchQueue.main.async {
+//                ActivityIndicator.shared.hideActivityIndicator()
+//                if let self = self{
+//                    if succeeded == true, let data{
+//                        let decoder = JSONDecoder()
+////                        if let message = response["message"] as? String {
+////                            self.showMessage(message: message, isError: .success)
+////                        }
 //                        if let message = response["message"] as? String {
 //                            self.showMessage(message: message, isError: .success)
 //                        }
-                        if let message = response["message"] as? String {
-                            self.showMessage(message: message, isError: .success)
-                        }
-                        
-
-                            self.observer?.observeSignUpSucessfull()
-//                        }catch{
-//                            print("error",error)
+//
+//
+//                            self.observer?.observeSignUpSucessfull()
+////                        }catch{
+////                            print("error",error)
+////                        }
+//                    }else{
+//                        if let message = response["message"] as? String {
+//                            self.showMessage(message: message, isError: .error)
 //                        }
-                    }else{
-                        if let message = response["message"] as? String {
-                            self.showMessage(message: message, isError: .error)
-                        }
-                    }
-                }
-            }
-        }
+//                    }
+//                }
+//            }
+//        }
     }
     
     
@@ -149,6 +175,7 @@ class SignUpVM: NSObject {
             }
         }
     }
+    
     func appleSignUp(name:String,email:String,pswrd:String,place:String,birthDate:String,gender:String,ethnicity:String,
                       lat :String, long:String,username:String,appleId:String){
         var params = JSON()
@@ -208,7 +235,7 @@ class SignUpVM: NSObject {
     }
     
     func googleSignup(name:String,email:String,pswrd:String,place:String,birthDate:String,gender:String,ethnicity:String,
-                      lat :String, long:String,username:String,googleId:String){
+                      lat :String, long:String,username:String,googleId:String,bio:String){
         var params = JSON()
         params["user_name"] = username
         params["name"] = name
@@ -222,6 +249,7 @@ class SignUpVM: NSObject {
 //        params["device_token"] = UserDefaultsCustom.deviceToken
         params["lat"] = lat
         params["long"] = long
+        params["bio"] = bio
 //        params["login_type"] = 0
 //        params["google_id"] = googleId
 //        params["facebook_id"] = "0"
@@ -230,41 +258,78 @@ class SignUpVM: NSObject {
         AppDefaults.password = pswrd
         
         ActivityIndicator.shared.showActivityIndicator()
-        ApiHandler.callWithMultipartForm(apiName: API.Name.socialLogin, params: params) { [weak self] succeeded, response, data in
+        ApiHandler.updateProfile(apiName: API.Name.socialLogin, params: params, profilePhoto: editImage) { succeeded, response, data in
+    ActivityIndicator.shared.hideActivityIndicator()
             DispatchQueue.main.async {
-                ActivityIndicator.shared.hideActivityIndicator()
-                   if let self = self{
-                    if succeeded == true, let data{
-                        let decoder = JSONDecoder()
-
+                print("api responce in Home screen : \(response)")
+                if succeeded == true, let data {
+                    let decoder = JSONDecoder()
+                    
+                    if let message = response["message"] as? String {
+                        self.showMessage(message: message, isError: .success)
+                    }
+                    
+                    do {
+                        let decoded = try decoder.decode(UserModel.self, from: data)
+                        if let userData = decoded.data {
+                            UserDefaultsCustom.saveUserData(userData: userData)
+                            UserDefaultsCustom.userId = userData.id
+                            UserDefaultsCustom.authToken = userData.access_token
+                            DefaultManager.shared.isNew = "yes"
                             if let message = response["message"] as? String {
                                 self.showMessage(message: message, isError: .success)
-                                
-                                do {
-                                    let decoded = try decoder.decode(UserModel.self, from: data)
-                                    if let userData = decoded.data {
-                                        UserDefaultsCustom.saveUserData(userData: userData)
-                                        UserDefaultsCustom.userId = userData.id
-                                        UserDefaultsCustom.authToken = userData.access_token
-                                        DefaultManager.shared.isNew = "yes"
-                                        if let message = response["message"] as? String {
-                                            self.showMessage(message: message, isError: .success)
-                                        }
-                                        self.observer?.observeSignUpSucessfull()
-                                    }
-                                    
-                                } catch {
-                                    print("error", error)
-                                }
                             }
-                    }else{
-                        if let message = response["message"] as? String {
-                            self.showMessage(message: message, isError: .error)
+                            self.observer?.observeSignUpSucessfull()
                         }
+                        
+                    } catch {
+                        print("error", error)
                     }
+                    
+                    
+                } else {
+                    self.showMessage(message: response["message"] as? String ?? "" , isError: .error)
                 }
             }
+  
         }
+        
+  //      ActivityIndicator.shared.showActivityIndicator()
+  //      ApiHandler.callWithMultipartForm(apiName: API.Name.socialLogin, params: params) { [weak self] succeeded, response, data in
+//            DispatchQueue.main.async {
+//                ActivityIndicator.shared.hideActivityIndicator()
+//                   if let self = self{
+//                    if succeeded == true, let data{
+//                        let decoder = JSONDecoder()
+//
+//                            if let message = response["message"] as? String {
+//                                self.showMessage(message: message, isError: .success)
+//
+//                                do {
+//                                    let decoded = try decoder.decode(UserModel.self, from: data)
+//                                    if let userData = decoded.data {
+//                                        UserDefaultsCustom.saveUserData(userData: userData)
+//                                        UserDefaultsCustom.userId = userData.id
+//                                        UserDefaultsCustom.authToken = userData.access_token
+//                                        DefaultManager.shared.isNew = "yes"
+//                                        if let message = response["message"] as? String {
+//                                            self.showMessage(message: message, isError: .success)
+//                                        }
+//                                        self.observer?.observeSignUpSucessfull()
+//                                    }
+//
+//                                } catch {
+//                                    print("error", error)
+//                                }
+//                            }
+//                    }else{
+//                        if let message = response["message"] as? String {
+//                            self.showMessage(message: message, isError: .error)
+//                        }
+//                    }
+//                }
+//            }
+   //     }
     }
 }
 extension NSObject {

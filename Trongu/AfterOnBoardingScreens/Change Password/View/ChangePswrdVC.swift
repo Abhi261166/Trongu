@@ -27,6 +27,26 @@ class ChangePswrdVC: UIViewController {
         self.viewModel = ChangePasswordVM(observer: self)
     }
     
+    @IBAction func actionShowHidePass(_ sender: UIButton) {
+        
+        switch sender.tag {
+        case 0:
+            sender.isSelected.toggle()
+            oldPswrdText.isSecureTextEntry = !sender.isSelected
+        case 1:
+            sender.isSelected.toggle()
+            newPswrdText.isSecureTextEntry = !sender.isSelected
+        case 2:
+            sender.isSelected.toggle()
+            reEnterPswrdText.isSecureTextEntry = !sender.isSelected
+        default:
+            break
+        }
+        
+        
+    }
+    
+    
     func validate() -> Bool {
         
         if ValidationManager.shared.isEmpty(text: oldPswrdText.text) == true {
@@ -52,7 +72,7 @@ class ChangePswrdVC: UIViewController {
             return false
         }
         if (newPswrdText.text != reEnterPswrdText.text) {
-            showAlertMessage(title: "Trongu"  , message: "New password and confirm password not match." , okButton: "Ok", controller: self) {
+            showAlertMessage(title: "Trongu"  , message: "Oops! It looks like the new password and re-enter new password fields don't match." , okButton: "Ok", controller: self) {
             }
             return false
         }

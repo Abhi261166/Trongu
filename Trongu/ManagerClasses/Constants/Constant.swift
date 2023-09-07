@@ -11,7 +11,7 @@ struct Constants{
     static let AppName = "Trongu"
     
     //    MARK: Alert Messages
-    static let blankEmail = "Please enter email"
+    static let blankEmail = "Please enter email or username"
     static let validEmail = "Please enter valid email"
     static let blankPassword = "Please enter password"
     static let validPassword = "Please enter valid password"

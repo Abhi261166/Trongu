@@ -33,9 +33,9 @@ class AddPostCVC: UICollectionViewCell {
                scrollView.delaysContentTouches = false
 
                // Set up the pinch gesture recognizer
-               let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchGestureRecognized(_:)))
-               scrollView.addGestureRecognizer(pinchGesture)
-               originalScale = scrollView.zoomScale
+             //  let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchGestureRecognized(_:)))
+              // scrollView.addGestureRecognizer(pinchGesture)
+            //   originalScale = scrollView.zoomScale
         
         
     }
@@ -125,9 +125,9 @@ extension AddPostCVC:UIScrollViewDelegate{
   
     }
     
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-               return postImage
-    }
+//    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+//               return postImage
+//    }
     
     
     @objc private func handleDoubleTap(_ gesture: UITapGestureRecognizer) {

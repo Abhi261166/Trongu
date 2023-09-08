@@ -50,11 +50,16 @@ class SearchVC: UIViewController,UITextFieldDelegate {
     
     func searchApiCall(){
         isRecentSearch = true
+        self.searchTF.text = ""
         self.viewModel?.pageNo = 0
         self.viewModel?.isLastPage = false
+        self.viewModel?.arrUserAndPlace = []
+        self.viewModel?.arrRecentSearchUserAndPlace = []
         self.viewModel?.apiSearch(text: "")
+        self.recentLable.isHidden = false
+        self.recentLable.text = "Recent Search"
+        self.crossButton.isHidden = true
     }
-    
     
     @objc fileprivate func keyboardWillShow(_ notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
@@ -86,11 +91,15 @@ class SearchVC: UIViewController,UITextFieldDelegate {
             self.viewModel?.pageNo = 0
             self.viewModel?.isLastPage = false
             self.viewModel?.apiSearch(text: searchText)
+            self.recentLable.isHidden = true
+            self.recentLable.text = ""
         }else{
             isRecentSearch = true
             self.viewModel?.pageNo = 0
             self.viewModel?.isLastPage = false
+            self.recentLable.isHidden = false
             self.viewModel?.apiSearch(text: "")
+            self.recentLable.text = "Recent Search"
         }
     }
     
@@ -107,6 +116,7 @@ class SearchVC: UIViewController,UITextFieldDelegate {
     @IBAction func crossAction(_ sender: UIButton) {
         searchTF.text = ""
         crossButton.isHidden = true
+        searchApiCall()
     }
 }
 
@@ -125,26 +135,55 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTVCell", for: indexPath) as! SearchTVCell
      
-        let dictSearch = self.viewModel?.arrUserAndPlace[indexPath.row]
-        let dictRecentSearch = self.viewModel?.arrRecentSearchUserAndPlace[indexPath.row]
-     
         if isRecentSearch{
-            
+            let dictRecentSearch = self.viewModel?.arrRecentSearchUserAndPlace[indexPath.row]
             cell.nameLabel.text = dictRecentSearch?.name
+            cell.btnDeleteRecent.isHidden = false
+            cell.btnDeleteRecent.tag = indexPath.row
+            cell.btnDeleteRecent.addTarget(self, action: #selector(actionDeleteFromRecent), for: .touchUpInside)
+            
             cell.profileImage.setImage(image: dictRecentSearch?.image,placeholder:UIImage(named: "ic_profilePlaceHolder"))
             
         }else{
-            
-            
+            let dictSearch = self.viewModel?.arrUserAndPlace[indexPath.row]
+            cell.btnDeleteRecent.isHidden = true
+            if dictSearch?.actionType == "1"{
+                cell.nameLabel.text = dictSearch?.name
+                cell.profileImage.setImage(image: dictSearch?.image,placeholder:UIImage(named: "ic_profilePlaceHolder"))
+            }else{
+                cell.nameLabel.text = dictSearch?.place
+                cell.profileImage.setImage(image: dictSearch?.image,placeholder:UIImage(named: "ic_profilePlaceHolder"))
+            }
         }
-        
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        if isRecentSearch{
+            let dictRecentSearch = self.viewModel?.arrRecentSearchUserAndPlace[indexPath.row]
+            let vc = OtherUserProfileVC()
+            vc.userId = dictRecentSearch?.id
+            self.pushViewController(vc, true)
+            print("in recent search")
+            
+        }else{
+            let dictSearch = self.viewModel?.arrUserAndPlace[indexPath.row]
+            self.viewModel?.apiAddRecentHistory(actionId: dictSearch?.actionID ?? "", actionType: dictSearch?.actionType ?? "")
+            let vc = OtherUserProfileVC()
+            vc.userId = dictSearch?.actionID
+            self.pushViewController(vc, true)
+            
+        }
         
+    }
+    
+    @objc func actionDeleteFromRecent(sender:UIButton){
+       // let dictRecentSearch = self.viewModel?.arrRecentSearchUserAndPlace[sender.tag]
+     //   self.viewModel?.apiRemoveRecentHistory(actionId: dictRecentSearch?.id, actionType: dictRecentSearch)
+        
+        Singleton.shared.showErrorMessage(error: "Not implemented yet.", isError: .message)
     }
     
 }

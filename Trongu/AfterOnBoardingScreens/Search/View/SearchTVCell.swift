@@ -11,9 +11,9 @@ class SearchTVCell: UITableViewCell {
     
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
-    
     @IBOutlet weak var locationView: UIView!
     @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var btnDeleteRecent: UIButton!
     
     
     override func awakeFromNib() {

@@ -30,9 +30,9 @@ class ProfileVM: NSObject {
 
     //MARK: Get Profile Api
 
-    func apiGetProfile() {
+    func apiGetProfile(userId:String,isOtherUser:Bool = false) {
         var params = JSON()
-        params["other_id"] = ""
+        params["other_id"] = userId
 //        params = [:]
         print("params : ", params)
         ActivityIndicator.shared.showActivityIndicator()
@@ -49,7 +49,13 @@ class ProfileVM: NSObject {
                             let decoded = try decoder.decode(UserModel.self, from: data)
                             if let userData = decoded.data {
                                 self.userData = userData
-                                UserDefaultsCustom.saveUserData(userData: userData)
+                                
+                                if isOtherUser{
+                                    print("Do Not Save Data...")
+                                }else{
+                                    UserDefaultsCustom.saveUserData(userData: userData)
+                                }
+                                
                             }
                             self.observer?.observeGetProfileSucessfull()
                         }catch{

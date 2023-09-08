@@ -61,7 +61,7 @@ class API {
       //  static let search                 = "j1/trongu/api/v1/users/search-names-with-type"
         static let search                 = "j1/trongu/api/v1/users/recet-search-listing"
         static let addToRecent            = "j1/trongu/api/v1/users/add-recent-search"
-        static let deleteFromRecent       = "j1/trongu/api/v1/users/comment-listing"
+        static let deleteFromRecent       = "j1/trongu/api/v1/users/recent-search-del"
         
         // Setting Api
         static let accountType            = "j1/trongu/api/v1/users/user-public-private"

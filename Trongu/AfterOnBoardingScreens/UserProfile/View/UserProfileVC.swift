@@ -60,7 +60,7 @@ class UserProfileVC: UIViewController {
     }
     func hitGetProfileApi(){
         
-        self.viewModel?.apiGetProfile()
+        self.viewModel?.apiGetProfile(userId: "")
         
     }
     

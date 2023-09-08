@@ -32,7 +32,7 @@ class SearchVM: NSObject {
     func apiSearch(text: String) {
         var params = JSON()
         params["per_page"] = perPage
-        params["pageno"] = pageNo + 1
+        params["page_no"] = pageNo + 1
         params["search"] = text
         if text == ""{
             params["type"] = self.type
@@ -76,99 +76,47 @@ class SearchVM: NSObject {
         }
     }
     
+
+//   MARK: - Add Recent Api -
+
+    func apiAddRecentHistory(actionId: String,actionType: String) {
+        var params = JSON()
+        params["action_id"] = actionId
+        params["action_type"] = actionType
+
+        print("params : ", params)
+//        add loader
+        ActivityIndicator.shared.showActivityIndicator()
+        ApiHandler.callWithMultipartForm(apiName: API.Name.addToRecent, params: params) { [weak self] succeeded, response, data in
+            DispatchQueue.main.async {
+//        remove loader
+        ActivityIndicator.shared.hideActivityIndicator()
+                if let self = self {
+                    if succeeded == true {
+                       
+                    }
+                }
+            }
+        }
+    }
+
     
-//    // MARK: Get other user profile Api
-//
-//    func apiGetUsers(userID: String) {
-//        var params = JSON()
-//        params["otheruser_id"] = userID
-//
-//        print("params : ", params)
-////        add loader
-//        ActivityIndicator.shared.showActivityIndicator()
-//        ApiHandler.callWithMultipartForm(apiName: API.Name.getOtherUserProfile, params: params) { [weak self] succeeded, response, data in
-//            DispatchQueue.main.async {
-////        remove loader
-//        ActivityIndicator.shared.hideActivityIndicator()
-//                if let self = self {
-//                    if succeeded == true, let data {
-//                        let decoder = JSONDecoder()
-//                        do {
-//
-//                            let decoded = try decoder.decode(SignupModel.self, from: data)
-//                            if let userData = decoded.data {
-//                                self.otherUserData = userData
-//                            }
-//                        self.observer?.setSearchSucessfull()
-//                        } catch {
-//                            print("error", error)
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//    //MARK: Add Recent Api
-//
-//    func apiAddRecentHistory(userID: String) {
-//        var params = JSON()
-//        params["user_id"] = userID
-//        params["type"] = self.type
-//
-//        print("params : ", params)
-////        add loader
-//        ActivityIndicator.shared.showActivityIndicator()
-//        ApiHandler.callWithMultipartForm(apiName: API.Name.addRecentHistory, params: params) { [weak self] succeeded, response, data in
-//            DispatchQueue.main.async {
-////        remove loader
-//        ActivityIndicator.shared.hideActivityIndicator()
-//                if let self = self {
-//                    if succeeded == true, let data {
-//                        let decoder = JSONDecoder()
-//                        do {
-//                           print("In Recent history api")
-////                            let decoded = try decoder.decode(SignupModel.self, from: data)
-////                            if let userData = decoded.data {
-////                                self.otherUserData = userData
-////                            }
-//                         //   self.observer?.observeGetProfileSucessfull()
-//                        } catch {
-//                            print("error", error)
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//    //MARK: Remove Recent User
-//    func apiRemoveRecentHistory(userID: String) {
-//        var params = JSON()
-//        params["user_id"] = userID
-//
-//        print("params : ", params)
-////        add loader
-//      //  ActivityIndicator.shared.showActivityIndicator()
-//        ApiHandler.callWithMultipartForm(apiName: API.Name.removeRecentHistory, params: params) { [weak self] succeeded, response, data in
-//            DispatchQueue.main.async {
-////        remove loader
-//       // ActivityIndicator.shared.hideActivityIndicator()
-//                if let self = self {
-//                    if succeeded == true, let data {
-//                        let decoder = JSONDecoder()
-//                        do {
-//                            self.observer?.setRecentSucessfull()
-//
-//                        } catch {
-//                            print("error", error)
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-    
+    //MARK: Remove Recent User
+    func apiRemoveRecentHistory(actionId: String,actionType: String) {
+        var params = JSON()
+        params["action_id"] = actionId
+        params["action_type"] = actionType
+        print("params : ", params)
+        ApiHandler.callWithMultipartForm(apiName: API.Name.deleteFromRecent, params: params) { [weak self] succeeded, response, data in
+            DispatchQueue.main.async {
+                if let self = self {
+                    if succeeded == true {
+                            self.observer?.setSearchSucessfull()
+                    }
+                }
+            }
+        }
+    }
     
 }
 

@@ -243,8 +243,6 @@ class AddPhotoVideoVC: UIViewController {
         self.addPhotoVideoCollectionView.register(UINib(nibName: "AddPhotoVideoCVCell", bundle: nil), forCellWithReuseIdentifier: "AddPhotoVideoCVCell")
     }
     
-   
-    
 }
 extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -498,7 +496,7 @@ extension AddPhotoVideoVC{
                    })
                    print("capture pic date time",photo.asset?.creationDate as Any)
                    self.dateTF.text = photo.asset?.creationDate?.dateToString(format: self.dateFormat)
-                   self.timeTF.text = "\(photo.asset?.creationDate?.dateToString(format: "h:mm a") ?? "")(\(self.timeZoneAbbreviation ?? ""))"
+                   self.timeTF.text = "\(photo.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")"
                    ActivityIndicator.shared.hideActivityIndicator()
                   
                case .video(v: let video):
@@ -693,7 +691,7 @@ extension AddPhotoVideoVC{
                     place = address ?? ""
                 })
                 
-                let post = PostImagesVideo(id: "", postID: "", place: place, date: photo.asset?.creationDate?.dateToString(format: dateFormat) ?? "", time: "\(photo.asset?.creationDate?.dateToString(format: "h:mm a") ?? "")(\(self.timeZoneAbbreviation ?? ""))", lat: "\(photo.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(photo.asset?.location?.coordinate.longitude ?? 0.0)", image: "", videoTitle: "", videoURL: "", height: "", width: "", thumbNailImage: "", type: "0", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
+                let post = PostImagesVideo(id: "", postID: "", place: place, date: photo.asset?.creationDate?.dateToString(format: dateFormat) ?? "", time: "\(photo.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")", lat: "\(photo.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(photo.asset?.location?.coordinate.longitude ?? 0.0)", image: "", videoTitle: "", videoURL: "", height: "", width: "", thumbNailImage: "", type: "0", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
                 self.images.append(photo.image)
                 arrPostItems.append(post)
             case .video(v: let video):
@@ -702,7 +700,7 @@ extension AddPhotoVideoVC{
                     place = address ?? ""
                 })
                 
-                let post = PostImagesVideo(id: "", postID: "", place: place, date: video.asset?.creationDate?.dateToString(format: dateFormat) ?? "", time: "\(video.asset?.creationDate?.dateToString(format: "h:mm a") ?? "")(\(self.timeZoneAbbreviation ?? ""))", lat: "\(video.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(video.asset?.location?.coordinate.longitude ?? 0.0)", image: "", videoTitle: "", videoURL: video.url.path, height: "", width: "", thumbNailImage: "", type: "1", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
+                let post = PostImagesVideo(id: "", postID: "", place: place, date: video.asset?.creationDate?.dateToString(format: dateFormat) ?? "", time: "\(video.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")", lat: "\(video.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(video.asset?.location?.coordinate.longitude ?? 0.0)", image: "", videoTitle: "", videoURL: video.url.path, height: "", width: "", thumbNailImage: "", type: "1", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
                 self.images.append(video.thumbnail)
                 arrPostItems.append(post)
             }

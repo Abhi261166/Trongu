@@ -11,6 +11,8 @@ class BlockReportPopUpVC: UIViewController,UIGestureRecognizerDelegate {
 
     
     var controller: UIViewController?
+    var completion : (() -> Void)? = nil
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +29,13 @@ class BlockReportPopUpVC: UIViewController,UIGestureRecognizerDelegate {
     }
     
     @objc func myviewTapped(_ recognizer: UIGestureRecognizer) {
-        self.dismiss(animated: true) {}
+        
+        if let completion = completion{
+            self.dismiss(animated: true) {}
+            completion()
+        }
+        
+        
     }
 
 }

@@ -14,12 +14,25 @@ class FilterScreenVC: UIViewController {
     @IBOutlet weak var tripCategoryTF: UITextField!
     @IBOutlet weak var ethnicityTF: UITextField!
     @IBOutlet weak var complexityTF: UITextField!
+    @IBOutlet weak var multislider: MultiSlider!
+    @IBOutlet weak var lblMaxAmount: UILabel!
+    @IBOutlet weak var lblMinAmount: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        multislider.addTarget(self, action: #selector(sliderChanged), for: .valueChanged)
     }
 
+    @objc func sliderChanged(slider: MultiSlider) {
+        print("thumb \(slider.draggedThumbIndex) moved")
+        print("now thumbs are at \(slider.value)") // e.g., [1.0, 4.5, 5.0]
+        lblMaxAmount.text = "$\(Int(slider.value.last ?? 0.0))"
+        lblMinAmount.text = "$\(Int(slider.value.first ?? 0.0))"
+    }
+    
     func validation() {
         if placeTF.text == ""{
             Trongu.showAlert(title: Constants.AppName, message: Constants.blankPlace, view: self)
@@ -43,7 +56,7 @@ class FilterScreenVC: UIViewController {
     }
     
     @IBAction func saveAction(_ sender: UIButton) {
-        validation()
+        popVC()
     }
     
 }

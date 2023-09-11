@@ -16,6 +16,9 @@ class AddPostCVC: UICollectionViewCell {
     @IBOutlet weak var volumeButton: UIButton!
     @IBOutlet weak var videoPlayerView: DAVideoPlayerView!
     
+    @IBOutlet weak var btnDetail: UIButton!
+    
+    
     var originalScale: CGFloat = 1.0
     var urlString: String?
     var timer: Timer?

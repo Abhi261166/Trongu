@@ -171,7 +171,7 @@ extension LoginTypeVC : ASAuthorizationControllerDelegate{
             let appleUserEmail = appleIDCredential.email ?? ""
             self.appleToken = appleIDCredential.user
             self.email = appleIDCredential.email ?? ""
-            let name = "\(appleUserFirstName) \(appleUserLastName)"
+            self.name = "\(appleUserFirstName) \(appleUserLastName)"
             UserDefaults.standard.set(email, forKey: "email")
             UserDefaults.standard.set(fullName, forKey: "fullName")
             print(appleID, "@!@##@!#@$")

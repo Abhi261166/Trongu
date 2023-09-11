@@ -91,6 +91,13 @@ class OtherUserProfileVC: UIViewController {
         let vc = ChatVC()
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @IBAction func followAction(_ sender: UIButton) {
+        
+        self.viewModel?.apiFollowUnfollow(userID: userId ?? "")
+        
+    }
+    
 }
 extension OtherUserProfileVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -180,6 +187,12 @@ extension OtherUserProfileVC: UICollectionViewDelegate,UICollectionViewDataSourc
 }
 
 extension OtherUserProfileVC:ProfileVMObserver{
+    
+    
+    func observeFollowUnfollowSucessfull() {
+        
+    }
+    
     func observeGetProfileSucessfull() {
         DispatchQueue.main.async {
             self.setProfileData()

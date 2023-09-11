@@ -36,9 +36,9 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     var selectGender = String()
     var selectEthnicity = String()
     var latitude :String?
+    var longitude:String?
     var locationManager = CLLocationManager()
     var currentLocation: CLLocation!
-    var longitude:String?
     var genderPicker = ["Male","Female"]
     var ethnicityPicker = ["White","Black","Asian"]
     var imagePickerController = UIImagePickerController()
@@ -106,6 +106,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         getCurrentLocation()
     }
     
+    
     @objc func doneButtonPressed() {
         if let  datePicker = self.dateOFbirthTF.inputView as? UIDatePicker {
             let dateFormatter = DateFormatter()
@@ -121,6 +122,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         }
         self.dateOFbirthTF.resignFirstResponder()
     }
+    
     func getCurrentLocation(){
         if #available(iOS 14.0, *) {
             if locationManager.authorizationStatus == (CLAuthorizationStatus.authorizedWhenInUse) ||
@@ -649,6 +651,12 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         iconClick2 = !iconClick2
     }
     
+    @IBAction func actionPickAddress(_ sender: UIButton) {
+        
+        let vc = AddLocationVC()
+        vc.delegate = self
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
     
     @IBAction func termAndConditionBtnAction(_ sender: UIButton) {
@@ -982,4 +990,18 @@ extension String {
     }
     
    
+}
+
+extension SignUpVC:AddLocationVCDelegate{
+    
+    func setLocation(text: String, lat: Double, long: Double, address: String) {
+        DispatchQueue.main.async {
+            
+            self.latitude = "\(lat)"
+            self.longitude = "\(long)"
+            self.addPlaceTF.text = address
+            
+        }
+        
+    }
 }

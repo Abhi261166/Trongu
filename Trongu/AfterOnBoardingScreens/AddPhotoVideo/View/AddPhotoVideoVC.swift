@@ -388,6 +388,7 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
         self.images.remove(at: sender.tag)
         // is last element
         
+        
         if (arrPostItems.count) == sender.tag{
            
             //text filed data start
@@ -401,7 +402,6 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
                 
             }
            
-            
             //text filed data end
             
             self.addPhotoVideoCollectionView.reloadData()
@@ -425,6 +425,14 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
             placeTF.text = ""
             dateTF.text = ""
             timeTF.text = ""
+            
+        }
+        if images.count == 0{
+            
+            placeTF.text = ""
+            dateTF.text = ""
+            timeTF.text = ""
+            self.disableTextFileds()
             
         }
         

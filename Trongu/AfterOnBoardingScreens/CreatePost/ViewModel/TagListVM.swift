@@ -110,7 +110,7 @@ class TagListVM: NSObject {
         let isValidConfirmPassword = Validator.validateTripComplex(tripComp: tripComp)
 
         guard imageSelected == true else {
-            Singleton.showMessage(message: "Please select at leaset 1 video of image to post", isError: .error)
+            Singleton.showMessage(message: "Please select at leaset one video or image to post", isError: .error)
             return false
         }
         guard isvalidUsername.0 == true else {

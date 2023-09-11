@@ -285,6 +285,11 @@ extension UserProfileVC: UICollectionViewDelegate,UICollectionViewDataSource,UIC
 
 extension UserProfileVC : ProfileVMObserver{
     
+    func observeFollowUnfollowSucessfull() {
+        
+    }
+    
+    
     func observeGetProfilePostsSucessfull() {
         
         self.userProfileCollectionView.reloadData()

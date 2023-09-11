@@ -69,9 +69,36 @@ class CreatePostVC: UIViewController{
         
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        
+      //  removeData()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if comeFrom == "Edit"{
+         //   setData()
+        }else{
+//            let UserData = UserDetail(id: "", googleID: "", facebookID: "", appleID: "", name: "", userName: "", loginType: "", gender: "", email: "", image: "", password: "", place: "", bio: "", dob: "", ethnicity: "", deviceToken: "", deviceType: "", isStatus: "", mailStatus: "", smsStatus: "", status: "", authKey: "", accessToken: "", lat: "", long: "", verificationToken: "", passwordResetToken: "", expireAt: "", createdAt: "", updatedAt: "")
+//            let post = Post(id: "", userID: "", budget: "", noOfDays: "", tripCategory: "", description: "", tripComplexity: "", status: "", createdAt: "", tripCategoryName: "", userDetail: UserData)
+//            myPost.append(post)
+            print("Data Removed....")
+        }
         setData()
+        
+    }
+    
+    func removeData(){
+        finalPostItems = []
+        myPost = []
+        images = []
+        txtTags.text = ""
+        txtBudget.text = ""
+        txtNoOffDays.text = ""
+        txtTripCategory.text = ""
+        txtViewDesc.text = ""
+        txtTripCategory.text = ""
     }
     
     func setData(){
@@ -164,8 +191,19 @@ class CreatePostVC: UIViewController{
 
         if myPost.first?.postImagesVideo.count ?? 0 > 0{
             
+            var imagesSelected = true
+            if self.comeFrom == "Edit"{
+                 imagesSelected = true
+            }else{
+                if images.count > 0{
+                    imagesSelected = true
+                }else{
+                    imagesSelected = false
+                }
+            }
+            
             guard let viewModel = self.viewModel,
-                  viewModel.validateCreatePostDetails(imageSelected: true, budget: self.txtBudget.text ?? "", noOfDays: self.txtNoOffDays.text ?? "", tripCat: "1", desc: txtViewDesc.text ?? "", tripComp: txtTripComplexity.text ?? "")else { return }
+                  viewModel.validateCreatePostDetails(imageSelected: imagesSelected, budget: self.txtBudget.text ?? "", noOfDays: self.txtNoOffDays.text ?? "", tripCat: "1", desc: txtViewDesc.text ?? "", tripComp: txtTripComplexity.text ?? "")else { return }
             
             self.myPost[0].budget = self.txtBudget.text ?? ""
             self.myPost[0].noOfDays = self.txtNoOffDays.text ?? ""
@@ -184,6 +222,9 @@ class CreatePostVC: UIViewController{
             vc.images = self.images
             vc.hidesBottomBarWhenPushed = true
             self.pushViewController(vc, true)
+        }else{
+            
+            Singleton.showMessage(message: "Please select at leaset one video or image to post", isError: .error)
         }
        
     }

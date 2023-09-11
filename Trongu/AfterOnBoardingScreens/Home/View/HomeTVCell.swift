@@ -50,7 +50,7 @@ class HomeTVCell: UITableViewCell {
     var budget = ""
     var noOfDays = ""
     var address : [String] = []
-    
+    var isReloadHome = true
     
     
     override func awakeFromNib() {
@@ -171,27 +171,42 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             switch dict.type {
             case "0":
                 cell.setPostData(dict.image, thumbnail_image: dict.thumbNailImage)
+                cell.btnDetail.tag = indexPath.row
+                cell.btnDetail.addTarget(self, action: #selector(actionPostDetails),for: .touchUpInside)
             case "1":
                 cell.setPostData(dict.videoURL, thumbnail_image: dict.thumbNailImage)
+                cell.btnDetail.tag = indexPath.row
+                cell.btnDetail.addTarget(self, action: #selector(actionPostDetails),for: .touchUpInside)
             default:
                 break
             }
                 return cell
         }
-        
        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 350)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
      
-//        let vc = DetailVC()
-//        vc.hidesBottomBarWhenPushed = true
-//        controller?.navigationController?.pushViewController(vc, animated: true)
+        if indexPath.row == arrPostImagesVideosList.count{
+           print("In Map Cell")
+            let vc = MapVC()
+            vc.post = arrPostImagesVideosList
+            vc.initialLat = Double(arrPostImagesVideosList.first?.lat ?? "") ?? 0.0
+            vc.initialLong = Double(arrPostImagesVideosList.first?.long ?? "") ?? 0.0
+            
+            vc.hidesBottomBarWhenPushed = true
+            controller?.navigationController?.pushViewController(vc, animated: true)
+        }else{
+//            let vc = ImageVideoLocationVC()
+//            vc.arrPost = arrPostImagesVideosList
+//            vc.hidesBottomBarWhenPushed = true
+//            controller?.navigationController?.pushViewController(vc, animated: true)
+        }
   
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 350)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -212,6 +227,18 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     @objc func actionGoToPost(sender:UIButton){
         
         homeCollectionView.scrollToItem(at: IndexPath(item: sender.tag - 1, section: 0), at: .right, animated: true)
+    }
+    
+    @objc func actionPostDetails(sender:UIButton){
+        
+        let vc = ImageVideoLocationVC()
+        vc.index = sender.tag
+        vc.arrPost = arrPostImagesVideosList
+        vc.completion = {
+            self.isReloadHome = false
+        }
+        vc.hidesBottomBarWhenPushed = true
+        controller?.navigationController?.pushViewController(vc, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -260,7 +287,7 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
 //        guard let cell = self.homeCollectionView.cellForItem(at: indexPath) as? HomeTVCell else { return }
 //        guard let videoCell = cell.homeCollectionView?.visibleCells.first as? AddPostCVC else { return }
         
-        guard let visibleCell = homeCollectionView.visibleCells.first as? AddPostCVC else { return }
+        guard let visibleCell = homeCollectionView.visibleCells.first as else { return }
         
         if visibleCell.urlString?.isImageType == false {
             if DAVideoPlayerView.player != nil {
@@ -291,7 +318,10 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             }
         }else{
             print("In map cell")
-            
+            if let player = DAVideoPlayerView.player {
+                player.pause()
+                DAVideoPlayerView.player = nil
+            }
         }
         
     }

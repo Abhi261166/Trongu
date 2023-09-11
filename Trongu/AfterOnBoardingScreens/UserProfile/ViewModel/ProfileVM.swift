@@ -10,7 +10,7 @@
 protocol ProfileVMObserver: NSObjectProtocol {
     func observeGetProfileSucessfull()
     func observeGetProfilePostsSucessfull()
-    
+    func observeFollowUnfollowSucessfull()
 }
 
 
@@ -114,5 +114,27 @@ class ProfileVM: NSObject {
         }
     }
     
+   
+    // MARK: - Follow/Unfollow Api -
+    
+    func apiFollowUnfollow(userID: String) {
+        var params = JSON()
+        params["other_id"] = userID
+        
+        print("params : ", params)
+        //        add loader
+      //  ActivityIndicator.shared.showActivityIndicator()
+        ApiHandler.callWithMultipartForm(apiName: API.Name.follow, params: params) { succeeded, response, data in
+            DispatchQueue.main.async {
+        //        remove loader
+         //       ActivityIndicator.shared.hideActivityIndicator()
+                if succeeded == true {
+                  
+                        self.observer?.observeFollowUnfollowSucessfull()
+                   
+                }
+            }
+        }
+    }
     
 }

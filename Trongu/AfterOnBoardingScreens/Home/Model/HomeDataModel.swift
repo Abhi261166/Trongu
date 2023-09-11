@@ -105,7 +105,7 @@ struct UserDetail: Codable {
     let name, userName, loginType, gender: String
     let email: String
     let image: String
-    let password, place, bio, dob: String
+    let password, place, bio, dob: String?
     let ethnicity, deviceToken, deviceType, isStatus: String
     let mailStatus, smsStatus, status, authKey: String
     let accessToken, lat, long, verificationToken: String

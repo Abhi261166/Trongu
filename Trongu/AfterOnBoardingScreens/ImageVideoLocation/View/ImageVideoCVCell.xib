@@ -17,23 +17,40 @@
                 <rect key="frame" x="0.0" y="0.0" width="230" height="504"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image 9" translatesAutoresizingMaskIntoConstraints="NO" id="AM2-gn-hDV">
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H30-g7-Ze2">
                         <rect key="frame" x="0.0" y="0.0" width="230" height="504"/>
-                    </imageView>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BucketListImage_8" translatesAutoresizingMaskIntoConstraints="NO" id="sov-7e-oin">
+                                <rect key="frame" x="0.0" y="0.0" width="230" height="504"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="sov-7e-oin" secondAttribute="bottom" id="EjW-ya-bE8"/>
+                            <constraint firstItem="sov-7e-oin" firstAttribute="leading" secondItem="H30-g7-Ze2" secondAttribute="leading" id="OA2-AT-Pse"/>
+                            <constraint firstItem="sov-7e-oin" firstAttribute="width" secondItem="H30-g7-Ze2" secondAttribute="width" id="OnZ-kC-Y4e"/>
+                            <constraint firstAttribute="trailing" secondItem="sov-7e-oin" secondAttribute="trailing" id="PVr-Hd-dTq"/>
+                            <constraint firstItem="sov-7e-oin" firstAttribute="top" secondItem="H30-g7-Ze2" secondAttribute="top" id="dNK-aL-NvU"/>
+                            <constraint firstItem="sov-7e-oin" firstAttribute="height" secondItem="H30-g7-Ze2" secondAttribute="height" id="y30-x0-cpA"/>
+                        </constraints>
+                    </scrollView>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="AM2-gn-hDV" secondAttribute="bottom" id="BWu-Fz-K6B"/>
-                <constraint firstItem="AM2-gn-hDV" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="TjX-8g-RHQ"/>
-                <constraint firstAttribute="trailing" secondItem="AM2-gn-hDV" secondAttribute="trailing" id="djZ-Fo-kCd"/>
-                <constraint firstItem="AM2-gn-hDV" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="exZ-4z-Nu5"/>
+                <constraint firstItem="H30-g7-Ze2" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="4gY-o4-JYS"/>
+                <constraint firstItem="H30-g7-Ze2" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="KqY-MC-TDJ"/>
+                <constraint firstAttribute="trailing" secondItem="H30-g7-Ze2" secondAttribute="trailing" id="QeJ-PK-jTP"/>
+                <constraint firstAttribute="bottom" secondItem="H30-g7-Ze2" secondAttribute="bottom" id="WaE-oK-XgQ"/>
             </constraints>
             <size key="customSize" width="230" height="504"/>
+            <connections>
+                <outlet property="imgPost" destination="sov-7e-oin" id="nob-vU-B9X"/>
+                <outlet property="scrollView" destination="H30-g7-Ze2" id="SGf-jo-Hkj"/>
+            </connections>
             <point key="canvasLocation" x="270.2290076335878" y="148.59154929577466"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="image 9" width="428" height="923"/>
+        <image name="BucketListImage_8" width="142" height="128"/>
     </resources>
 </document>

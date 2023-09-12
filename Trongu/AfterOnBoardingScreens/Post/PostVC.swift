@@ -28,6 +28,7 @@ class PostVC: UIViewController {
     var images:[UIImage] = []
     var comeForm:String?
     var places:[String] = []
+    var tripCat = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,9 +62,7 @@ class PostVC: UIViewController {
                 self.places.append(address ?? "")
             }
         }
-        
     }
-    
     
     func setData(){
         
@@ -77,7 +76,6 @@ class PostVC: UIViewController {
     }
     
     func setViewModel(){
-        
         self.viewModel = PostVM(observer: self)
     }
     
@@ -89,11 +87,38 @@ class PostVC: UIViewController {
     @IBAction func postAction(_ sender: UIButton) {
        
         if self.comeForm == "Edit"{
+          
+            switch finalPost?.tripCategoryName{
+            case "Business Trip":
+                tripCat = 1
+            case "Family Trip":
+                tripCat = 2
+            case "Friends Trip":
+                tripCat = 3
+            case "Solo Trip":
+                tripCat = 4
+            default:
+                break
+            }
             
-            self.viewModel?.apiUpdatePost(postId: finalPost?.id ?? "", tags: self.tagIds, budget: finalPost?.budget ?? "", noOffDays: finalPost?.noOfDays ?? "", tripCat: "1", disc: finalPost?.description ?? "", tripComp: finalPost?.tripComplexity ?? "", arrPosts: arrPostYP, arrPosts2: finalPost?.postImagesVideo ?? [], address: places)
+            self.viewModel?.apiUpdatePost(postId: finalPost?.id ?? "", tags: self.tagIds, budget: finalPost?.budget ?? "", noOffDays: finalPost?.noOfDays ?? "", tripCat: "\(tripCat)", disc: finalPost?.description ?? "", tripComp: finalPost?.tripComplexity ?? "", arrPosts: arrPostYP, arrPosts2: finalPost?.postImagesVideo ?? [], address: places)
             
         }else{
-            self.viewModel?.apiCreatePost(tags: self.tagIds, budget: finalPost?.budget ?? "", noOffDays: finalPost?.noOfDays ?? "", tripCat: "1", disc: finalPost?.description ?? "", tripComp: finalPost?.tripComplexity ?? "", arrPosts: arrPostYP, arrPosts2: finalPost?.postImagesVideo ?? [], images: images, address: places)
+            
+            switch finalPost?.tripCategoryName{
+            case "Business Trip":
+                tripCat = 1
+            case "Family Trip":
+                tripCat = 2
+            case "Friends Trip":
+                tripCat = 3
+            case "Solo Trip":
+                tripCat = 4
+            default:
+                break
+            }
+            
+            self.viewModel?.apiCreatePost(tags: "1", budget: finalPost?.budget ?? "", noOffDays: finalPost?.noOfDays ?? "", tripCat: "\(tripCat)", disc: finalPost?.description ?? "", tripComp: finalPost?.tripComplexity ?? "", arrPosts: arrPostYP, arrPosts2: finalPost?.postImagesVideo ?? [], images: images, address: places)
         }
         
     }

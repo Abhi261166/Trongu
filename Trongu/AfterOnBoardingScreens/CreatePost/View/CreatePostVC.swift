@@ -25,7 +25,7 @@ class CreatePostVC: UIViewController{
     var finalPostItems = [YPMediaItem]()
     var myPost = [Post]()
     var images : [UIImage] = []
-    var tagIds = "10"
+    var tagIds = "1"
     let pickerView = UIPickerView()
     var arrDays = ["1 day","2 days","3 days","4 days","5 days","6 days","7 days","8 days","9 days","10 days"]
     var arrTripCat = ["Business Trip","Family Trip","Friends Trip","Solo Trip"]
@@ -33,13 +33,14 @@ class CreatePostVC: UIViewController{
     var viewModel:TagListVM?
     var tagPeople = ""
     var comeFrom:String?
+    var isFromTabbar = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         textFiledDelegates()
         setPicker()
         setViewModel()
-        
+        txtBudget.delegate = self
         if self.comeFrom == "Edit"{
             btnback.isHidden = false
             lblCreatePost.text = "Edit Post"
@@ -78,14 +79,19 @@ class CreatePostVC: UIViewController{
         super.viewWillAppear(animated)
         
         if comeFrom == "Edit"{
-         //   setData()
+            setData()
         }else{
-//            let UserData = UserDetail(id: "", googleID: "", facebookID: "", appleID: "", name: "", userName: "", loginType: "", gender: "", email: "", image: "", password: "", place: "", bio: "", dob: "", ethnicity: "", deviceToken: "", deviceType: "", isStatus: "", mailStatus: "", smsStatus: "", status: "", authKey: "", accessToken: "", lat: "", long: "", verificationToken: "", passwordResetToken: "", expireAt: "", createdAt: "", updatedAt: "")
-//            let post = Post(id: "", userID: "", budget: "", noOfDays: "", tripCategory: "", description: "", tripComplexity: "", status: "", createdAt: "", tripCategoryName: "", userDetail: UserData)
-//            myPost.append(post)
+            //            let UserData = UserDetail(id: "", googleID: "", facebookID: "", appleID: "", name: "", userName: "", loginType: "", gender: "", email: "", image: "", password: "", place: "", bio: "", dob: "", ethnicity: "", deviceToken: "", deviceType: "", isStatus: "", mailStatus: "", smsStatus: "", status: "", authKey: "", accessToken: "", lat: "", long: "", verificationToken: "", passwordResetToken: "", expireAt: "", createdAt: "", updatedAt: "")
+            //            let post = Post(id: "", userID: "", budget: "", noOfDays: "", tripCategory: "", description: "", tripComplexity: "", status: "", createdAt: "", tripCategoryName: "", userDetail: UserData)
+            //            myPost.append(post)
             print("Data Removed....")
+        
+        if isFromTabbar{
+            setData()
+        }else{
+            removeData()
         }
-        setData()
+    }
         
     }
     
@@ -93,19 +99,25 @@ class CreatePostVC: UIViewController{
         finalPostItems = []
         myPost = []
         images = []
+        self.lblSelectedItems.text = ""
         txtTags.text = ""
         txtBudget.text = ""
         txtNoOffDays.text = ""
         txtTripCategory.text = ""
         txtViewDesc.text = ""
         txtTripCategory.text = ""
+        let UserData = UserDetail(id: "", googleID: "", facebookID: "", appleID: "", name: "", userName: "", loginType: "", gender: "", email: "", image: "", password: "", place: "", bio: "", dob: "", ethnicity: "", deviceToken: "", deviceType: "", isStatus: "", mailStatus: "", smsStatus: "", status: "", authKey: "", accessToken: "", lat: "", long: "", verificationToken: "", passwordResetToken: "", expireAt: "", createdAt: "", updatedAt: "")
+        
+        let post = Post(id: "", userID: "", budget: "", noOfDays: "", tripCategory: "", description: "", tripComplexity: "", status: "", createdAt: "", tripCategoryName: "", userDetail: UserData)
+        myPost.append(post)
+        
     }
     
     func setData(){
-        
+        isFromTabbar = false
         txtBudget.text = myPost[0].budget
         txtNoOffDays.text = myPost[0].noOfDays
-        txtTripCategory.text = myPost[0].tripCategory
+        txtTripCategory.text = myPost[0].tripCategoryName
         txtTripComplexity.text = myPost[0].tripComplexity
         txtViewDesc.text = myPost[0].description
         
@@ -143,6 +155,7 @@ class CreatePostVC: UIViewController{
         vc.completion = { posts1, posts2 ,images in
             
             if self.comeFrom == "Edit"{
+                self.isFromTabbar = true
                 self.myPost[0].postImagesVideo = posts2
                 if self.myPost[0].postImagesVideo.count != 0{
                     if self.myPost[0].postImagesVideo.count == 1{
@@ -156,6 +169,7 @@ class CreatePostVC: UIViewController{
                 }
                 
             }else{
+                self.isFromTabbar = true
                 self.images = images
                 self.finalPostItems = posts1
                 self.myPost[0].postImagesVideo = posts2
@@ -203,11 +217,11 @@ class CreatePostVC: UIViewController{
             }
             
             guard let viewModel = self.viewModel,
-                  viewModel.validateCreatePostDetails(imageSelected: imagesSelected, budget: self.txtBudget.text ?? "", noOfDays: self.txtNoOffDays.text ?? "", tripCat: "1", desc: txtViewDesc.text ?? "", tripComp: txtTripComplexity.text ?? "")else { return }
+                  viewModel.validateCreatePostDetails(imageSelected: imagesSelected, budget: self.txtBudget.text ?? "", noOfDays: self.txtNoOffDays.text ?? "", tripCat: txtTripCategory.text ?? "", desc: txtViewDesc.text ?? "", tripComp: txtTripComplexity.text ?? "")else { return }
             
             self.myPost[0].budget = self.txtBudget.text ?? ""
             self.myPost[0].noOfDays = self.txtNoOffDays.text ?? ""
-            self.myPost[0].tripCategory = self.txtTripCategory.text ?? ""
+            self.myPost[0].tripCategoryName = self.txtTripCategory.text ?? ""
             self.myPost[0].description = self.txtViewDesc.text ?? ""
             self.myPost[0].tripComplexity = self.txtTripComplexity.text ?? ""
             
@@ -235,31 +249,40 @@ extension CreatePostVC:UITextFieldDelegate{
     
     // UITextFieldDelegate method to detect the "@" symbol
       func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-          guard let currentText = textField.text else {
-              return true
+//          guard let currentText = textField.text else {
+//              return true
+//          }
+//
+//                // Check if the user has typed "@" in the text field
+//                  if string == "@" {
+//                      // Show the mentionView as an overlay
+//                      let optionItemListVC = MentionVC()
+//                      optionItemListVC.modalPresentationStyle = .popover
+//                    guard let popoverPresentationController = optionItemListVC.popoverPresentationController else { fatalError("Set Modal presentation style") }
+//                      optionItemListVC.popoverPresentationController?.sourceView = txtTags
+//                      popoverPresentationController.permittedArrowDirections = .down
+//                      optionItemListVC.preferredContentSize = CGSize(width: 300, height: 300)
+//                    popoverPresentationController.delegate = self
+//                      optionItemListVC.completion = { name,id in
+//                          self.tagIds.append(id)
+//                          self.txtTags.text = "@\(name)"
+//                          self.tagPeople = "@\(name)"
+//                          self.txtTags.resignFirstResponder()
+//                      }
+//                      self.present(optionItemListVC, animated: true, completion: nil)
+//                      print("view presented....")
+//                  } else {
+//                      // Hide the mentionView if "@" is not detected
+//                  }
+          
+          if textField == txtBudget{
+              let newText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+             if newText.count > 10{
+                 Singleton.showMessage(message: "maximum limit reached.", isError: .error)
+             }
+              return newText.count < 11
+              
           }
-
-                // Check if the user has typed "@" in the text field
-                  if string == "@" {
-                      // Show the mentionView as an overlay
-                      let optionItemListVC = MentionVC()
-                      optionItemListVC.modalPresentationStyle = .popover
-                    guard let popoverPresentationController = optionItemListVC.popoverPresentationController else { fatalError("Set Modal presentation style") }
-                      optionItemListVC.popoverPresentationController?.sourceView = txtTags
-                      popoverPresentationController.permittedArrowDirections = .down
-                      optionItemListVC.preferredContentSize = CGSize(width: 300, height: 300)
-                    popoverPresentationController.delegate = self
-                      optionItemListVC.completion = { name,id in
-                          self.tagIds.append(id)
-                          self.txtTags.text = "@\(name)"
-                          self.tagPeople = "@\(name)"
-                          self.txtTags.resignFirstResponder()
-                      }
-                      self.present(optionItemListVC, animated: true, completion: nil)
-                      print("view presented....")
-                  } else {
-                      // Hide the mentionView if "@" is not detected
-                  }
 
           return true
       }
@@ -350,6 +373,9 @@ extension CreatePostVC{
         }
         
     }
+    
+    
+    
 }
 extension CreatePostVC : CustomPickerControllerDelegate{
     

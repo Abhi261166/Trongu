@@ -231,14 +231,14 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     
     @objc func actionPostDetails(sender:UIButton){
         
-        let vc = ImageVideoLocationVC()
-        vc.index = sender.tag
-        vc.arrPost = arrPostImagesVideosList
-        vc.completion = {
-            self.isReloadHome = false
-        }
-        vc.hidesBottomBarWhenPushed = true
-        controller?.navigationController?.pushViewController(vc, animated: true)
+//        let vc = ImageVideoLocationVC()
+//        vc.index = sender.tag
+//        vc.arrPost = arrPostImagesVideosList
+//        vc.completion = {
+//            self.isReloadHome = false
+//        }
+//        vc.hidesBottomBarWhenPushed = true
+//        controller?.navigationController?.pushViewController(vc, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -277,6 +277,19 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         }
         
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.playCurrentVideo), userInfo: nil, repeats: false)
+        self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.pauseOnMapCell), userInfo: nil, repeats: false)
+        
+    }
+    
+    @objc func pauseOnMapCell() {
+        
+        guard let visibleCell = homeCollectionView.visibleCells.first as? MapCVC else { return }
+        
+        if let player = DAVideoPlayerView.player {
+            player.pause()
+            DAVideoPlayerView.player = nil
+        }
+        
     }
     
     @objc func playCurrentVideo() {
@@ -287,7 +300,7 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
 //        guard let cell = self.homeCollectionView.cellForItem(at: indexPath) as? HomeTVCell else { return }
 //        guard let videoCell = cell.homeCollectionView?.visibleCells.first as? AddPostCVC else { return }
         
-        guard let visibleCell = homeCollectionView.visibleCells.first as else { return }
+        guard let visibleCell = homeCollectionView.visibleCells.first as? AddPostCVC else { return }
         
         if visibleCell.urlString?.isImageType == false {
             if DAVideoPlayerView.player != nil {
@@ -298,11 +311,9 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
            // cell.volumButton.isSelected = Singleton.isMuted
            // videoCell.videoPlayerView.isMuted = Singleton.isMuted
             visibleCell.videoPlayerView.play()
-            
             getAddressFromLatLong(latitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].lat ) ?? 0.0, longitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].long ) ?? 0.0) { address in
                 self.lblTimeAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ) \(address ?? "")"
                 self.lblTopAddress.text = "\(address ?? "")"
-                
                 
               //  self.lblAddressPriceDays.text = " . $\(self.budget ) . \(self.noOfDays )"
             }
@@ -347,30 +358,6 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             if let placemark = placemarks?.first {
                 // Create a dictionary to hold the address components
                 var addressComponents = [String]()
-
-//                if let name = placemark.name {
-//                    addressComponents.append(name)
-//                }
-
-//                if let thoroughfare = placemark.thoroughfare {
-//                    addressComponents.append(thoroughfare)
-//                }
-
-//                if let subThoroughfare = placemark.subThoroughfare {
-//                    addressComponents.append(subThoroughfare)
-//                }
-
-//                if let locality = placemark.locality {
-//                    addressComponents.append(locality)
-//                }
-
-//                if let administrativeArea = placemark.administrativeArea {
-//                    addressComponents.append(administrativeArea)
-//                }
-
-//                if let postalCode = placemark.postalCode {
-//                    addressComponents.append(postalCode)
-//                }
 
                 if let country = placemark.country {
                     addressComponents.append(country)

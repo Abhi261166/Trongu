@@ -184,6 +184,15 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
         
     }
     
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        if let player = DAVideoPlayerView.player {
+            player.pause()
+            DAVideoPlayerView.player = nil
+        }
+        
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
@@ -311,11 +320,14 @@ extension HomeVC{
                 self.homeTableView.bringSubviewToFront(cell)
             }
         }
+        
+        
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.playCurrentVideo), userInfo: nil, repeats: false)
+        
     }
     
     @objc func playCurrentVideo() {
-//        print("timer running")
+       print("timer running")
         let visibleRect = CGRect(origin: self.homeTableView.contentOffset, size: self.homeTableView.bounds.size)
         let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
         guard let indexPath = self.homeTableView.indexPathForRow(at: visiblePoint) else { return }
@@ -327,8 +339,7 @@ extension HomeVC{
                 DAVideoPlayerView.player?.isPlaying = false
                 DAVideoPlayerView.player = nil
             }
-           // cell.volumButton.isSelected = Singleton.isMuted
-           // videoCell.videoPlayerView.isMuted = Singleton.isMuted
+         
             videoCell.videoPlayerView.play()
         }else{
             if let player = DAVideoPlayerView.player {
@@ -354,30 +365,6 @@ extension HomeVC{
             if let placemark = placemarks?.first {
                 // Create a dictionary to hold the address components
                 var addressComponents = [String]()
-
-//                if let name = placemark.name {
-//                    addressComponents.append(name)
-//                }
-
-//                if let thoroughfare = placemark.thoroughfare {
-//                    addressComponents.append(thoroughfare)
-//                }
-
-//                if let subThoroughfare = placemark.subThoroughfare {
-//                    addressComponents.append(subThoroughfare)
-//                }
-
-//                if let locality = placemark.locality {
-//                    addressComponents.append(locality)
-//                }
-
-//                if let administrativeArea = placemark.administrativeArea {
-//                    addressComponents.append(administrativeArea)
-//                }
-
-//                if let postalCode = placemark.postalCode {
-//                    addressComponents.append(postalCode)
-//                }
 
                 if let country = placemark.country {
                     addressComponents.append(country)

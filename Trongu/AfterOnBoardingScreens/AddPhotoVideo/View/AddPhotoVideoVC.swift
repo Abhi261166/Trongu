@@ -117,7 +117,7 @@ class AddPhotoVideoVC: UIViewController {
     @objc func timePickerValueChanged(_ sender: UIDatePicker) {
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "h:mm a"
-        timeTF.text = "\(timeFormatter.string(from: sender.date))(\(self.timeZoneAbbreviation ?? ""))"
+        timeTF.text = "\(timeFormatter.string(from: sender.date)) \(self.timeZoneAbbreviation ?? "")"
     }
     
     func disableTextFileds(){
@@ -183,7 +183,7 @@ class AddPhotoVideoVC: UIViewController {
         let addressForAll = checkAddressForAll()
         // With validation
         
-        if arrPostItems.count != 0{
+        if images.count != 0{
             
             if addressForAll{
                 let postStatus = checkEnterdData()
@@ -518,7 +518,7 @@ extension AddPhotoVideoVC{
                        print("Got address from picker -----",address ?? "")
                        print("capture pic date time",video.asset?.creationDate as Any)
                        self.dateTF.text = video.asset?.creationDate?.dateToString(format: self.dateFormat)
-                       self.timeTF.text = "\(video.asset?.creationDate?.dateToString(format: "h:mm a") ?? "")(\(self.timeZoneAbbreviation ?? ""))"
+                       self.timeTF.text = "\(video.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")"
                        //self.timeTF.text = video.asset?.creationDate?.dateToString(format: "h:mm a")
                      
                        ActivityIndicator.shared.hideActivityIndicator()

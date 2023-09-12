@@ -35,11 +35,7 @@ class AddPostCVC: UICollectionViewCell {
                scrollView.maximumZoomScale = 6.0
                scrollView.delaysContentTouches = false
 
-               // Set up the pinch gesture recognizer
-             //  let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchGestureRecognized(_:)))
-              // scrollView.addGestureRecognizer(pinchGesture)
-            //   originalScale = scrollView.zoomScale
-        
+              
         
     }
     
@@ -75,6 +71,7 @@ class AddPostCVC: UICollectionViewCell {
             self.volumeButton.isHidden = true
             self.videoTimeLabel.isHidden = true
         }
+        
         self.videoPlayerView.isMuted = false
     }
     
@@ -128,9 +125,7 @@ extension AddPostCVC:UIScrollViewDelegate{
   
     }
     
-//    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-//               return postImage
-//    }
+
     
     
     @objc private func handleDoubleTap(_ gesture: UITapGestureRecognizer) {
@@ -144,9 +139,7 @@ extension AddPostCVC:UIScrollViewDelegate{
         }
         
         private func zoomImage() {
-            // Implement your logic to zoom the image
-            // You can use UIScrollView or CGAffineTransform scale transformation
-            // Here's an example using UIScrollView
+          
             scrollView.minimumZoomScale = 1.0
             scrollView.maximumZoomScale = 3.0
             

@@ -115,11 +115,14 @@ class CreatePostVC: UIViewController{
     
     func setData(){
         isFromTabbar = false
-        txtBudget.text = myPost[0].budget
-        txtNoOffDays.text = myPost[0].noOfDays
-        txtTripCategory.text = myPost[0].tripCategoryName
-        txtTripComplexity.text = myPost[0].tripComplexity
-        txtViewDesc.text = myPost[0].description
+        
+        if comeFrom == "Edit"{
+            txtBudget.text = myPost[0].budget
+            txtNoOffDays.text = myPost[0].noOfDays
+            txtTripCategory.text = myPost[0].tripCategoryName
+            txtTripComplexity.text = myPost[0].tripComplexity
+            txtViewDesc.text = myPost[0].description
+        }
         
     }
     
@@ -205,6 +208,8 @@ class CreatePostVC: UIViewController{
 
         if myPost.first?.postImagesVideo.count ?? 0 > 0{
             
+            
+            
             var imagesSelected = true
             if self.comeFrom == "Edit"{
                  imagesSelected = true
@@ -226,6 +231,11 @@ class CreatePostVC: UIViewController{
             self.myPost[0].tripComplexity = self.txtTripComplexity.text ?? ""
             
             let vc = PostVC()
+            
+            vc.completion = {
+                self.isFromTabbar = true
+            }
+            
             vc.arrPostYP = finalPostItems
             vc.finalPost = myPost.first
             vc.tagIds = tagIds
@@ -238,7 +248,7 @@ class CreatePostVC: UIViewController{
             self.pushViewController(vc, true)
         }else{
             
-            Singleton.showMessage(message: "Please select at leaset one video or image to post", isError: .error)
+            Singleton.showMessage(message: "Please select atleast one video or image to post", isError: .error)
         }
        
     }

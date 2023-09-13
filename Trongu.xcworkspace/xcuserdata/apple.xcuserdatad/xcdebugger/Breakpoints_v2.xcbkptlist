@@ -3,4 +3,228 @@
    uuid = "ACDBD09F-9393-4A32-A219-385AC3343EC2"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C40AE5DD-65E9-49F0-8A77-82718AF951BB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trongu/AfterOnBoardingScreens/Search/View/SearchVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
+            landmarkName = "observeSearchSucessfull()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C40AE5DD-65E9-49F0-8A77-82718AF951BB - 73ac99106efcec67"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.SearchVC.setSearchSucessfull() -&gt; ()"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/Search/View/SearchVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "213"
+                  endingLineNumber = "213"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  uuid = "C40AE5DD-65E9-49F0-8A77-82718AF951BB - ffdd8264703c8513"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.SearchVC.observeSearchSucessfull() -&gt; ()"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/Search/View/SearchVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "211"
+                  endingLineNumber = "211"
+                  offsetFromSymbolStart = "60">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "079EEB81-0BE1-4D82-AD37-4DD11A833B80"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trongu/AfterOnBoardingScreens/Search/View/SearchVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "tableView(_:numberOfRowsInSection:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "079EEB81-0BE1-4D82-AD37-4DD11A833B80 - 1161d8c7266010e9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.SearchVC.tableView(_: __C.UITableView, numberOfRowsInSection: Swift.Int) -&gt; Swift.Int"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/Search/View/SearchVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "140">
+               </Location>
+               <Location
+                  uuid = "079EEB81-0BE1-4D82-AD37-4DD11A833B80 - 1161d8c7266010e9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.SearchVC.tableView(_: __C.UITableView, numberOfRowsInSection: Swift.Int) -&gt; Swift.Int"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/Search/View/SearchVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "104">
+               </Location>
+               <Location
+                  uuid = "079EEB81-0BE1-4D82-AD37-4DD11A833B80 - 1161d8c726601008"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.SearchVC.tableView(_: __C.UITableView, numberOfRowsInSection: Swift.Int) -&gt; Swift.Int"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/Search/View/SearchVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "126"
+                  endingLineNumber = "126"
+                  offsetFromSymbolStart = "104">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "83123345-AB37-4EDE-BC4F-E9653474ED92"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trongu/AfterOnBoardingScreens/Search/View/SearchVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "searchApiCall()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "83123345-AB37-4EDE-BC4F-E9653474ED92 - 93f89f8014d32f58"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.SearchVC.searchApiCall() -&gt; ()"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/Search/View/SearchVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "1040">
+               </Location>
+               <Location
+                  uuid = "83123345-AB37-4EDE-BC4F-E9653474ED92 - 93f89f8014d32f39"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.SearchVC.searchApiCall() -&gt; ()"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/Search/View/SearchVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "58"
+                  endingLineNumber = "58"
+                  offsetFromSymbolStart = "928">
+               </Location>
+               <Location
+                  uuid = "83123345-AB37-4EDE-BC4F-E9653474ED92 - 93f89f8014d32f39"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.SearchVC.searchApiCall() -&gt; ()"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/Search/View/SearchVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "58"
+                  endingLineNumber = "58"
+                  offsetFromSymbolStart = "884">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6CFC8C35-8DEB-493C-87FF-7DF9611312C5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trongu/AfterOnBoardingScreens/Search/View/SearchVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "searchTimerAction(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "6CFC8C35-8DEB-493C-87FF-7DF9611312C5 - 4edf322f6b7ad3e0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.SearchVC.searchTimerAction(__C.NSTimer) -&gt; ()"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/Search/View/SearchVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "596">
+               </Location>
+               <Location
+                  uuid = "6CFC8C35-8DEB-493C-87FF-7DF9611312C5 - 4edf322f6b7ad387"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.SearchVC.searchTimerAction(__C.NSTimer) -&gt; ()"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/Search/View/SearchVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "89"
+                  endingLineNumber = "89"
+                  offsetFromSymbolStart = "596">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

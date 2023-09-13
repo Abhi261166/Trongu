@@ -311,18 +311,18 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
            // cell.volumButton.isSelected = Singleton.isMuted
            // videoCell.videoPlayerView.isMuted = Singleton.isMuted
             visibleCell.videoPlayerView.play()
-            getAddressFromLatLong(latitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].lat ) ?? 0.0, longitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].long ) ?? 0.0) { address in
-                self.lblTimeAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ) \(address ?? "")"
-                self.lblTopAddress.text = "\(address ?? "")"
+           // getAddressFromLatLong(latitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].lat ) ?? 0.0, longitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].long ) ?? 0.0) { address in
+                self.lblTimeAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ) \(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].place ?? "")"
+                self.lblTopAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].place ?? "")"
                 
               //  self.lblAddressPriceDays.text = " . $\(self.budget ) . \(self.noOfDays )"
-            }
+           // }
         }else if visibleCell.urlString?.isImageType == true {
-            getAddressFromLatLong(latitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].lat ) ?? 0.0, longitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].long ) ?? 0.0) { address in
-                self.lblTimeAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ) \(address ?? "")"
-                self.lblTopAddress.text = "\(address ?? "")"
-              //  self.lblAddressPriceDays.text = " . $\(self.budget ) . \(self.noOfDays )"
-            }
+           // getAddressFromLatLong(latitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].lat ) ?? 0.0, longitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].long ) ?? 0.0) { address in
+                self.lblTimeAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ) \(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].place ?? "")"
+                self.lblTopAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].place ?? "")"
+         //     //  self.lblAddressPriceDays.text = " . $\(self.budget ) . \(self.noOfDays )"
+         //   }
             if let player = DAVideoPlayerView.player {
                 player.pause()
                 DAVideoPlayerView.player = nil

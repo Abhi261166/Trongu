@@ -110,7 +110,7 @@ class API {
 }
 
 struct AlertMessage {
-    static let INVALID_ACCESS_TOKEN        = "Product is being used on another device"
+    static let INVALID_ACCESS_TOKEN        = "Your session is expired. we will logout your session from this device."
     static let SERVER_NOT_RESPONDING       = "Something went wrong while connecting to server!"
     static let NO_INTERNET_CONNECTION      = "Unable to connect with the server. Check your internet connection and try again."
     static let pleaseEnter                 = "Please enter "

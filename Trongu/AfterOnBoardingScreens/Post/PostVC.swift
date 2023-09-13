@@ -29,6 +29,8 @@ class PostVC: UIViewController {
     var comeForm:String?
     var places:[String] = []
     var tripCat = 1
+    var completion : (() -> Void)? = nil
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +56,6 @@ class PostVC: UIViewController {
         
     }
     
-    
     func getPlaces(){
         
         for index in 0...((finalPost?.postImagesVideo.count ?? 0) - 1 ){
@@ -69,7 +70,7 @@ class PostVC: UIViewController {
         lblBudget.text = finalPost?.budget
         lblTagPeople.text = tagPeople
         lblDesc.text = finalPost?.description
-        lblTripCat.text = finalPost?.tripCategory
+        lblTripCat.text = finalPost?.tripCategoryName
         lblTripComp.text = finalPost?.tripComplexity
         lblNoOfDays.text = finalPost?.noOfDays
         
@@ -81,7 +82,12 @@ class PostVC: UIViewController {
     
 
     @IBAction func backAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        
+        if let completion = completion{
+            self.navigationController?.popViewController(animated: true)
+            completion()
+        }
+        
     }
     
     @IBAction func postAction(_ sender: UIButton) {
@@ -176,7 +182,6 @@ extension PostVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
     }
 }
 
-
 extension PostVC{
     func getAddressFromLatLong(latitude: Double, longitude: Double, completion: @escaping (String?) -> Void) {
         let location = CLLocation(latitude: latitude, longitude: longitude)
@@ -192,30 +197,6 @@ extension PostVC{
             if let placemark = placemarks?.first {
                 // Create a dictionary to hold the address components
                 var addressComponents = [String]()
-
-//                if let name = placemark.name {
-//                    addressComponents.append(name)
-//                }
-
-//                if let thoroughfare = placemark.thoroughfare {
-//                    addressComponents.append(thoroughfare)
-//                }
-
-//                if let subThoroughfare = placemark.subThoroughfare {
-//                    addressComponents.append(subThoroughfare)
-//                }
-
-//                if let locality = placemark.locality {
-//                    addressComponents.append(locality)
-//                }
-
-//                if let administrativeArea = placemark.administrativeArea {
-//                    addressComponents.append(administrativeArea)
-//                }
-
-//                if let postalCode = placemark.postalCode {
-//                    addressComponents.append(postalCode)
-//                }
 
                 if let country = placemark.country {
                     addressComponents.append(country)

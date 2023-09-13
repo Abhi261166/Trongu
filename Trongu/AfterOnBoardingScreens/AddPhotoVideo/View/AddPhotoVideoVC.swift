@@ -92,7 +92,8 @@ class AddPhotoVideoVC: UIViewController {
         datePicker.locale = Locale.current
         datePicker.date = Date()
         datePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
-        dateTF.inputView = datePicker
+       // dateTF.inputView = datePicker
+        dateTF.addInputViewDatePicker(target: self, selector:  #selector(doneButtonPressed))
 
     }
     func addTimePicker(){
@@ -105,7 +106,8 @@ class AddPhotoVideoVC: UIViewController {
     //    timePicker.locale = Locale.current
         timePicker.date = Date()
         timePicker.addTarget(self, action: #selector(timePickerValueChanged(_:)), for: .valueChanged)
-        timeTF.inputView = timePicker
+       // timeTF.inputView = timePicker
+        timeTF.addInputViewTimePicker(target: self, selector:  #selector(doneButtonPressedTime))
     }
     
     @objc func datePickerValueChanged(_ sender: UIDatePicker) {
@@ -113,12 +115,46 @@ class AddPhotoVideoVC: UIViewController {
         dateFormatter.dateFormat = dateFormat //  dd/MM/yyyy
         dateTF.text = dateFormatter.string(from: sender.date)
     }
+    @objc func doneButtonPressed() {
+        if let  datePicker = self.dateTF.inputView as? UIDatePicker {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .short
+            dateFormatter.dateFormat = dateFormat
+            if #available(iOS 13.4, *) {
+                datePicker.preferredDatePickerStyle = .wheels
+            } else {
+                // Fallback on earlier versions
+            }
+            self.dateTF.text = dateFormatter.string(from: datePicker.date)
+            print(dateTF.text!)
+        }
+        self.dateTF.resignFirstResponder()
+    }
+    
 
     @objc func timePickerValueChanged(_ sender: UIDatePicker) {
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "h:mm a"
         timeTF.text = "\(timeFormatter.string(from: sender.date)) \(self.timeZoneAbbreviation ?? "")"
     }
+    
+    @objc func doneButtonPressedTime() {
+        if let  datePicker = self.timeTF.inputView as? UIDatePicker {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .short
+            dateFormatter.dateFormat = "h:mm a"
+            if #available(iOS 13.4, *) {
+                datePicker.preferredDatePickerStyle = .wheels
+            } else {
+                // Fallback on earlier versions
+            }
+           // self.timeTF.text = dateFormatter.string(from: datePicker.date)
+            self.timeTF.text = "\(dateFormatter.string(from: datePicker.date)) \(self.timeZoneAbbreviation ?? "")"
+            print(timeTF.text!)
+        }
+        self.timeTF.resignFirstResponder()
+    }
+    
     
     func disableTextFileds(){
      //   btnAddAddress.isEnabled = false
@@ -183,34 +219,71 @@ class AddPhotoVideoVC: UIViewController {
         let addressForAll = checkAddressForAll()
         // With validation
         
-        if images.count != 0{
+        if self.comeFrom != "Edit" {
             
-            if addressForAll{
-                let postStatus = checkEnterdData()
-            if postStatus{
-                if let completion = self.completion{
-                    popVC()
-                    
-                    if self.comeFrom == "Edit"{
-                        Singleton.shared.showMessage(message: "Post item details updated successfully.", isError: .success)
+            if images.count != 0{
+                
+                if addressForAll{
+                    let postStatus = checkEnterdData()
+                    if postStatus{
+                        if let completion = self.completion{
+                            popVC()
+                            
+                            if self.comeFrom == "Edit"{
+                                Singleton.shared.showMessage(message: "Post item details updated successfully.", isError: .success)
+                            }else{
+                                Singleton.shared.showMessage(message: "Post added successfully, Now please add other details for the post.", isError: .success)
+                            }
+                            completion(selectedItems,arrPostItems,images)
+                        }
                     }else{
-                        Singleton.shared.showMessage(message: "Post added successfully, Now please add other details for the post.", isError: .success)
+                        print("Please add all text filed data")
                     }
-                    completion(selectedItems,arrPostItems,images)
-                }
-            }else{
-                print("Please add all text filed data")
-            }
-            
-            }else{
-                self.showMessage(message: "Please select address for each post item", isError: .error)
-            //    self.showAlert(message: "Please select address for each post item", title: "Address") {
                     
-             //   }
+                }else{
+                    self.showMessage(message: "Please select address for each post item", isError: .error)
+                    //    self.showAlert(message: "Please select address for each post item", title: "Address") {
+                    
+                    //   }
+                }
+                
+            }else{
+                Singleton.shared.showMessage(message: "Please select at least one image or video first", isError: .error)
             }
             
         }else{
-            Singleton.shared.showMessage(message: "Please select at least one image or video first", isError: .error)
+            
+            if arrPostItems.count != 0{
+                
+                if addressForAll{
+                    let postStatus = checkEnterdData()
+                    if postStatus{
+                        if let completion = self.completion{
+                            popVC()
+                            
+                            if self.comeFrom == "Edit"{
+                                Singleton.shared.showMessage(message: "Post item details updated successfully.", isError: .success)
+                            }else{
+                                Singleton.shared.showMessage(message: "Post added successfully, Now please add other details for the post.", isError: .success)
+                            }
+                            completion(selectedItems,arrPostItems,images)
+                        }
+                    }else{
+                        print("Please add all text filed data")
+                    }
+                    
+                }else{
+                    self.showMessage(message: "Please select address for each post item", isError: .error)
+                    //    self.showAlert(message: "Please select address for each post item", title: "Address") {
+                    
+                    //   }
+                }
+                
+            }else{
+                Singleton.shared.showMessage(message: "Please select at least one image or video first", isError: .error)
+            }
+            
+            
         }
         
         // Without validation

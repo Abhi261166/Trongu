@@ -124,9 +124,21 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //
         if isRecentSearch{
-            return viewModel?.arrRecentSearchUserAndPlace.count ?? 0
+            if self.viewModel?.arrRecentSearchUserAndPlace.count == 0{
+                self.searchTableView.setBackgroundView(message: "No recent search yet.")
+                return 0
+            }else{
+                self.searchTableView.setBackgroundView(message: "")
+                return viewModel?.arrRecentSearchUserAndPlace.count ?? 0
+            }
         }else{
-            return viewModel?.arrUserAndPlace.count ?? 0
+            if self.viewModel?.arrUserAndPlace.count == 0{
+                self.searchTableView.setBackgroundView(message: "No results found.")
+                return 0
+            }else{
+                self.searchTableView.setBackgroundView(message: "")
+                return viewModel?.arrUserAndPlace.count ?? 0
+            }
         }
         
       //  return 2
@@ -136,6 +148,9 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTVCell", for: indexPath) as! SearchTVCell
      
         if isRecentSearch{
+            
+            if self.viewModel?.arrRecentSearchUserAndPlace.count ?? 0 > 0{
+            
             let dictRecentSearch = self.viewModel?.arrRecentSearchUserAndPlace[indexPath.row]
             cell.nameLabel.text = dictRecentSearch?.name
             cell.btnDeleteRecent.isHidden = false
@@ -143,6 +158,7 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
             cell.btnDeleteRecent.addTarget(self, action: #selector(actionDeleteFromRecent), for: .touchUpInside)
             
             cell.profileImage.setImage(image: dictRecentSearch?.image,placeholder:UIImage(named: "ic_profilePlaceHolder"))
+        }
             
         }else{
             let dictSearch = self.viewModel?.arrUserAndPlace[indexPath.row]

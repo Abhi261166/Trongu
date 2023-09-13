@@ -124,11 +124,15 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
         
         cell.lblDesc.text = dict?.description
         
-        getAddressFromLatLong(latitude: Double(dict?.postImagesVideo.first?.lat ?? "") ?? 0.0, longitude: Double(dict?.postImagesVideo.first?.long ?? "") ?? 0.0) { address in
-            cell.lblTimeAddress.text = "\(dict?.postImagesVideo.first?.time ?? "") \(address ?? "")"
-            cell.lblTopAddress.text = "\(address ?? "")"
-            cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") \(dict?.noOfDays ?? "")"
-        }
+//        getAddressFromLatLong(latitude: Double(dict?.postImagesVideo.first?.lat ?? "") ?? 0.0, longitude: Double(dict?.postImagesVideo.first?.long ?? "") ?? 0.0) { address in
+//            cell.lblTimeAddress.text = "\(dict?.postImagesVideo.first?.time ?? "") \(address ?? "")"
+//           // cell.lblTopAddress.text = "\(address ?? "")"
+//            cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") \(dict?.noOfDays ?? "")"
+//        }
+        cell.lblTimeAddress.text = "\(dict?.postImagesVideo.first?.time ?? "") \(dict?.postImagesVideo.first?.place ?? "")"
+        cell.lblTopAddress.text = "\(dict?.postImagesVideo.first?.place ?? "")"
+        cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") \(dict?.noOfDays ?? "")"
+        
         
         if dict?.isLike == "1"{
             cell.btnLike.isSelected = true
@@ -219,8 +223,6 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
         }
        
     }
-    
-    
  
 }
 

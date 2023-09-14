@@ -72,6 +72,8 @@ class AddPhotoVideoVC: UIViewController {
          deviceTimeZone = "\(TimeZone.current)"
          let deviceTZone = TimeZone.current
          timeZoneAbbreviation = "\(deviceTZone.abbreviation() ?? "Unknown")"
+         timeZoneAbbreviation = timeZoneAbbreviation?.replacingOccurrences(of: "(", with: "")
+         timeZoneAbbreviation = timeZoneAbbreviation?.replacingOccurrences(of: ")", with: "")
         
     }
     
@@ -667,9 +669,9 @@ extension AddPhotoVideoVC{
                 // Create a dictionary to hold the address components
                 var addressComponents = [String]()
 
-                if let name = placemark.name {
-                    addressComponents.append(name)
-                }
+//                if let name = placemark.name {
+//                    addressComponents.append(name)
+//                }
 
 //                if let thoroughfare = placemark.thoroughfare {
 //                    addressComponents.append(thoroughfare)
@@ -799,11 +801,11 @@ extension AddPhotoVideoVC:AddLocationVCDelegate{
             self.arrPostItems[self.selectedIndex?.row ?? 0].lat = "\(lat)"
             self.arrPostItems[self.selectedIndex?.row ?? 0].long = "\(long)"
             
-            
-            self.getAddressFromLatLong(latitude: lat, longitude:
-                                        long, completion: { address in
-                self.placeTF.text = address
-            })
+            self.placeTF.text = address
+//            self.getAddressFromLatLong(latitude: lat, longitude:
+//                                        long, completion: { address in
+//                self.placeTF.text = address
+//            })
             
         }
         

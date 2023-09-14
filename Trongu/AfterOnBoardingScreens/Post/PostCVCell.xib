@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -28,26 +29,60 @@
                             <constraint firstAttribute="height" constant="260" id="Y9D-U9-Hcx"/>
                         </constraints>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X4K-tW-0Ti">
+                        <rect key="frame" x="10" y="115" width="30" height="30"/>
+                        <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="1Jf-sC-xea"/>
+                            <constraint firstAttribute="width" constant="30" id="Q8t-Nk-aML"/>
+                        </constraints>
+                        <color key="tintColor" systemColor="labelColor"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" image="arrowshape.backward" catalog="system"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isRounded" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Canada, 21/06/2023, 10:00 am" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z6S-FK-1gn">
                         <rect key="frame" x="20" y="265" width="281" height="24"/>
                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FbE-AS-obz">
+                        <rect key="frame" x="281" y="115" width="30" height="30"/>
+                        <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="FFM-Ja-Hyr"/>
+                            <constraint firstAttribute="width" constant="30" id="ipq-IP-sER"/>
+                        </constraints>
+                        <color key="tintColor" systemColor="labelColor"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" image="arrowshape.right" catalog="system"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isRounded" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </button>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstItem="Z6S-FK-1gn" firstAttribute="top" secondItem="Mvk-mM-5so" secondAttribute="bottom" constant="5" id="BcH-xf-0P6"/>
+                <constraint firstItem="FbE-AS-obz" firstAttribute="centerY" secondItem="Mvk-mM-5so" secondAttribute="centerY" id="Ifv-e7-F30"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Z6S-FK-1gn" secondAttribute="bottom" constant="10" id="Juj-l3-mRp"/>
                 <constraint firstItem="Mvk-mM-5so" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="L0o-5O-oHe"/>
                 <constraint firstItem="Z6S-FK-1gn" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="TfB-UO-c1y"/>
                 <constraint firstItem="Mvk-mM-5so" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="d3w-4U-0fU"/>
                 <constraint firstAttribute="trailing" secondItem="Z6S-FK-1gn" secondAttribute="trailing" constant="20" id="pnM-HT-KsR"/>
+                <constraint firstItem="X4K-tW-0Ti" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="qIx-ay-MLv"/>
+                <constraint firstItem="X4K-tW-0Ti" firstAttribute="centerY" secondItem="Mvk-mM-5so" secondAttribute="centerY" id="qcn-T4-dpm"/>
+                <constraint firstAttribute="trailing" secondItem="FbE-AS-obz" secondAttribute="trailing" constant="10" id="uZA-0J-oGj"/>
                 <constraint firstAttribute="trailing" secondItem="Mvk-mM-5so" secondAttribute="trailing" id="udh-Vc-IKJ"/>
             </constraints>
             <size key="customSize" width="321" height="412"/>
             <connections>
+                <outlet property="btnLeft" destination="X4K-tW-0Ti" id="U4n-TZ-o0p"/>
+                <outlet property="btnRight" destination="FbE-AS-obz" id="Pyz-1y-Pcf"/>
                 <outlet property="imgPost" destination="Mvk-mM-5so" id="ASz-2N-q4v"/>
                 <outlet property="lblPostItemAddressDateTime" destination="Z6S-FK-1gn" id="Qag-og-Z02"/>
             </connections>
@@ -55,6 +90,11 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="arrowshape.backward" catalog="system" width="128" height="104"/>
+        <image name="arrowshape.right" catalog="system" width="128" height="104"/>
         <image name="image 28" width="425" height="271"/>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

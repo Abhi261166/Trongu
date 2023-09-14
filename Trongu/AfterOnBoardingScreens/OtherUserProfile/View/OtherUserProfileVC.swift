@@ -190,7 +190,7 @@ extension OtherUserProfileVC:ProfileVMObserver{
     
     
     func observeFollowUnfollowSucessfull() {
-        
+        apiCall()
     }
     
     func observeGetProfileSucessfull() {
@@ -215,6 +215,24 @@ extension OtherUserProfileVC:ProfileVMObserver{
         self.lblFollowing.text = dict?.Following
         self.lblBio.text = dict?.bio
         self.lblAddress.text = dict?.place
+        //0=>requested,1=>accept,2=>reject,3=>not requested
+        switch Int(dict?.is_follow ?? ""){
+        case 0:
+            self.btnFollow.setTitle("Requested", for: .normal)
+            self.btnFollow.backgroundColor = UIColor(named: "followingBackground")
+        case 1:
+            self.btnFollow.setTitle("Following", for: .normal)
+            self.btnFollow.backgroundColor = UIColor(named: "followingBackground")
+        case 2:
+            self.btnFollow.setTitle("Follow", for: .normal)
+            self.btnFollow.backgroundColor = UIColor(named: "OrengeAppColour")
+        case 3:
+            self.btnFollow.setTitle("Follow", for: .normal)
+            self.btnFollow.backgroundColor = UIColor(named: "OrengeAppColour")
+        default:
+            break
+        }
+        
     }
     
 }

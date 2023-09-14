@@ -67,7 +67,7 @@ class PostVC: UIViewController {
     
     func setData(){
         
-        lblBudget.text = finalPost?.budget
+        lblBudget.text = "$\(finalPost?.budget ?? "")"
         lblTagPeople.text = tagPeople
         lblDesc.text = finalPost?.description
         lblTripCat.text = finalPost?.tripCategoryName
@@ -173,6 +173,23 @@ extension PostVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
             }
             
         }
+        
+        cell.btnLeft.tag = indexPath.row
+        cell.btnRight.tag = indexPath.row
+        cell.btnLeft.addTarget(self, action: #selector(actionLeft), for: .touchUpInside)
+        cell.btnRight.addTarget(self, action: #selector(actionRight), for: .touchUpInside)
+        
+        if indexPath.row == 0{
+            cell.btnLeft.isHidden = true
+        }else{
+            cell.btnLeft.isHidden = false
+        }
+        
+        if indexPath.row == (finalPost?.postImagesVideo.count ?? 0) - 1{
+            cell.btnRight.isHidden = true
+        }else{
+            cell.btnRight.isHidden = false
+        }
            
         return cell
     }
@@ -180,6 +197,35 @@ extension PostVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.size.width, height: 300)
     }
+    
+    @objc func actionLeft(sender:UIButton){
+        
+        let collectionBounds = self.postCollectionView.bounds
+                        let contentOffset = CGFloat(floor(self.postCollectionView.contentOffset.x - collectionBounds.size.width))
+                        self.moveCollectionToFrame(contentOffset: contentOffset)
+                          postCollectionView.reloadData()
+        
+       // postCollectionView.scrollToItem(at: IndexPath(item: sender.tag - 1, section: 0), at: .right, animated: true)
+        
+    }
+    
+    @objc func actionRight(sender:UIButton){
+        
+        let collectionBounds = self.postCollectionView.bounds
+                        let contentOffset = CGFloat(floor(self.postCollectionView.contentOffset.x + collectionBounds.size.width))
+                        self.moveCollectionToFrame(contentOffset: contentOffset)
+                          postCollectionView.reloadData()
+                        
+        
+       // postCollectionView.scrollToItem(at: IndexPath(item: sender.tag + 1, section: 0), at: .right, animated: true)
+    }
+    
+    func moveCollectionToFrame(contentOffset : CGFloat) {
+            
+            let frame: CGRect = CGRect(x : contentOffset ,y : self.postCollectionView.contentOffset.y ,width : self.postCollectionView.frame.width,height : self.postCollectionView.frame.height)
+            self.postCollectionView.scrollRectToVisible(frame, animated: true)
+        }
+    
 }
 
 extension PostVC{
@@ -198,6 +244,10 @@ extension PostVC{
                 // Create a dictionary to hold the address components
                 var addressComponents = [String]()
 
+                if let locality = placemark.locality {
+                    addressComponents.append(locality)
+                }
+                
                 if let country = placemark.country {
                     addressComponents.append(country)
                 }

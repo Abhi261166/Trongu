@@ -75,6 +75,7 @@ open class YPPhotoFiltersVC: UIViewController, IsMediaFilterVC, UIGestureRecogni
         v.collectionView.delegate = self
 
         view.backgroundColor = YPConfig.colors.filterBackgroundColor
+       
         
         // Setup of Navigation Bar
         title = YPConfig.wordings.filter

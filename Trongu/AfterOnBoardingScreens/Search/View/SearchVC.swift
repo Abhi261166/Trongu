@@ -8,11 +8,10 @@
 import UIKit
 
 class SearchVC: UIViewController,UITextFieldDelegate {
-
+    
     @IBOutlet weak var searchTF: UITextField!
     @IBOutlet weak var crossButton: UIButton!
     @IBOutlet weak var searchTableView: UITableView!
-    
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var recentLable: UILabel!
     
@@ -24,7 +23,7 @@ class SearchVC: UIViewController,UITextFieldDelegate {
         NotificationCenter.default.removeObserver(self)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-
+        
     }
     
     override func viewDidLoad() {
@@ -42,7 +41,7 @@ class SearchVC: UIViewController,UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         searchApiCall()
     }
-
+    
     func setViewModel() {
         
         self.viewModel = SearchVM(observer: self)
@@ -67,7 +66,7 @@ class SearchVC: UIViewController,UITextFieldDelegate {
             bottomConstraint.constant = keyboardSize.height + 20
         }
     }
-
+    
     @objc fileprivate func keyboardWillHide(_ notification: Notification) {
         bottomConstraint.constant = 0
     }
@@ -122,7 +121,7 @@ class SearchVC: UIViewController,UITextFieldDelegate {
 
 extension SearchVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//
+        //
         if isRecentSearch{
             if self.viewModel?.arrRecentSearchUserAndPlace.count == 0{
                 self.searchTableView.setBackgroundView(message: "No recent search yet.")
@@ -141,24 +140,24 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
             }
         }
         
-      //  return 2
+        //  return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTVCell", for: indexPath) as! SearchTVCell
-     
+        
         if isRecentSearch{
             
             if self.viewModel?.arrRecentSearchUserAndPlace.count ?? 0 > 0{
-            
-            let dictRecentSearch = self.viewModel?.arrRecentSearchUserAndPlace[indexPath.row]
-            cell.nameLabel.text = dictRecentSearch?.name
-            cell.btnDeleteRecent.isHidden = false
-            cell.btnDeleteRecent.tag = indexPath.row
-            cell.btnDeleteRecent.addTarget(self, action: #selector(actionDeleteFromRecent), for: .touchUpInside)
-            
-            cell.profileImage.setImage(image: dictRecentSearch?.image,placeholder:UIImage(named: "ic_profilePlaceHolder"))
-        }
+                
+                let dictRecentSearch = self.viewModel?.arrRecentSearchUserAndPlace[indexPath.row]
+                cell.nameLabel.text = dictRecentSearch?.name
+                cell.btnDeleteRecent.isHidden = false
+                cell.btnDeleteRecent.tag = indexPath.row
+                cell.btnDeleteRecent.addTarget(self, action: #selector(actionDeleteFromRecent), for: .touchUpInside)
+                
+                cell.profileImage.setImage(image: dictRecentSearch?.image,placeholder:UIImage(named: "ic_profilePlaceHolder"))
+            }
             
         }else{
             let dictSearch = self.viewModel?.arrUserAndPlace[indexPath.row]
@@ -178,43 +177,52 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if isRecentSearch{
-            let dictRecentSearch = self.viewModel?.arrRecentSearchUserAndPlace[indexPath.row]
-            let vc = OtherUserProfileVC()
-            vc.userId = dictRecentSearch?.id
-            self.pushViewController(vc, true)
-            print("in recent search")
+            
+            if self.viewModel?.arrRecentSearchUserAndPlace[indexPath.row].actionType == "1"{
+                
+                let dictRecentSearch = self.viewModel?.arrRecentSearchUserAndPlace[indexPath.row]
+                let vc = OtherUserProfileVC()
+                vc.userId = dictRecentSearch?.id
+                self.pushViewController(vc, true)
+                print("in recent search")
+            }else{
+                Singleton.shared.showErrorMessage(error: "Not implemented yet..", isError: .message)
+            }
             
         }else{
-            let dictSearch = self.viewModel?.arrUserAndPlace[indexPath.row]
-            self.viewModel?.apiAddRecentHistory(actionId: dictSearch?.actionID ?? "", actionType: dictSearch?.actionType ?? "")
-            let vc = OtherUserProfileVC()
-            vc.userId = dictSearch?.actionID
-            self.pushViewController(vc, true)
-            
+            if self.viewModel?.arrUserAndPlace[indexPath.row].actionType == "1"{
+                let dictSearch = self.viewModel?.arrUserAndPlace[indexPath.row]
+                self.viewModel?.apiAddRecentHistory(actionId: dictSearch?.actionID ?? "", actionType: dictSearch?.actionType ?? "")
+                let vc = OtherUserProfileVC()
+                vc.userId = dictSearch?.actionID
+                self.pushViewController(vc, true)
+            }else{
+                Singleton.shared.showErrorMessage(error: "Not implemented yet..", isError: .message)
+            }
         }
         
     }
     
     @objc func actionDeleteFromRecent(sender:UIButton){
-       // let dictRecentSearch = self.viewModel?.arrRecentSearchUserAndPlace[sender.tag]
-     //   self.viewModel?.apiRemoveRecentHistory(actionId: dictRecentSearch?.id, actionType: dictRecentSearch)
         
-        Singleton.shared.showErrorMessage(error: "Not implemented yet.", isError: .message)
+        let dictRecentSearch = self.viewModel?.arrRecentSearchUserAndPlace[sender.tag]
+        self.viewModel?.apiRemoveRecentHistory(actionId: dictRecentSearch?.id ?? "", actionType: dictRecentSearch?.actionType ?? "")
+        
+        // Singleton.shared.showErrorMessage(error: "Not implemented yet.", isError: .message)
     }
     
 }
 
 extension SearchVC:SearchVMObserver{
     
+    func observeDeleteFromRecentSucessfull() {
+        searchApiCall()
+    }
+    
     func observeSearchSucessfull() {
         
         searchTableView.reloadData()
         
     }
-        
-    func setSearchSucessfull() {
-        
-    }
-    
     
 }

@@ -252,7 +252,7 @@
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" image="FilterDropdown"/>
                                                                 </button>
-                                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select Trip Category" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9My-Lf-vXk">
+                                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select trip category" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9My-Lf-vXk">
                                                                     <rect key="frame" x="20" y="5" width="333" height="50"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="tintColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -313,7 +313,7 @@
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="maxHeight">
                                                                             <real key="value" value="100"/>
                                                                         </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Write Discription"/>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Write description"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </textView>
                                                             </subviews>
@@ -364,7 +364,7 @@
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" image="FilterDropdown"/>
                                                                 </button>
-                                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select Trip Complexity" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tMr-oP-f08">
+                                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select trip complexity" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tMr-oP-f08">
                                                                     <rect key="frame" x="20" y="5" width="328" height="50"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="tintColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -500,11 +500,6 @@
             <point key="canvasLocation" x="130.53435114503816" y="-11.267605633802818"/>
         </view>
     </objects>
-    <designables>
-        <designable name="Qdc-DZ-EIv">
-            <size key="intrinsicContentSize" width="-1" height="30"/>
-        </designable>
-    </designables>
     <resources>
         <image name="CreatePostImage" width="389" height="226"/>
         <image name="FilterDropdown" width="18.333333969116211" height="9"/>

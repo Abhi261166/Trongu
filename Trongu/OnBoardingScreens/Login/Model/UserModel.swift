@@ -52,6 +52,6 @@ class UserData: Codable  {
     var Followers:String?
     var apple_id:String?
     var is_status:String?
-    
+    var is_follow:String?
     
 }

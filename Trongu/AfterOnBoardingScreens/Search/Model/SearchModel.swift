@@ -24,7 +24,7 @@ struct SearchModel: Codable {
 // MARK: - RecentSearch -
 struct RecentSearch: Codable {
     let id, googleID, facebookID, appleID: String
-    let name, userName, loginType, gender: String
+    let name, userName, actionType , loginType, gender: String
     let email: String
     let image: String
     let password, place, bio, dob: String
@@ -59,6 +59,7 @@ struct RecentSearch: Codable {
         case isPrivate = "is_private"
         case createdAt = "created_at"
         case updatedAt = "updated_at"
+        case actionType = "action_type"
     }
 }
 

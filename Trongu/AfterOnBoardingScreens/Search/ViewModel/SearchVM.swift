@@ -9,7 +9,7 @@ import UIKit
 
 protocol SearchVMObserver: NSObjectProtocol {
     func observeSearchSucessfull()
-    func setSearchSucessfull()
+    func observeDeleteFromRecentSucessfull()
 }
 
 class SearchVM: NSObject {
@@ -111,7 +111,7 @@ class SearchVM: NSObject {
             DispatchQueue.main.async {
                 if let self = self {
                     if succeeded == true {
-                            self.observer?.setSearchSucessfull()
+                            self.observer?.observeDeleteFromRecentSucessfull()
                     }
                 }
             }

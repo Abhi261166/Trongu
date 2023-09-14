@@ -32,8 +32,8 @@ public class YPSelectionsGalleryCell: UICollectionViewCell {
         )
         
         imageView.fillContainer()
-        editIcon.size(32).left(12).bottom(12)
-        editSquare.size(16)
+        editIcon.size(0).left(12).bottom(12)
+        editSquare.size(0)
         editSquare.CenterY == editIcon.CenterY
         editSquare.CenterX == editIcon.CenterX
         

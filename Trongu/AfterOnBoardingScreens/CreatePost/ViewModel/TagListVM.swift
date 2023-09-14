@@ -106,7 +106,7 @@ class TagListVM: NSObject {
         let isvalidUsername = Validator.validatePrice(price: budget)
         let isvalidEmail = Validator.validateNoOffDays(days: noOfDays)
         let isvalidPhoneNumber = Validator.validateTripCat(tripCat: tripCat)
-        let isValidPassword = Validator.validateDescs(caption: desc)
+      //  let isValidPassword = Validator.validateDescs(caption: desc)
         let isValidConfirmPassword = Validator.validateTripComplex(tripComp: tripComp)
 
         guard imageSelected == true else {
@@ -128,11 +128,11 @@ class TagListVM: NSObject {
             print("isvalidPhoneNumber  \(isvalidPhoneNumber)")
             return false
         }
-        guard isValidPassword.0 == true else {
-            Singleton.showMessage(message: "\(isValidPassword.1)", isError: .error)
-            print("isValidPassword  \(isValidPassword)")
-            return false
-        }
+//        guard isValidPassword.0 == true else {
+//            Singleton.showMessage(message: "\(isValidPassword.1)", isError: .error)
+//            print("isValidPassword  \(isValidPassword)")
+//            return false
+//        }
         guard isValidConfirmPassword.0 == true else {
             Singleton.showMessage(message: "\(isValidConfirmPassword.1)", isError: .error)
             print("isValidConfirmPassword  \(isValidConfirmPassword)")

@@ -73,6 +73,11 @@ class UserProfileVC: UIViewController {
     
     @IBAction func settingsAction(_ sender: UIButton) {
         let vc = SettingsVC()
+       if UserDefaultsCustom.getUserData()?.is_private == "1"{
+           vc.isprivate = true
+       }else{
+           vc.isprivate = false
+       }
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }

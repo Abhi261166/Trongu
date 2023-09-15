@@ -53,5 +53,6 @@ class UserData: Codable  {
     var apple_id:String?
     var is_status:String?
     var is_follow:String?
+    var is_private:String?
     
 }

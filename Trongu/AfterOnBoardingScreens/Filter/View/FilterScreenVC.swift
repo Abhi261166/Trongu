@@ -17,12 +17,16 @@ class FilterScreenVC: UIViewController {
     @IBOutlet weak var multislider: MultiSlider!
     @IBOutlet weak var lblMaxAmount: UILabel!
     @IBOutlet weak var lblMinAmount: UILabel!
+   
+    let pickerView = UIPickerView()
+    
+    var arrDays = ["1 day","2 days","3 days","4 days","5 days","6 days","7 days","8 days","9 days","10 days"]
+    var arrTripCat = ["Business Trip","Family Trip","Friends Trip","Solo Trip"]
+    var arrTripComplexity = ["Complex","Smooth","Normal"]
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
         multislider.addTarget(self, action: #selector(sliderChanged), for: .valueChanged)
     }
 
@@ -59,4 +63,24 @@ class FilterScreenVC: UIViewController {
         popVC()
     }
     
+    @IBAction func actionSelectAddress(_ sender: UIButton) {
+        
+        let vc = AddLocationVC()
+        vc.delegate = self
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}
+
+extension FilterScreenVC:AddLocationVCDelegate{
+    
+    func setLocation(text: String, lat: Double, long: Double, address: String) {
+        
+        DispatchQueue.main.async {
+            self.placeTF.text = address
+        }
+        
+    }
+    
+     
 }

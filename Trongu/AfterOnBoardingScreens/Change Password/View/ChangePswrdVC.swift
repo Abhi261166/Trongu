@@ -43,9 +43,7 @@ class ChangePswrdVC: UIViewController {
             break
         }
         
-        
     }
-    
     
     func validate() -> Bool {
         

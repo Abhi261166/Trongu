@@ -179,7 +179,6 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
         if isRecentSearch{
             
             if self.viewModel?.arrRecentSearchUserAndPlace[indexPath.row].actionType == "1"{
-                
                 let dictRecentSearch = self.viewModel?.arrRecentSearchUserAndPlace[indexPath.row]
                 let vc = OtherUserProfileVC()
                 vc.userId = dictRecentSearch?.id

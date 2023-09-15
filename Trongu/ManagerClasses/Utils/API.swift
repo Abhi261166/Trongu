@@ -65,10 +65,10 @@ class API {
         
         // Setting Api
         static let accountType            = "j1/trongu/api/v1/users/user-public-private"
-        
+    
         // other user profile
         static let follow                 = "j1/trongu/api/v1/users/follow-unfollow"
-        
+        static let getFollowFollowingList = "j1/trongu/api/v1/users/followers-following-listing"
         
         
     }

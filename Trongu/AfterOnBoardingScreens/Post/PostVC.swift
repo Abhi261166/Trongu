@@ -20,6 +20,11 @@ class PostVC: UIViewController {
     @IBOutlet weak var lblTripCat: UILabel!
     @IBOutlet weak var btnPost: UIButton!
     
+    @IBOutlet weak var vWDiscription: UIView!
+    @IBOutlet weak var vWTagPeople: UIView!
+    
+    
+    
     var arrPostYP = [YPMediaItem]()
     var finalPost:Post?
     var tagIds = ""
@@ -35,6 +40,7 @@ class PostVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setViewModel()
+        vWTagPeople.isHidden = true
         self.postCollectionView.delegate = self
         self.postCollectionView.dataSource = self
         self.postCollectionView.register(UINib(nibName: "PostCVCell", bundle: nil), forCellWithReuseIdentifier: "PostCVCell")
@@ -69,7 +75,14 @@ class PostVC: UIViewController {
         
         lblBudget.text = "$\(finalPost?.budget ?? "")"
         lblTagPeople.text = tagPeople
-        lblDesc.text = finalPost?.description
+        
+        if finalPost?.description == "" || finalPost?.description == nil {
+            vWDiscription.isHidden = true
+        }else{
+            vWDiscription.isHidden = false
+            lblDesc.text = finalPost?.description
+        }
+        
         lblTripCat.text = finalPost?.tripCategoryName
         lblTripComp.text = finalPost?.tripComplexity
         lblNoOfDays.text = finalPost?.noOfDays

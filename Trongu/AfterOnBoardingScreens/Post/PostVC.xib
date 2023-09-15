@@ -19,6 +19,8 @@
                 <outlet property="lblTripCat" destination="nBE-OR-LpM" id="kUE-Zg-YzY"/>
                 <outlet property="lblTripComp" destination="EX6-Nl-7Qt" id="Q4O-jM-u45"/>
                 <outlet property="postCollectionView" destination="wyJ-fS-BKq" id="uKn-VO-Lw4"/>
+                <outlet property="vWDiscription" destination="43x-un-a9T" id="pSu-y3-1Er"/>
+                <outlet property="vWTagPeople" destination="7Zy-Iv-whV" id="aTl-fZ-rsD"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

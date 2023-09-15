@@ -27,10 +27,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="359" height="60"/>
                         <subviews>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Wy-pO-pUY">
-                                <rect key="frame" x="319" y="22.666666666666668" width="30" height="15.000000000000004"/>
+                                <rect key="frame" x="309" y="17.666666666666668" width="40" height="25.000000000000004"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="1fe-No-1wB"/>
+                                    <constraint firstAttribute="width" constant="40" id="hgx-zb-0wA"/>
+                                </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="ic_switchOff"/>
-                                <state key="selected" image="ic_switchOn"/>
+                                <state key="normal" image="ic_off"/>
+                                <state key="selected" image="ic_on"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact Us" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EdX-FE-lAI">
                                 <rect key="frame" x="20" y="14.333333333333334" width="289" height="31.333333333333329"/>
@@ -55,19 +59,17 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="1Wy-pO-pUY" firstAttribute="leading" secondItem="GUi-Eg-HaM" secondAttribute="leading" id="0NY-H4-O26"/>
                             <constraint firstItem="GUi-Eg-HaM" firstAttribute="centerY" secondItem="5Hl-rD-9fO" secondAttribute="centerY" id="24G-U1-OOa"/>
                             <constraint firstAttribute="height" constant="60" id="44D-tB-ejh"/>
                             <constraint firstItem="GUi-Eg-HaM" firstAttribute="leading" secondItem="EdX-FE-lAI" secondAttribute="trailing" constant="10" id="5WP-oO-fia"/>
                             <constraint firstItem="eDf-IA-wi8" firstAttribute="top" secondItem="EdX-FE-lAI" secondAttribute="bottom" constant="13" id="E18-G7-tCh"/>
+                            <constraint firstAttribute="trailing" secondItem="1Wy-pO-pUY" secondAttribute="trailing" constant="10" id="ElS-EH-Y6V"/>
+                            <constraint firstItem="1Wy-pO-pUY" firstAttribute="centerY" secondItem="EdX-FE-lAI" secondAttribute="centerY" id="Hzc-pY-V8V"/>
                             <constraint firstItem="EdX-FE-lAI" firstAttribute="leading" secondItem="5Hl-rD-9fO" secondAttribute="leading" constant="20" id="IF7-nI-3we"/>
                             <constraint firstItem="EdX-FE-lAI" firstAttribute="centerY" secondItem="5Hl-rD-9fO" secondAttribute="centerY" id="NTR-T2-yjr"/>
                             <constraint firstAttribute="trailing" secondItem="eDf-IA-wi8" secondAttribute="trailing" id="OIW-7I-2d7"/>
                             <constraint firstAttribute="bottom" secondItem="eDf-IA-wi8" secondAttribute="bottom" constant="0.33000000000000002" id="bM8-gL-Hzx"/>
-                            <constraint firstItem="1Wy-pO-pUY" firstAttribute="bottom" secondItem="GUi-Eg-HaM" secondAttribute="bottom" id="cLf-N2-KHJ"/>
                             <constraint firstItem="eDf-IA-wi8" firstAttribute="leading" secondItem="5Hl-rD-9fO" secondAttribute="leading" id="dyT-dD-MoZ"/>
-                            <constraint firstItem="1Wy-pO-pUY" firstAttribute="top" secondItem="GUi-Eg-HaM" secondAttribute="top" id="ggc-GU-Bit"/>
-                            <constraint firstItem="1Wy-pO-pUY" firstAttribute="trailing" secondItem="GUi-Eg-HaM" secondAttribute="trailing" id="hkY-ao-spo"/>
                             <constraint firstAttribute="trailing" secondItem="GUi-Eg-HaM" secondAttribute="trailing" constant="10" id="ksh-EW-MY5"/>
                         </constraints>
                     </view>
@@ -90,8 +92,8 @@
     </objects>
     <resources>
         <image name="ic_Next" width="8" height="16"/>
-        <image name="ic_switchOff" width="44" height="22"/>
-        <image name="ic_switchOn" width="41" height="25"/>
+        <image name="ic_off" width="2048" height="1280"/>
+        <image name="ic_on" width="2048" height="1280"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

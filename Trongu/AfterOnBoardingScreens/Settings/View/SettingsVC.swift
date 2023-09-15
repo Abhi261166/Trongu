@@ -17,6 +17,8 @@ class SettingsVC: UIViewController, LogoutVMObserver {
     var settings = ["Contact Us","Change Password","About Us","Terms & Conditions","Feedback","Private account","Blocked","Delete Account","Logout"]
     var setting2 = ["Contact Us","About Us","Terms & Conditions","Feedback","Private account","Blocked","Delete Account","Logout"]
     var viewModel: LogoutVM?
+    var viewModel2:SettingsVM?
+    var isprivate = false
     var isSelected = false
     
     override func viewDidLoad() {
@@ -26,11 +28,17 @@ class SettingsVC: UIViewController, LogoutVMObserver {
         self.settingsTableView.dataSource = self
         self.settingsTableView.register(UINib(nibName: "SettingsTVCell", bundle: nil), forCellReuseIdentifier: "SettingsTVCell")
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+       
+    }
+    
     func setViewModel() {
         self.viewModel = LogoutVM(observer: self)
-//        self.deleteAcountVM = DeleteAccountVM(observer: self)
-
+        self.viewModel2 = SettingsVM(observer: self)
     }
+    
     @IBAction func backAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -83,7 +91,7 @@ extension SettingsVC: UITableViewDelegate,UITableViewDataSource{
                 cell.btnSwitch.isHidden = false
                 cell.btnSwitch.isEnabled = true
                 cell.btnSwitch.tag = indexPath.row
-                cell.btnSwitch.isSelected = isSelected
+                cell.btnSwitch.isSelected = isprivate
                 cell.btnSwitch.addTarget(self, action: #selector(actionSwitchPublicPrivate),for: .touchUpInside)
             }
             
@@ -93,7 +101,7 @@ extension SettingsVC: UITableViewDelegate,UITableViewDataSource{
                 cell.btnSwitch.tag = indexPath.row
                 cell.btnSwitch.isHidden = false
                 cell.btnSwitch.isEnabled = true
-                cell.btnSwitch.isSelected = isSelected
+                cell.btnSwitch.isSelected = isprivate
                 cell.btnSwitch.addTarget(self, action: #selector(actionSwitchPublicPrivate),for: .touchUpInside)
                 
             }
@@ -244,9 +252,18 @@ extension SettingsVC: UITableViewDelegate,UITableViewDataSource{
     }
     
     @objc func actionSwitchPublicPrivate(sender:UIButton){
-        isSelected.toggle()
-        settingsTableView.reload(row: sender.tag)
         
+        self.viewModel2?.apiPublicPrivate(index: sender.tag)
+        
+    }
+    
+}
+
+extension SettingsVC:SettingsVMObserver{
+    
+    func observeSwitchPublicPrivateSucessfull(index:Int) {
+        isprivate.toggle()
+        settingsTableView.reload(row: index)
     }
     
 }

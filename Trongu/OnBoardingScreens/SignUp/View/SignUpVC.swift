@@ -40,7 +40,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     var locationManager = CLLocationManager()
     var currentLocation: CLLocation!
     var genderPicker = ["Male","Female"]
-    var ethnicityPicker = ["White","Black","Asian"]
+    var ethnicityPicker = ["America","Canada"]
     var imagePickerController = UIImagePickerController()
     let pickerView = UIPickerView()
     var name = String()
@@ -315,13 +315,19 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }else{
                 self.selectGender
             }
-            if selectEthnicity == ""{
-                self.selectEthnicity = "1"
-            }else{
-                self.selectEthnicity
+            
+            var ethnicity = "1"
+            switch ethnicityTF.text {
+            case "America":
+                ethnicity = "1"
+            case "Canada":
+                ethnicity = "2"
+            default:
+                break
             }
+            
             print(self.selectGender,self.selectEthnicity,"FSDdsf")
-            viewModel?.apiSignup(name:self.nameTF.text ?? "", email:self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender:self.selectGender ?? "0", ethnicity:self.selectEthnicity ?? "1", lat:latitude ?? "", long:longitude ?? "",username:userNameTF.text ?? "", bio: self.bioTextView.text.trim)
+            viewModel?.apiSignup(name:self.nameTF.text ?? "", email:self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender:self.selectGender ?? "0", ethnicity: ethnicity ?? "1", lat:latitude ?? "", long:longitude ?? "",username:userNameTF.text ?? "", bio: self.bioTextView.text.trim)
             
         }
         
@@ -435,12 +441,18 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }else{
                 self.selectGender
             }
-            if selectEthnicity == ""{
-                self.selectEthnicity = "1"
-            }else{
-                self.selectEthnicity
+            
+            var ethnicity = "1"
+            switch ethnicityTF.text {
+            case "America":
+                ethnicity = "1"
+            case "Canada":
+                ethnicity = "2"
+            default:
+                break
             }
-            viewModel?.googleSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender ?? "0", ethnicity: self.selectEthnicity ?? "1", lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",googleId: googleId, bio: bioTextView.text.trim)
+            
+            viewModel?.googleSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender, ethnicity: ethnicity, lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",googleId: googleId, bio: bioTextView.text.trim)
         }
         //        else{
         //            if selectGender == "" {
@@ -490,13 +502,17 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }else{
                 self.selectGender
             }
-            if selectEthnicity == ""{
-                self.selectEthnicity = "1"
-            }else{
-                self.selectEthnicity
+            var ethnicity = "1"
+            switch ethnicityTF.text {
+            case "America":
+                ethnicity = "1"
+            case "Canada":
+                ethnicity = "2"
+            default:
+                break
             }
             //            viewModel?.fbSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender ?? "0", ethnicity: self.selectEthnicity ?? "1", lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",fbId: fbId)
-            viewModel?.googleSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender ?? "0", ethnicity: self.selectEthnicity ?? "1", lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",googleId: googleId, bio: bioTextView.text.trim)
+            viewModel?.googleSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender ?? "0", ethnicity: ethnicity , lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",googleId: googleId, bio: bioTextView.text.trim)
         }
         //        else{
         //            if selectGender == "" {
@@ -547,14 +563,18 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }else{
                 self.selectGender
             }
-            if selectEthnicity == ""{
-                self.selectEthnicity = "1"
-            }else{
-                self.selectEthnicity
+            var ethnicity = "1"
+            switch ethnicityTF.text {
+            case "America":
+                ethnicity = "1"
+            case "Canada":
+                ethnicity = "2"
+            default:
+                break
             }
             //            viewModel?.appleSignUp(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender ?? "0", ethnicity: self.selectEthnicity ?? "1", lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",appleId: appleID)
             
-            viewModel?.googleSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender ?? "0", ethnicity: self.selectEthnicity ?? "1", lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",googleId: googleId, bio: bioTextView.text.trim)
+            viewModel?.googleSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender ?? "0", ethnicity: ethnicity, lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",googleId: googleId, bio: bioTextView.text.trim)
             
         }
         //        else{
@@ -689,12 +709,16 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 }else{
                     self.selectGender
                 }
-                if selectEthnicity == ""{
-                    self.selectEthnicity = "1"
-                }else{
-                    self.selectEthnicity
+                var ethnicity = "1"
+                switch ethnicityTF.text {
+                case "America":
+                    ethnicity = "1"
+                case "Canada":
+                    ethnicity = "2"
+                default:
+                    break
                 }
-                viewModel?.googleSignup(name:self.nameTF.text ?? "", email:self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender:self.selectGender ?? "0", ethnicity:self.selectEthnicity ?? "1", lat:latitude ?? "", long:longitude ?? "",username:userNameTF.text ?? "",googleId:googleId, bio: bioTextView.text.trim)
+                viewModel?.googleSignup(name:self.nameTF.text ?? "", email:self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender:self.selectGender ?? "0", ethnicity: ethnicity, lat:latitude ?? "", long:longitude ?? "",username:userNameTF.text ?? "",googleId:googleId, bio: bioTextView.text.trim)
             }
            
         
@@ -709,13 +733,17 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 }else{
                     self.selectGender
                 }
-                if selectEthnicity == ""{
-                    self.selectEthnicity = "1"
-                }else{
-                    self.selectEthnicity
+                var ethnicity = "1"
+                switch ethnicityTF.text {
+                case "America":
+                    ethnicity = "1"
+                case "Canada":
+                    ethnicity = "2"
+                default:
+                    break
                 }
                 print(self.selectGender,self.selectEthnicity,"FSDdsf")
-                viewModel?.apiSignup(name:self.nameTF.text ?? "", email:self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender:self.selectGender ?? "0", ethnicity:self.selectEthnicity ?? "1", lat:latitude ?? "", long:longitude ?? "",username:userNameTF.text ?? "", bio: self.bioTextView.text.trim)
+                viewModel?.apiSignup(name:self.nameTF.text ?? "", email:self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender:self.selectGender ?? "0", ethnicity:ethnicity, lat:latitude ?? "", long:longitude ?? "",username:userNameTF.text ?? "", bio: self.bioTextView.text.trim)
             }
             
               

@@ -30,7 +30,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
     var selectEthnicity = String()
     var viewModel: EditVM?
     var completion : (() -> Void)? = nil
-    
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()

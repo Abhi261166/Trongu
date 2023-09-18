@@ -22,6 +22,7 @@ class HomeVC: UIViewController {
     var comeFrom = false
     var index:IndexPath?
     var arrPostList:[Post] = []
+    var comeFromFilter = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,22 +36,30 @@ class HomeVC: UIViewController {
         super.viewWillAppear(animated)
         
        // self.tabBarController?.tabBar.isHidden = false
-        if comeFrom{
-            btnBack.isHidden = false
-            stackView.isHidden = true
-            imgLogo.isHidden = true
-            lblTitle.isHidden = false
-            self.viewModel?.arrPostList = self.arrPostList
-            homeTableView.scrollToRow(at: self.index!, at: .top, animated: false)
+        
+        if comeFromFilter{
+            
+            print("Come from filter")
             
         }else{
-            btnBack.isHidden = true
-            stackView.isHidden = false
-            imgLogo.isHidden = false
-            lblTitle.isHidden = true
-            apiCall()
+            
+            if comeFrom{
+                btnBack.isHidden = false
+                stackView.isHidden = true
+                imgLogo.isHidden = true
+                lblTitle.isHidden = false
+                self.viewModel?.arrPostList = self.arrPostList
+                homeTableView.scrollToRow(at: self.index!, at: .top, animated: false)
+                
+            }else{
+                btnBack.isHidden = true
+                stackView.isHidden = false
+                imgLogo.isHidden = false
+                lblTitle.isHidden = true
+                apiCall()
+            }
         }
- 
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -91,6 +100,21 @@ class HomeVC: UIViewController {
     
     @IBAction func filterAction(_ sender: UIButton) {
         let vc = FilterScreenVC()
+        
+        vc.completion = {place,budget,noOfDays,tripCat,ethnicity,complexity in
+            
+            print("place - ",place ?? "")
+            print("budget - ",budget ?? "")
+            print("noOfDays - ",noOfDays ?? "")
+            print("tripCat - ",tripCat ?? "")
+            print("ethnicity - ",ethnicity ?? "")
+            print("complexity - ",complexity ?? "")
+            self.comeFromFilter = true
+            self.viewModel?.pageNo = 0
+            self.viewModel?.apiFilterHomePostList(place: place, budget: budget, noOfDays: noOfDays, tripCat: tripCat, ethnicity: ethnicity, complexity: complexity)
+            
+        }
+        
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -251,6 +275,11 @@ extension HomeVC: HomeTVCellDelegate{
         }else {
             let vc = BlockReportPopUpVC()
              vc.controller = self
+            vc.userID = self.viewModel?.arrPostList[indexPath.row].userDetail.id
+            vc.postId = self.viewModel?.arrPostList[indexPath.row].id
+            vc.completion = {
+                self.apiCall()
+            }
              vc.modalPresentationStyle = .overFullScreen
              self.present(vc, true)
         }
@@ -285,10 +314,14 @@ extension HomeVC: HomeTVCellDelegate{
     }
     
     func didTapBucketList(_ indexPath: IndexPath) {
-        let vc = BucketListVC()
-        vc.hidesBottomBarWhenPushed = true
-        vc.comeFrom = "NotFromTabbar"
-        self.navigationController?.pushViewController(vc, animated: true)
+        
+//        let vc = BucketListVC()
+//        vc.hidesBottomBarWhenPushed = true
+//        vc.comeFrom = "NotFromTabbar"
+//        self.navigationController?.pushViewController(vc, animated: true)
+        
+        self.viewModel?.apiAddTobucket(postId: self.viewModel?.arrPostList[indexPath.row].id ?? "")
+ 
     }
     
     func didTapDislike(_ indexPath: IndexPath) {
@@ -386,6 +419,13 @@ extension HomeVC{
 
 extension HomeVC:HomeVMObserver{
     
+    
+    func observeAddedToBucket() {
+        
+        print("Added or Removed from bucket list.")
+        
+    }
+    
     func observeGetProfilePostsSucessfull() {
         
         self.homeTableView.reloadData()
@@ -409,6 +449,7 @@ extension HomeVC:HomeVMObserver{
     }
     
     func observeGetHomeDataSucessfull() {
+        comeFromFilter = false
         self.homeTableView.reloadData()
         if DAVideoPlayerView.player?.isPlaying != true {
             DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {

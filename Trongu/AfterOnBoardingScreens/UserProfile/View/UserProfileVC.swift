@@ -71,6 +71,14 @@ class UserProfileVC: UIViewController {
         
     }
     
+    func hitBucketPostsApi(){
+        self.viewModel?.arrPostList = []
+        self.viewModel?.pageNo = 0
+        self.viewModel?.apiBucketList(type: "2", userId: "")
+        
+    }
+    
+    
     @IBAction func settingsAction(_ sender: UIButton) {
         let vc = SettingsVC()
        if UserDefaultsCustom.getUserData()?.is_private == "1"{
@@ -101,6 +109,7 @@ class UserProfileVC: UIViewController {
     @IBAction func bucketListAction(_ sender: UIButton) {
         sender.isSelected.toggle()
         self.isSelected = "BucketList"
+        hitBucketPostsApi()
         self.userProfileCollectionView.reloadData()
         bucketListView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         galleryView.backgroundColor = #colorLiteral(red: 0.8509803922, green: 0.8509803922, blue: 0.8509803922, alpha: 1)
@@ -176,11 +185,17 @@ extension UserProfileVC: UICollectionViewDelegate,UICollectionViewDataSource,UIC
                 return self.viewModel?.arrPostList.count ?? 0
             }
         }else{
-            return bucketList.count
+            if self.viewModel?.arrPostList.count == 0{
+                self.userProfileCollectionView.setBackgroundView(message: "No posts yet")
+                return 0
+            }else{
+                self.userProfileCollectionView.setBackgroundView(message: "")
+                return self.viewModel?.arrPostList.count ?? 0
+            }
         }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if isSelected == "Gallery"{
+      //  if isSelected == "Gallery"{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OtherUserProfileCVCell", for: indexPath) as! OtherUserProfileCVCell
             
             let dict = self.viewModel?.arrPostList[indexPath.row]
@@ -200,14 +215,15 @@ extension UserProfileVC: UICollectionViewDelegate,UICollectionViewDataSource,UIC
            
             return cell
             
-        }else{
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OtherUserProfileCVCell", for: indexPath) as! OtherUserProfileCVCell
-            
-                cell.postImage.image = UIImage(named: bucketList[indexPath.row])
-            
-                return cell
-            
-        }
+      //  }
+//        else{
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OtherUserProfileCVCell", for: indexPath) as! OtherUserProfileCVCell
+//
+//                cell.postImage.image = UIImage(named: bucketList[indexPath.row])
+//
+//                return cell
+//
+//        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -42,6 +42,9 @@
 		184FE0CA2A4D982D009D666D /* OtherUserProfileCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184FE0C82A4D982D009D666D /* OtherUserProfileCVCell.swift */; };
 		184FE0CB2A4D982D009D666D /* OtherUserProfileCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184FE0C92A4D982D009D666D /* OtherUserProfileCVCell.xib */; };
 		1850E3552AB46F7500155E0E /* SettingsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1850E3542AB46F7500155E0E /* SettingsVM.swift */; };
+		1851A2582AB8239E007D89C4 /* BucketListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851A2572AB8239E007D89C4 /* BucketListVM.swift */; };
+		1851A25A2AB823E6007D89C4 /* BucketListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851A2592AB823E6007D89C4 /* BucketListModel.swift */; };
+		1851A25E2AB87CC7007D89C4 /* BlockReportVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851A25D2AB87CC7007D89C4 /* BlockReportVM.swift */; };
 		1853526D2A4D581600EAC753 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853526B2A4D581600EAC753 /* SearchVC.swift */; };
 		1853526E2A4D581600EAC753 /* SearchVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1853526C2A4D581600EAC753 /* SearchVC.xib */; };
 		185352712A4D5A5600EAC753 /* SearchTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853526F2A4D5A5600EAC753 /* SearchTVCell.swift */; };
@@ -296,6 +299,9 @@
 		184FE0C82A4D982D009D666D /* OtherUserProfileCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileCVCell.swift; sourceTree = "<group>"; };
 		184FE0C92A4D982D009D666D /* OtherUserProfileCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OtherUserProfileCVCell.xib; sourceTree = "<group>"; };
 		1850E3542AB46F7500155E0E /* SettingsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVM.swift; sourceTree = "<group>"; };
+		1851A2572AB8239E007D89C4 /* BucketListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListVM.swift; sourceTree = "<group>"; };
+		1851A2592AB823E6007D89C4 /* BucketListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListModel.swift; sourceTree = "<group>"; };
+		1851A25D2AB87CC7007D89C4 /* BlockReportVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockReportVM.swift; sourceTree = "<group>"; };
 		1853526B2A4D581600EAC753 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		1853526C2A4D581600EAC753 /* SearchVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchVC.xib; sourceTree = "<group>"; };
 		1853526F2A4D5A5600EAC753 /* SearchTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVCell.swift; sourceTree = "<group>"; };
@@ -637,18 +643,9 @@
 			isa = PBXGroup;
 			children = (
 				185352732A4D761700EAC753 /* BucketList */,
-				184FE0C32A4D8982009D666D /* Model */,
 				184FE0C22A4D897B009D666D /* View */,
-				184FE0C12A4D8972009D666D /* ViewModel */,
 			);
 			path = OtherUserProfile;
-			sourceTree = "<group>";
-		};
-		184FE0C12A4D8972009D666D /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		184FE0C22A4D897B009D666D /* View */ = {
@@ -662,19 +659,43 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		184FE0C32A4D8982009D666D /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		1850E3532AB46F4A00155E0E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				1850E3542AB46F7500155E0E /* SettingsVM.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1851A2552AB8235A007D89C4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1851A2572AB8239E007D89C4 /* BucketListVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1851A2562AB82364007D89C4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1851A2592AB823E6007D89C4 /* BucketListModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1851A25B2AB87C9C007D89C4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1851A25D2AB87CC7007D89C4 /* BlockReportVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1851A25C2AB87CA5007D89C4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		185352672A4D57E000EAC753 /* Search */ = {
@@ -701,18 +722,11 @@
 		185352732A4D761700EAC753 /* BucketList */ = {
 			isa = PBXGroup;
 			children = (
-				185352762A4D763300EAC753 /* Model */,
+				1851A2562AB82364007D89C4 /* Model */,
+				1851A2552AB8235A007D89C4 /* ViewModel */,
 				185352752A4D762C00EAC753 /* View */,
-				185352742A4D762100EAC753 /* ViewModel */,
 			);
 			path = BucketList;
-			sourceTree = "<group>";
-		};
-		185352742A4D762100EAC753 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		185352752A4D762C00EAC753 /* View */ = {
@@ -724,13 +738,6 @@
 				1853527C2A4D792B00EAC753 /* BucketListTVCell.xib */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		185352762A4D763300EAC753 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		18679B2D2A821B5900FD3C98 /* Model */ = {
@@ -1410,18 +1417,11 @@
 		189EC48D2A4E91CF001E6644 /* BlockReportPopUp */ = {
 			isa = PBXGroup;
 			children = (
-				189EC4902A4E9235001E6644 /* Model */,
+				1851A25C2AB87CA5007D89C4 /* Model */,
+				1851A25B2AB87C9C007D89C4 /* ViewModel */,
 				189EC48F2A4E922B001E6644 /* View */,
-				189EC48E2A4E921E001E6644 /* ViewModel */,
 			);
 			path = BlockReportPopUp;
-			sourceTree = "<group>";
-		};
-		189EC48E2A4E921E001E6644 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		189EC48F2A4E922B001E6644 /* View */ = {
@@ -1431,13 +1431,6 @@
 				189EC4922A4E9352001E6644 /* BlockReportPopUpVC.xib */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		189EC4902A4E9235001E6644 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		189EC4952A4E9EFC001E6644 /* CreatePost */ = {
@@ -2142,6 +2135,7 @@
 				318770972A691ACD00FF4B46 /* ProfileModel.swift in Sources */,
 				31CB5DFC2A67D25F0020E409 /* CropMaskView.swift in Sources */,
 				31CB5DFB2A67D25F0020E409 /* AVAssetTimeSelector.swift in Sources */,
+				1851A2582AB8239E007D89C4 /* BucketListVM.swift in Sources */,
 				1882AFCF2A52F3DA006CC3FC /* EditProfileVC.swift in Sources */,
 				189EC4B52A4EE345001E6644 /* MessageVC.swift in Sources */,
 				189551452A49BEF6003EC8FD /* UITableView+Custom.swift in Sources */,
@@ -2149,11 +2143,13 @@
 				31CB5DFD2A67D25F0020E409 /* VideoTrimmerVC.swift in Sources */,
 				31CB5DC82A67D1BC0020E409 /* UserDefaultsCustom.swift in Sources */,
 				31CB5DF02A67D25F0020E409 /* GridCameraViewCell.swift in Sources */,
+				1851A25A2AB823E6007D89C4 /* BucketListModel.swift in Sources */,
 				1886045A2A4EFEE100387D35 /* ReplyMessageTVCell.swift in Sources */,
 				189551422A49BEF6003EC8FD /* UILabel+Custom.swift in Sources */,
 				187884D32A652C5300BB3863 /* TermAndConditionsVC.swift in Sources */,
 				189551482A49BEF6003EC8FD /* UIImageView+Custom.swift in Sources */,
 				186DA22E2A81030300D4F879 /* AddLocationVC.swift in Sources */,
+				1851A25E2AB87CC7007D89C4 /* BlockReportVM.swift in Sources */,
 				1874CEBB2A558CE2008738CC /* ImageVideoCVCell.swift in Sources */,
 				31CB5DCE2A67D1BC0020E409 /* API.swift in Sources */,
 				1895513D2A49BEF6003EC8FD /* Date+Custom.swift in Sources */,

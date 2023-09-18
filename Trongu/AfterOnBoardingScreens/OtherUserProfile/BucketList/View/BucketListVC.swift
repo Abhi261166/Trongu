@@ -14,6 +14,7 @@ class BucketListVC: UIViewController {
     var bucketList = [("BucketListImage_1","Christian","Lorem Ipsum is simply dummy text of the printing and typesetting industry."),("BucketListImage_2","Apollonia","Lorem Ipsum is simply dummy text of the printing and typesetting industry. ")]
     
     var comeFrom:String?
+    var viewModel:BucketListVM?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +22,7 @@ class BucketListVC: UIViewController {
         self.bucketListTableView.delegate = self
         self.bucketListTableView.dataSource = self
         self.bucketListTableView.register(UINib(nibName: "BucketListTVCell", bundle: nil), forCellReuseIdentifier: "BucketListTVCell")
-        
+        setViewModel()
         let deviceTimeZone = TimeZone.current
 
         // You can also get the time zone abbreviation if needed
@@ -31,12 +32,30 @@ class BucketListVC: UIViewController {
         print("Time Zone Abbreviation: \(timeZoneAbbreviation)")
        
     }
+    
+    func setViewModel(){
+        
+        self.viewModel = BucketListVM(observer: self)
+        
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
+        
         if self.comeFrom == "NotFromTabbar"{
             backButton.isHidden = false
-        }
             
+        }
+        apiCall()
     }
+    
+    
+    func apiCall(){
+        self.viewModel?.pageNo = 0
+        self.viewModel?.arrPostList = []
+        self.viewModel?.apiBucketList()
+    }
+    
     
     @IBAction func backAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -45,14 +64,31 @@ class BucketListVC: UIViewController {
 }
 extension BucketListVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bucketList.count
+        
+        if self.viewModel?.arrPostList.count ?? 0 == 0 {
+            self.bucketListTableView.setBackgroundView(message: "No bucket listing")
+            return 0
+        }else{
+            self.bucketListTableView.setBackgroundView(message: "")
+            return self.viewModel?.arrPostList.count ?? 0
+        }
+   
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BucketListTVCell", for: indexPath) as! BucketListTVCell
-        cell.profileImage.image = UIImage(named: bucketList[indexPath.row].0)
-        cell.nameLabel.text = "\(bucketList[indexPath.row].1)"
-        cell.discriptionLabel.text = "\(bucketList[indexPath.row].2)"
+       
+        let dict = self.viewModel?.arrPostList[indexPath.row]
+        
+        if dict?.postImagesVideo.first?.type == "0"{
+            cell.profileImage.setImage(image: dict?.postImagesVideo.first?.image)
+        }else{
+            cell.profileImage.setImage(image: dict?.postImagesVideo.first?.thumbNailImage)
+        }
+        
+        cell.nameLabel.text = dict?.userDetail.name
+        cell.discriptionLabel.text = dict?.description
+        
         return cell
         
     }
@@ -60,4 +96,13 @@ extension BucketListVC: UITableViewDelegate,UITableViewDataSource{
         return UITableView.automaticDimension
     }
     
+}
+
+extension BucketListVC:BucketListVMObserver{
+    
+    func observeGetBucketListDataSucessfull() {
+    
+        self.bucketListTableView.reloadData()
+    }
+   
 }

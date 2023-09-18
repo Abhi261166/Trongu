@@ -69,6 +69,12 @@ class API {
         // other user profile
         static let follow                 = "j1/trongu/api/v1/users/follow-unfollow"
         static let getFollowFollowingList = "j1/trongu/api/v1/users/followers-following-listing"
+        static let addToBucket            = "j1/trongu/api/v1/users/add-bucket"
+        static let postFilter             = "j1/trongu/api/v1/users/filter-post"
+        static let bucketListing          = "j1/trongu/api/v1/users/bucket-listing"
+        static let blockUser              = "j1/trongu/api/v1/users/add-block-users"
+        static let blockUserListing       = "j1/trongu/api/v1/users/block-listing"
+        static let reportUser             = "j1/trongu/api/v1/users/add-report-users"
         
         
     }

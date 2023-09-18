@@ -29,7 +29,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qqb-9Z-hsJ">
                         <rect key="frame" x="20" y="25" width="409" height="110"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BucketListImage_1" translatesAutoresizingMaskIntoConstraints="NO" id="iFn-gp-mUd">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BucketListImage_1" translatesAutoresizingMaskIntoConstraints="NO" id="iFn-gp-mUd">
                                 <rect key="frame" x="10" y="10" width="90" height="90"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="90" id="adp-0S-Zp8"/>

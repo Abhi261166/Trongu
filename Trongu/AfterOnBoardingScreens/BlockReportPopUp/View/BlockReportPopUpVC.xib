@@ -15,6 +15,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BlockReportPopUpVC" customModule="Trongu" customModuleProvider="target">
             <connections>
+                <outlet property="btnBlock" destination="ea8-Tk-tmI" id="2HH-fU-vRb"/>
+                <outlet property="btnReport" destination="3Pt-Is-FiK" id="VhS-zk-dYm"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -46,6 +48,9 @@
                             <state key="normal" title="Block" image="ic_Block">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
+                            <connections>
+                                <action selector="actionBlock:" destination="-1" eventType="touchUpInside" id="a8y-9h-vcw"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Pt-Is-FiK" userLabel="Report / Abuse">
                             <rect key="frame" x="30" y="106" width="343" height="32"/>
@@ -54,6 +59,9 @@
                             <state key="normal" title="Report" image="complain (2) 1">
                                 <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
+                            <connections>
+                                <action selector="actionReport:" destination="-1" eventType="touchUpInside" id="dCB-ej-DEc"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -11,6 +11,7 @@ protocol HomeVMObserver: NSObjectProtocol {
     func observeGetHomeDataSucessfull()
     func observeLikedSucessfull()
     func observeGetProfilePostsSucessfull()
+    func observeAddedToBucket()
     
 }
 
@@ -65,6 +66,56 @@ class HomeVM: NSObject {
             }
         }
     }
+    
+    
+    
+    //MARK: - Home Posts List Api -
+    
+    func apiFilterHomePostList(place:String? = nil,budget:String? = nil ,noOfDays:String? = nil,tripCat:String? = nil,ethnicity:String? = nil,complexity:String? = nil) {
+        var params = JSON()
+        params["place"] = place
+        params["budget"] = budget
+        params["no_of_days"] = noOfDays
+        params["trip_category"] = tripCat
+        params["trip_complexity"] = complexity
+        params["ethnicity"] = ethnicity
+        
+        params["per_page"] = perPage
+        params["page_no"] = pageNo + 1
+        print("params : ", params)
+        
+        // add loader
+        ActivityIndicator.shared.showActivityIndicator()
+        ApiHandler.callWithMultipartForm(apiName: API.Name.postFilter, params: params) { [weak self] succeeded, response, data in
+            DispatchQueue.main.async {
+                ActivityIndicator.shared.hideActivityIndicator()
+                if let self = self{
+                    if succeeded == true, let data {
+                        let decoder = JSONDecoder()
+                        do {
+                            let decoded = try decoder.decode(HomeDataModel.self, from: data)
+                            let posts = decoded.data
+                            if self.pageNo == 0 {
+                                self.arrPostList.removeAll()
+                            }
+                            self.arrPostList.append(contentsOf: posts)
+                            self.isLastPage = posts.count < (self.perPage)
+                            self.pageNo += 1
+                            self.observer?.observeGetHomeDataSucessfull()
+                        } catch {
+                            print("error", error)
+                        }
+                    } else {
+                        if let message = response["message"] as? String {
+                            self.showMessage(message: message, isError: .error)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
     
     //MARK: - like Post APi -
     
@@ -135,6 +186,32 @@ class HomeVM: NSObject {
         }
     }
     
+    //MARK: - Add to bucket post -
     
+    func apiAddTobucket(postId:String) {
+        var params = JSON()
+        params["post_id"] = postId
+        print("params : ", params)
+        
+        // add loader
+        //  ActivityIndicator.shared.showActivityIndicator()
+        ApiHandler.callWithMultipartForm(apiName: API.Name.addToBucket, params: params) { [weak self] succeeded, response, data in
+            DispatchQueue.main.async {
+                //       ActivityIndicator.shared.hideActivityIndicator()
+                if let self = self{
+                    if succeeded == true {
+                        if let message = response["message"] as? String {
+                            self.showMessage(message: message, isError: .success)
+                        }
+                        self.observer?.observeAddedToBucket()
+                    } else {
+                        if let message = response["message"] as? String {
+                            self.showMessage(message: message, isError: .error)
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 

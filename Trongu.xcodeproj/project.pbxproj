@@ -148,6 +148,7 @@
 		1895515A2A49BFDF003EC8FD /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189551592A49BFDF003EC8FD /* TabBarController.swift */; };
 		189BC6442A4BF22A00C97BCA /* HomeTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189BC6422A4BF22A00C97BCA /* HomeTVCell.swift */; };
 		189BC6452A4BF22A00C97BCA /* HomeTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 189BC6432A4BF22A00C97BCA /* HomeTVCell.xib */; };
+		189E983F2AB95E7700329418 /* BlockListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189E983E2AB95E7700329418 /* BlockListVM.swift */; };
 		189EC4932A4E9352001E6644 /* BlockReportPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189EC4912A4E9352001E6644 /* BlockReportPopUpVC.swift */; };
 		189EC4942A4E9352001E6644 /* BlockReportPopUpVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 189EC4922A4E9352001E6644 /* BlockReportPopUpVC.xib */; };
 		189EC49B2A4E9F3D001E6644 /* CreatePostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189EC4992A4E9F3D001E6644 /* CreatePostVC.swift */; };
@@ -407,6 +408,7 @@
 		189551762A49C74E003EC8FD /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		189BC6422A4BF22A00C97BCA /* HomeTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTVCell.swift; sourceTree = "<group>"; };
 		189BC6432A4BF22A00C97BCA /* HomeTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTVCell.xib; sourceTree = "<group>"; };
+		189E983E2AB95E7700329418 /* BlockListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListVM.swift; sourceTree = "<group>"; };
 		189EC4912A4E9352001E6644 /* BlockReportPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockReportPopUpVC.swift; sourceTree = "<group>"; };
 		189EC4922A4E9352001E6644 /* BlockReportPopUpVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BlockReportPopUpVC.xib; sourceTree = "<group>"; };
 		189EC4992A4E9F3D001E6644 /* CreatePostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostVC.swift; sourceTree = "<group>"; };
@@ -1414,6 +1416,14 @@
 			path = Poppins;
 			sourceTree = "<group>";
 		};
+		189E983C2AB95E3100329418 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				189E983E2AB95E7700329418 /* BlockListVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		189EC48D2A4E91CF001E6644 /* BlockReportPopUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -1627,6 +1637,7 @@
 		18EF10C12A542739005D55AB /* Blocked */ = {
 			isa = PBXGroup;
 			children = (
+				189E983C2AB95E3100329418 /* ViewModel */,
 				18EF10C32A542755005D55AB /* View */,
 			);
 			path = Blocked;
@@ -2222,6 +2233,7 @@
 				31CB5DF72A67D25F0020E409 /* ThumbSelectorView.swift in Sources */,
 				189551572A49BF96003EC8FD /* Extension.swift in Sources */,
 				187F90502A4C1AFF00C00867 /* CommentVC.swift in Sources */,
+				189E983F2AB95E7700329418 /* BlockListVM.swift in Sources */,
 				185352792A4D765500EAC753 /* BucketListVC.swift in Sources */,
 				31CB5E112A68080B0020E409 /* ProfileVM.swift in Sources */,
 				31CB5DBC2A67D1BC0020E409 /* Singleton.swift in Sources */,

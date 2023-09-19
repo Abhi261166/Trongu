@@ -75,6 +75,8 @@ class API {
         static let blockUser              = "j1/trongu/api/v1/users/add-block-users"
         static let blockUserListing       = "j1/trongu/api/v1/users/block-listing"
         static let reportUser             = "j1/trongu/api/v1/users/add-report-users"
+        static let removeFollower         = "j1/trongu/api/v1/users/remove-follower"
+        static let profileMap             = "j1/trongu/api/v1/users/profile-map"
         
         
     }

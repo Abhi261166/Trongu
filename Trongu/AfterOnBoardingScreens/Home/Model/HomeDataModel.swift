@@ -138,3 +138,22 @@ struct UserDetail: Codable {
         case updatedAt = "updated_at"
     }
 }
+
+// MARK: - Profile Map Model -
+struct ProfileMapModel: Codable {
+    let status: Int
+    let message: String
+    let postDetail, bucketDetail: [TDetail]
+
+    enum CodingKeys: String, CodingKey {
+        case status, message
+        case postDetail = "Post detail"
+        case bucketDetail = "Bucket detail"
+    }
+}
+
+// MARK: - TDetail
+struct TDetail: Codable {
+    let place, time, date, lat: String
+    let long: String
+}

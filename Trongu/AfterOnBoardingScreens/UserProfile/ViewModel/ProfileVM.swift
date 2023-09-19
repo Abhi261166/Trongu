@@ -11,6 +11,8 @@ protocol ProfileVMObserver: NSObjectProtocol {
     func observeGetProfileSucessfull()
     func observeGetProfilePostsSucessfull()
     func observeFollowUnfollowSucessfull()
+    func observeGetMapDataSucessfull()
+    
 }
 
 
@@ -20,6 +22,10 @@ class ProfileVM: NSObject {
     var observer: ProfileVMObserver?
     var userData:UserData?
     var arrPostList:[Post] = []
+    var arrSelfCreatedPosts:[TDetail] = []
+    var arrBucketList:[TDetail] = []
+    var arrFinalList:[TDetail] = []
+    
     var perPage = 20
     var pageNo = 0
     var isLastPage: Bool = false
@@ -179,5 +185,45 @@ class ProfileVM: NSObject {
             }
         }
     }
+    
+    
+    //MARK: - Profile post on map List APi -
+    
+    func apiShowDataOnMap(filterBy:String) {
+        var params = JSON()
+        params["filter_by"] = filterBy
+        print("params : ", params)
+        
+        // add loader
+        ActivityIndicator.shared.showActivityIndicator()
+        ApiHandler.callWithMultipartForm(apiName: API.Name.profileMap, params: params) { [weak self] succeeded, response, data in
+            DispatchQueue.main.async {
+                ActivityIndicator.shared.hideActivityIndicator()
+                if let self = self{
+                    if succeeded == true, let data {
+                        let decoder = JSONDecoder()
+                        do {
+                            
+                            let decoded = try decoder.decode(ProfileMapModel.self, from: data)
+                            self.arrSelfCreatedPosts.append(contentsOf: decoded.postDetail)
+                            self.arrBucketList.append(contentsOf: decoded.bucketDetail)
+                            self.arrFinalList = self.arrSelfCreatedPosts
+                            self.arrFinalList.append(contentsOf: self.arrFinalList)
+                            self.observer?.observeGetMapDataSucessfull()
+                            
+                        } catch {
+                            print("error", error)
+                        }
+                    } else {
+                        if let message = response["message"] as? String {
+                            self.showMessage(message: message, isError: .error)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
     
 }

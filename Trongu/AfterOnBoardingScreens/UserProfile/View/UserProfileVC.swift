@@ -7,8 +7,9 @@
 
 import UIKit
 import CoreLocation
+import MapKit
 
-class UserProfileVC: UIViewController {
+class UserProfileVC: UIViewController,MKMapViewDelegate {
     
     
     @IBOutlet weak var userNameLbl: UILabel!
@@ -27,20 +28,21 @@ class UserProfileVC: UIViewController {
     @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var mapView: UIView!
     @IBOutlet weak var locationView: UIView!
+    @IBOutlet weak var mapKitView: MKMapView!
     @IBOutlet weak var userProfileCollectionView: UICollectionView!
     
     var gallery = ["OtherUserImage_1","OtherUserImage_2","OtherUserImage_3","OtherUserImage_4","OtherUserImage_5","OtherUserImage_6","OtherUserImage_7","OtherUserImage_8","OtherUserImage_9"]
     var bucketList = ["OtherUserImage_1","OtherUserImage_2","BucketListImage_3","BucketListImage_4","BucketListImage_5","OtherUserImage_6","OtherUserImage_7","BucketListImage_8","OtherUserImage_9"]
     var isSelected:String?
     var viewModel:ProfileVM?
+    var filterBy:String?
+    var initialLat = 0.0
+    var initialLong = 0.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        galleryView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        mapView.backgroundColor = #colorLiteral(red: 0.8509803922, green: 0.8509803922, blue: 0.8509803922, alpha: 1)
-        bucketListView.backgroundColor = #colorLiteral(red: 0.8509803922, green: 0.8509803922, blue: 0.8509803922, alpha: 1)
-        galleryButton.isSelected = true
-        self.isSelected = "Gallery"
+        mapKitView.delegate = self
+        mapKitView.mapType = .hybrid
         self.userProfileCollectionView.reloadData()
         galleryButton.isUserInteractionEnabled = false
         self.userProfileCollectionView.delegate = self
@@ -55,6 +57,11 @@ class UserProfileVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
+        galleryView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        mapView.backgroundColor = #colorLiteral(red: 0.8509803922, green: 0.8509803922, blue: 0.8509803922, alpha: 1)
+        bucketListView.backgroundColor = #colorLiteral(red: 0.8509803922, green: 0.8509803922, blue: 0.8509803922, alpha: 1)
+        galleryButton.isSelected = true
+        self.isSelected = "Gallery"
         hitGetProfileApi()
         hitGetProfilePostsApi()
     }
@@ -124,6 +131,10 @@ class UserProfileVC: UIViewController {
     
     @IBAction func mapAction(_ sender: UIButton) {
         sender.isSelected.toggle()
+        self.viewModel?.arrBucketList = []
+        self.viewModel?.arrSelfCreatedPosts = []
+        self.viewModel?.apiShowDataOnMap(filterBy: self.filterBy ?? "")
+        
         mapView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         bucketListView.backgroundColor = #colorLiteral(red: 0.8509803922, green: 0.8509803922, blue: 0.8509803922, alpha: 1)
         galleryView.backgroundColor = #colorLiteral(red: 0.8509803922, green: 0.8509803922, blue: 0.8509803922, alpha: 1)
@@ -142,11 +153,13 @@ class UserProfileVC: UIViewController {
     
     @IBAction func followersAction(_ sender: UIButton) {
         let vc = FollowersVC()
+        vc.isSelected = "Followers"
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func followingAction(_ sender: UIButton) {
         let vc = FollowersVC()
+        vc.isSelected = "Following"
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -265,29 +278,6 @@ extension UserProfileVC: UICollectionViewDelegate,UICollectionViewDataSource,UIC
                 // Create a dictionary to hold the address components
                 var addressComponents = [String]()
 
-//                if let name = placemark.name {
-//                    addressComponents.append(name)
-//                }
-
-//                if let thoroughfare = placemark.thoroughfare {
-//                    addressComponents.append(thoroughfare)
-//                }
-
-//                if let subThoroughfare = placemark.subThoroughfare {
-//                    addressComponents.append(subThoroughfare)
-//                }
-
-//                if let locality = placemark.locality {
-//                    addressComponents.append(locality)
-//                }
-
-//                if let administrativeArea = placemark.administrativeArea {
-//                    addressComponents.append(administrativeArea)
-//                }
-
-//                if let postalCode = placemark.postalCode {
-//                    addressComponents.append(postalCode)
-//                }
 
                 if let country = placemark.country {
                     addressComponents.append(country)
@@ -305,6 +295,13 @@ extension UserProfileVC: UICollectionViewDelegate,UICollectionViewDataSource,UIC
 }
 
 extension UserProfileVC : ProfileVMObserver{
+    
+    
+    func observeGetMapDataSucessfull() {
+        self.initialLat = Double(self.viewModel?.arrFinalList.first?.lat ?? "") ?? 0.0
+        self.initialLong = Double(self.viewModel?.arrFinalList.first?.long ?? "") ?? 0.0
+        setLatLongData()
+    }
     
     func observeFollowUnfollowSucessfull() {
         
@@ -335,4 +332,110 @@ extension UserProfileVC : ProfileVMObserver{
         self.bioLbl.text = dict?.bio
         self.addressLbl.text = dict?.place
     }
+}
+
+extension UserProfileVC{
+    
+    func setLatLongData(){
+      
+        var locations: [(CLLocationCoordinate2D, String)] = []
+        
+        let dict = self.viewModel?.arrFinalList
+        
+        for index in 0...(dict?.count ?? 0) - 1{
+          
+            let data = (CLLocationCoordinate2D(latitude: Double(dict?[index].lat ?? "") ?? 0.0, longitude: Double(dict?[index].long ?? "") ?? 0.0), "\(dict?[index].time ?? ""), \(dict?[index].place ?? "")")
+            
+            locations.append(data)
+
+        }
+        
+        // Add annotations for each location
+        for location in locations {
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = location.0
+            annotation.title = location.1
+            mapKitView.addAnnotation(annotation)
+        }
+        
+        let coordinates: [CLLocationCoordinate2D] = locations.map { $0.0 }
+        // Create a polyline from the coordinates and add it to the map
+        let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
+        mapKitView.addOverlay(polyline)
+        
+        // Set initial map region
+        let initialLocation = CLLocationCoordinate2D(latitude: self.initialLat, longitude: self.initialLong)
+        let region = MKCoordinateRegion(center: initialLocation, latitudinalMeters: 1000000, longitudinalMeters: 1000000)
+        mapKitView.setRegion(region, animated: true)
+        
+    }
+    
+    // MKMapViewDelegate method to customize annotation views
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is MKPointAnnotation else { return nil }
+        
+        let identifier = "AnnotationIdentifier"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+        
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView?.canShowCallout = true
+            
+            // Set a custom image for the annotation
+            annotationView?.image = UIImage(named: "ic_LocationOnMap")
+        } else {
+            annotationView?.annotation = annotation
+        }
+        
+        return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let polyline = overlay as? MKPolyline {
+            let renderer = MKPolylineRenderer(polyline: polyline)
+            renderer.strokeColor = .systemOrange
+            renderer.lineWidth = 4
+            return renderer
+        }
+        return MKOverlayRenderer(overlay: overlay)
+    }
+    
+    
+    func getAddressFromLatLongForMap(latitude: Double, longitude: Double, completion: @escaping (String?) -> Void) {
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        let geocoder = CLGeocoder()
+        
+        geocoder.reverseGeocodeLocation(location) { placemarks, error in
+            if let error = error {
+                print("Error geocoding location: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+            
+            if let placemark = placemarks?.first {
+                // Create a dictionary to hold the address components
+                var addressComponents = [String]()
+                
+                if let name = placemark.name {
+                    addressComponents.append(name)
+                }
+         
+                if let locality = placemark.locality {
+                    addressComponents.append(locality)
+                }
+            
+                if let country = placemark.country {
+                    addressComponents.append(country)
+                }
+                
+                // Join all the address components to get the complete address
+                let address = addressComponents.joined(separator: ", ")
+                completion(address)
+            } else {
+                completion(nil)
+            }
+        }
+    }
+    
+    
 }

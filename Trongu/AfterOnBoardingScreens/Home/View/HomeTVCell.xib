@@ -92,13 +92,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Easy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JAc-vz-sTa">
-                                <rect key="frame" x="384.33333333333331" y="23" width="36.666666666666686" height="22.666666666666671"/>
+                                <rect key="frame" x="384.33333333333331" y="15.000000000000002" width="36.666666666666686" height="22.666666666666671"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iCL-dg-GvR">
-                                <rect key="frame" x="423" y="19.333333333333329" width="25" height="30"/>
+                                <rect key="frame" x="423" y="11.333333333333336" width="25" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="bZ1-Ab-Jk1"/>
                                     <constraint firstAttribute="height" constant="30" id="l1v-p2-ado"/>
@@ -383,12 +383,12 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="i1f-id-Gae" firstAttribute="leading" secondItem="5WQ-yT-qcr" secondAttribute="leading" constant="20" id="1Lp-UG-kcI"/>
-                            <constraint firstItem="iCL-dg-GvR" firstAttribute="centerY" secondItem="i1f-id-Gae" secondAttribute="centerY" id="8BP-oP-NPU"/>
                             <constraint firstAttribute="trailing" secondItem="Z9w-Td-zzj" secondAttribute="trailing" id="ES4-Ys-FMI"/>
                             <constraint firstItem="Z9w-Td-zzj" firstAttribute="top" secondItem="i1f-id-Gae" secondAttribute="bottom" constant="5" id="JaP-T7-JHw"/>
                             <constraint firstItem="nmk-z3-3lY" firstAttribute="top" secondItem="Z9w-Td-zzj" secondAttribute="bottom" constant="10" id="KsC-dS-pum"/>
+                            <constraint firstItem="iCL-dg-GvR" firstAttribute="centerY" secondItem="JAc-vz-sTa" secondAttribute="centerY" id="OGI-QV-CUb"/>
                             <constraint firstAttribute="bottom" secondItem="nmk-z3-3lY" secondAttribute="bottom" constant="5" id="QLv-bD-Q2z"/>
-                            <constraint firstItem="JAc-vz-sTa" firstAttribute="centerY" secondItem="i1f-id-Gae" secondAttribute="centerY" id="SZb-MD-XfM"/>
+                            <constraint firstItem="JAc-vz-sTa" firstAttribute="centerY" secondItem="1w3-E9-GDd" secondAttribute="centerY" id="WeG-Cx-gDo"/>
                             <constraint firstItem="Z9w-Td-zzj" firstAttribute="leading" secondItem="5WQ-yT-qcr" secondAttribute="leading" id="lR0-n4-MSb"/>
                             <constraint firstItem="iCL-dg-GvR" firstAttribute="leading" secondItem="JAc-vz-sTa" secondAttribute="trailing" constant="2" id="rt2-Hq-r5E"/>
                             <constraint firstAttribute="trailing" secondItem="iCL-dg-GvR" secondAttribute="trailing" constant="16" id="twA-l6-kGp"/>

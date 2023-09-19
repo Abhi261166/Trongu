@@ -56,3 +56,10 @@ class UserData: Codable  {
     var is_private:String?
     
 }
+
+
+class BlockListModel: Codable {
+    var status: Int?
+    var message: String?
+    var data: [UserData]?
+}

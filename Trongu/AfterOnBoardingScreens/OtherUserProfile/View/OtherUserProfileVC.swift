@@ -79,11 +79,17 @@ class OtherUserProfileVC: UIViewController {
     
     @IBAction func followersAction(_ sender: UIButton) {
         let vc = FollowersVC()
+        vc.isSelected = "Followers"
+        vc.userId = self.viewModel?.userData?.id
+        vc.comeFrom = "otherUser"
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func followingAction(_ sender: UIButton) {
         let vc = FollowersVC()
+        vc.isSelected = "Following"
+        vc.userId = self.viewModel?.userData?.id
+        vc.comeFrom = "otherUser"
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

@@ -8,8 +8,7 @@ target 'Trongu' do
 
   # Pods for Trongu
 pod 'YPImagePicker'
-#pod 'SteviaLayout', '= 5.1.2'
-#pod 'PryntTrimmerView', '= 4.0.2'
+pod 'Socket.IO-Client-Swift', '~> 15.1.0'
 pod 'IQKeyboardManager'
 pod 'MultiSlider'
 pod 'GrowingTextView', '0.7.2'

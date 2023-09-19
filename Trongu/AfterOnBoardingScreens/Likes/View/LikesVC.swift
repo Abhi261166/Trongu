@@ -45,14 +45,15 @@ class LikesVC: UIViewController,UITextFieldDelegate {
         
     }
     
-    
     @objc func textFieldDidChange(_ textField: UITextField) {
         updateCrossButtonVisibility()
         if timer != nil {
             timer?.invalidate()
             timer = nil
         }
+        
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.searchTimerAction(_:)), userInfo: textField.text, repeats: false)
+        
     }
     
     

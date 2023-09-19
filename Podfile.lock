@@ -139,6 +139,9 @@ PODS:
   - SDWebImage (5.15.6):
     - SDWebImage/Core (= 5.15.6)
   - SDWebImage/Core (5.15.6)
+  - Socket.IO-Client-Swift (15.1.0):
+    - Starscream (~> 3.1)
+  - Starscream (3.1.1)
   - SteviaLayout (4.7.3)
   - SweeterSwift (1.2.1)
   - YPImagePicker (4.5.0):
@@ -158,6 +161,7 @@ DEPENDENCIES:
   - Kingfisher
   - MultiSlider
   - SDWebImage
+  - Socket.IO-Client-Swift (~> 15.1.0)
   - YPImagePicker
 
 SPEC REPOS:
@@ -191,6 +195,8 @@ SPEC REPOS:
     - PromisesObjC
     - PryntTrimmerView
     - SDWebImage
+    - Socket.IO-Client-Swift
+    - Starscream
     - SteviaLayout
     - SweeterSwift
     - YPImagePicker
@@ -225,10 +231,12 @@ SPEC CHECKSUMS:
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
   SDWebImage: d47d81bea8a77187896b620dc79c3c528e8906b9
+  Socket.IO-Client-Swift: 7cb44c0ffb86e158cee32d0642d30ec5fdcf8f61
+  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
   SweeterSwift: 61baeda1c0c27d1dc57c8112c3d6a82e5aff3139
   YPImagePicker: 6f410f475bd22fa8cd430495b54d4b2f15865c2d
 
-PODFILE CHECKSUM: acc88fdd64244a73020ee89871c1d2a6d73f23a0
+PODFILE CHECKSUM: c464fc68dc377165458ecc8ac5dce3ec8b2a9ce8
 
 COCOAPODS: 1.11.3

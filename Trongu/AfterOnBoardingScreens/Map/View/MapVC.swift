@@ -132,27 +132,11 @@ class MapVC: UIViewController,MKMapViewDelegate {
                 if let name = placemark.name {
                     addressComponents.append(name)
                 }
-                
-                //                if let thoroughfare = placemark.thoroughfare {
-                //                    addressComponents.append(thoroughfare)
-                //                }
-                
-                //                if let subThoroughfare = placemark.subThoroughfare {
-                //                    addressComponents.append(subThoroughfare)
-                //                }
-                
+         
                 if let locality = placemark.locality {
                     addressComponents.append(locality)
                 }
-                
-                //                if let administrativeArea = placemark.administrativeArea {
-                //                    addressComponents.append(administrativeArea)
-                //                }
-                
-                //                if let postalCode = placemark.postalCode {
-                //                    addressComponents.append(postalCode)
-                //                }
-                
+            
                 if let country = placemark.country {
                     addressComponents.append(country)
                 }

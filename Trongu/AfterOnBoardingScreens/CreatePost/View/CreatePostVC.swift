@@ -44,6 +44,7 @@ class CreatePostVC: UIViewController{
         if self.comeFrom == "Edit"{
             btnback.isHidden = false
             lblCreatePost.text = "Edit Post"
+            self.addImage.image = UIImage(named: "ic_editPost")
             
             if self.myPost[0].postImagesVideo.count != 0{
                 if self.myPost[0].postImagesVideo.count == 1{
@@ -59,6 +60,8 @@ class CreatePostVC: UIViewController{
         }else{
             btnback.isHidden = true
             lblCreatePost.text = "Create Post"
+            self.addImage.image = UIImage(named: "CreatePostImage")
+            
             let UserData = UserDetail(id: "", googleID: "", facebookID: "", appleID: "", name: "", userName: "", loginType: "", gender: "", email: "", image: "", password: "", place: "", bio: "", dob: "", ethnicity: "", deviceToken: "", deviceType: "", isStatus: "", mailStatus: "", smsStatus: "", status: "", authKey: "", accessToken: "", lat: "", long: "", verificationToken: "", passwordResetToken: "", expireAt: "", createdAt: "", updatedAt: "")
             
             let post = Post(id: "", userID: "", budget: "", noOfDays: "", tripCategory: "", description: "", tripComplexity: "", status: "", createdAt: "", tripCategoryName: "", userDetail: UserData)

@@ -241,7 +241,7 @@ extension CommentVC: UITableViewDelegate,UITableViewDataSource{
         self.txtVwComment.becomeFirstResponder()
         self.isReply = true
         self.commentId = self.viewModel?.arrCommentList[sender.tag].commentID ?? ""
-        self.replyToId = self.viewModel?.arrCommentList[sender.tag].userID ?? ""
+        self.replyToId = self.viewModel?.arrCommentList[sender.tag].userID ?? "" // changed
     }
     
     //    MARK: - SCROLL TO Top -

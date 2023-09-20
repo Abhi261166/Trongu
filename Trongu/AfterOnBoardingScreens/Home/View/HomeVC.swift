@@ -254,9 +254,18 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
 extension HomeVC: HomeTVCellDelegate{
     
     func didTapProfileBtn(_ indexPath: IndexPath) {
-//        let vc = OtherUserProfileVC()
-//        vc.hidesBottomBarWhenPushed = true
-//        self.navigationController?.pushViewController(vc, animated: true)
+        
+        if self.viewModel?.arrPostList[indexPath.row].userDetail.id == UserDefaultsCustom.getUserData()?.id{
+            
+            self.navigationController?.tabBarController?.selectedIndex = 4
+            
+        }else{
+            let vc = OtherUserProfileVC()
+            vc.userId = self.viewModel?.arrPostList[indexPath.row].userDetail.id
+            vc.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
     }
     
     func didTapMenu(_ indexPath: IndexPath) {
@@ -374,7 +383,8 @@ extension HomeVC{
                 DAVideoPlayerView.player?.isPlaying = false
                 DAVideoPlayerView.player = nil
             }
-         
+            videoCell.videoPlayerView.isMuted = isMuted
+            videoCell.volumeButton.isSelected = isMuted
             videoCell.videoPlayerView.play()
         }else{
             if let player = DAVideoPlayerView.player {

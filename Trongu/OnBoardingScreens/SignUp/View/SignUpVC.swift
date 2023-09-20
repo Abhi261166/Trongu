@@ -781,7 +781,9 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             let placemark = placemarks! as [CLPlacemark]
             if placemark.count > 0 {
                 let placemark = placemarks![0]
-                //                self.cityy = placemark.locality
+             
+                self.addPlaceTF.text = placemark.locality
+                
                 print(placemark.locality!)
                 print(placemark.administrativeArea!)
                 print(placemark.country!)

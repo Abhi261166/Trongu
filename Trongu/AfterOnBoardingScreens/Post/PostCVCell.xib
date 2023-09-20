@@ -30,7 +30,7 @@
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X4K-tW-0Ti">
-                        <rect key="frame" x="10" y="115" width="30" height="30"/>
+                        <rect key="frame" x="10" y="127" width="30" height="30"/>
                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="1Jf-sC-xea"/>
@@ -50,7 +50,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FbE-AS-obz">
-                        <rect key="frame" x="281" y="115" width="30" height="30"/>
+                        <rect key="frame" x="281" y="127" width="30" height="30"/>
                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="FFM-Ja-Hyr"/>
@@ -68,14 +68,14 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstItem="Z6S-FK-1gn" firstAttribute="top" secondItem="Mvk-mM-5so" secondAttribute="bottom" constant="5" id="BcH-xf-0P6"/>
-                <constraint firstItem="FbE-AS-obz" firstAttribute="centerY" secondItem="Mvk-mM-5so" secondAttribute="centerY" id="Ifv-e7-F30"/>
+                <constraint firstItem="FbE-AS-obz" firstAttribute="centerY" secondItem="Mvk-mM-5so" secondAttribute="centerY" constant="12" id="Ifv-e7-F30"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Z6S-FK-1gn" secondAttribute="bottom" constant="10" id="Juj-l3-mRp"/>
                 <constraint firstItem="Mvk-mM-5so" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="L0o-5O-oHe"/>
                 <constraint firstItem="Z6S-FK-1gn" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="TfB-UO-c1y"/>
                 <constraint firstItem="Mvk-mM-5so" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="d3w-4U-0fU"/>
                 <constraint firstAttribute="trailing" secondItem="Z6S-FK-1gn" secondAttribute="trailing" constant="20" id="pnM-HT-KsR"/>
                 <constraint firstItem="X4K-tW-0Ti" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="qIx-ay-MLv"/>
-                <constraint firstItem="X4K-tW-0Ti" firstAttribute="centerY" secondItem="Mvk-mM-5so" secondAttribute="centerY" id="qcn-T4-dpm"/>
+                <constraint firstItem="X4K-tW-0Ti" firstAttribute="centerY" secondItem="Mvk-mM-5so" secondAttribute="centerY" constant="12" id="qcn-T4-dpm"/>
                 <constraint firstAttribute="trailing" secondItem="FbE-AS-obz" secondAttribute="trailing" constant="10" id="uZA-0J-oGj"/>
                 <constraint firstAttribute="trailing" secondItem="Mvk-mM-5so" secondAttribute="trailing" id="udh-Vc-IKJ"/>
             </constraints>

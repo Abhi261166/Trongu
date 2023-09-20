@@ -193,7 +193,9 @@ extension OtherUserProfileVC: UICollectionViewDelegate,UICollectionViewDataSourc
 }
 
 extension OtherUserProfileVC:ProfileVMObserver{
-    
+    func observeGetMapDataSucessfull() {
+        
+    }
     
     func observeFollowUnfollowSucessfull() {
         apiCall()

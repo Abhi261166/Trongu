@@ -8,6 +8,10 @@
 import UIKit
 import AVKit
 import AVFoundation
+
+
+var isMuted = false
+
 class AddPostCVC: UICollectionViewCell {
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -72,15 +76,18 @@ class AddPostCVC: UICollectionViewCell {
             self.videoTimeLabel.isHidden = true
         }
         
-        self.videoPlayerView.isMuted = false
+        self.videoPlayerView.isMuted = isMuted
+        self.volumeButton.isSelected = isMuted
     }
     
     @IBAction func volumeAction(_ sender: UIButton) {
         sender.isSelected.toggle()
         if sender.isSelected == true{
             self.videoPlayerView.isMuted = true
+            isMuted = true
         }else{
             self.videoPlayerView.isMuted = false
+            isMuted = false
         }
       print("Hit valume button")
     }

@@ -578,8 +578,24 @@ extension AddPhotoVideoVC{
                          
                    })
                    print("capture pic date time",photo.asset?.creationDate as Any)
-                   self.dateTF.text = photo.asset?.creationDate?.dateToString(format: self.dateFormat)
-                   self.timeTF.text = "\(photo.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")"
+                   
+                   if photo.asset?.creationDate?.dateToString(format: self.dateFormat) == nil{
+                       
+                       let currentDate = Date()
+                       let dateFormatter = DateFormatter()
+                       dateFormatter.dateFormat = self.dateFormat
+                       let formattedDate = dateFormatter.string(from: currentDate)
+                       self.dateTF.text = formattedDate
+                       //self.timeTF.text = "\(photo.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")"
+                       self.timeTF.text = "\(currentDate.dateToString(format: "h:mm a") ) \(self.timeZoneAbbreviation ?? "")"
+                       
+                       
+                   }else{
+                       
+                       self.dateTF.text = photo.asset?.creationDate?.dateToString(format: self.dateFormat)
+                       self.timeTF.text = "\(photo.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")"
+                   }
+                   
                    ActivityIndicator.shared.hideActivityIndicator()
                   
                case .video(v: let video):
@@ -592,10 +608,27 @@ extension AddPhotoVideoVC{
                        }
                        print("Got address from picker -----",address ?? "")
                        print("capture pic date time",video.asset?.creationDate as Any)
-                       self.dateTF.text = video.asset?.creationDate?.dateToString(format: self.dateFormat)
-                       self.timeTF.text = "\(video.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")"
-                       //self.timeTF.text = video.asset?.creationDate?.dateToString(format: "h:mm a")
+                       
+                       
+                       if video.asset?.creationDate?.dateToString(format: self.dateFormat) == nil{
+                           
+                           let currentDate = Date()
+                           let dateFormatter = DateFormatter()
+                           dateFormatter.dateFormat = self.dateFormat
+                           let formattedDate = dateFormatter.string(from: currentDate)
+                           self.dateTF.text = formattedDate
+                           //self.timeTF.text = "\(photo.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")"
+                           self.timeTF.text = "\(currentDate.dateToString(format: "h:mm a") ) \(self.timeZoneAbbreviation ?? "")"
+                           
+                           
+                       }else{
+                           
+                           self.dateTF.text = video.asset?.creationDate?.dateToString(format: self.dateFormat)
+                           self.timeTF.text = "\(video.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")"
+                       }
                      
+                       
+                       
                        ActivityIndicator.shared.hideActivityIndicator()
                    })
                    
@@ -774,18 +807,52 @@ extension AddPhotoVideoVC{
                     place = address ?? ""
                 })
                 
-                let post = PostImagesVideo(id: "", postID: "", place: place, date: photo.asset?.creationDate?.dateToString(format: dateFormat) ?? "", time: "\(photo.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")", lat: "\(photo.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(photo.asset?.location?.coordinate.longitude ?? 0.0)", image: "", videoTitle: "", videoURL: "", height: "", width: "", thumbNailImage: "", type: "0", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
-                self.images.append(photo.image)
-                arrPostItems.append(post)
+                
+                
+                if photo.asset?.creationDate?.dateToString(format: self.dateFormat) == nil{
+                    
+                    let currentDate = Date()
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = self.dateFormat
+                    let formattedDate = dateFormatter.string(from: currentDate)
+                    let time = "\(currentDate.dateToString(format: "h:mm a") ) \(self.timeZoneAbbreviation ?? "")"
+                    
+                    let post = PostImagesVideo(id: "", postID: "", place: place, date: formattedDate, time: time, lat: "\(photo.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(photo.asset?.location?.coordinate.longitude ?? 0.0)", image: "", videoTitle: "", videoURL: "", height: "", width: "", thumbNailImage: "", type: "0", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
+                    self.images.append(photo.image)
+                    arrPostItems.append(post)
+                    
+                }else{
+                    let post = PostImagesVideo(id: "", postID: "", place: place, date: photo.asset?.creationDate?.dateToString(format: dateFormat) ?? "", time: "\(photo.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")", lat: "\(photo.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(photo.asset?.location?.coordinate.longitude ?? 0.0)", image: "", videoTitle: "", videoURL: "", height: "", width: "", thumbNailImage: "", type: "0", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
+                    self.images.append(photo.image)
+                    arrPostItems.append(post)
+                }
+                
+                
             case .video(v: let video):
                 var place = ""
                 getAddressFromLatLong(latitude: video.asset?.location?.coordinate.latitude ?? 0.0, longitude: video.asset?.location?.coordinate.longitude ?? 0.0, completion: { address in
                     place = address ?? ""
                 })
                 
-                let post = PostImagesVideo(id: "", postID: "", place: place, date: video.asset?.creationDate?.dateToString(format: dateFormat) ?? "", time: "\(video.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")", lat: "\(video.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(video.asset?.location?.coordinate.longitude ?? 0.0)", image: "", videoTitle: "", videoURL: video.url.path, height: "", width: "", thumbNailImage: "", type: "1", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
-                self.images.append(video.thumbnail)
-                arrPostItems.append(post)
+                if video.asset?.creationDate?.dateToString(format: self.dateFormat) == nil{
+                    
+                    let currentDate = Date()
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = self.dateFormat
+                    let formattedDate = dateFormatter.string(from: currentDate)
+                    let time = "\(currentDate.dateToString(format: "h:mm a") ) \(self.timeZoneAbbreviation ?? "")"
+                    
+                    let post = PostImagesVideo(id: "", postID: "", place: place, date: formattedDate, time:time, lat: "\(video.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(video.asset?.location?.coordinate.longitude ?? 0.0)", image: "", videoTitle: "", videoURL: video.url.path, height: "", width: "", thumbNailImage: "", type: "1", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
+                    self.images.append(video.thumbnail)
+                    arrPostItems.append(post)
+                    
+                }else{
+                    
+                    let post = PostImagesVideo(id: "", postID: "", place: place, date: video.asset?.creationDate?.dateToString(format: dateFormat) ?? "", time: "\(video.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")", lat: "\(video.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(video.asset?.location?.coordinate.longitude ?? 0.0)", image: "", videoTitle: "", videoURL: video.url.path, height: "", width: "", thumbNailImage: "", type: "1", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
+                    self.images.append(video.thumbnail)
+                    arrPostItems.append(post)
+                }
+                
             }
             
         }
@@ -802,6 +869,7 @@ extension AddPhotoVideoVC:AddLocationVCDelegate{
             self.arrPostItems[self.selectedIndex?.row ?? 0].long = "\(long)"
             
             self.placeTF.text = address
+            self.arrPostItems[self.selectedIndex?.row ?? 0].place = address
 //            self.getAddressFromLatLong(latitude: lat, longitude:
 //                                        long, completion: { address in
 //                self.placeTF.text = address

@@ -11,7 +11,6 @@ import MapKit
 
 class UserProfileVC: UIViewController,MKMapViewDelegate {
     
-    
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var bioLbl: UILabel!
     @IBOutlet weak var emailLbl: UILabel!
@@ -38,6 +37,7 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
     var filterBy:String?
     var initialLat = 0.0
     var initialLong = 0.0
+    var isSelfCreatedPosts = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -300,7 +300,10 @@ extension UserProfileVC : ProfileVMObserver{
     func observeGetMapDataSucessfull() {
         self.initialLat = Double(self.viewModel?.arrFinalList.first?.lat ?? "") ?? 0.0
         self.initialLong = Double(self.viewModel?.arrFinalList.first?.long ?? "") ?? 0.0
+        
         setLatLongData()
+        setLatLongData2()
+       
     }
     
     func observeFollowUnfollowSucessfull() {
@@ -337,38 +340,84 @@ extension UserProfileVC : ProfileVMObserver{
 extension UserProfileVC{
     
     func setLatLongData(){
-      
+        
+        isSelfCreatedPosts = true
         var locations: [(CLLocationCoordinate2D, String)] = []
         
-        let dict = self.viewModel?.arrFinalList
+        let dict = self.viewModel?.arrSelfCreatedPosts
         
-        for index in 0...(dict?.count ?? 0) - 1{
-          
-            let data = (CLLocationCoordinate2D(latitude: Double(dict?[index].lat ?? "") ?? 0.0, longitude: Double(dict?[index].long ?? "") ?? 0.0), "\(dict?[index].time ?? ""), \(dict?[index].place ?? "")")
+        if dict?.count ?? 0 > 0{
             
-            locations.append(data)
-
+            
+            for index in 0...(dict?.count ?? 0) - 1{
+                
+                let data = (CLLocationCoordinate2D(latitude: Double(dict?[index].lat ?? "") ?? 0.0, longitude: Double(dict?[index].long ?? "") ?? 0.0), "\(dict?[index].time ?? ""), \(dict?[index].place ?? "")")
+                
+                locations.append(data)
+                
+            }
+            
+            // Add annotations for each location
+            for location in locations {
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = location.0
+                annotation.title = location.1
+                mapKitView.addAnnotation(annotation)
+            }
+            
+            let coordinates: [CLLocationCoordinate2D] = locations.map { $0.0 }
+            // Create a polyline from the coordinates and add it to the map
+            let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
+            mapKitView.addOverlay(polyline)
+            
+            // Set initial map region
+            let initialLocation = CLLocationCoordinate2D(latitude: self.initialLat, longitude: self.initialLong)
+            let region = MKCoordinateRegion(center: initialLocation, latitudinalMeters: 1000000, longitudinalMeters: 1000000)
+            mapKitView.setRegion(region, animated: true)
         }
-        
-        // Add annotations for each location
-        for location in locations {
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = location.0
-            annotation.title = location.1
-            mapKitView.addAnnotation(annotation)
-        }
-        
-        let coordinates: [CLLocationCoordinate2D] = locations.map { $0.0 }
-        // Create a polyline from the coordinates and add it to the map
-        let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
-        mapKitView.addOverlay(polyline)
-        
-        // Set initial map region
-        let initialLocation = CLLocationCoordinate2D(latitude: self.initialLat, longitude: self.initialLong)
-        let region = MKCoordinateRegion(center: initialLocation, latitudinalMeters: 1000000, longitudinalMeters: 1000000)
-        mapKitView.setRegion(region, animated: true)
-        
     }
+    
+    
+    func setLatLongData2(){
+      
+        isSelfCreatedPosts = false
+        
+       
+        
+        var locations: [(CLLocationCoordinate2D, String)] = []
+        
+        let dict = self.viewModel?.arrBucketList
+        
+        if dict?.count ?? 0 > 0{
+            
+            for index in 0...(dict?.count ?? 0) - 1{
+                
+                let data = (CLLocationCoordinate2D(latitude: Double(dict?[index].lat ?? "") ?? 0.0, longitude: Double(dict?[index].long ?? "") ?? 0.0), "\(dict?[index].time ?? ""), \(dict?[index].place ?? "")")
+                
+                locations.append(data)
+                
+            }
+            
+            // Add annotations for each location
+            for location in locations {
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = location.0
+                annotation.title = location.1
+                mapKitView.addAnnotation(annotation)
+            }
+            
+            let coordinates: [CLLocationCoordinate2D] = locations.map { $0.0 }
+            // Create a polyline from the coordinates and add it to the map
+            let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
+            mapKitView.addOverlay(polyline)
+            
+            // Set initial map region
+            let initialLocation = CLLocationCoordinate2D(latitude: self.initialLat, longitude: self.initialLong)
+            let region = MKCoordinateRegion(center: initialLocation, latitudinalMeters: 1000000, longitudinalMeters: 1000000)
+            mapKitView.setRegion(region, animated: true)
+        }
+    }
+    
     
     // MKMapViewDelegate method to customize annotation views
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -382,7 +431,15 @@ extension UserProfileVC{
             annotationView?.canShowCallout = true
             
             // Set a custom image for the annotation
-            annotationView?.image = UIImage(named: "ic_LocationOnMap")
+            
+            if isSelfCreatedPosts{
+                print("in self created posts")
+                annotationView?.image = UIImage(named: "ic_orangePin")
+            }else{
+                print("in bucket")
+                annotationView?.image = UIImage(named: "ic_redPin")
+            }
+            
         } else {
             annotationView?.annotation = annotation
         }

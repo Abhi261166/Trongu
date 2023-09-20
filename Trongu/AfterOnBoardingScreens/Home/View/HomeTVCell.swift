@@ -308,8 +308,8 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
                 DAVideoPlayerView.player?.isPlaying = false
                 DAVideoPlayerView.player = nil
             }
-           // cell.volumButton.isSelected = Singleton.isMuted
-           // videoCell.videoPlayerView.isMuted = Singleton.isMuted
+            visibleCell.volumeButton.isSelected = isMuted
+            visibleCell.videoPlayerView.isMuted = isMuted
             visibleCell.videoPlayerView.play()
            // getAddressFromLatLong(latitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].lat ) ?? 0.0, longitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].long ) ?? 0.0) { address in
                 self.lblTimeAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ) \(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].place ?? "")"

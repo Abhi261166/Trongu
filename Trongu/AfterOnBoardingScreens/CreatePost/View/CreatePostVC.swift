@@ -7,11 +7,12 @@
 
 import UIKit
 import YPImagePicker
+import GrowingTextView
 
 class CreatePostVC: UIViewController{
    
     @IBOutlet weak var addImage: UIImageView!
-    @IBOutlet weak var txtTags: UITextField!
+    @IBOutlet weak var txtTags: GrowingTextView!
     @IBOutlet weak var txtBudget: UITextField!
     @IBOutlet weak var txtNoOffDays: UITextField!
     @IBOutlet weak var txtTripCategory: UITextField!
@@ -20,6 +21,7 @@ class CreatePostVC: UIViewController{
     @IBOutlet weak var lblSelectedItems: UILabel!
     @IBOutlet weak var lblCreatePost: UILabel!
     @IBOutlet weak var btnback: UIButton!
+    @IBOutlet weak var btnTagPeople: UIButton!
     
     
     var finalPostItems = [YPMediaItem]()
@@ -34,6 +36,7 @@ class CreatePostVC: UIViewController{
     var tagPeople = ""
     var comeFrom:String?
     var isFromTabbar = false
+    var selectedForTag:[Userdetail] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +69,6 @@ class CreatePostVC: UIViewController{
             
             let post = Post(id: "", userID: "", budget: "", noOfDays: "", tripCategory: "", description: "", tripComplexity: "", status: "", createdAt: "", tripCategoryName: "", userDetail: UserData)
             myPost.append(post)
-            
             
         }
         txtViewDesc.delegate = self
@@ -125,6 +127,21 @@ class CreatePostVC: UIViewController{
             txtTripCategory.text = myPost[0].tripCategoryName
             txtTripComplexity.text = myPost[0].tripComplexity
             txtViewDesc.text = myPost[0].description
+            
+            if myPost[0].tagPeople?.count ?? 0 > 0 {
+                for index in 0...((myPost[0].tagPeople?.count ?? 0) - 1){
+                    txtTags.text = "\(txtTags.text ?? "") @\(myPost[0].tagPeople?[index].name ?? "")"
+                    
+                    let user = Userdetail(id: myPost[0].tagPeople?[index].id ?? "", googleID: "", facebookID: "", appleID: "", name: myPost[0].tagPeople?[index].name ?? "", userName: "", loginType: "", gender: "", email: "", image: "", password: nil, place: nil, bio: nil, dob: nil, ethnicity: "", deviceToken: "", deviceType: "", isStatus: "", mailStatus: "", smsStatus: "", status: "", authKey: "", accessToken: "", lat: "", long: "", verificationToken: "", passwordResetToken: "", expireAt: "", superUser: "", isPrivate: "", createdAt: "", updatedAt: "")
+                    
+                        selectedForTag.append(user)
+                }
+                 
+                
+            }else{
+                
+            }
+            
         }
         
     }
@@ -148,6 +165,27 @@ class CreatePostVC: UIViewController{
     
     func textFiledDelegates(){
         txtTags.delegate = self
+        
+    }
+    
+    @IBAction func actionTagPeople(_ sender: UIButton) {
+        
+        let optionItemListVC = MentionVC()
+        optionItemListVC.modalPresentationStyle = .overFullScreen
+        optionItemListVC.selectedPeople = selectedForTag
+        
+        optionItemListVC.completion = { selectedPeoples in
+            self.selectedForTag = selectedPeoples
+            
+            for people in selectedPeoples {
+                self.txtTags.text = "\(self.txtTags.text ?? "") @\(people.name)"
+                self.tagIds = "\(self.tagIds),\(people.id)"
+            }
+            
+        }
+        
+        self.present(optionItemListVC, animated: true, completion: nil)
+        print("view presented....")
         
     }
     
@@ -243,6 +281,7 @@ class CreatePostVC: UIViewController{
             vc.finalPost = myPost.first
             vc.tagIds = tagIds
             vc.tagPeople = tagPeople
+            vc.tagPeopleName = txtTags.text
             if self.comeFrom == "Edit"{
                 vc.comeForm = "Edit"
             }
@@ -288,6 +327,7 @@ extension CreatePostVC:UITextFieldDelegate{
 //                      // Hide the mentionView if "@" is not detected
 //                  }
           
+          
           if textField == txtBudget{
               let newText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
              if newText.count > 10{
@@ -316,7 +356,6 @@ extension CreatePostVC: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
 
-        
         if txtNoOffDays.isFirstResponder {
             return arrDays.count
         } else if txtTripCategory.isFirstResponder {
@@ -324,7 +363,9 @@ extension CreatePostVC: UIPickerViewDelegate, UIPickerViewDataSource {
         } else if  txtTripComplexity.isFirstResponder {
             return arrTripComplexity.count
         }
+        
         return 0
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -438,5 +479,9 @@ extension CreatePostVC:UITextViewDelegate{
         }
          return newText.count < 201
     }
-     
+    
+    
+   
 }
+
+

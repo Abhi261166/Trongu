@@ -29,6 +29,7 @@ class PostVC: UIViewController {
     var finalPost:Post?
     var tagIds = ""
     var tagPeople = ""
+    var tagPeopleName = ""
     var viewModel:PostVM?
     var images:[UIImage] = []
     var comeForm:String?
@@ -40,7 +41,6 @@ class PostVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setViewModel()
-        vWTagPeople.isHidden = true
         self.postCollectionView.delegate = self
         self.postCollectionView.dataSource = self
         self.postCollectionView.register(UINib(nibName: "PostCVCell", bundle: nil), forCellWithReuseIdentifier: "PostCVCell")
@@ -82,6 +82,15 @@ class PostVC: UIViewController {
             vWDiscription.isHidden = false
             lblDesc.text = finalPost?.description
         }
+        
+        if self.tagPeopleName == ""{
+            vWTagPeople.isHidden = true
+        }else{
+            vWTagPeople.isHidden = false
+            lblTagPeople.numberOfLines = 0
+            lblTagPeople.text = tagPeopleName
+        }
+        
         
         lblTripCat.text = finalPost?.tripCategoryName
         lblTripComp.text = finalPost?.tripComplexity
@@ -137,7 +146,7 @@ class PostVC: UIViewController {
                 break
             }
             
-            self.viewModel?.apiCreatePost(tags: "1", budget: finalPost?.budget ?? "", noOffDays: finalPost?.noOfDays ?? "", tripCat: "\(tripCat)", disc: finalPost?.description ?? "", tripComp: finalPost?.tripComplexity ?? "", arrPosts: arrPostYP, arrPosts2: finalPost?.postImagesVideo ?? [], images: images, address: places)
+            self.viewModel?.apiCreatePost(tags: self.tagIds, budget: finalPost?.budget ?? "", noOffDays: finalPost?.noOfDays ?? "", tripCat: "\(tripCat)", disc: finalPost?.description ?? "", tripComp: finalPost?.tripComplexity ?? "", arrPosts: arrPostYP, arrPosts2: finalPost?.postImagesVideo ?? [], images: images, address: places)
         }
         
     }

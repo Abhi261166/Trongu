@@ -18,8 +18,13 @@ protocol TagListVMObserver: NSObjectProtocol {
 
 class TagListVM: NSObject {
     
+    
+    
+    var perPage = 100
+    var pageNo = 0
+    var isLastPage: Bool = false
     var observer: TagListVMObserver?
-    var arrTagList:[TagList] = []
+    var arrTagList:[Userdetail] = []
     
     init(observer: TagListVMObserver?) {
         self.observer = observer
@@ -28,38 +33,49 @@ class TagListVM: NSObject {
     //MARK: Tag List Api
     func apiTagList() {
             var params = JSON()
-             params = [:]
-            print("params : ", params)
+        
+        if UserDefaultsCustom.getUserData()?.is_private == "0"{
+            params["type"] = "2"
+        }else{
+            params["type"] = "2"
+        }
+        params["per_page"] = perPage
+        params["page_no"] = pageNo + 1
+        print("params : ", params)
 
     //        add loader
         ActivityIndicator.shared.showActivityIndicator()
         
-        ApiHandler.call(apiName: API.Name.tagList, params: params, httpMethod: API.HttpMethod.GET) { [weak self] succeeded, response, data in
-                DispatchQueue.main.async {
-    //        remove loader
+        ApiHandler.callWithMultipartForm(apiName: API.Name.tagList, params: params) { succeeded, response, data in
+            DispatchQueue.main.async {
+//        remove loader
         ActivityIndicator.shared.hideActivityIndicator()
-                    
-                    if let self = self {
-                        if succeeded == true, let data {
-                            let decoder = JSONDecoder()
-                            do {
-                                let decoded = try decoder.decode(TagListModel.self, from: data)
-                                let tagList = decoded.followers
-                                self.arrTagList.append(contentsOf: tagList ?? [])
-                                let tagList2 = decoded.followings
-                                self.arrTagList.append(contentsOf: tagList2 ?? [])
-                                self.observer?.observeGetTagListSucessfull()
-                            } catch {
-                                print("error", error)
+                    if succeeded == true, let data {
+                        let decoder = JSONDecoder()
+                        do {
+                            let decoded = try decoder.decode(TagListModel.self, from: data)
+                            
+                            if self.pageNo == 0 {
+                                self.arrTagList.removeAll()
                             }
-                        } else {
-                            if let message = response["message"] as? String {
-                              //  self.showMessage(message: message, isError: .error)
+//
+                            if let users = decoded.usersListing {
+                                self.isLastPage = users.count < (self.perPage)
+                                self.arrTagList.append(contentsOf: users)
+                                print("SearchUsers:-\(users.count)")
                             }
+                            self.pageNo += 1
+                            self.observer?.observeGetTagListSucessfull()
+                        } catch {
+                            print("error", error)
                         }
                     }
-                }
             }
+        }
+        
+        
+        
+        
         }
     
     

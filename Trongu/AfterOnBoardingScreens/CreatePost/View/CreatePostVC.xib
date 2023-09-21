@@ -21,12 +21,13 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreatePostVC" customModule="Trongu" customModuleProvider="target">
             <connections>
                 <outlet property="addImage" destination="lTl-AV-mSd" id="Kjo-yE-shM"/>
+                <outlet property="btnTagPeople" destination="ePU-WF-YQ9" id="mhh-iN-aVB"/>
                 <outlet property="btnback" destination="RHk-p0-UEE" id="nWa-w5-yx5"/>
                 <outlet property="lblCreatePost" destination="Oeg-D7-xr5" id="ysj-wV-qSb"/>
                 <outlet property="lblSelectedItems" destination="63g-Ld-269" id="6Iz-j4-Xt4"/>
                 <outlet property="txtBudget" destination="BTN-Hi-VaO" id="QHu-p1-dtP"/>
                 <outlet property="txtNoOffDays" destination="4fY-mh-ezs" id="cJn-Kx-FCS"/>
-                <outlet property="txtTags" destination="W9X-PA-TLZ" id="Fm2-Fr-D08"/>
+                <outlet property="txtTags" destination="OYy-L2-RLY" id="Jfl-OV-m7q"/>
                 <outlet property="txtTripCategory" destination="9My-Lf-vXk" id="PR8-gm-ROD"/>
                 <outlet property="txtTripComplexity" destination="tMr-oP-f08" id="PCC-8B-F6D"/>
                 <outlet property="txtViewDesc" destination="Qdc-DZ-EIv" id="8LK-ZN-hfn"/>
@@ -58,7 +59,7 @@
                             <rect key="frame" x="0.0" y="44" width="393" height="715"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UnU-Eg-Yhz">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="1082.6666666666667"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="1137.3333333333333"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CreatePostImage" translatesAutoresizingMaskIntoConstraints="NO" id="lTl-AV-mSd">
                                             <rect key="frame" x="20" y="20" width="353" height="220"/>
@@ -80,35 +81,49 @@
                                             </connections>
                                         </button>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="T9K-by-rsB">
-                                            <rect key="frame" x="20" y="259.99999999999994" width="353" height="702.66666666666652"/>
+                                            <rect key="frame" x="20" y="260.00000000000006" width="353" height="757.33333333333348"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WXO-G5-bEw">
-                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="103"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="157.66666666666666"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag people" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e7t-5v-saI">
-                                                            <rect key="frame" x="0.0" y="0.0" width="90.333333333333329" height="28"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="90.333333333333329" height="42.666666666666664"/>
                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
                                                             <color key="textColor" red="0.50588235290000005" green="0.50588235290000005" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iqa-md-uYF">
-                                                            <rect key="frame" x="0.0" y="33" width="353" height="60"/>
+                                                            <rect key="frame" x="0.0" y="47.666666666666686" width="353" height="100"/>
                                                             <subviews>
-                                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tag people" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="W9X-PA-TLZ">
-                                                                    <rect key="frame" x="20" y="5" width="328" height="50"/>
+                                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OYy-L2-RLY" customClass="GrowingTextView" customModule="GrowingTextView">
+                                                                    <rect key="frame" x="12" y="0.0" width="341" height="100"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <color key="textColor" systemColor="labelColor"/>
                                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
-                                                                    <textInputTraits key="textInputTraits"/>
-                                                                </textField>
+                                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Tag People"/>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </textView>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ePU-WF-YQ9">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="100"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <connections>
+                                                                        <action selector="actionTagPeople:" destination="-1" eventType="touchUpInside" id="WS4-fe-v5P"/>
+                                                                    </connections>
+                                                                </button>
                                                             </subviews>
                                                             <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
-                                                                <constraint firstItem="W9X-PA-TLZ" firstAttribute="top" secondItem="Iqa-md-uYF" secondAttribute="top" constant="5" id="1Mi-pW-lgI"/>
-                                                                <constraint firstAttribute="bottom" secondItem="W9X-PA-TLZ" secondAttribute="bottom" constant="5" id="7MN-W8-mSG"/>
-                                                                <constraint firstAttribute="trailing" secondItem="W9X-PA-TLZ" secondAttribute="trailing" constant="5" id="UQD-CA-WBd"/>
-                                                                <constraint firstItem="W9X-PA-TLZ" firstAttribute="leading" secondItem="Iqa-md-uYF" secondAttribute="leading" constant="20" id="lJl-S2-OR5"/>
-                                                                <constraint firstAttribute="height" constant="60" id="yoO-vY-kRe"/>
+                                                                <constraint firstAttribute="trailing" secondItem="ePU-WF-YQ9" secondAttribute="trailing" id="1p7-Gu-Pvv"/>
+                                                                <constraint firstItem="ePU-WF-YQ9" firstAttribute="leading" secondItem="Iqa-md-uYF" secondAttribute="leading" id="3iz-nD-GHW"/>
+                                                                <constraint firstItem="ePU-WF-YQ9" firstAttribute="top" secondItem="Iqa-md-uYF" secondAttribute="top" id="ASP-od-Bgn"/>
+                                                                <constraint firstItem="OYy-L2-RLY" firstAttribute="top" secondItem="Iqa-md-uYF" secondAttribute="top" id="Con-ft-MFb"/>
+                                                                <constraint firstAttribute="bottom" secondItem="ePU-WF-YQ9" secondAttribute="bottom" id="IJF-pL-QDb"/>
+                                                                <constraint firstItem="OYy-L2-RLY" firstAttribute="leading" secondItem="Iqa-md-uYF" secondAttribute="leading" constant="12" id="Nl2-So-ByT"/>
+                                                                <constraint firstAttribute="bottom" secondItem="OYy-L2-RLY" secondAttribute="bottom" id="YD7-mc-KfC"/>
+                                                                <constraint firstAttribute="trailing" secondItem="OYy-L2-RLY" secondAttribute="trailing" id="viy-Jy-z3R"/>
+                                                                <constraint firstAttribute="height" constant="100" id="yoO-vY-kRe"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -128,7 +143,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vQe-Ck-v8T">
-                                                    <rect key="frame" x="0.0" y="113" width="353" height="103"/>
+                                                    <rect key="frame" x="0.0" y="167.66666666666663" width="353" height="103"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Budget($)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DBU-oR-foa">
                                                             <rect key="frame" x="0.0" y="0.0" width="82" height="28"/>
@@ -173,7 +188,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tvB-Bx-BDo">
-                                                    <rect key="frame" x="0.0" y="226" width="353" height="103"/>
+                                                    <rect key="frame" x="0.0" y="280.66666666666663" width="353" height="103"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of days" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBa-91-SHv">
                                                             <rect key="frame" x="0.0" y="0.0" width="128" height="28"/>
@@ -231,7 +246,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bV9-0A-xH5">
-                                                    <rect key="frame" x="0.0" y="339" width="353" height="103"/>
+                                                    <rect key="frame" x="0.0" y="393.66666666666663" width="353" height="103"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip Category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTp-0n-cQB">
                                                             <rect key="frame" x="0.0" y="0.0" width="108.66666666666667" height="28"/>
@@ -289,7 +304,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LWd-dp-BM3">
-                                                    <rect key="frame" x="0.0" y="452.00000000000006" width="353" height="137.66666666666669"/>
+                                                    <rect key="frame" x="0.0" y="506.66666666666669" width="353" height="137.66666666666669"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6p7-QB-eEJ">
                                                             <rect key="frame" x="0.0" y="0.0" width="90.333333333333329" height="22.666666666666668"/>
@@ -298,7 +313,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FCD-Qi-Ygp">
-                                                            <rect key="frame" x="0.0" y="27.666666666666629" width="353" height="100"/>
+                                                            <rect key="frame" x="0.0" y="27.666666666666742" width="353" height="100"/>
                                                             <subviews>
                                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qdc-DZ-EIv" customClass="GrowingTextView" customModule="GrowingTextView">
                                                                     <rect key="frame" x="14" y="0.0" width="339" height="100"/>
@@ -343,7 +358,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FLX-FV-d8Q">
-                                                    <rect key="frame" x="0.0" y="599.66666666666663" width="353" height="103"/>
+                                                    <rect key="frame" x="0.0" y="654.33333333333337" width="353" height="103"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip Complexity" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="20e-qs-Bgw">
                                                             <rect key="frame" x="0.0" y="0.0" width="124" height="28"/>
@@ -352,7 +367,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hMx-B6-kbk">
-                                                            <rect key="frame" x="0.0" y="33" width="353" height="60"/>
+                                                            <rect key="frame" x="0.0" y="32.999999999999886" width="353" height="60"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JmF-3f-kKf">
                                                                     <rect key="frame" x="313" y="19" width="20" height="22"/>
@@ -403,7 +418,7 @@
                                             </subviews>
                                         </stackView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTU-Mn-RaC">
-                                            <rect key="frame" x="20" y="992.66666666666674" width="353" height="60"/>
+                                            <rect key="frame" x="20" y="1047.3333333333333" width="353" height="60"/>
                                             <color key="backgroundColor" red="0.92941176470588238" green="0.5725490196078431" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="60" id="joH-LQ-xlg"/>
@@ -508,10 +523,13 @@
     <resources>
         <image name="CreatePostImage" width="389" height="226"/>
         <image name="FilterDropdown" width="18.333333969116211" height="9"/>
-        <image name="ic_Back" width="24" height="24"/>
+        <image name="ic_Back" width="8" height="16"/>
         <namedColor name="OrengeAppColour">
             <color red="0.92941176470588238" green="0.5725490196078431" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

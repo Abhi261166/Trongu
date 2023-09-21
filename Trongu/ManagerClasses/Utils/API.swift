@@ -45,7 +45,7 @@ class API {
         static let getProfile             = "j1/trongu/api/v1/users/get-profile"
         
         // create post
-        static let tagList                = "j1/trongu/api/v1/users/followers-following-listing"
+        static let tagList                = "j1/trongu/api/v1/users/followers-following-with-type"
         static let postList               = "j1/trongu/api/v1/users/home-listing"
         static let deletePost             = "j1/trongu/api/v1/users/post-del"
         static let likePost               = "j1/trongu/api/v1/users/add-like-post"
@@ -77,6 +77,7 @@ class API {
         static let reportUser             = "j1/trongu/api/v1/users/add-report-users"
         static let removeFollower         = "j1/trongu/api/v1/users/remove-follower"
         static let profileMap             = "j1/trongu/api/v1/users/profile-map"
+        static let getNotificationListing = "j1/trongu/api/v1/users/notification-listing"
         
         
     }

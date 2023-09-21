@@ -205,8 +205,8 @@ class ProfileVM: NSObject {
                         do {
                             
                             let decoded = try decoder.decode(ProfileMapModel.self, from: data)
-                            self.arrSelfCreatedPosts.append(contentsOf: decoded.postDetail)
-                            self.arrBucketList.append(contentsOf: decoded.bucketDetail)
+                            self.arrSelfCreatedPosts.append(contentsOf: decoded.postDetail ?? [])
+                            self.arrBucketList.append(contentsOf: decoded.bucketDetail ?? [])
                             self.arrFinalList = self.arrSelfCreatedPosts
                             self.arrFinalList.append(contentsOf: self.arrFinalList)
                             self.observer?.observeGetMapDataSucessfull()

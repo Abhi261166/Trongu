@@ -19,6 +19,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MapFilterVC" customModule="Trongu" customModuleProvider="target">
             <connections>
+                <outlet property="txtFilter" destination="duU-0w-bkg" id="6Wy-5z-YXZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -183,7 +184,7 @@
     </objects>
     <resources>
         <image name="FilterDropdown" width="18.333333969116211" height="9"/>
-        <image name="ic_Back" width="24" height="24"/>
+        <image name="ic_Back" width="8" height="16"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

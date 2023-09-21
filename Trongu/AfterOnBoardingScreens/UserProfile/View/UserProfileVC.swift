@@ -38,6 +38,8 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
     var initialLat = 0.0
     var initialLong = 0.0
     var isSelfCreatedPosts = true
+    var isFromFilter = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,14 +59,34 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
+        
+        if isFromFilter{
+            
+        }else{
+            setData2()
+        }
+    }
+    
+    func setData2(){
         galleryView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         mapView.backgroundColor = #colorLiteral(red: 0.8509803922, green: 0.8509803922, blue: 0.8509803922, alpha: 1)
         bucketListView.backgroundColor = #colorLiteral(red: 0.8509803922, green: 0.8509803922, blue: 0.8509803922, alpha: 1)
         galleryButton.isSelected = true
+        
         self.isSelected = "Gallery"
         hitGetProfileApi()
         hitGetProfilePostsApi()
+        locationView.isHidden = true
+        galleryButton.isUserInteractionEnabled = false
+        bucketListButton.isUserInteractionEnabled = true
+        mapButton.isUserInteractionEnabled = true
+        bucketListButton.isSelected = false
+        mapButton.isSelected = false
+        locationView.isHidden = true
+        
     }
+    
+    
     func hitGetProfileApi(){
         
         self.viewModel?.apiGetProfile(userId: "")
@@ -148,6 +170,25 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
     
     @IBAction func filterAction(_ sender: UIButton) {
         let vc = MapFilterVC()
+        
+        mapKitView.removeAnnotations(mapKitView.annotations)
+        vc.completion = { filterBy in
+            self.isFromFilter = true
+            self.viewModel?.arrBucketList = []
+            self.viewModel?.arrSelfCreatedPosts = []
+            self.viewModel?.apiShowDataOnMap(filterBy: filterBy)
+            self.mapView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.bucketListView.backgroundColor = #colorLiteral(red: 0.8509803922, green: 0.8509803922, blue: 0.8509803922, alpha: 1)
+            self.galleryView.backgroundColor = #colorLiteral(red: 0.8509803922, green: 0.8509803922, blue: 0.8509803922, alpha: 1)
+            self.bucketListButton.isSelected = false
+            self.galleryButton.isSelected = false
+            self.galleryButton.isUserInteractionEnabled = true
+            self.bucketListButton.isUserInteractionEnabled = true
+            self.mapButton.isUserInteractionEnabled = false
+            self.locationView.isHidden = false
+            
+        }
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -301,9 +342,10 @@ extension UserProfileVC : ProfileVMObserver{
         self.initialLat = Double(self.viewModel?.arrFinalList.first?.lat ?? "") ?? 0.0
         self.initialLong = Double(self.viewModel?.arrFinalList.first?.long ?? "") ?? 0.0
         
-        setLatLongData()
-        setLatLongData2()
-       
+//        setLatLongData()
+//        setLatLongData2()
+        addAnnotations()
+        isFromFilter = false
     }
     
     func observeFollowUnfollowSucessfull() {
@@ -337,162 +379,301 @@ extension UserProfileVC : ProfileVMObserver{
     }
 }
 
-extension UserProfileVC{
+
+class CustomAnnotation1: NSObject, MKAnnotation {
+    var coordinate: CLLocationCoordinate2D
+    var title: String?
+    var subtitle: String?
+    var image: UIImage? // Store the custom image
     
-    func setLatLongData(){
-        
-        isSelfCreatedPosts = true
-        var locations: [(CLLocationCoordinate2D, String)] = []
+    init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?, image: UIImage?) {
+        self.coordinate = coordinate
+        self.title = title
+        self.subtitle = subtitle
+        self.image = image
+    }
+}
+
+class CustomAnnotation2: NSObject, MKAnnotation {
+    var coordinate: CLLocationCoordinate2D
+    var title: String?
+    var subtitle: String?
+    var image: UIImage? // Store the custom image
+    
+    init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?, image: UIImage?) {
+        self.coordinate = coordinate
+        self.title = title
+        self.subtitle = subtitle
+        self.image = image
+    }
+}
+
+extension UserProfileVC {
+    func addAnnotations() {
+        // Create arrays of coordinates and images
+        var coordinatesArray1 :[CLLocationCoordinate2D] =  []
         
         let dict = self.viewModel?.arrSelfCreatedPosts
         
         if dict?.count ?? 0 > 0{
             
-            
             for index in 0...(dict?.count ?? 0) - 1{
                 
-                let data = (CLLocationCoordinate2D(latitude: Double(dict?[index].lat ?? "") ?? 0.0, longitude: Double(dict?[index].long ?? "") ?? 0.0), "\(dict?[index].time ?? ""), \(dict?[index].place ?? "")")
+                let data = (CLLocationCoordinate2D(latitude: Double(dict?[index].lat ?? "") ?? 0.0, longitude: Double(dict?[index].long ?? "") ?? 0.0))
                 
-                locations.append(data)
+                coordinatesArray1.append(data)
                 
             }
             
-            // Add annotations for each location
-            for location in locations {
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = location.0
-                annotation.title = location.1
-                mapKitView.addAnnotation(annotation)
-            }
-            
-            let coordinates: [CLLocationCoordinate2D] = locations.map { $0.0 }
-            // Create a polyline from the coordinates and add it to the map
-            let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
-            mapKitView.addOverlay(polyline)
-            
-            // Set initial map region
-            let initialLocation = CLLocationCoordinate2D(latitude: self.initialLat, longitude: self.initialLong)
-            let region = MKCoordinateRegion(center: initialLocation, latitudinalMeters: 1000000, longitudinalMeters: 1000000)
-            mapKitView.setRegion(region, animated: true)
         }
+        
+        let imagesArray1 = [
+            UIImage(named: "ic_orangePin"),
+            // Add more images corresponding to each coordinate
+        ]
+        
+        var coordinatesArray2:[CLLocationCoordinate2D] =  []
+        
+        let dict2 = self.viewModel?.arrBucketList
+        
+        if dict2?.count ?? 0 > 0{
+            
+            for index in 0...(dict2?.count ?? 0) - 1{
+                
+                let data = (CLLocationCoordinate2D(latitude: Double(dict2?[index].lat ?? "") ?? 0.0, longitude: Double(dict2?[index].long ?? "") ?? 0.0))
+                
+                coordinatesArray2.append(data)
+                
+            }
+            
+        }
+        
+        let imagesArray2 = [
+            UIImage(named: "ic_redPin"),
+            // Add more images corresponding to each coordinate
+        ]
+        
+        // Create annotations and add them to the map
+//        for (coordinate, image) in zip(coordinatesArray1, imagesArray1) {
+//            let annotation = CustomAnnotation1(coordinate: coordinate, title: "", subtitle: "", image: image)
+//            mapKitView.addAnnotation(annotation)
+//
+//            print("drow self created anotation")
+//        }
+        
+        for coordinate in coordinatesArray1{
+            let annotation = CustomAnnotation1(coordinate: coordinate, title: "", subtitle: "", image: UIImage(named: "ic_orangePin"))
+            mapKitView.addAnnotation(annotation)
+            print("drow self created anotation")
+        }
+        
+        for coordinate in coordinatesArray2{
+            let annotation = CustomAnnotation2(coordinate: coordinate, title: "", subtitle: "", image: UIImage(named: "ic_redPin"))
+            mapKitView.addAnnotation(annotation)
+            print("drow self bucket anotation")
+        }
+        
+//        for (coordinate, image) in zip(coordinatesArray2, imagesArray2) {
+//            let annotation = CustomAnnotation2(coordinate: coordinate, title: "", subtitle: "", image: image)
+//            mapKitView.addAnnotation(annotation)
+//            print("drow self bucket anotation")
+//        }
+        
+        // Adjust the map's region to fit all annotations
+        mapKitView.showAnnotations(mapKitView.annotations, animated: true)
     }
     
-    
-    func setLatLongData2(){
-      
-        isSelfCreatedPosts = false
-        
-       
-        
-        var locations: [(CLLocationCoordinate2D, String)] = []
-        
-        let dict = self.viewModel?.arrBucketList
-        
-        if dict?.count ?? 0 > 0{
-            
-            for index in 0...(dict?.count ?? 0) - 1{
-                
-                let data = (CLLocationCoordinate2D(latitude: Double(dict?[index].lat ?? "") ?? 0.0, longitude: Double(dict?[index].long ?? "") ?? 0.0), "\(dict?[index].time ?? ""), \(dict?[index].place ?? "")")
-                
-                locations.append(data)
-                
-            }
-            
-            // Add annotations for each location
-            for location in locations {
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = location.0
-                annotation.title = location.1
-                mapKitView.addAnnotation(annotation)
-            }
-            
-            let coordinates: [CLLocationCoordinate2D] = locations.map { $0.0 }
-            // Create a polyline from the coordinates and add it to the map
-            let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
-            mapKitView.addOverlay(polyline)
-            
-            // Set initial map region
-            let initialLocation = CLLocationCoordinate2D(latitude: self.initialLat, longitude: self.initialLong)
-            let region = MKCoordinateRegion(center: initialLocation, latitudinalMeters: 1000000, longitudinalMeters: 1000000)
-            mapKitView.setRegion(region, animated: true)
-        }
-    }
-    
-    
-    // MKMapViewDelegate method to customize annotation views
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard annotation is MKPointAnnotation else { return nil }
-        
-        let identifier = "AnnotationIdentifier"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-        
-        if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView?.canShowCallout = true
+        if let customAnnotation = annotation as? CustomAnnotation1 {
+            let identifier = "CustomAnnotation1"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             
-            // Set a custom image for the annotation
-            
-            if isSelfCreatedPosts{
-                print("in self created posts")
-                annotationView?.image = UIImage(named: "ic_orangePin")
-            }else{
-                print("in bucket")
-                annotationView?.image = UIImage(named: "ic_redPin")
-            }
-            
-        } else {
-            annotationView?.annotation = annotation
-        }
-        
-        return annotationView
-    }
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if let polyline = overlay as? MKPolyline {
-            let renderer = MKPolylineRenderer(polyline: polyline)
-            renderer.strokeColor = .systemOrange
-            renderer.lineWidth = 4
-            return renderer
-        }
-        return MKOverlayRenderer(overlay: overlay)
-    }
-    
-    
-    func getAddressFromLatLongForMap(latitude: Double, longitude: Double, completion: @escaping (String?) -> Void) {
-        let location = CLLocation(latitude: latitude, longitude: longitude)
-        let geocoder = CLGeocoder()
-        
-        geocoder.reverseGeocodeLocation(location) { placemarks, error in
-            if let error = error {
-                print("Error geocoding location: \(error.localizedDescription)")
-                completion(nil)
-                return
-            }
-            
-            if let placemark = placemarks?.first {
-                // Create a dictionary to hold the address components
-                var addressComponents = [String]()
-                
-                if let name = placemark.name {
-                    addressComponents.append(name)
-                }
-         
-                if let locality = placemark.locality {
-                    addressComponents.append(locality)
-                }
-            
-                if let country = placemark.country {
-                    addressComponents.append(country)
-                }
-                
-                // Join all the address components to get the complete address
-                let address = addressComponents.joined(separator: ", ")
-                completion(address)
+            if annotationView == nil {
+                annotationView = MKAnnotationView(annotation: customAnnotation, reuseIdentifier: identifier)
+                annotationView?.canShowCallout = true
             } else {
-                completion(nil)
+                annotationView?.annotation = customAnnotation
             }
+            
+            annotationView?.image = customAnnotation.image
+            return annotationView
+        } else if let customAnnotation = annotation as? CustomAnnotation2 {
+            let identifier = "CustomAnnotation2"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+            
+            if annotationView == nil {
+                annotationView = MKAnnotationView(annotation: customAnnotation, reuseIdentifier: identifier)
+                annotationView?.canShowCallout = true
+            } else {
+                annotationView?.annotation = customAnnotation
+            }
+            
+            annotationView?.image = customAnnotation.image
+            return annotationView
         }
+        
+        return nil
     }
-    
-    
 }
+
+
+
+//extension UserProfileVC{
+//
+//    func setLatLongData(){
+//
+//        isSelfCreatedPosts = true
+//        var locations: [(CLLocationCoordinate2D, String)] = []
+//
+//        let dict = self.viewModel?.arrSelfCreatedPosts
+//
+//        if dict?.count ?? 0 > 0{
+//
+//
+//            for index in 0...(dict?.count ?? 0) - 1{
+//
+//                let data = (CLLocationCoordinate2D(latitude: Double(dict?[index].lat ?? "") ?? 0.0, longitude: Double(dict?[index].long ?? "") ?? 0.0), "\(dict?[index].time ?? ""), \(dict?[index].place ?? "")")
+//
+//                locations.append(data)
+//
+//            }
+//
+//            // Add annotations for each location
+//            for location in locations {
+//                let annotation = MKPointAnnotation()
+//                annotation.coordinate = location.0
+//                annotation.title = location.1
+//                mapKitView.addAnnotation(annotation)
+//            }
+//
+//            let coordinates: [CLLocationCoordinate2D] = locations.map { $0.0 }
+//            // Create a polyline from the coordinates and add it to the map
+//            let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
+//          //  mapKitView.addOverlay(polyline)
+//
+//            // Set initial map region
+//            let initialLocation = CLLocationCoordinate2D(latitude: self.initialLat, longitude: self.initialLong)
+//            let region = MKCoordinateRegion(center: initialLocation, latitudinalMeters: 1000000, longitudinalMeters: 1000000)
+//            mapKitView.setRegion(region, animated: true)
+//        }
+//    }
+//
+//
+//    func setLatLongData2(){
+//
+//        isSelfCreatedPosts = false
+//
+//
+//
+//        var locations: [(CLLocationCoordinate2D, String)] = []
+//
+//        let dict = self.viewModel?.arrBucketList
+//
+//        if dict?.count ?? 0 > 0{
+//
+//            for index in 0...(dict?.count ?? 0) - 1{
+//
+//                let data = (CLLocationCoordinate2D(latitude: Double(dict?[index].lat ?? "") ?? 0.0, longitude: Double(dict?[index].long ?? "") ?? 0.0), "\(dict?[index].time ?? ""), \(dict?[index].place ?? "")")
+//
+//                locations.append(data)
+//
+//            }
+//
+//            // Add annotations for each location
+//            for location in locations {
+//                let annotation = MKPointAnnotation()
+//                annotation.coordinate = location.0
+//                annotation.title = location.1
+//                mapKitView.addAnnotation(annotation)
+//            }
+//
+//            let coordinates: [CLLocationCoordinate2D] = locations.map { $0.0 }
+//            // Create a polyline from the coordinates and add it to the map
+//            let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
+//           // mapKitView.addOverlay(polyline)
+//
+//            // Set initial map region
+//            let initialLocation = CLLocationCoordinate2D(latitude: self.initialLat, longitude: self.initialLong)
+//            let region = MKCoordinateRegion(center: initialLocation, latitudinalMeters: 1000000, longitudinalMeters: 1000000)
+//            mapKitView.setRegion(region, animated: true)
+//        }
+//    }
+//
+//
+//    // MKMapViewDelegate method to customize annotation views
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//        guard annotation is MKPointAnnotation else { return nil }
+//
+//        let identifier = "AnnotationIdentifier"
+//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+//
+//        if annotationView == nil {
+//            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+//            annotationView?.canShowCallout = true
+//
+//            // Set a custom image for the annotation
+//
+//            if isSelfCreatedPosts{
+//                print("in self created posts")
+//                annotationView?.image = UIImage(named: "ic_orangePin")
+//            }else{
+//                print("in bucket")
+//                annotationView?.image = UIImage(named: "ic_redPin")
+//            }
+//
+//        } else {
+//            annotationView?.annotation = annotation
+//        }
+//
+//        return annotationView
+//    }
+//
+//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+//        if let polyline = overlay as? MKPolyline {
+//            let renderer = MKPolylineRenderer(polyline: polyline)
+//            renderer.strokeColor = .systemOrange
+//            renderer.lineWidth = 4
+//            return renderer
+//        }
+//        return MKOverlayRenderer(overlay: overlay)
+//    }
+//
+//
+//    func getAddressFromLatLongForMap(latitude: Double, longitude: Double, completion: @escaping (String?) -> Void) {
+//        let location = CLLocation(latitude: latitude, longitude: longitude)
+//        let geocoder = CLGeocoder()
+//
+//        geocoder.reverseGeocodeLocation(location) { placemarks, error in
+//            if let error = error {
+//                print("Error geocoding location: \(error.localizedDescription)")
+//                completion(nil)
+//                return
+//            }
+//
+//            if let placemark = placemarks?.first {
+//                // Create a dictionary to hold the address components
+//                var addressComponents = [String]()
+//
+//                if let name = placemark.name {
+//                    addressComponents.append(name)
+//                }
+//
+//                if let locality = placemark.locality {
+//                    addressComponents.append(locality)
+//                }
+//
+//                if let country = placemark.country {
+//                    addressComponents.append(country)
+//                }
+//
+//                // Join all the address components to get the complete address
+//                let address = addressComponents.joined(separator: ", ")
+//                completion(address)
+//            } else {
+//                completion(nil)
+//            }
+//        }
+//    }
+//
+//
+//}

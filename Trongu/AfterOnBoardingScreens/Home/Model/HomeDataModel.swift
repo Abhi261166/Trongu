@@ -143,7 +143,7 @@ struct UserDetail: Codable {
 struct ProfileMapModel: Codable {
     let status: Int
     let message: String
-    let postDetail, bucketDetail: [TDetail]
+    let postDetail, bucketDetail: [TDetail]?
 
     enum CodingKeys: String, CodingKey {
         case status, message

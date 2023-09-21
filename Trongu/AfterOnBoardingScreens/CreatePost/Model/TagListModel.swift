@@ -10,7 +10,7 @@ import Foundation
 struct TagListModel: Codable {
     let status: Int?
     let message: String?
-    let followings, followers: [TagList]?
+    let usersListing: [Userdetail]?
 }
 
 // MARK: - Follow

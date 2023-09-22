@@ -40,7 +40,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     var locationManager = CLLocationManager()
     var currentLocation: CLLocation!
     var genderPicker = ["Male","Female"]
-    var ethnicityPicker = ["America","Canada"]
+    var ethnicityPicker = ["American","Australian"]
     var imagePickerController = UIImagePickerController()
     let pickerView = UIPickerView()
     var name = String()
@@ -318,9 +318,9 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             
             var ethnicity = "1"
             switch ethnicityTF.text {
-            case "America":
+            case "American":
                 ethnicity = "1"
-            case "Canada":
+            case "Australian":
                 ethnicity = "2"
             default:
                 break
@@ -444,9 +444,9 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             
             var ethnicity = "1"
             switch ethnicityTF.text {
-            case "America":
+            case "American":
                 ethnicity = "1"
-            case "Canada":
+            case "Australian":
                 ethnicity = "2"
             default:
                 break
@@ -504,9 +504,9 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }
             var ethnicity = "1"
             switch ethnicityTF.text {
-            case "America":
+            case "American":
                 ethnicity = "1"
-            case "Canada":
+            case "Australian":
                 ethnicity = "2"
             default:
                 break
@@ -565,9 +565,9 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }
             var ethnicity = "1"
             switch ethnicityTF.text {
-            case "America":
+            case "American":
                 ethnicity = "1"
-            case "Canada":
+            case "Australian":
                 ethnicity = "2"
             default:
                 break
@@ -711,9 +711,9 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 }
                 var ethnicity = "1"
                 switch ethnicityTF.text {
-                case "America":
+                case "American":
                     ethnicity = "1"
-                case "Canada":
+                case "Australian":
                     ethnicity = "2"
                 default:
                     break
@@ -735,9 +735,9 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 }
                 var ethnicity = "1"
                 switch ethnicityTF.text {
-                case "America":
+                case "American":
                     ethnicity = "1"
-                case "Canada":
+                case "Australian":
                     ethnicity = "2"
                 default:
                     break
@@ -823,15 +823,17 @@ extension SignUpVC :UIPickerViewDelegate, UIPickerViewDataSource{
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if genderTF.isFirstResponder {
-            genderTF.text = genderPicker[row]
-            self.selectGender = String(row)
-            print(self.selectGender,"Etfdfdhhh")
-        }else if ethnicityTF.isFirstResponder {
-            ethnicityTF.text = ethnicityPicker[row]
-            self.selectEthnicity = String(row + 1)
-            print(self.selectEthnicity,"Ethhh")
-        }
+        
+                if genderTF.isFirstResponder {
+                    genderTF.text = genderPicker[row]
+                    self.selectGender = String(row)
+                    print(self.selectGender,"Etfdfdhhh")
+                }else if ethnicityTF.isFirstResponder {
+                    ethnicityTF.text = ethnicityPicker[row]
+                    self.selectEthnicity = String(row + 1)
+                    print(self.selectEthnicity,"Ethhh")
+                }
+        
     }
     
 }
@@ -843,7 +845,7 @@ extension SignUpVC : UITextFieldDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
                 let index = genderPicker.firstIndex(where: {$0 == genderTF.text ?? ""}) ?? 0
                 pickerView.selectRow(index, inComponent: 0, animated: false)
-                genderTF.text = genderPicker[index]
+              //  genderTF.text = genderPicker[index]
                 //                self.selectGender = String(genderPicker[index])
             })
             
@@ -853,7 +855,7 @@ extension SignUpVC : UITextFieldDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
                 let index = ethnicityPicker.firstIndex(where: {$0 == ethnicityTF.text ?? ""}) ?? 0
                 pickerView.selectRow(index, inComponent: 0, animated: false)
-                ethnicityTF.text = ethnicityPicker[index]
+               // ethnicityTF.text = ethnicityPicker[index]
                 //                self.selectEthnicity = String(ethnicityPicker[index + 1])
             })
         }
@@ -893,6 +895,10 @@ extension SignUpVC : UITextFieldDelegate {
             return true
         }
     }
+    
+ 
+    
+    
 //    emailAddressTF.delegate = self
 //    nameTF.delegate = self
 //    userNameTF.delegate = self
@@ -1067,4 +1073,34 @@ extension SignUpVC:AddLocationVCDelegate{
         }
         
     }
+}
+
+extension SignUpVC{
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+            switch textField {
+            case genderTF:
+                DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
+                    let index = genderPicker.firstIndex(where: {$0 == genderTF.text ?? ""}) ?? 0
+                    pickerView.selectRow(index, inComponent: 0, animated: false)
+                    //                self.mId = home_Search_Data?[index].brand_name ?? ""
+                    self.genderTF.text = genderPicker[index]
+                    print("   brandName[index]     \(   genderPicker[index] )")
+                })
+                pickerView.reloadAllComponents()
+                
+            case ethnicityTF:
+                DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
+                    let index = ethnicityPicker.firstIndex(where: {$0 == ethnicityTF.text ?? ""}) ?? 0
+                    pickerView.selectRow(index, inComponent: 0, animated: false)
+                    //                self.caliber_Id = viewModel?.caliberData[index].id
+                    self.ethnicityTF.text = ethnicityPicker[index]
+                    print("  caliberName[index]    \(  self.ethnicityPicker[index])")
+                })
+                pickerView.reloadAllComponents()
+                
+            default: break
+            }
+        }
+    
 }

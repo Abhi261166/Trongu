@@ -38,7 +38,7 @@
                         </constraints>
                         <color key="tintColor" systemColor="labelColor"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" image="arrowshape.backward" catalog="system"/>
+                        <state key="normal" image="ic_right"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="isRounded" value="YES"/>
                         </userDefinedRuntimeAttributes>
@@ -58,7 +58,7 @@
                         </constraints>
                         <color key="tintColor" systemColor="labelColor"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" image="arrowshape.right" catalog="system"/>
+                        <state key="normal" image="ic_Next"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="isRounded" value="YES"/>
                         </userDefinedRuntimeAttributes>
@@ -90,8 +90,8 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="arrowshape.backward" catalog="system" width="128" height="104"/>
-        <image name="arrowshape.right" catalog="system" width="128" height="104"/>
+        <image name="ic_Next" width="8" height="16"/>
+        <image name="ic_right" width="8" height="16"/>
         <image name="image 28" width="425" height="271"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -48,7 +48,7 @@
                                 <color key="highlightedColor" red="0.81960784310000001" green="0.81960784310000001" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4h" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RlO-Je-5nY">
-                                <rect key="frame" x="417" y="18" width="25" height="18.333333333333329"/>
+                                <rect key="frame" x="417" y="22.333333333333336" width="25" height="18.333333333333336"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="w4T-pz-rSg"/>
                                 </constraints>
@@ -100,7 +100,7 @@
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fQ7-mq-WjO">
-                                <rect key="frame" x="20" y="97.666666666666671" width="432" height="1"/>
+                                <rect key="frame" x="20" y="102.66666666666667" width="432" height="1"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="r1f-G0-aO1"/>
@@ -109,19 +109,19 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="RlO-Je-5nY" firstAttribute="top" secondItem="HAN-m7-HCL" secondAttribute="top" constant="18" id="5Ka-M0-WtY"/>
                             <constraint firstItem="Tjd-w2-bUi" firstAttribute="top" secondItem="FsW-f4-GNR" secondAttribute="bottom" constant="10" id="8wW-xJ-Oqp"/>
-                            <constraint firstItem="FsW-f4-GNR" firstAttribute="top" secondItem="UA3-5U-9iB" secondAttribute="top" constant="10" id="HPn-1e-8T1"/>
                             <constraint firstItem="RlO-Je-5nY" firstAttribute="leading" secondItem="FsW-f4-GNR" secondAttribute="trailing" constant="5" id="MAo-dt-ucj"/>
                             <constraint firstItem="Tjd-w2-bUi" firstAttribute="leading" secondItem="FsW-f4-GNR" secondAttribute="leading" id="Qed-Q2-46S"/>
                             <constraint firstItem="FsW-f4-GNR" firstAttribute="leading" secondItem="UA3-5U-9iB" secondAttribute="trailing" constant="15" id="Uvx-AA-z94"/>
-                            <constraint firstItem="fQ7-mq-WjO" firstAttribute="top" secondItem="Tjd-w2-bUi" secondAttribute="bottom" constant="15" id="egm-TD-liC"/>
+                            <constraint firstItem="FsW-f4-GNR" firstAttribute="top" secondItem="UA3-5U-9iB" secondAttribute="top" constant="10" id="VgL-ZP-EpL"/>
+                            <constraint firstItem="fQ7-mq-WjO" firstAttribute="top" secondItem="Tjd-w2-bUi" secondAttribute="bottom" constant="20" id="egm-TD-liC"/>
                             <constraint firstAttribute="trailing" secondItem="fQ7-mq-WjO" secondAttribute="trailing" constant="20" id="gnk-Tf-41f"/>
                             <constraint firstAttribute="trailing" secondItem="RlO-Je-5nY" secondAttribute="trailing" constant="30" id="kB6-Bh-ieG"/>
                             <constraint firstItem="UA3-5U-9iB" firstAttribute="leading" secondItem="HAN-m7-HCL" secondAttribute="leading" constant="20" id="kQF-lh-EcA"/>
                             <constraint firstItem="UA3-5U-9iB" firstAttribute="top" secondItem="HAN-m7-HCL" secondAttribute="top" constant="10" id="o9r-cv-4Jx"/>
                             <constraint firstItem="fQ7-mq-WjO" firstAttribute="leading" secondItem="HAN-m7-HCL" secondAttribute="leading" constant="20" id="svY-Y1-cuH"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fQ7-mq-WjO" secondAttribute="bottom" constant="10" id="tZb-yh-Mbo"/>
+                            <constraint firstItem="RlO-Je-5nY" firstAttribute="centerY" secondItem="FsW-f4-GNR" secondAttribute="centerY" id="zSk-wj-Nfj"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -134,11 +134,14 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btnAccept" destination="QP9-Mu-9Cp" id="SVg-D0-8bW"/>
+                <outlet property="btnReject" destination="MCO-Kc-S6l" id="lY1-qE-2b3"/>
                 <outlet property="buttonStackView" destination="Tjd-w2-bUi" id="ATW-I8-iBl"/>
                 <outlet property="nameLabel" destination="FsW-f4-GNR" id="Mwj-LL-x4H"/>
                 <outlet property="profileImage" destination="UA3-5U-9iB" id="V6f-PJ-DPo"/>
                 <outlet property="stackViewHeightConst" destination="qYU-eP-2QW" id="asv-ac-D53"/>
                 <outlet property="timeLabel" destination="RlO-Je-5nY" id="bWt-5d-9R0"/>
+                <outlet property="vWTopLine" destination="fQ7-mq-WjO" id="GWD-gA-frs"/>
             </connections>
             <point key="canvasLocation" x="245.80152671755724" y="32.74647887323944"/>
         </tableViewCell>

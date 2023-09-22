@@ -563,10 +563,10 @@ extension AddPhotoVideoVC{
             print(self.arrPostItems.count, "Posts count")
             
             
-            let post = self.selectedItems.last
+            let post = self.selectedItems.first
                switch post{
                case .photo(p: let photo):
-                   self.selectedIndex = IndexPath(row: self.arrPostItems.count - 1, section: 0)
+                   self.selectedIndex = IndexPath(row: 0, section: 0)
                    self.getAddressFromLatLong(latitude: photo.asset?.location?.coordinate.latitude ?? 0.0, longitude: photo.asset?.location?.coordinate.longitude ?? 0.0, completion: { address in
                        
                        if address ?? "" == "North Atlantic Ocean"{
@@ -599,7 +599,7 @@ extension AddPhotoVideoVC{
                    ActivityIndicator.shared.hideActivityIndicator()
                   
                case .video(v: let video):
-                   self.selectedIndex = IndexPath(row: self.arrPostItems.count - 1, section: 0)
+                   self.selectedIndex = IndexPath(row: 0, section: 0)
                    self.getAddressFromLatLong(latitude: video.asset?.location?.coordinate.latitude ?? 0.0, longitude: video.asset?.location?.coordinate.longitude ?? 0.0, completion: { address in
                        if address ?? "" == "North Atlantic Ocean"{
                            self.placeTF.text = ""
@@ -637,7 +637,7 @@ extension AddPhotoVideoVC{
                }
             picker?.dismiss(animated: true)
             self.addPhotoVideoCollectionView.reloadData()
-            self.scrollToLastItem()
+          //  self.scrollToLastItem()
             
 //            if let firstItem = items.first {
 //                switch firstItem {

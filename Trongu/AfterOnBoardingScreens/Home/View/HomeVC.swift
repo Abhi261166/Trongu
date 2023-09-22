@@ -155,7 +155,7 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
 //        }
         cell.lblTimeAddress.text = "\(dict?.postImagesVideo.first?.time ?? "") \(dict?.postImagesVideo.first?.place ?? "")"
         cell.lblTopAddress.text = "\(dict?.postImagesVideo.first?.place ?? "")"
-        cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") \(dict?.noOfDays ?? "")"
+        cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") (\(dict?.noOfDays ?? ""))"
         
         
         if dict?.isLike == "1"{
@@ -461,11 +461,23 @@ extension HomeVC:HomeVMObserver{
     func observeGetHomeDataSucessfull() {
         comeFromFilter = false
         self.homeTableView.reloadData()
+        
         if DAVideoPlayerView.player?.isPlaying != true {
             DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
                 self.playCurrentVideo()
             }
         }
+        
+    }
+}
+
+extension HomeVC:TabBarRefreshDel {
+    func scrollToTopRefresh () {
+       
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.homeTableView?.scrollToRow(at: indexPath, at: .top, animated: false)
+          
+        self.apiCall()
         
     }
 }

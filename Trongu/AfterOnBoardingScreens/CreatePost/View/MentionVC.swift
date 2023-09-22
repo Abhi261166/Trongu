@@ -128,7 +128,6 @@ extension MentionVC: UITableViewDelegate,UITableViewDataSource{
         
        let dataid = self.selectedPeople.map({$0.id})
         
-        
         if dataid.contains(dict?.id ?? "") {
             cell.btnSelect.isSelected = true
             
@@ -143,7 +142,6 @@ extension MentionVC: UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         
         
         let dataid = self.selectedPeople.map({$0.id})

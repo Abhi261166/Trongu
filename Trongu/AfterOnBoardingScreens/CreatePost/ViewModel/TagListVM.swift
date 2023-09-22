@@ -37,7 +37,7 @@ class TagListVM: NSObject {
         if UserDefaultsCustom.getUserData()?.is_private == "0"{
             params["type"] = "2"
         }else{
-            params["type"] = "2"
+            params["type"] = "1"
         }
         params["per_page"] = perPage
         params["page_no"] = pageNo + 1

@@ -69,15 +69,19 @@ extension NotificationVC: UITableViewDelegate,UITableViewDataSource{
         
         cell.profileImage.setImage(image: dict?.userImage,placeholder: UIImage(named: "ic_profilePlaceHolder"))
       //  cell.nameLabel.text = dict?.userName
-        cell.timeLabel.text = "\(notification[indexPath.row].2)"
+       // cell.timeLabel.text = "\(notification[indexPath.row].2)"
         cell.nameLabel.setAttributed(str1: "\(dict?.userName ?? "")", font1: UIFont.setCustom(.Poppins_Medium, 16), color1: .black, str2: "\(dict?.notification ?? "")", font2: UIFont.setCustom(.Poppins_Regular, 16), color2: .gray)
-        if indexPath.row == 0{
+        if dict?.notificationType == "1"{
             cell.buttonStackView.isHidden = false
             cell.stackViewHeightConst.constant = 30
+            cell.btnAccept.tag = indexPath.row
+            cell.btnReject.tag = indexPath.row
+            cell.btnReject.addTarget(target: self, action: #selector(actionReject))
+            cell.btnAccept.addTarget(target: self, action: #selector(actionAccept))
         }
         else{
             cell.buttonStackView.isHidden = true
-            cell.stackViewHeightConst.constant = 0
+            cell.stackViewHeightConst.constant = 10
         }
         return cell
         
@@ -85,6 +89,17 @@ extension NotificationVC: UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    
+    @objc func actionReject(sender:UIButton){
+        
+        
+    }
+    
+    @objc func actionAccept(sender:UIButton){
+        
+        
     }
     
 }

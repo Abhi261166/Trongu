@@ -48,8 +48,8 @@
                                 <action selector="actionBack:" destination="-1" eventType="touchUpInside" id="bJZ-BN-bc5"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag peoples" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MVb-qA-NVC">
-                            <rect key="frame" x="50" y="4.6666666666666643" width="136.66666666666666" height="31"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag people" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MVb-qA-NVC">
+                            <rect key="frame" x="50" y="4.6666666666666643" width="125" height="31"/>
                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins Medium" pointSize="22"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -88,16 +88,16 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEA-89-hNS">
-                    <rect key="frame" x="20" y="109" width="353" height="50"/>
+                    <rect key="frame" x="20" y="109" width="353" height="0.0"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SearchBarImage" translatesAutoresizingMaskIntoConstraints="NO" id="ddB-c1-Tar">
-                            <rect key="frame" x="20" y="10" width="20" height="30"/>
+                            <rect key="frame" x="20" y="9.9999999999999982" width="20" height="22.333333333333329"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="20" id="b9n-l9-qcg"/>
                             </constraints>
                         </imageView>
                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="usn-EZ-Qq6">
-                            <rect key="frame" x="55" y="16" width="260" height="18"/>
+                            <rect key="frame" x="55" y="12.333333333333329" width="260" height="18"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
@@ -108,7 +108,7 @@
                             </userDefinedRuntimeAttributes>
                         </textField>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u1L-Wp-Rwx">
-                            <rect key="frame" x="320" y="15" width="20" height="20"/>
+                            <rect key="frame" x="320" y="11.333333333333329" width="20" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="20" id="1Yl-sQ-Bq9"/>
                                 <constraint firstAttribute="height" constant="20" id="BSc-td-Mil"/>
@@ -129,7 +129,7 @@
                         <constraint firstAttribute="bottom" secondItem="ddB-c1-Tar" secondAttribute="bottom" constant="10" id="kla-dJ-LTR"/>
                         <constraint firstAttribute="trailing" secondItem="u1L-Wp-Rwx" secondAttribute="trailing" constant="13" id="mpo-z2-EoS"/>
                         <constraint firstItem="usn-EZ-Qq6" firstAttribute="leading" secondItem="ddB-c1-Tar" secondAttribute="trailing" constant="15" id="npv-Ay-jlJ"/>
-                        <constraint firstAttribute="height" constant="50" id="zjx-Ua-cYb"/>
+                        <constraint firstAttribute="height" id="zjx-Ua-cYb"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -144,7 +144,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Rd3-od-H1t">
-                    <rect key="frame" x="0.0" y="164" width="393" height="688"/>
+                    <rect key="frame" x="0.0" y="114" width="393" height="738"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
             </subviews>
@@ -167,7 +167,7 @@
     </objects>
     <resources>
         <image name="SearchBarImage" width="22.333333969116211" height="22.333333969116211"/>
-        <image name="ic_Back" width="8" height="16"/>
+        <image name="ic_Back" width="18.333333969116211" height="18"/>
         <image name="ic_Cross" width="11" height="11"/>
         <namedColor name="OrengeAppColour">
             <color red="0.92941176470588238" green="0.5725490196078431" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

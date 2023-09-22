@@ -27,7 +27,7 @@ class CreatePostVC: UIViewController{
     var finalPostItems = [YPMediaItem]()
     var myPost = [Post]()
     var images : [UIImage] = []
-    var tagIds = "1"
+    var tagIds = ""
     let pickerView = UIPickerView()
     var arrDays = ["1 day","2 days","3 days","4 days","5 days","6 days","7 days","8 days","9 days","10 days"]
     var arrTripCat = ["Business Trip","Family Trip","Friends Trip","Solo Trip"]
@@ -73,7 +73,52 @@ class CreatePostVC: UIViewController{
         }
         txtViewDesc.delegate = self
         
+      //  addDoneButtonToPickerView()
+              
     }
+          
+          
+          
+          func addDoneButtonToPickerView() {
+                  let toolbar = UIToolbar()
+                  toolbar.sizeToFit()
+                  let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
+                  toolbar.setItems([doneButton], animated: false)
+              
+                  
+              
+              
+              if txtNoOffDays.isFirstResponder {
+                  txtNoOffDays.inputAccessoryView = toolbar
+              } else if txtTripCategory.isFirstResponder {
+                  txtNoOffDays.inputAccessoryView = toolbar
+              } else if txtTripComplexity.isFirstResponder {
+                  txtNoOffDays.inputAccessoryView = toolbar
+              }
+              
+              
+              }
+
+              @objc func doneButtonTapped() {
+              
+                  let selectedRow = pickerView.selectedRow(inComponent: 0)
+                 
+          
+                  if txtNoOffDays.isFirstResponder {
+                      txtNoOffDays.text = arrDays[selectedRow]
+                      txtNoOffDays.resignFirstResponder()
+                  } else if txtTripCategory.isFirstResponder {
+                      txtTripCategory.text = arrTripCat[selectedRow]
+                      txtTripCategory.resignFirstResponder()
+                      
+                  } else if txtTripComplexity.isFirstResponder {
+                      txtTripComplexity.text = arrTripComplexity[selectedRow]
+                      txtTripCategory.resignFirstResponder()
+                  }
+                  
+              }
+    
+    
     
     override func viewDidDisappear(_ animated: Bool) {
         
@@ -104,6 +149,7 @@ class CreatePostVC: UIViewController{
         finalPostItems = []
         myPost = []
         images = []
+        selectedForTag = []
         self.lblSelectedItems.text = ""
         txtTags.text = ""
         txtBudget.text = ""
@@ -165,6 +211,9 @@ class CreatePostVC: UIViewController{
     
     func textFiledDelegates(){
         txtTags.delegate = self
+        txtTripCategory.delegate = self
+        txtTripComplexity.delegate = self
+        txtNoOffDays.delegate = self
         
     }
     
@@ -173,15 +222,19 @@ class CreatePostVC: UIViewController{
         let optionItemListVC = MentionVC()
         optionItemListVC.modalPresentationStyle = .overFullScreen
         optionItemListVC.selectedPeople = selectedForTag
-        
         optionItemListVC.completion = { selectedPeoples in
             self.selectedForTag = selectedPeoples
-            
+            self.tagIds = ""
+            self.txtTags.text = ""
             for people in selectedPeoples {
                 self.txtTags.text = "\(self.txtTags.text ?? "") @\(people.name)"
-                self.tagIds = "\(self.tagIds),\(people.id)"
+                
+                if self.tagIds == ""{
+                    self.tagIds = "\(self.tagIds)\(people.id)"
+                }else{
+                    self.tagIds = "\(self.tagIds),\(people.id)"
+                }
             }
-            
         }
         
         self.present(optionItemListVC, animated: true, completion: nil)
@@ -248,8 +301,6 @@ class CreatePostVC: UIViewController{
     @IBAction func postAction(_ sender: UIButton) {
 
         if myPost.first?.postImagesVideo.count ?? 0 > 0{
-            
-            
             
             var imagesSelected = true
             if self.comeFrom == "Edit"{
@@ -404,7 +455,7 @@ extension CreatePostVC{
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
                 let index = arrDays.firstIndex(where: {$0 == txtNoOffDays.text ?? ""}) ?? 0
                 pickerView.selectRow(index, inComponent: 0, animated: false)
-                txtNoOffDays.text = arrDays[index]
+               // txtNoOffDays.text = arrDays[index]
             })
             
         } else if textField == txtTripCategory {
@@ -413,7 +464,7 @@ extension CreatePostVC{
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
                 let index = arrTripCat.firstIndex(where: {$0 == txtTripCategory.text ?? ""}) ?? 0
                 pickerView.selectRow(index, inComponent: 0, animated: false)
-                txtTripCategory.text = arrTripCat[index]
+                //txtTripCategory.text = arrTripCat[index]
             })
             
         }else if textField == txtTripComplexity {
@@ -422,7 +473,7 @@ extension CreatePostVC{
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
                 let index = arrTripComplexity.firstIndex(where: {$0 == txtTripComplexity.text ?? ""}) ?? 0
                 pickerView.selectRow(index, inComponent: 0, animated: false)
-                txtTripComplexity.text = arrTripComplexity[index]
+               // txtTripComplexity.text = arrTripComplexity[index]
             })
         }
         
@@ -485,3 +536,42 @@ extension CreatePostVC:UITextViewDelegate{
 }
 
 
+extension CreatePostVC{
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+            switch textField {
+            case txtNoOffDays:
+                DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
+                    let index = arrDays.firstIndex(where: {$0 == txtNoOffDays.text ?? ""}) ?? 0
+                    pickerView.selectRow(index, inComponent: 0, animated: false)
+                    //                self.mId = home_Search_Data?[index].brand_name ?? ""
+                    self.txtNoOffDays.text = arrDays[index]
+                    print("   brandName[index]     \(   arrDays[index] )")
+                })
+                pickerView.reloadAllComponents()
+                
+            case txtTripCategory:
+                DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
+                    let index = arrTripCat.firstIndex(where: {$0 == txtTripCategory.text ?? ""}) ?? 0
+                    pickerView.selectRow(index, inComponent: 0, animated: false)
+                    //                self.caliber_Id = viewModel?.caliberData[index].id
+                    self.txtTripCategory.text = arrTripCat[index]
+                    print("  caliberName[index]    \(  self.arrTripCat[index])")
+                })
+                pickerView.reloadAllComponents()
+                
+            case txtTripComplexity:
+                DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
+                    let index = arrTripComplexity.firstIndex(where: {$0 == txtTripComplexity.text ?? ""}) ?? 0
+                    pickerView.selectRow(index, inComponent: 0, animated: false)
+                    //                self.caliber_Id = viewModel?.caliberData[index].id
+                    self.txtTripComplexity.text = arrTripComplexity[index]
+                    print("  caliberName[index]    \(  self.arrTripComplexity[index])")
+                })
+                pickerView.reloadAllComponents()
+                
+            default: break
+            }
+        }
+    
+}

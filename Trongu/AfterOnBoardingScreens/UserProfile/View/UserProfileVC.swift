@@ -282,12 +282,19 @@ extension UserProfileVC: UICollectionViewDelegate,UICollectionViewDataSource,UIC
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let vc = HomeVC()
-        vc.comeFrom = true
-        vc.index = indexPath
-        vc.arrPostList = self.viewModel!.arrPostList
-        self.navigationController?.pushViewController(vc, animated: true)
-        
+       if self.isSelected == "BucketList"{
+           let vc = DetailVC()
+           vc.comeFrom = "bucket"
+           vc.postDetails = self.viewModel?.arrPostList[indexPath.row]
+           vc.postId = self.viewModel?.arrPostList[indexPath.row].id
+           self.pushViewController(vc, true)
+        }else{
+            let vc = HomeVC()
+            vc.comeFrom = true
+            vc.index = indexPath
+            vc.arrPostList = self.viewModel!.arrPostList
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         
     }
     

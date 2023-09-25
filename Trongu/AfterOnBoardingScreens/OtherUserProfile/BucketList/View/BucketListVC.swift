@@ -11,6 +11,8 @@ class BucketListVC: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var bucketListTableView: UITableView!
     
+    
+    
     var bucketList = [("BucketListImage_1","Christian","Lorem Ipsum is simply dummy text of the printing and typesetting industry."),("BucketListImage_2","Apollonia","Lorem Ipsum is simply dummy text of the printing and typesetting industry. ")]
     
     var comeFrom:String?
@@ -92,8 +94,21 @@ extension BucketListVC: UITableViewDelegate,UITableViewDataSource{
         return cell
         
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let vc = DetailVC()
+        vc.comeFrom = "bucket"
+        vc.postDetails = self.viewModel?.arrPostList[indexPath.row]
+        vc.postId = self.viewModel?.arrPostList[indexPath.row].id
+        self.pushViewController(vc, true)
+        
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         return UITableView.automaticDimension
+        
     }
     
 }

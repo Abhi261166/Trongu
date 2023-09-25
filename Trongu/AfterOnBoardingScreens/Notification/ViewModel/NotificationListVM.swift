@@ -10,6 +10,7 @@ import UIKit
 protocol NotificationListVMObserver: NSObjectProtocol {
    
     func observeNotificationListSucessfull()
+    func observeAcceptedOrRejectedSucessfull()
     
 }
 
@@ -64,5 +65,32 @@ class NotificationListVM: NSObject {
             }
         }
     }
+    
+    //MARK: - Follow Request Accept/Reject APi -
+    
+    func apiFollowRequestAcceptReject(otherUserId:String?,requestStatus:Int?) {
+        var params = JSON()
+        params["follow_id"] = otherUserId
+        params["request_status"] = requestStatus
+        
+        print("params : ", params)
+       
+        ApiHandler.callWithMultipartForm(apiName: API.Name.acceptRejectFollowRequest, params: params) { [weak self] succeeded, response, data in
+            DispatchQueue.main.async {
+               
+                if let self = self{
+                    if succeeded == true {
+                        self.observer?.observeAcceptedOrRejectedSucessfull()
+                    } else {
+                        if let message = response["message"] as? String {
+                            self.showMessage(message: message, isError: .error)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
     
 }

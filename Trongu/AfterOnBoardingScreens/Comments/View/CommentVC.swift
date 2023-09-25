@@ -146,10 +146,13 @@ extension CommentVC: UITableViewDelegate,UITableViewDataSource{
             cell.lblComment.text = dict?.comment
             let timestamp = Int(dict?.createdAt ?? "") ?? 0
             let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
-            cell.lblTime.text = date.dateToString(format: "hh:mm")
-           // cell.lblSeeReply.text = "See Reply (\(dict?.replyCommentCount ?? "0"))"
-            
-            cell.lblSeeReply.setAttributed(str1: "See Reply", font1: UIFont.setCustom(.Poppins_Medium, 13), color1: .lightGray, str2:  "(\(dict?.replyCommentCount ?? "0"))", font2: UIFont.setCustom(.Poppins_Medium, 13), color2: .black)
+            cell.lblTime.text = date.timeAgoSinceDate()
+         
+            if dict?.replyCommentCount == "1"{
+                cell.lblSeeReply.setAttributed(str1: "See Reply", font1: UIFont.setCustom(.Poppins_Medium, 13), color1: .lightGray, str2:  "(\(dict?.replyCommentCount ?? "0"))", font2: UIFont.setCustom(.Poppins_Medium, 13), color2: .black)
+            }else{
+                cell.lblSeeReply.setAttributed(str1: "See Replys", font1: UIFont.setCustom(.Poppins_Medium, 13), color1: .lightGray, str2:  "(\(dict?.replyCommentCount ?? "0"))", font2: UIFont.setCustom(.Poppins_Medium, 13), color2: .black)
+            }
             
             cell.btnViewReplys.tag = indexPath.section
             cell.btnReply.tag = indexPath.section
@@ -180,7 +183,7 @@ extension CommentVC: UITableViewDelegate,UITableViewDataSource{
             cell1.massageLabel.text = dict?.comment
             let timestamp = Int(dict?.createdAt ?? "") ?? 0
             let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
-            cell1.lblTime.text = date.dateToString(format: "hh:mm")
+            cell1.lblTime.text = date.timeAgoSinceDate()
             
             return cell1
         }

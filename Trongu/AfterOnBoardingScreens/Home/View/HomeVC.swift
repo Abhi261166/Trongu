@@ -317,9 +317,9 @@ extension HomeVC: HomeTVCellDelegate{
     }
     
     func didTapmap(_ indexPath: IndexPath) {
-        let vc = MapVC()
-        vc.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = MapVC()
+//        vc.hidesBottomBarWhenPushed = true
+//        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func didTapBucketList(_ indexPath: IndexPath) {

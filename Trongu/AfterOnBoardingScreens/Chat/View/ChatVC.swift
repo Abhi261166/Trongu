@@ -6,16 +6,29 @@
 //
 
 import UIKit
+import IQKeyboardManager
+import GrowingTextView
 
 class ChatVC: UIViewController {
 
+    @IBOutlet weak var btnSendMessage: UIButton!
     @IBOutlet weak var chatTableView: UITableView!
+    @IBOutlet weak var btnSelectMedia: UIButton!
+    
+    @IBOutlet weak var txtVwMessage: GrowingTextView!
+    @IBOutlet weak var bottomCons: NSLayoutConstraint!
     
     var rightcell = ["Hey, How are you.where are you Going","Hi , am  Good."]
+    var keyboardHieght : CGFloat?
+    var keyboard: KeyboardVM?
+    var viewModel:ChatVM?
+    var clickedImage:UIImage?
+    var click_Image_Data: Data?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        txtVwMessage.delegate = self
+        setViewModel()
         self.chatTableView.delegate = self
         self.chatTableView.dataSource = self
         self.chatTableView.register(UINib(nibName: "MessageTableViewCell", bundle: nil), forCellReuseIdentifier: "MessageTableViewCell")
@@ -25,12 +38,48 @@ class ChatVC: UIViewController {
 //        self.chatTableView.register(UINib(nibName: "ReceiveVideoTVCell", bundle: nil), forCellReuseIdentifier: "ReceiveVideoTVCell")
         
     }
+    
+    func setViewModel(){
+        
+        self.viewModel = ChatVM(observer: self)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        IQKeyboardManager.shared().isEnabled = false
+      
+        keyboard = KeyboardVM()
+        keyboard?.setKeyboardNotification(self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        IQKeyboardManager.shared().isEnabled = true
+      //  self.viewModel?.apiUpdateSeenStatus()
+        keyboard?.removeKeyboardNotification()
+    }
 
     @IBAction func backAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
     
+    
+    @IBAction func actionSelectMedia(_ sender: UIButton) {
+        
+        self.viewModel?.imagePicker.mediaType = .both
+       // self.viewModel?.imagePicker.selectedAssetIds = self.viewModel?.postImage.map({$0.id ?? ""}) ?? []
+       // self.viewModel?.imagePicker.setImagePicker(controller: self, delegate: self)
+       
+    }
+    
+    @IBAction func actionSendMessage(_ sender: UIButton) {
+        
+        
+    }
+    
 }
+
+
 extension ChatVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        switch indexPath.row{
@@ -137,3 +186,59 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
 //        self.layer.mask = mask
 //    }
 //}
+
+extension ChatVC: KeyboardVMObserver {
+    
+    func keyboard(didChange height: CGFloat, duration: Double, animation: UIView.AnimationOptions) {
+        if txtVwMessage.isFirstResponder {
+            if bottomCons.constant == height {
+                return
+            }
+        } else {
+            if bottomCons.constant == 0 {
+                return
+            }
+        }
+        print("height is \(height)")
+        self.bottomCons.constant = height
+        self.view.setNeedsUpdateConstraints()
+        UIView.animate(withDuration: duration, delay: 0.0, options: animation, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        }, completion: { finished in
+           // self.scrollToBottom(isScrolled: false)
+        })
+    }
+    
+    //    MARK: - SCROLL TO Top -
+//    func scrollToTop(isScrolled:Bool) {
+//        guard isTableScrolled() == false || isScrolled == true  else { return }
+//        guard let count = self.viewModel?.arrCommentList.count,
+//              count > 0  else { return }
+//        let section = 0
+//        DispatchQueue.main.asyncAfter(deadline: .now()+0.15) {
+//            let indexPath = IndexPath(row: 0, section: section)
+//            self.commentTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+//        }
+//    }
+//
+//    func isTableScrolled() -> Bool {
+//        return (self.commentTableView.contentOffset.y < (self.commentTableView.contentSize.height - SCREEN_SIZE.height))
+//    }
+    
+}
+
+//MARK: - UITextFiled Delegate Methods -
+extension ChatVC:UITextViewDelegate{
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        
+    }
+    
+}
+
+
+extension ChatVC:ChatVMObserver{
+    
+    
+    
+}

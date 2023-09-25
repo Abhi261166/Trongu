@@ -32,7 +32,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="481" height="300"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddImage_1" translatesAutoresizingMaskIntoConstraints="NO" id="Mgp-cD-miL">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mgp-cD-miL">
                                         <rect key="frame" x="0.0" y="0.0" width="481" height="300"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
@@ -116,7 +116,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="AddImage_1" width="117" height="164.33332824707031"/>
         <image name="speaker.slash" catalog="system" width="118" height="128"/>
         <image name="speaker.wave.2.fill" catalog="system" width="128" height="88"/>
     </resources>

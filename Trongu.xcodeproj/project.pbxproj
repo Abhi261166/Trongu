@@ -183,6 +183,9 @@
 		18CEA5882A50352F007AF695 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEA5862A50352F007AF695 /* UserProfileVC.swift */; };
 		18CEA5892A50352F007AF695 /* UserProfileVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18CEA5872A50352F007AF695 /* UserProfileVC.xib */; };
 		18D1D0182A7CED9000EDFE70 /* CreatePostVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D1D0172A7CED9000EDFE70 /* CreatePostVM.swift */; };
+		18E990682AC16B400070188E /* DetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E990672AC16B400070188E /* DetailsVM.swift */; };
+		18E9906B2AC172930070188E /* PostDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E9906A2AC172930070188E /* PostDetailsModel.swift */; };
+		18E9906E2AC1BDEA0070188E /* ChatVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E9906D2AC1BDEA0070188E /* ChatVM.swift */; };
 		18EF10BF2A541F2A005D55AB /* FeedbackPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EF10BD2A541F2A005D55AB /* FeedbackPopUpVC.swift */; };
 		18EF10C02A541F2A005D55AB /* FeedbackPopUpVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EF10BE2A541F2A005D55AB /* FeedbackPopUpVC.xib */; };
 		18EF10C72A54278F005D55AB /* BlockedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EF10C52A54278F005D55AB /* BlockedVC.swift */; };
@@ -445,6 +448,9 @@
 		18CEA5862A50352F007AF695 /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		18CEA5872A50352F007AF695 /* UserProfileVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserProfileVC.xib; sourceTree = "<group>"; };
 		18D1D0172A7CED9000EDFE70 /* CreatePostVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostVM.swift; sourceTree = "<group>"; };
+		18E990672AC16B400070188E /* DetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsVM.swift; sourceTree = "<group>"; };
+		18E9906A2AC172930070188E /* PostDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailsModel.swift; sourceTree = "<group>"; };
+		18E9906D2AC1BDEA0070188E /* ChatVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVM.swift; sourceTree = "<group>"; };
 		18EF10BD2A541F2A005D55AB /* FeedbackPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackPopUpVC.swift; sourceTree = "<group>"; };
 		18EF10BE2A541F2A005D55AB /* FeedbackPopUpVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackPopUpVC.xib; sourceTree = "<group>"; };
 		18EF10C52A54278F005D55AB /* BlockedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedVC.swift; sourceTree = "<group>"; };
@@ -821,6 +827,8 @@
 		187515542A54564E00697EA0 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				18E990692AC172560070188E /* Model */,
+				18E990662AC16B1F0070188E /* ViewModel */,
 				187515562A54566400697EA0 /* View */,
 			);
 			path = Detail;
@@ -1012,18 +1020,10 @@
 		188604502A4EF96600387D35 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				188604532A4EF98F00387D35 /* Model */,
+				18E9906C2AC1BDD30070188E /* ViewModel */,
 				188604522A4EF98700387D35 /* View */,
-				188604512A4EF97C00387D35 /* ViewModel */,
 			);
 			path = Chat;
-			sourceTree = "<group>";
-		};
-		188604512A4EF97C00387D35 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		188604522A4EF98700387D35 /* View */ = {
@@ -1053,13 +1053,6 @@
 				18EF10D62A542FF7005D55AB /* MediaTVCell.xib */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		188604532A4EF98F00387D35 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		188D8E762A52A58D00083DC0 /* MapFilter */ = {
@@ -1623,6 +1616,30 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		18E990662AC16B1F0070188E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				18E990672AC16B400070188E /* DetailsVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		18E990692AC172560070188E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				18E9906A2AC172930070188E /* PostDetailsModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		18E9906C2AC1BDD30070188E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				18E9906D2AC1BDEA0070188E /* ChatVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		18EF10B92A541EC0005D55AB /* FeedbackPopUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -2141,6 +2158,7 @@
 				31CB5E072A67F29B0020E409 /* ForgotPasswordVM.swift in Sources */,
 				18EF10D72A542FF7005D55AB /* MediaTVCell.swift in Sources */,
 				189EC4B02A4EDAF5001E6644 /* PostCVCell.swift in Sources */,
+				18E9906B2AC172930070188E /* PostDetailsModel.swift in Sources */,
 				31CB5DC62A67D1BC0020E409 /* UserData.swift in Sources */,
 				31CB5DFA2A67D25F0020E409 /* VideoScrollView.swift in Sources */,
 				31CB5DCD2A67D1BC0020E409 /* RepeatTimer.swift in Sources */,
@@ -2222,6 +2240,7 @@
 				184FE0CA2A4D982D009D666D /* OtherUserProfileCVCell.swift in Sources */,
 				189EC4B92A4EE379001E6644 /* MessageTVCell.swift in Sources */,
 				189551462A49BEF6003EC8FD /* UIViewController+Custom.swift in Sources */,
+				18E9906E2AC1BDEA0070188E /* ChatVM.swift in Sources */,
 				1864CA302A4AC64500B94360 /* SignUpVC.swift in Sources */,
 				18D1D0182A7CED9000EDFE70 /* CreatePostVM.swift in Sources */,
 				18FC21152A4FF0E30064F471 /* ReplyPhotoTVCell.swift in Sources */,
@@ -2242,6 +2261,7 @@
 				187F90502A4C1AFF00C00867 /* CommentVC.swift in Sources */,
 				189E983F2AB95E7700329418 /* BlockListVM.swift in Sources */,
 				185352792A4D765500EAC753 /* BucketListVC.swift in Sources */,
+				18E990682AC16B400070188E /* DetailsVM.swift in Sources */,
 				31CB5E112A68080B0020E409 /* ProfileVM.swift in Sources */,
 				31CB5DBC2A67D1BC0020E409 /* Singleton.swift in Sources */,
 				18944A8F2A89EC27005E07EC /* DAVideoPlayerView.swift in Sources */,

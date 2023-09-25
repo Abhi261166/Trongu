@@ -38,7 +38,8 @@ class NotificationVC: UIViewController {
     }
     
     func apiCall(){
-        
+        self.viewModel?.arrNotificationList = []
+        self.viewModel?.pageNo = 0
         self.viewModel?.apiNotificationList()
     }
     
@@ -64,20 +65,27 @@ extension NotificationVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationTVCell", for: indexPath) as! NotificationTVCell
-        
         let dict = self.viewModel?.arrNotificationList[indexPath.row]
         
         cell.profileImage.setImage(image: dict?.userImage,placeholder: UIImage(named: "ic_profilePlaceHolder"))
       //  cell.nameLabel.text = dict?.userName
-       // cell.timeLabel.text = "\(notification[indexPath.row].2)"
+        let timestamp = Int(dict?.createdAt ?? "") ?? 0
+        let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
+        cell.timeLabel.text = date.timeAgoSinceDate()
         cell.nameLabel.setAttributed(str1: "\(dict?.userName ?? "")", font1: UIFont.setCustom(.Poppins_Medium, 16), color1: .black, str2: "\(dict?.notification ?? "")", font2: UIFont.setCustom(.Poppins_Regular, 16), color2: .gray)
         if dict?.notificationType == "1"{
-            cell.buttonStackView.isHidden = false
-            cell.stackViewHeightConst.constant = 30
-            cell.btnAccept.tag = indexPath.row
-            cell.btnReject.tag = indexPath.row
-            cell.btnReject.addTarget(target: self, action: #selector(actionReject))
-            cell.btnAccept.addTarget(target: self, action: #selector(actionAccept))
+            if dict?.requestStatuss == "requested"{
+                cell.buttonStackView.isHidden = false
+                cell.stackViewHeightConst.constant = 30
+                cell.btnAccept.tag = indexPath.row
+                cell.btnReject.tag = indexPath.row
+                cell.btnReject.addTarget(target: self, action: #selector(actionReject))
+                cell.btnAccept.addTarget(target: self, action: #selector(actionAccept))
+            }else{
+                cell.buttonStackView.isHidden = true
+                cell.stackViewHeightConst.constant = 0
+            }
+            
         }
         else{
             cell.buttonStackView.isHidden = true
@@ -94,23 +102,26 @@ extension NotificationVC: UITableViewDelegate,UITableViewDataSource{
     
     @objc func actionReject(sender:UIButton){
         
+        self.viewModel?.apiFollowRequestAcceptReject(otherUserId: self.viewModel?.arrNotificationList[sender.tag].followID, requestStatus: 2)
         
     }
     
     @objc func actionAccept(sender:UIButton){
         
+        self.viewModel?.apiFollowRequestAcceptReject(otherUserId: self.viewModel?.arrNotificationList[sender.tag].followID, requestStatus: 1)
         
     }
     
 }
 
-
 extension NotificationVC:NotificationListVMObserver{
     
+    func observeAcceptedOrRejectedSucessfull() {
+        self.apiCall()
+    }
     
     func observeNotificationListSucessfull() {
         notificationTableView.reloadData()
     }
-    
     
 }

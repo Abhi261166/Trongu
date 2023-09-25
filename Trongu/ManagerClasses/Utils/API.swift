@@ -77,8 +77,13 @@ class API {
         static let reportUser             = "j1/trongu/api/v1/users/add-report-users"
         static let removeFollower         = "j1/trongu/api/v1/users/remove-follower"
         static let profileMap             = "j1/trongu/api/v1/users/profile-map"
-        static let getNotificationListing = "j1/trongu/api/v1/users/notification-listing"
         
+        // notifications
+        static let getNotificationListing = "j1/trongu/api/v1/users/notification-listing"
+        static let acceptRejectFollowRequest = "j1/trongu/api/v1/users/accept-reject-request"
+        
+        // post details
+        static let getPostDetails         = "j1/trongu/api/v1/users/get-post-detail"
         
     }
     

@@ -23,6 +23,8 @@
                 <outlet property="btnSelectMedia" destination="DDA-Du-piB" id="K68-15-Esl"/>
                 <outlet property="btnSendMessage" destination="7HO-Sk-qRx" id="sNz-8S-qvq"/>
                 <outlet property="chatTableView" destination="2Jb-kj-qda" id="uaq-U2-I0G"/>
+                <outlet property="imgProfile" destination="vkT-TM-Wqw" id="8iS-6E-alb"/>
+                <outlet property="lblName" destination="9o5-wJ-UMw" id="LLC-KO-GYV"/>
                 <outlet property="txtVwMessage" destination="Sbh-nB-h68" id="TJn-Uc-3dQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -210,6 +212,11 @@
             <point key="canvasLocation" x="130.53435114503816" y="-11.267605633802818"/>
         </view>
     </objects>
+    <designables>
+        <designable name="Sbh-nB-h68">
+            <size key="intrinsicContentSize" width="-1" height="30"/>
+        </designable>
+    </designables>
     <resources>
         <image name="chatProfileImage" width="38" height="38"/>
         <image name="ic_Back" width="18.333333969116211" height="18"/>

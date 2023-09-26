@@ -67,22 +67,32 @@
                                     <color key="titleColor" red="0.63137254899999995" green="0.63137254899999995" blue="0.63137254899999995" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xwF-84-sa3">
+                                <rect key="frame" x="10" y="10" width="30" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="ay1-E9-X9E" firstAttribute="centerY" secondItem="l4q-se-omw" secondAttribute="centerY" id="23v-Wb-xjH"/>
                             <constraint firstItem="ay1-E9-X9E" firstAttribute="leading" secondItem="l4q-se-omw" secondAttribute="trailing" constant="10" id="32I-2t-bKD"/>
                             <constraint firstAttribute="trailing" secondItem="fon-pX-v6Z" secondAttribute="trailing" constant="20" id="OZ6-KY-7BB"/>
+                            <constraint firstItem="xwF-84-sa3" firstAttribute="trailing" secondItem="0m0-bL-vYf" secondAttribute="trailing" id="Qa2-4f-IFP"/>
                             <constraint firstItem="0m0-bL-vYf" firstAttribute="leading" secondItem="18v-pL-7ga" secondAttribute="leading" constant="10" id="S7Y-ak-sKM"/>
                             <constraint firstItem="A1J-dW-sHo" firstAttribute="leading" secondItem="0m0-bL-vYf" secondAttribute="trailing" constant="10" id="TYd-cG-xo7"/>
                             <constraint firstItem="fon-pX-v6Z" firstAttribute="leading" secondItem="A1J-dW-sHo" secondAttribute="leading" id="WR7-fo-6h1"/>
                             <constraint firstAttribute="trailing" secondItem="A1J-dW-sHo" secondAttribute="trailing" constant="20" id="X0K-5X-Cuv"/>
                             <constraint firstItem="l4q-se-omw" firstAttribute="leading" secondItem="fon-pX-v6Z" secondAttribute="leading" id="XEu-P9-Q4Q"/>
+                            <constraint firstItem="xwF-84-sa3" firstAttribute="leading" secondItem="0m0-bL-vYf" secondAttribute="leading" id="aZd-V4-wqw"/>
                             <constraint firstItem="A1J-dW-sHo" firstAttribute="top" secondItem="18v-pL-7ga" secondAttribute="top" constant="8" id="cXj-T8-8Z7"/>
                             <constraint firstItem="fon-pX-v6Z" firstAttribute="top" secondItem="A1J-dW-sHo" secondAttribute="bottom" constant="3" id="gKa-WP-0xI"/>
+                            <constraint firstItem="xwF-84-sa3" firstAttribute="bottom" secondItem="0m0-bL-vYf" secondAttribute="bottom" id="gof-d6-96K"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="l4q-se-omw" secondAttribute="bottom" constant="10" id="ieG-7e-rXw"/>
                             <constraint firstItem="0m0-bL-vYf" firstAttribute="top" secondItem="18v-pL-7ga" secondAttribute="top" constant="10" id="jNX-Qt-E7n"/>
                             <constraint firstItem="l4q-se-omw" firstAttribute="top" secondItem="fon-pX-v6Z" secondAttribute="bottom" constant="5" id="k2g-Mm-ayR"/>
+                            <constraint firstItem="xwF-84-sa3" firstAttribute="top" secondItem="0m0-bL-vYf" secondAttribute="top" id="zH5-UD-UYu"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -95,6 +105,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btnProfileImage" destination="xwF-84-sa3" id="7Uu-no-POU"/>
                 <outlet property="lblTime" destination="l4q-se-omw" id="jFT-xk-wWV"/>
                 <outlet property="massageLabel" destination="fon-pX-v6Z" id="L45-gu-DQC"/>
                 <outlet property="nameLabel" destination="A1J-dW-sHo" id="2PM-2n-XGy"/>

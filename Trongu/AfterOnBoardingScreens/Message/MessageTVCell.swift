@@ -16,6 +16,9 @@ class MessageTVCell: UITableViewCell {
     @IBOutlet weak var messageCountView: UIView!
     @IBOutlet weak var showOnlineView: UIView!
     
+    @IBOutlet weak var lblLatestMessageCount: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
        

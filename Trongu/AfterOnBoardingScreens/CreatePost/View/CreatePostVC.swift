@@ -314,7 +314,7 @@ class CreatePostVC: UIViewController{
             }
             
             guard let viewModel = self.viewModel,
-                  viewModel.validateCreatePostDetails(imageSelected: imagesSelected, budget: self.txtBudget.text ?? "", noOfDays: self.txtNoOffDays.text ?? "", tripCat: txtTripCategory.text ?? "", desc: txtViewDesc.text ?? "", tripComp: txtTripComplexity.text ?? "")else { return }
+                  viewModel.validateCreatePostDetails(imageSelected: imagesSelected, budget: self.txtBudget.text ?? "", noOfDays: self.txtNoOffDays.text ?? "", tripCat: txtTripCategory.text ?? "", desc: txtViewDesc.text ?? "", tripComp: txtTripComplexity.text ?? "", controller: self)else { return }
             
             self.myPost[0].budget = self.txtBudget.text ?? ""
             self.myPost[0].noOfDays = self.txtNoOffDays.text ?? ""

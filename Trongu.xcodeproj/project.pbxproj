@@ -202,6 +202,8 @@
 		18FC21162A4FF0E30064F471 /* ReplyPhotoTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FC21142A4FF0E30064F471 /* ReplyPhotoTVCell.xib */; };
 		18FC21192A4FF2500064F471 /* ReplyPhotoCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC21172A4FF2500064F471 /* ReplyPhotoCVCell.swift */; };
 		18FC211A2A4FF2500064F471 /* ReplyPhotoCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FC21182A4FF2500064F471 /* ReplyPhotoCVCell.xib */; };
+		18FFF88C2AC2C6EE0098BB5A /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FFF88B2AC2C6EE0098BB5A /* ChatModel.swift */; };
+		18FFF88F2AC2CF0E0098BB5A /* ChatListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FFF88E2AC2CF0E0098BB5A /* ChatListVM.swift */; };
 		3114AAE52A6901D600F444B5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3114AAE42A6901D600F444B5 /* GoogleService-Info.plist */; };
 		3114AAE72A69154500F444B5 /* LogoutVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3114AAE62A69154500F444B5 /* LogoutVM.swift */; };
 		318770972A691ACD00FF4B46 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318770962A691ACD00FF4B46 /* ProfileModel.swift */; };
@@ -467,6 +469,8 @@
 		18FC21142A4FF0E30064F471 /* ReplyPhotoTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReplyPhotoTVCell.xib; sourceTree = "<group>"; };
 		18FC21172A4FF2500064F471 /* ReplyPhotoCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyPhotoCVCell.swift; sourceTree = "<group>"; };
 		18FC21182A4FF2500064F471 /* ReplyPhotoCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReplyPhotoCVCell.xib; sourceTree = "<group>"; };
+		18FFF88B2AC2C6EE0098BB5A /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
+		18FFF88E2AC2CF0E0098BB5A /* ChatListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListVM.swift; sourceTree = "<group>"; };
 		3114AAE42A6901D600F444B5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3114AAE62A69154500F444B5 /* LogoutVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutVM.swift; sourceTree = "<group>"; };
 		318770962A691ACD00FF4B46 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
@@ -1020,6 +1024,7 @@
 		188604502A4EF96600387D35 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				18FFF88A2AC2C6D00098BB5A /* Model */,
 				18E9906C2AC1BDD30070188E /* ViewModel */,
 				188604522A4EF98700387D35 /* View */,
 			);
@@ -1487,6 +1492,7 @@
 		189EC4B22A4EE31B001E6644 /* Message */ = {
 			isa = PBXGroup;
 			children = (
+				18FFF88D2AC2CEED0098BB5A /* ViewModel */,
 				189EC4B32A4EE345001E6644 /* MessageVC.swift */,
 				189EC4B42A4EE345001E6644 /* MessageVC.xib */,
 				189EC4B72A4EE379001E6644 /* MessageTVCell.swift */,
@@ -1673,6 +1679,22 @@
 				18EF10C62A54278F005D55AB /* BlockedVC.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		18FFF88A2AC2C6D00098BB5A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				18FFF88B2AC2C6EE0098BB5A /* ChatModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		18FFF88D2AC2CEED0098BB5A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				18FFF88E2AC2CF0E0098BB5A /* ChatListVM.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		3114AAE82A691A9400F444B5 /* New Group */ = {
@@ -2145,6 +2167,8 @@
 				31C7EA7A2A71285900D86870 /* LoginTypeVM.swift in Sources */,
 				1813FBCC2A57F39D0072BD7F /* PannableViewController.swift in Sources */,
 				0448179F2A7FED11009539FB /* MentionTVC.swift in Sources */,
+				18FFF88C2AC2C6EE0098BB5A /* ChatModel.swift in Sources */,
+				18FFF88F2AC2CF0E0098BB5A /* ChatListVM.swift in Sources */,
 				18679B322A821BD500FD3C98 /* TagListVM.swift in Sources */,
 				1895514A2A49BEF6003EC8FD /* NSLayoutContraint+Custom.swift in Sources */,
 				18CEA5882A50352F007AF695 /* UserProfileVC.swift in Sources */,

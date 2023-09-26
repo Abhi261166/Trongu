@@ -65,6 +65,7 @@ class Singleton: NSObject {
                 self.errorMessageView.statusIconBgView.isHidden = true
                 self.errorMessageView.cornerRadius = 8
                 self.errorMessageView.frame = CGRect(x: 10, y: 43, width: SCREEN_SIZE.width-20, height: HEIGHT.errorMessageHeight)
+                self.errorMessageView.removeFromSuperview()
                 window.addSubview(self.errorMessageView)
             }
             self.errorMessageView.setErrorMessage(message: error,isError: isError)

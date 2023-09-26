@@ -13,8 +13,9 @@ class ChatVC: UIViewController {
 
     @IBOutlet weak var btnSendMessage: UIButton!
     @IBOutlet weak var chatTableView: UITableView!
+    @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var btnSelectMedia: UIButton!
-    
+    @IBOutlet weak var imgProfile: UIImageView!
     @IBOutlet weak var txtVwMessage: GrowingTextView!
     @IBOutlet weak var bottomCons: NSLayoutConstraint!
     
@@ -24,6 +25,30 @@ class ChatVC: UIViewController {
     var viewModel:ChatVM?
     var clickedImage:UIImage?
     var click_Image_Data: Data?
+    
+    var comeFrom:String?
+    
+    init(roomId: String, otherUserName:String, otherUserId:String, otherUserProfileImage: String) {
+        super.init(nibName: nil, bundle: nil)
+        self.hidesBottomBarWhenPushed = true
+        
+        if roomId.count > 0 {
+            self.viewModel = ChatVM(observer: self)
+            self.viewModel?.roomId = roomId
+            self.viewModel?.otherUserName = otherUserName
+            self.viewModel?.otherUserId = otherUserId
+            self.viewModel?.otherUserProfile = otherUserProfileImage
+            print("room \(roomId) **** otherUserName \(otherUserName) **** otherUserId \(otherUserId)")
+            print("my id \(String(describing: UserDefaultsCustom.userId))")
+            
+        }
+    }
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    deinit {
+        print("deinit calles SingleChatController")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +73,7 @@ class ChatVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         IQKeyboardManager.shared().isEnabled = false
-      
+        setuserData()
         keyboard = KeyboardVM()
         keyboard?.setKeyboardNotification(self)
     }
@@ -59,6 +84,13 @@ class ChatVC: UIViewController {
         keyboard?.removeKeyboardNotification()
     }
 
+    func setuserData(){
+        
+        self.imgProfile.setImage(image: self.viewModel?.otherUserProfile,placeholder: UIImage(named: "ic_profilePlaceHolder"))
+        self.lblName.text = self.viewModel?.otherUserName
+        
+    }
+    
     @IBAction func backAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -66,15 +98,56 @@ class ChatVC: UIViewController {
     
     @IBAction func actionSelectMedia(_ sender: UIButton) {
         
+        self.txtVwMessage.resignFirstResponder()
         self.viewModel?.imagePicker.mediaType = .both
        // self.viewModel?.imagePicker.selectedAssetIds = self.viewModel?.postImage.map({$0.id ?? ""}) ?? []
-       // self.viewModel?.imagePicker.setImagePicker(controller: self, delegate: self)
+        self.viewModel?.imagePicker.setImagePicker(controller: self, delegate: self)
        
     }
     
     @IBAction func actionSendMessage(_ sender: UIButton) {
         
         
+    }
+    
+    
+}
+
+extension ChatVC: ImagePickerDelegate {
+    
+    func imagePicker(_ picker: ImagePicker, didSelect data: [PickerData]?, assetIds: [String]) {
+        print("picked images are \n\n\(data?.count) *** \n\n\(assetIds) \n\n")
+        let ids = data?.map({$0.id ?? ""}) ?? []
+        print("picked images are ids \n\n\(ids) \n\n")
+        var postImages: [PickerData] = []
+        assetIds.forEach { assetId in
+            if let post = self.viewModel?.imageData.first(where: {$0.id == assetId}) {
+                postImages.append(post)
+            } else if let post = data?.first(where: {$0.id == assetId}) {
+                postImages.append(post)
+            } else if let post = self.viewModel?.imageData.first(where: {$0.imgUrlStr == assetId}) {
+                postImages.append(post)
+            }
+        }
+        print("post images are ******** \(postImages.count)")
+        self.viewModel?.imageData = postImages
+        
+        
+        
+    }
+    
+    func imagePicker(_ picker: ImagePicker, didCapture data: PickerData?) {
+        if let pickerData = data {
+            if pickerData.id == nil || pickerData.id == "" {
+                pickerData.id = pickerData.fileName
+            }
+            print("id is **** \(pickerData.id)")
+            self.viewModel?.imageData.append(pickerData)
+
+        }
+    }
+    
+    func imagePicker(_ picker: ImagePicker, didFinish withError: ImagePicker.Error) {
     }
     
 }

@@ -59,7 +59,7 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
-        
+       // self.navigationController?.tabBarController?.selectedIndex = 4
         if isFromFilter{
             
         }else{

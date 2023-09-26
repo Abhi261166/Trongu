@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IQKeyboardManager
 
 class MentionVC: UIViewController, UITextFieldDelegate {
     
@@ -15,15 +16,16 @@ class MentionVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnCross: UIButton!
     @IBOutlet weak var txtSearch: UITextField!
-    
     @IBOutlet weak var btnTag: UIButton!
+    @IBOutlet weak var bottomCons: NSLayoutConstraint!
+    
     
     //MARK: - Valiables -
     var profile = [("LikesImage_1","_rebeka_99","Reveka"),("LikesImage_2","mr.krish_021","Reveka"),("LikesImage_3","dessertsoul_09_","Reveka"),("LikesImage_4","_nishwan_009","Nishwan" ),("LikesImage_5","_uddin509","Reveka"),("LikesImage_6","mahesh_z","Reveka"),("LikesImage_7","_nishwan_009","Nishwan"),("LikesImage_8","_uddin509","Reveka")]
     var viewModel:TagListVM?
     var completion : (( _ tagedPeople:[Userdetail] ) -> Void)? = nil
     var timer: Timer?
-    
+    var keyboard: KeyboardVM?
     var selectedPeople:[Userdetail] = []
     
     
@@ -35,11 +37,21 @@ class MentionVC: UIViewController, UITextFieldDelegate {
         txtSearch.delegate = self
         txtSearch.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        IQKeyboardManager.shared().isEnabled = false
         apiCall()
+        keyboard = KeyboardVM()
+        keyboard?.setKeyboardNotification(self)
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        IQKeyboardManager.shared().isEnabled = true
+        keyboard?.removeKeyboardNotification()
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -59,12 +71,21 @@ class MentionVC: UIViewController, UITextFieldDelegate {
         guard let searchText = timer.userInfo as? String else{return}
         print(searchText)
         
+        self.apiSearchCall(text: searchText.trim)
+        
        
     }
     //MARK: - Life Cycle Methods -
     func apiCall(){
         self.viewModel?.arrTagList = []
-        self.viewModel?.apiTagList()
+        self.viewModel?.pageNo = 0
+        self.viewModel?.apiTagList(text: "")
+    }
+    
+    func apiSearchCall(text:String?){
+        self.viewModel?.arrTagList = []
+        self.viewModel?.pageNo = 0
+        self.viewModel?.apiTagList(text: text)
     }
 
     func setViewModel(){
@@ -95,10 +116,17 @@ class MentionVC: UIViewController, UITextFieldDelegate {
     
     @IBAction func actionTag(_ sender: UIButton) {
         
-        if let completion = completion{
-            dismiss(animated: true)
-            completion(selectedPeople)
+        if selectedPeople.count > 0{
             
+            if let completion = completion{
+                dismiss(animated: true)
+                completion(selectedPeople)
+                
+            }
+            
+        }else{
+            
+            Singleton.shared.showErrorMessage(error: "Please select atleast one person for tag.", isError: .error)
         }
         
     }
@@ -229,3 +257,26 @@ extension MentionVC:TagListVMObserver{
     
 }
 
+extension MentionVC: KeyboardVMObserver {
+    
+    func keyboard(didChange height: CGFloat, duration: Double, animation: UIView.AnimationOptions) {
+        if txtSearch.isFirstResponder {
+            if bottomCons.constant == height {
+                return
+            }
+        } else {
+            if bottomCons.constant == 0 {
+                return
+            }
+        }
+        print("height is \(height)")
+        self.bottomCons.constant = height
+        self.view.setNeedsUpdateConstraints()
+        UIView.animate(withDuration: duration, delay: 0.0, options: animation, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        }, completion: { finished in
+            //self.scrollToBottom(isScrolled: false)
+        })
+    }
+    
+}

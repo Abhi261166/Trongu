@@ -85,6 +85,10 @@ class API {
         // post details
         static let getPostDetails         = "j1/trongu/api/v1/users/get-post-detail"
         
+        // Chat Apis
+        static let createRoom             = "j1/trongu/api/v1/users/create-room"
+        static let getAllChatUsers        = "j1/trongu/api/v1/users/get-all-chat-users"
+        
     }
     
     struct keys {

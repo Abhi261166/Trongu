@@ -767,6 +767,8 @@ extension AddPhotoVideoVC{
                         self.placeTF.text = ""
                     }else{
                         self.placeTF.text = address
+                        self.arrPostItems[self.selectedIndex?.row ?? 0].place = address ?? ""
+                        
                     }
                     print("Got address from picker -----",address ?? "")
                     self.dateTF.text = self.arrPostItems[index].date
@@ -780,6 +782,7 @@ extension AddPhotoVideoVC{
                         self.placeTF.text = ""
                     }else{
                         self.placeTF.text = address
+                        self.arrPostItems[self.selectedIndex?.row ?? 0].place = address ?? ""
                     }
                     print("Got address from picker -----",address ?? "")
                     self.dateTF.text = self.arrPostItems[index].date

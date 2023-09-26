@@ -94,8 +94,9 @@ class OtherUserProfileVC: UIViewController {
     }
     
     @IBAction func messageAction(_ sender: UIButton) {
-        let vc = ChatVC()
-        self.navigationController?.pushViewController(vc, animated: true)
+        
+        ChatVM.apiCreateRoom(otherUserId: userId ?? "", observer: self)
+       
     }
     
     @IBAction func followAction(_ sender: UIButton) {
@@ -244,3 +245,13 @@ extension OtherUserProfileVC:ProfileVMObserver{
     }
     
 }
+
+extension OtherUserProfileVC: CreateRoomObserver{
+    func observeCreateRoom(model: ChatUserData) {
+        let vc = ChatVC(roomId: model.roomID, otherUserName: self.viewModel?.userData?.name ?? "", otherUserId: model.userID, otherUserProfileImage: self.viewModel?.userData?.image ?? "" )
+        vc.comeFrom = "Profile"
+        self.pushViewController(vc, true)
+    }
+    
+}
+

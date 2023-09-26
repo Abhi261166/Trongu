@@ -22,14 +22,14 @@ class GridViewCell: UICollectionViewCell {
     }()
     lazy var overLayer: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(r: 140, g: 202, b: 60, a: 0.7)
+       // view.backgroundColor = UIColor(r: 140, g: 202, b: 60, a: 0.7)
         return view
     }()
     
     lazy var selectionImageView: UIView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFill
-        img.image = #imageLiteral(resourceName: "Vector 15")
+        img.image = #imageLiteral(resourceName: "ic_SelectRememberMe")
         img.translatesAutoresizingMaskIntoConstraints = false
         return img
     }()
@@ -56,7 +56,6 @@ class GridViewCell: UICollectionViewCell {
             selectionImageView.isHidden = !is_selected
         }
     }
-    
     
     override func prepareForReuse() {
         super.prepareForReuse()

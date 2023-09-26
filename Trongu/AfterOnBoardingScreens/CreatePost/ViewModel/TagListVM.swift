@@ -31,13 +31,16 @@ class TagListVM: NSObject {
     }
     
     //MARK: Tag List Api
-    func apiTagList() {
+    func apiTagList(text:String?) {
             var params = JSON()
         
         if UserDefaultsCustom.getUserData()?.is_private == "0"{
             params["type"] = "2"
+            params["search"] = text
+            
         }else{
             params["type"] = "1"
+            params["search"] = text
         }
         params["per_page"] = perPage
         params["page_no"] = pageNo + 1
@@ -118,7 +121,7 @@ class TagListVM: NSObject {
     }
     
     
-    func validateCreatePostDetails(imageSelected:Bool,budget:String,noOfDays:String,tripCat:String,desc:String,tripComp:String) -> Bool {
+    func validateCreatePostDetails(imageSelected:Bool,budget:String,noOfDays:String,tripCat:String,desc:String,tripComp:String,controller:UIViewController?) -> Bool {
         let isvalidUsername = Validator.validatePrice(price: budget)
         let isvalidEmail = Validator.validateNoOffDays(days: noOfDays)
         let isvalidPhoneNumber = Validator.validateTripCat(tripCat: tripCat)
@@ -130,7 +133,24 @@ class TagListVM: NSObject {
             return false
         }
         guard isvalidUsername.0 == true else {
+            
             Singleton.showMessage(message: "\(isvalidUsername.1)", isError: .error)
+            
+//            let alertController = UIAlertController(title: "Create Post", message: "\(isvalidUsername.1)", preferredStyle: .alert)
+//
+//                   // Create an action for the alert (e.g., OK button)
+//                   let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+//                       // Handle the OK button tap (if needed)
+//                       print("OK button tapped")
+//                   }
+//
+//                   // Add the action to the alert controller
+//                   alertController.addAction(okAction)
+//
+//                   // Present the alert
+//                controller?.present(alertController, animated: true, completion: nil)
+            
+            
             print("isvalidUsername  \(isvalidUsername)")
             return false
         }

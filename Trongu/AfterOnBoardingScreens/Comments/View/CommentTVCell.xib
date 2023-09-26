@@ -103,13 +103,21 @@
                                     <color key="titleColor" red="0.63137254899999995" green="0.63137254899999995" blue="0.63137254899999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3rZ-Vg-3bn">
+                                <rect key="frame" x="20" y="10" width="50" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="zqT-J2-cUR" firstAttribute="top" secondItem="4ki-jQ-k8X" secondAttribute="bottom" constant="5" id="1Er-uD-ivG"/>
+                            <constraint firstItem="3rZ-Vg-3bn" firstAttribute="leading" secondItem="Cze-Dc-9hU" secondAttribute="leading" id="30V-4c-XT4"/>
                             <constraint firstItem="i9W-lt-nA6" firstAttribute="leading" secondItem="Aht-Ze-vPA" secondAttribute="leading" id="Frr-BH-APZ"/>
                             <constraint firstItem="Aht-Ze-vPA" firstAttribute="top" secondItem="yyB-Be-xFM" secondAttribute="top" constant="13" id="KOG-Aq-dvo"/>
                             <constraint firstItem="gqf-Jm-reu" firstAttribute="leading" secondItem="zqT-J2-cUR" secondAttribute="trailing" constant="15" id="ZCX-ej-GL3"/>
+                            <constraint firstItem="3rZ-Vg-3bn" firstAttribute="top" secondItem="Cze-Dc-9hU" secondAttribute="top" id="Zu7-wy-eHW"/>
                             <constraint firstItem="i9W-lt-nA6" firstAttribute="top" secondItem="zqT-J2-cUR" secondAttribute="bottom" constant="2" id="eTY-2G-sT0"/>
                             <constraint firstItem="gqf-Jm-reu" firstAttribute="centerY" secondItem="zqT-J2-cUR" secondAttribute="centerY" id="edL-OO-rmq"/>
                             <constraint firstAttribute="trailing" secondItem="4ki-jQ-k8X" secondAttribute="trailing" constant="20" id="gIv-Jg-M9d"/>
@@ -118,8 +126,10 @@
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="i9W-lt-nA6" secondAttribute="bottom" constant="5" id="ouQ-zV-Id1"/>
                             <constraint firstItem="4ki-jQ-k8X" firstAttribute="leading" secondItem="Aht-Ze-vPA" secondAttribute="leading" id="ov2-Xg-jAP"/>
                             <constraint firstItem="Aht-Ze-vPA" firstAttribute="leading" secondItem="Cze-Dc-9hU" secondAttribute="trailing" constant="15" id="uT2-91-r8z"/>
+                            <constraint firstItem="3rZ-Vg-3bn" firstAttribute="bottom" secondItem="Cze-Dc-9hU" secondAttribute="bottom" id="ufD-HB-gyQ"/>
                             <constraint firstItem="4ki-jQ-k8X" firstAttribute="top" secondItem="Aht-Ze-vPA" secondAttribute="bottom" constant="3" id="uzL-H3-gDI"/>
                             <constraint firstItem="zqT-J2-cUR" firstAttribute="leading" secondItem="4ki-jQ-k8X" secondAttribute="leading" id="w2z-rm-Wi4"/>
+                            <constraint firstItem="3rZ-Vg-3bn" firstAttribute="trailing" secondItem="Cze-Dc-9hU" secondAttribute="trailing" id="wOF-q4-gUi"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NdN-GP-4XL">
@@ -142,6 +152,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btnProfileImage" destination="3rZ-Vg-3bn" id="ubq-Ic-Q7C"/>
                 <outlet property="btnReply" destination="gqf-Jm-reu" id="zmh-Eh-cls"/>
                 <outlet property="btnViewReplys" destination="2Pe-Od-0H5" id="Gi2-Sn-XKj"/>
                 <outlet property="heightConsSeeAllReplys" destination="0BH-Tj-QAr" id="8Ke-Pd-b1r"/>

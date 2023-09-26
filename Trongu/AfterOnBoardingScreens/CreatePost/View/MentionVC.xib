@@ -20,6 +20,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MentionVC" customModule="Trongu" customModuleProvider="target">
             <connections>
+                <outlet property="bottomCons" destination="mMm-yg-EwB" id="PXO-H4-1fF"/>
                 <outlet property="btnBack" destination="Qh1-Ib-0s5" id="weH-Eu-xbw"/>
                 <outlet property="btnCross" destination="u1L-Wp-Rwx" id="8eC-zz-IjE"/>
                 <outlet property="btnTag" destination="P1m-9p-fJe" id="xHT-TU-tAh"/>
@@ -88,16 +89,16 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEA-89-hNS">
-                    <rect key="frame" x="20" y="109" width="353" height="0.0"/>
+                    <rect key="frame" x="20" y="109" width="353" height="50"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SearchBarImage" translatesAutoresizingMaskIntoConstraints="NO" id="ddB-c1-Tar">
-                            <rect key="frame" x="20" y="9.9999999999999982" width="20" height="22.333333333333329"/>
+                            <rect key="frame" x="20" y="10" width="20" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="20" id="b9n-l9-qcg"/>
                             </constraints>
                         </imageView>
                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="usn-EZ-Qq6">
-                            <rect key="frame" x="55" y="12.333333333333329" width="260" height="18"/>
+                            <rect key="frame" x="55" y="16" width="260" height="18"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
@@ -108,7 +109,7 @@
                             </userDefinedRuntimeAttributes>
                         </textField>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u1L-Wp-Rwx">
-                            <rect key="frame" x="320" y="11.333333333333329" width="20" height="20"/>
+                            <rect key="frame" x="320" y="15" width="20" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="20" id="1Yl-sQ-Bq9"/>
                                 <constraint firstAttribute="height" constant="20" id="BSc-td-Mil"/>
@@ -129,7 +130,7 @@
                         <constraint firstAttribute="bottom" secondItem="ddB-c1-Tar" secondAttribute="bottom" constant="10" id="kla-dJ-LTR"/>
                         <constraint firstAttribute="trailing" secondItem="u1L-Wp-Rwx" secondAttribute="trailing" constant="13" id="mpo-z2-EoS"/>
                         <constraint firstItem="usn-EZ-Qq6" firstAttribute="leading" secondItem="ddB-c1-Tar" secondAttribute="trailing" constant="15" id="npv-Ay-jlJ"/>
-                        <constraint firstAttribute="height" id="zjx-Ua-cYb"/>
+                        <constraint firstAttribute="height" constant="50" id="zjx-Ua-cYb"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -144,7 +145,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Rd3-od-H1t">
-                    <rect key="frame" x="0.0" y="114" width="393" height="738"/>
+                    <rect key="frame" x="0.0" y="164" width="393" height="688"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
             </subviews>

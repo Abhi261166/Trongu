@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol CreateRoomObserver: NSObjectProtocol {
+    func observeCreateRoom(model: ChatUserData)
+}
+
 protocol ChatVMObserver: NSObjectProtocol {
 //    func observerListMessages()
 //    func observerRemoveHeader()
@@ -32,9 +36,45 @@ class ChatVM: NSObject {
     var recieverDetails: UserData?
     var imagePicker = ImagePicker()
     var imageData: [PickerData] = []
+    var otherUserProfile: String = ""
     
     init(observer: ChatVMObserver?) {
         self.observer = observer
+    }
+    
+    class func apiCreateRoom(otherUserId: String, observer: CreateRoomObserver?) {
+        var params = JSON()
+       
+        params["other_id"] = otherUserId
+      
+        print("params : ", params)
+//        add loader
+        ActivityIndicator.shared.showActivityIndicator()
+        ApiHandler.callWithMultipartForm(apiName: API.Name.createRoom, params: params) { succeeded, response, data in
+            DispatchQueue.main.async {
+//        remove loader
+        ActivityIndicator.shared.hideActivityIndicator()
+             
+                    if succeeded == true, let data {
+                        let decoder = JSONDecoder()
+                        do {
+                            
+                            let decoded = try? decoder.decode(CreateRoomModel.self, from: data)
+                            if let model = decoded?.data {
+                                observer?.observeCreateRoom(model: model)
+                            }
+                           
+                        } catch {
+                            print("error", error)
+                        }
+                    } else {
+                        if let message = response["message"] as? String {
+                            self.showMessage(message: message, isError: .error)
+                        }
+                    }
+            
+            }
+        }
     }
     
     

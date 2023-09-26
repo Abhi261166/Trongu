@@ -142,6 +142,10 @@ extension CommentVC: UITableViewDelegate,UITableViewDataSource{
             
             let dict = self.viewModel?.arrCommentList[indexPath.section]
             cell.imgProfile.setImage(image: dict?.userImage , placeholder: UIImage(named: "ic_profilePlaceHolder"))
+            
+            cell.btnProfileImage.tag = indexPath.section
+            cell.btnProfileImage.addTarget(target: self, action: #selector(imageTapped))
+            
             cell.lblName.text = dict?.name
             cell.lblComment.text = dict?.comment
             let timestamp = Int(dict?.createdAt ?? "") ?? 0
@@ -179,6 +183,11 @@ extension CommentVC: UITableViewDelegate,UITableViewDataSource{
         }else{
             let dict = self.viewModel?.arrCommentList[indexPath.section].replyComment[indexPath.row - 1]
             cell1.profileImage.setImage(image: dict?.image , placeholder: UIImage(named: "ic_profilePlaceHolder"))
+            
+            cell1.btnProfileImage.tag = 1000*indexPath.section + (indexPath.row - 1)
+            cell1.btnProfileImage.addTarget(target: self, action: #selector(replyImageTapped))
+            
+            
             cell1.nameLabel.text = dict?.name
             cell1.massageLabel.text = dict?.comment
             let timestamp = Int(dict?.createdAt ?? "") ?? 0
@@ -207,6 +216,50 @@ extension CommentVC: UITableViewDelegate,UITableViewDataSource{
     
     //MARK: - Table cell actions -
 
+    @objc func imageTapped(sender: UIButton) {
+          // Handle the image tap here
+         
+          let index = sender.tag
+              print("tag value --- ",index)
+              
+              if self.viewModel?.arrCommentList[index].userID == UserDefaultsCustom.getUserData()?.id{
+                  
+//                  let vc = UserProfileVC()
+//                  self.pushViewController(vc, true)
+                  print("Own Profile")
+                  
+              }else{
+                  let vc = OtherUserProfileVC()
+                  vc.userId = self.viewModel?.arrCommentList[index].userID
+                  self.pushViewController(vc, true)
+              }
+              
+         
+      }
+    
+    @objc func replyImageTapped(sender: UIButton) {
+          // Handle the image tap here
+         
+          let section = sender.tag / 1000
+          let index = sender.tag % 1000
+              
+              print("tag section value --- ",section)
+              print("tag index value --- ",index)
+              
+              if self.viewModel?.arrCommentList[section].replyComment[index].userID == UserDefaultsCustom.getUserData()?.id{
+                  
+//                  let vc = UserProfileVC()
+//                  self.pushViewController(vc, true)
+                  print("Own Profile")
+                  
+              }else{
+                  let vc = OtherUserProfileVC()
+                  vc.userId = self.viewModel?.arrCommentList[index].userID
+                  self.pushViewController(vc, true)
+              }
+              
+          
+      }
     
     @objc func actionViewReplys(sender:UIButton){
         

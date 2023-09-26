@@ -19,6 +19,7 @@ class CommentTVCell: UITableViewCell {
     @IBOutlet weak var btnViewReplys: UIButton!
     @IBOutlet weak var imgArrow: UIImageView!
     @IBOutlet weak var lblSeeReply: UILabel!
+    @IBOutlet weak var btnProfileImage: UIButton!
     @IBOutlet weak var heightConsSeeAllReplys: NSLayoutConstraint!
     
     override func awakeFromNib() {

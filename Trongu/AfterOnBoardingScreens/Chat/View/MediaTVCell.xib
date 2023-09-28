@@ -23,8 +23,31 @@
                 <rect key="frame" x="0.0" y="0.0" width="460" height="309"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fvx-c7-cK0">
+                        <rect key="frame" x="215.33333333333334" y="16" width="29.666666666666657" height="13"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hqd-kO-9fp">
+                                <rect key="frame" x="0.0" y="0.0" width="29.666666666666668" height="13"/>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chatProfileImage" translatesAutoresizingMaskIntoConstraints="NO" id="WUU-0w-qa9">
+                        <rect key="frame" x="20" y="31" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="9bG-4E-kBA"/>
+                            <constraint firstAttribute="height" constant="40" id="RuQ-oF-oh6"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="08L-I0-D2M">
-                        <rect key="frame" x="80" y="2" width="360" height="250.33333333333334"/>
+                        <rect key="frame" x="80" y="43.666666666666671" width="360" height="247.33333333333331"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="4mv-X3-F0h">
                                 <rect key="frame" x="0.0" y="0.0" width="360" height="222"/>
@@ -38,7 +61,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="chL-2I-JI5">
                                                         <rect key="frame" x="0.0" y="0.0" width="177.66666666666666" height="110"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ChatImage_1" translatesAutoresizingMaskIntoConstraints="NO" id="JbS-i6-VhI">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ChatImage_1" translatesAutoresizingMaskIntoConstraints="NO" id="JbS-i6-VhI">
                                                                 <rect key="frame" x="0.0" y="0.0" width="177.66666666666666" height="110"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -47,7 +70,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0I7-P6-c11">
-                                                                <rect key="frame" x="63.666666666666657" y="30" width="50" height="50"/>
+                                                                <rect key="frame" x="63.666666666666657" y="30.000000000000007" width="50" height="49.999999999999993"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="D5F-Of-Dwd"/>
                                                                     <constraint firstAttribute="width" constant="50" id="M54-7P-RGl"/>
@@ -69,7 +92,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zy3-v3-DSt">
                                                         <rect key="frame" x="182.66666666666669" y="0.0" width="177.33333333333331" height="110"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ChatImage_2" translatesAutoresizingMaskIntoConstraints="NO" id="KlM-to-vEC">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ChatImage_2" translatesAutoresizingMaskIntoConstraints="NO" id="KlM-to-vEC">
                                                                 <rect key="frame" x="0.0" y="0.0" width="177.33333333333334" height="110"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -106,7 +129,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DXg-rr-Qn0">
                                                         <rect key="frame" x="0.0" y="0.0" width="177.66666666666666" height="107"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ChatImage_3" translatesAutoresizingMaskIntoConstraints="NO" id="Avp-da-dkr">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ChatImage_3" translatesAutoresizingMaskIntoConstraints="NO" id="Avp-da-dkr">
                                                                 <rect key="frame" x="0.0" y="0.0" width="177.66666666666666" height="107"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -126,14 +149,14 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBa-hh-IPm">
                                                         <rect key="frame" x="182.66666666666669" y="0.0" width="177.33333333333331" height="107"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ChatImage_4" translatesAutoresizingMaskIntoConstraints="NO" id="l8g-LL-GfI">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ChatImage_4" translatesAutoresizingMaskIntoConstraints="NO" id="l8g-LL-GfI">
                                                                 <rect key="frame" x="0.0" y="0.0" width="177.33333333333334" height="107"/>
                                                             </imageView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gch-j6-vUt">
                                                                 <rect key="frame" x="0.0" y="0.0" width="177.33333333333334" height="107"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGG-k6-hyE">
-                                                                        <rect key="frame" x="70" y="35" width="37" height="37.333333333333343"/>
+                                                                        <rect key="frame" x="70" y="34.666666666666686" width="37" height="37.333333333333343"/>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="32"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -177,7 +200,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="07:50 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLd-ym-Cmf">
-                                <rect key="frame" x="0.0" y="227" width="360" height="18.333333333333343"/>
+                                <rect key="frame" x="0.0" y="227.00000000000003" width="360" height="15.333333333333343"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                 <color key="textColor" red="0.50588235294117645" green="0.50588235294117645" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -196,17 +219,33 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="08L-I0-D2M" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="F40-YG-rpA"/>
+                    <constraint firstItem="08L-I0-D2M" firstAttribute="top" secondItem="fvx-c7-cK0" secondAttribute="bottom" constant="14.5" id="DaB-fS-iss"/>
+                    <constraint firstItem="fvx-c7-cK0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="LET-bJ-nmj"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="08L-I0-D2M" secondAttribute="bottom" constant="5" id="TH4-Kv-vtr"/>
                     <constraint firstAttribute="trailing" secondItem="08L-I0-D2M" secondAttribute="trailing" constant="20" id="Wso-wa-1xe"/>
-                    <constraint firstItem="08L-I0-D2M" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="80" id="ZO2-Gl-HDU"/>
+                    <constraint firstItem="WUU-0w-qa9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="fwT-kq-gx3"/>
+                    <constraint firstItem="08L-I0-D2M" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="80" id="hmt-1l-Cic"/>
+                    <constraint firstItem="fvx-c7-cK0" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="qmp-cd-Uhz"/>
+                    <constraint firstItem="WUU-0w-qa9" firstAttribute="top" secondItem="fvx-c7-cK0" secondAttribute="bottom" constant="2" id="xlc-R6-A23"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="ForthImageView" destination="aBa-hh-IPm" id="Hcj-vH-Xlj"/>
+                <outlet property="imageWidthConstraint" destination="9bG-4E-kBA" id="0Zi-EI-IuG"/>
+                <outlet property="imgFirst" destination="JbS-i6-VhI" id="9B4-9Z-Zhb"/>
+                <outlet property="imgFour" destination="l8g-LL-GfI" id="jkN-qt-Yjc"/>
+                <outlet property="imgThree" destination="Avp-da-dkr" id="v6z-Ko-1KM"/>
+                <outlet property="imgTwo" destination="KlM-to-vEC" id="peI-0E-bL4"/>
+                <outlet property="lblExtraImagesCount" destination="ZGG-k6-hyE" id="RVX-gZ-MK2"/>
                 <outlet property="playVideoButton" destination="0I7-P6-c11" id="Q8Y-H8-R9m"/>
+                <outlet property="profileImage" destination="WUU-0w-qa9" id="4lC-YR-6qr"/>
+                <outlet property="profileImgTopCons" destination="xlc-R6-A23" id="WVC-FM-g7D"/>
                 <outlet property="secondImageView" destination="Zy3-v3-DSt" id="8Fk-cq-KZu"/>
                 <outlet property="secondView" destination="pFj-a0-d74" id="n10-tN-k2n"/>
+                <outlet property="timeLabel" destination="oLd-ym-Cmf" id="orD-n6-dtl"/>
+                <outlet property="viewLeadingConstraint" destination="hmt-1l-Cic" id="5Mo-Kb-5hb"/>
+                <outlet property="viewTrailingConstraint" destination="Wso-wa-1xe" id="Dki-3h-sHw"/>
             </connections>
             <point key="canvasLocation" x="352.67175572519085" y="63.732394366197184"/>
         </tableViewCell>
@@ -216,6 +255,7 @@
         <image name="ChatImage_2" width="135" height="107"/>
         <image name="ChatImage_3" width="135" height="107"/>
         <image name="ChatImage_4" width="135" height="107"/>
+        <image name="chatProfileImage" width="38" height="38"/>
         <image name="ic_PlayVideo" width="46" height="46"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

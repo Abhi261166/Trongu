@@ -36,12 +36,17 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chatProfileImage" translatesAutoresizingMaskIntoConstraints="NO" id="VVX-xo-vwW">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chatProfileImage" translatesAutoresizingMaskIntoConstraints="NO" id="VVX-xo-vwW">
                                 <rect key="frame" x="15" y="35" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="a0R-q7-WPp"/>
                                     <constraint firstAttribute="height" constant="40" id="iQk-iJ-rFf"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eLD-6J-hX7">
                                 <rect key="frame" x="65" y="35" width="385" height="215"/>

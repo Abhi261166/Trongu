@@ -23,7 +23,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
     @IBOutlet weak var bioTextView: UITextView!
     
     var genderPicker = ["Male","Female"]
-    var ethnicityPicker = ["White","Black","Asian"]
+    var ethnicityPicker = ["American","Australian"]
     let pickerView = UIPickerView()
     var imagePickerController = UIImagePickerController()
     var selectGender = String()
@@ -74,9 +74,9 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
         confirmPasswordTF.text = AppDefaults.password
         addPlaceTF.text = UserDefaultsCustom.getUserData()?.place
         if UserDefaultsCustom.getUserData()?.ethnicity == "1"{
-            ethnicityTF.text = "White"
+            ethnicityTF.text = "American"
         }else if UserDefaultsCustom.getUserData()?.ethnicity == "2"{
-            ethnicityTF.text = "Black"
+            ethnicityTF.text = "Australian"
         }else{
             ethnicityTF.text = "Asian"
         }

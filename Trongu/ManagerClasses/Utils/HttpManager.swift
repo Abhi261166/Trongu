@@ -18,7 +18,7 @@ class HttpManager: HTTPURLResponse {
         var request = URLRequest(url: URL(string: API.host + urlString!)!)
         print(request.url?.absoluteString ?? "")
         request.httpMethod = httpMethod.rawValue
-        request.timeoutInterval = 20
+        request.timeoutInterval = 40
         let accessToken = UserDefaultsCustom.authToken ?? ""
         print("parameters are :-  \(params)")
 //        if accessToken.count > 0 {
@@ -470,7 +470,7 @@ extension HttpManager{
         request.timeoutInterval = 60
         request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
        
-        if  let accessToken = UserDefaultsCustom.getUserData()?.auth_key,
+        if  let accessToken = UserDefaultsCustom.getUserData()?.access_token,
                 accessToken.count > 0 {
             print("\n\n  ************  accessToken:-  ************\n \(accessToken)\n\n")
             request.setValue("Bearer \(accessToken)", forHTTPHeaderField: HttpManager.tokenKey)
@@ -500,7 +500,13 @@ extension HttpManager{
         task.resume()
     }
     
+    
+    
+    
+    
+    
 }
+
 
 
 

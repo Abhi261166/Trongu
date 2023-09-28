@@ -173,6 +173,8 @@
 		18A0F8812A4C322100E34ED6 /* replyCommentTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A0F87F2A4C322100E34ED6 /* replyCommentTVCell.xib */; };
 		18A0F8882A4C4B7300E34ED6 /* LikesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0F8862A4C4B7300E34ED6 /* LikesVC.swift */; };
 		18A0F8892A4C4B7300E34ED6 /* LikesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A0F8872A4C4B7300E34ED6 /* LikesVC.xib */; };
+		18A81A9F2AC451D20053AE70 /* SharePostCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A81A9D2AC451D20053AE70 /* SharePostCVC.swift */; };
+		18A81AA02AC451D20053AE70 /* SharePostCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A81A9E2AC451D20053AE70 /* SharePostCVC.xib */; };
 		18A93F172ABC7770005963FB /* NotificationListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A93F162ABC7770005963FB /* NotificationListVM.swift */; };
 		18A93F192ABC778F005963FB /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A93F182ABC778F005963FB /* NotificationModel.swift */; };
 		18ABC7442AA70DD1004E90F8 /* LikesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ABC7432AA70DD1004E90F8 /* LikesVM.swift */; };
@@ -440,6 +442,8 @@
 		18A0F87F2A4C322100E34ED6 /* replyCommentTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = replyCommentTVCell.xib; sourceTree = "<group>"; };
 		18A0F8862A4C4B7300E34ED6 /* LikesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesVC.swift; sourceTree = "<group>"; };
 		18A0F8872A4C4B7300E34ED6 /* LikesVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikesVC.xib; sourceTree = "<group>"; };
+		18A81A9D2AC451D20053AE70 /* SharePostCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePostCVC.swift; sourceTree = "<group>"; };
+		18A81A9E2AC451D20053AE70 /* SharePostCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SharePostCVC.xib; sourceTree = "<group>"; };
 		18A93F162ABC7770005963FB /* NotificationListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListVM.swift; sourceTree = "<group>"; };
 		18A93F182ABC778F005963FB /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		18ABC7432AA70DD1004E90F8 /* LikesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesVM.swift; sourceTree = "<group>"; };
@@ -1056,6 +1060,8 @@
 				18EF10D22A542E75005D55AB /* MessageTableViewCell.xib */,
 				18EF10D52A542FF7005D55AB /* MediaTVCell.swift */,
 				18EF10D62A542FF7005D55AB /* MediaTVCell.xib */,
+				18A81A9D2AC451D20053AE70 /* SharePostCVC.swift */,
+				18A81A9E2AC451D20053AE70 /* SharePostCVC.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2006,6 +2012,7 @@
 				187B6ABB2A53FE58008E1399 /* SettingsVC.xib in Resources */,
 				1864CA312A4AC64500B94360 /* SignUpVC.xib in Resources */,
 				189EC4BA2A4EE379001E6644 /* MessageTVCell.xib in Resources */,
+				18A81AA02AC451D20053AE70 /* SharePostCVC.xib in Resources */,
 				1886045F2A4EFF0D00387D35 /* ReceiveMessageTVCell.xib in Resources */,
 				1882AFD02A52F3DA006CC3FC /* EditProfileVC.xib in Resources */,
 				1853527A2A4D765500EAC753 /* BucketListVC.xib in Resources */,
@@ -2182,6 +2189,7 @@
 				31CB5E072A67F29B0020E409 /* ForgotPasswordVM.swift in Sources */,
 				18EF10D72A542FF7005D55AB /* MediaTVCell.swift in Sources */,
 				189EC4B02A4EDAF5001E6644 /* PostCVCell.swift in Sources */,
+				18A81A9F2AC451D20053AE70 /* SharePostCVC.swift in Sources */,
 				18E9906B2AC172930070188E /* PostDetailsModel.swift in Sources */,
 				31CB5DC62A67D1BC0020E409 /* UserData.swift in Sources */,
 				31CB5DFA2A67D25F0020E409 /* VideoScrollView.swift in Sources */,
@@ -2468,7 +2476,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2511,7 +2519,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

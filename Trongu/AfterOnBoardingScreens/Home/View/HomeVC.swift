@@ -30,6 +30,30 @@ class HomeVC: UIViewController {
         homeTableView.dataSource = self
         homeTableView.register(UINib(nibName: "HomeTVCell", bundle: nil), forCellReuseIdentifier: "HomeTVCell")
         setViewModel()
+        
+        if comeFromFilter{
+            
+            print("Come from filter")
+            
+        }else{
+            
+            if comeFrom{
+                btnBack.isHidden = false
+                stackView.isHidden = true
+                imgLogo.isHidden = true
+                lblTitle.isHidden = false
+                self.viewModel?.arrPostList = self.arrPostList
+                homeTableView.scrollToRow(at: self.index!, at: .top, animated: false)
+                
+            }else{
+                btnBack.isHidden = true
+                stackView.isHidden = false
+                imgLogo.isHidden = false
+                lblTitle.isHidden = true
+                apiCall()
+            }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,7 +80,7 @@ class HomeVC: UIViewController {
                 stackView.isHidden = false
                 imgLogo.isHidden = false
                 lblTitle.isHidden = true
-                apiCall()
+              //  apiCall()
             }
         }
         

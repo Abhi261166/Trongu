@@ -55,7 +55,10 @@ extension MessageVC: UITableViewDelegate,UITableViewDataSource{
         cell.profileImage.setImage(image: dict?.userImage,placeholder: UIImage(named: "ic_profilePlaceHolder"))
         cell.nameLabel.text = dict?.userName
         cell.messageLabel.text = dict?.lastMessage
-        cell.timeLabel.text = dict?.lastMessageTime
+        
+        let timestamp = Int(dict?.lastMessageTime ?? "") ?? 0
+        let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
+        cell.timeLabel.text = date.timeAgoSinceDate()
         
         if dict?.badgeCount == "0"{
             

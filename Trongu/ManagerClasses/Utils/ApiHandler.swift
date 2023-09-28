@@ -240,7 +240,7 @@ extension ApiHandler{
                     if(isSucceeded){
                         if let status = response["status"] as? Int {
                             switch(status) {
-                            case 1:
+                            case 200:
                                 receivedResponse(true, response, data)
                             case API.statusCodes.INVALID_ACCESS_TOKEN:
                                 Singleton.shared.showErrorMessage(error: AlertMessage.INVALID_ACCESS_TOKEN, isError: .error)

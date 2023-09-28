@@ -88,6 +88,9 @@ class API {
         // Chat Apis
         static let createRoom             = "j1/trongu/api/v1/users/create-room"
         static let getAllChatUsers        = "j1/trongu/api/v1/users/get-all-chat-users"
+        static let getAllChat             = "j1/trongu/api/v1/users/get-all-chat-message"
+        static let sendMessage            = "j1/trongu/api/v1/users/send-message"
+        static let updateSeen             = "j1/trongu/api/v1/users/update-chat-status"
         
     }
     

@@ -144,6 +144,7 @@ PODS:
   - Starscream (3.1.1)
   - SteviaLayout (4.7.3)
   - SweeterSwift (1.2.1)
+  - Swifter (2.5.0)
   - YPImagePicker (4.5.0):
     - PryntTrimmerView (~> 4.0.2)
     - SteviaLayout (~> 4.7.3)
@@ -162,6 +163,7 @@ DEPENDENCIES:
   - MultiSlider
   - SDWebImage
   - Socket.IO-Client-Swift (~> 15.1.0)
+  - Swifter (from `https://github.com/mattdonnelly/Swifter.git`)
   - YPImagePicker
 
 SPEC REPOS:
@@ -201,6 +203,15 @@ SPEC REPOS:
     - SweeterSwift
     - YPImagePicker
 
+EXTERNAL SOURCES:
+  Swifter:
+    :git: https://github.com/mattdonnelly/Swifter.git
+
+CHECKOUT OPTIONS:
+  Swifter:
+    :commit: f6888d61500f46ca6d1814fe2624056339eda986
+    :git: https://github.com/mattdonnelly/Swifter.git
+
 SPEC CHECKSUMS:
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
   AvailableHapticFeedback: 9b21b9f6d3e4566015988b5de35b40abefe6c09a
@@ -235,8 +246,9 @@ SPEC CHECKSUMS:
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
   SweeterSwift: 61baeda1c0c27d1dc57c8112c3d6a82e5aff3139
+  Swifter: 4c2f8cf320c2f751c10128f841d8e9bd8609d988
   YPImagePicker: 6f410f475bd22fa8cd430495b54d4b2f15865c2d
 
-PODFILE CHECKSUM: c464fc68dc377165458ecc8ac5dce3ec8b2a9ce8
+PODFILE CHECKSUM: b68cff39cbdcd39f05629bee1c3fe107e0f59894
 
 COCOAPODS: 1.11.3

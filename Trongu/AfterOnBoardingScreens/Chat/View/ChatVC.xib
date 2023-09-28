@@ -212,11 +212,6 @@
             <point key="canvasLocation" x="130.53435114503816" y="-11.267605633802818"/>
         </view>
     </objects>
-    <designables>
-        <designable name="Sbh-nB-h68">
-            <size key="intrinsicContentSize" width="-1" height="30"/>
-        </designable>
-    </designables>
     <resources>
         <image name="chatProfileImage" width="38" height="38"/>
         <image name="ic_Back" width="18.333333969116211" height="18"/>

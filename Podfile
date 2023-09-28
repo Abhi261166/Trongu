@@ -24,6 +24,7 @@ pod 'FacebookCore'
 pod 'FacebookLogin'
 pod 'FacebookShare'
 pod 'GoogleMaps'
+pod 'Swifter', :git => "https://github.com/mattdonnelly/Swifter.git"
 
  post_install do |installer|
      installer.pods_project.targets.each do |target|

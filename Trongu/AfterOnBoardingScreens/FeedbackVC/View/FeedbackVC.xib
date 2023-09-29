@@ -19,6 +19,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FeedbackVC" customModule="Trongu" customModuleProvider="target">
             <connections>
+                <outlet property="btnSendFeedback" destination="VOs-kK-Thj" id="Wko-DP-ez8"/>
+                <outlet property="txtFldFeedBackType" destination="d83-J6-sL2" id="ak7-Js-qxW"/>
+                <outlet property="txtVwFeedback" destination="bPa-7e-Jqi" id="TLa-QH-MCg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -131,7 +134,7 @@
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RH1-Gs-9Pc">
-                                            <rect key="frame" x="20" y="127.66666666666667" width="350" height="242.66666666666657"/>
+                                            <rect key="frame" x="20" y="127.66666666666667" width="350" height="242.66666666666663"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type your feedback here...." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gTF-96-tw9">
                                                     <rect key="frame" x="0.0" y="0.0" width="211.66666666666666" height="22.666666666666668"/>
@@ -210,7 +213,7 @@
                                                 <action selector="sendFeedbackAction:" destination="-1" eventType="touchUpInside" id="wKQ-16-0Wl"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem Ipsum is simply a dummy text for typetesting." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vTH-2M-YwM">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem Ipsum is simply a dummy text for typetesting." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vTH-2M-YwM">
                                             <rect key="frame" x="20" y="465.33333333333337" width="350" height="18.333333333333314"/>
                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                             <color key="textColor" red="0.63137254901960782" green="0.63137254901960782" blue="0.63137254901960782" alpha="1" colorSpace="calibratedRGB"/>
@@ -271,9 +274,14 @@
             <point key="canvasLocation" x="130.53435114503816" y="-11.267605633802818"/>
         </view>
     </objects>
+    <designables>
+        <designable name="bPa-7e-Jqi">
+            <size key="intrinsicContentSize" width="-1" height="30"/>
+        </designable>
+    </designables>
     <resources>
         <image name="FilterDropdown" width="18.333333969116211" height="9"/>
-        <image name="ic_Back" width="24" height="24"/>
+        <image name="ic_Back" width="18.333333969116211" height="18"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

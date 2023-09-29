@@ -28,8 +28,9 @@ class ChatVC: UIViewController {
     var clickedImage:UIImage?
     var click_Image_Data: Data?
     var timeFormat = "hh:mm a"
-    
+    var firstTimeLoadCell: Bool = true
     var comeFrom:String?
+    var postId:String?
     
     init(roomId: String, otherUserName:String, otherUserId:String, otherUserProfileImage: String) {
         super.init(nibName: nil, bundle: nil)
@@ -110,6 +111,10 @@ class ChatVC: UIViewController {
         self.imgProfile.setImage(image: self.viewModel?.otherUserProfile,placeholder: UIImage(named: "ic_profilePlaceHolder"))
         self.lblName.text = self.viewModel?.otherUserName
         
+        if comeFrom == "SharePost"{
+            self.viewModel?.apiSendMessages(message: "", type: 4, sender: UIButton(), postId: self.postId ?? "")
+        }
+        
     }
     
     @IBAction func backAction(_ sender: UIButton) {
@@ -137,7 +142,7 @@ class ChatVC: UIViewController {
         }
         let message = (txtVwMessage.text ?? "").trim
             guard message.count > 0 else { return }
-        self.viewModel?.apiSendMessages(message: message, type: 1, sender: sender)
+        self.viewModel?.apiSendMessages(message: message, type: 1, sender: sender, postId: "")
         
     }
     
@@ -169,7 +174,14 @@ extension ChatVC: ImagePickerDelegate {
         print("post images are ******** \(postImages.count)")
         self.viewModel?.imageData = postImages
         
-        self.viewModel?.apiSendMessagesWithImges(type: 2, sender: UIButton())
+        if postImages.first?.fileName?.isImageType == false{
+            
+            self.viewModel?.apiSendMessagesWithImges(type: 3, sender: UIButton())
+            
+        }else{
+            self.viewModel?.apiSendMessagesWithImges(type: 2, sender: UIButton())
+        }
+        
         
     }
     
@@ -231,9 +243,14 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     cell.viewTrailingConstraint.constant = 20
                     cell.imageWidthConstraint.constant = 0
                     cell.profileImage.isHidden = true
-                    cell.headerStackView.isHidden = true
                     cell.messageBGView.backgroundColor = .orange
                     
+                }
+                
+                if indexPath.row == 0 {
+                cell.setDate(currentDate: dict?.createdAt, previousDate: nil)
+                }else{
+                    cell.setDate(currentDate: dict?.createdAt, previousDate:  self.viewModel?.chatHistory[indexPath.row - 1].createdAt)
                 }
                 
                 let date = Date(timeIntervalSince1970: TimeInterval(dict?.createdAt ?? "") ?? 0.0)
@@ -260,7 +277,9 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                         cell.ForthImageView.isHidden = true
                     case 4:
                         cell.playVideoButton.isHidden = true
+                        cell.lblExtraImagesCount.isHidden = true
                     case 5:
+                        cell.lblExtraImagesCount.isHidden = false
                         cell.playVideoButton.isHidden = true
                         cell.lblExtraImagesCount.text = "\((dict?.images.count ?? 0) - 1)"
                     default:
@@ -305,8 +324,10 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                         cell.ForthImageView.isHidden = true
                     case 4:
                         cell.playVideoButton.isHidden = true
+                        cell.lblExtraImagesCount.isHidden = true
                     case 5:
                         cell.playVideoButton.isHidden = true
+                        cell.lblExtraImagesCount.isHidden = false
                         cell.lblExtraImagesCount.text = "\((dict?.images.count ?? 0) - 1)"
                     default:
                         break
@@ -335,6 +356,12 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     cell.imageWidthConstraint.constant = 0
                     cell.profileImage.isHidden = true
                     
+                }
+                
+                if indexPath.row == 0 {
+                cell.setDate(currentDate: dict?.createdAt, previousDate: nil)
+                }else{
+                    cell.setDate(currentDate: dict?.createdAt, previousDate:  self.viewModel?.chatHistory[indexPath.row - 1].createdAt)
                 }
                 
                 let date = Date(timeIntervalSince1970: TimeInterval(dict?.createdAt ?? "") ?? 0.0)
@@ -376,13 +403,13 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                         
                         switch i {
                         case 0:
-                            cell.imgFirst.setImage(image: dict?.images[i].image)
+                            cell.imgFirst.setImage(image: dict?.videos[i].thumbnailImage)
                         case 1:
-                            cell.imgTwo.setImage(image: dict?.images[i].image)
+                            cell.imgTwo.setImage(image: dict?.videos[i].thumbnailImage)
                         case 2:
-                            cell.imgThree.setImage(image: dict?.images[i].image)
+                            cell.imgThree.setImage(image: dict?.videos[i].thumbnailImage)
                         case 3:
-                            cell.imgFour.setImage(image: dict?.images[i].image)
+                            cell.imgFour.setImage(image: dict?.videos[i].thumbnailImage)
                         default:
                             break
                         }
@@ -392,13 +419,12 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     cell.profileImage.isHidden = false
                     cell.viewLeadingConstraint.constant = 10
                     cell.viewTrailingConstraint.constant = 80
-                    
                    
                 }else{
                    
                     switch dict?.videos.count {
                     case 1:
-                        cell.playVideoButton.isHidden = true
+                        cell.playVideoButton.isHidden = false
                         cell.secondImageView.isHidden = true
                         cell.secondView.isHidden = true
                     case 2:
@@ -420,13 +446,13 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                         
                         switch i {
                         case 0:
-                            cell.imgFirst.setImage(image: dict?.images[i].image)
+                            cell.imgFirst.setImage(image: dict?.videos[i].thumbnailImage)
                         case 1:
-                            cell.imgTwo.setImage(image: dict?.images[i].image)
+                            cell.imgTwo.setImage(image: dict?.videos[i].thumbnailImage)
                         case 2:
-                            cell.imgThree.setImage(image: dict?.images[i].image)
+                            cell.imgThree.setImage(image: dict?.videos[i].thumbnailImage)
                         case 3:
-                            cell.imgFour.setImage(image: dict?.images[i].image)
+                            cell.imgFour.setImage(image: dict?.videos[i].thumbnailImage)
                         default:
                             break
                         }
@@ -438,6 +464,12 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     cell.imageWidthConstraint.constant = 0
                     cell.profileImage.isHidden = true
                     
+                }
+                
+                if indexPath.row == 0 {
+                cell.setDate(currentDate: dict?.createdAt, previousDate: nil)
+                }else{
+                    cell.setDate(currentDate: dict?.createdAt, previousDate:  self.viewModel?.chatHistory[indexPath.row - 1].createdAt)
                 }
                 
                 let date = Date(timeIntervalSince1970: TimeInterval(dict?.createdAt ?? "") ?? 0.0)
@@ -485,6 +517,12 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     cell.profileImage.isHidden = true
                 }
                 
+                if indexPath.row == 0 {
+                cell.setDate(currentDate: dict?.createdAt, previousDate: nil)
+                }else{
+                    cell.setDate(currentDate: dict?.createdAt, previousDate:  self.viewModel?.chatHistory[indexPath.row - 1].createdAt)
+                }
+                
                 let date = Date(timeIntervalSince1970: TimeInterval(dict?.createdAt ?? "") ?? 0.0)
                 print(date)
                 cell.timeLabel.text = date.dateToString(format: timeFormat)
@@ -497,9 +535,42 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
             
         }
         
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        guard self.viewModel?.pageCompleted == false else {return}
+        guard self.viewModel?.updating == false else {return}
+        guard self.firstTimeLoadCell == false else {
+            self.firstTimeLoadCell = false
+            return}
+        if indexPath.row == 0 {
+            self.checkHeaderAnimation(row: indexPath.row)
+            print("pageNo---",self.viewModel?.page_no ?? 0)
+            self.viewModel?.apiListMessages()
+        }
+        
+    }
+    
         func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
             return UITableView.automaticDimension
         }
+    
+    func checkHeaderAnimation(row: Int) {
+        guard self.viewModel?.pageCompleted == false else {return}
+        if row == 0 {
+            self.chatTableView.tableHeaderView = self.activityHeaderView()
+        } else {
+            self.chatTableView.tableHeaderView = nil
+        }
+    }
+    
+    func activityHeaderView() -> UIView {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_SIZE.width, height: 60))
+        let activityIndigator = UIActivityIndicatorView(style: .medium)
+        activityIndigator.frame = CGRect(x: 0, y: 15, width: SCREEN_SIZE.width, height: 30)
+        activityIndigator.startAnimating()
+        headerView.addSubview(activityIndigator)
+        return headerView
+    }
     
     }
 
@@ -559,9 +630,8 @@ extension ChatVC:ChatVMObserver{
         print("send message is \(json) ***** \(self.socketton == nil)")
         socketton?.sendMessage(json, roomId: self.viewModel?.roomId ?? "")
         self.chatTableView.tableHeaderView = nil
-        
+        self.comeFrom = ""
     }
-    
     
     func observerListMessages() {
         
@@ -570,12 +640,28 @@ extension ChatVC:ChatVMObserver{
         scrollToBottom(isScrolled: true)
     }
     
-    func observerRemoveHeader() {
+    func observerPreviousMessages(indexPaths:[IndexPath]) {
         
+//        chatTable.beginUpdates()
+//        chatTable.insertRows(at: indexPaths, with: .top)
+//        chatTable.endUpdates()
+        
+        firstTimeLoadCell = true
+        chatTableView.reloadData()
+        if indexPaths.count > 1 {
+            let last = indexPaths[indexPaths.count-1]
+            chatTableView.scrollToRow(at: last, at: .top, animated: false)
+            firstTimeLoadCell = false
+        } else
+        if let last = indexPaths.last {
+            chatTableView.scrollToRow(at: last, at: .top, animated: false)
+            firstTimeLoadCell = false
+        }
+        chatTableView.tableHeaderView = nil
     }
     
-    func observerPreviousMessages(indexPaths: [IndexPath]) {
-        
+    func observerRemoveHeader() {
+        chatTableView.tableHeaderView = nil
     }
     
     

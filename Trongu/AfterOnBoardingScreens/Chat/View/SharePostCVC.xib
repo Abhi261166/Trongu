@@ -47,10 +47,10 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="62N-bs-c6j">
-                        <rect key="frame" x="80" y="55.666666666666671" width="263" height="246.33333333333331"/>
+                        <rect key="frame" x="70" y="55.666666666666671" width="273" height="246.33333333333331"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Abhi260116" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YkK-VB-5pV">
-                                <rect key="frame" x="70" y="26.000000000000007" width="173" height="28"/>
+                                <rect key="frame" x="70" y="26.000000000000007" width="183" height="28"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -68,16 +68,19 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ChatImage_1" translatesAutoresizingMaskIntoConstraints="NO" id="BJp-WK-QDf">
-                                <rect key="frame" x="0.0" y="75" width="263" height="107"/>
+                                <rect key="frame" x="0.0" y="75" width="273" height="107"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="107" id="g0n-wh-xxQ"/>
+                                </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Descreiption" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aib-Jh-IPE">
-                                <rect key="frame" x="15" y="187" width="228" height="21"/>
+                                <rect key="frame" x="15" y="187" width="238" height="21"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="07:50 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lcw-1B-vJa">
-                                <rect key="frame" x="0.0" y="213.00000000000003" width="248" height="18.333333333333343"/>
+                                <rect key="frame" x="0.0" y="213.00000000000003" width="258" height="18.333333333333343"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                 <color key="textColor" red="0.50588235290000005" green="0.50588235290000005" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -109,7 +112,7 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="62N-bs-c6j" firstAttribute="leading" relation="lessThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="80" id="E6f-nO-10y"/>
+                    <constraint firstItem="62N-bs-c6j" firstAttribute="leading" secondItem="m4o-rV-cpm" secondAttribute="trailing" constant="10" id="E6f-nO-10y"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="62N-bs-c6j" secondAttribute="bottom" id="JoY-5E-IrH"/>
                     <constraint firstItem="Rs5-vT-c1U" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="NaM-Rz-cEt"/>
                     <constraint firstItem="m4o-rV-cpm" firstAttribute="top" secondItem="Rs5-vT-c1U" secondAttribute="bottom" constant="2" id="PU9-5Y-e3m"/>
@@ -124,10 +127,13 @@
                 <outlet property="imageWidthConstraint" destination="PAh-N0-t9n" id="V55-rK-Gds"/>
                 <outlet property="imgPostFirstImage" destination="BJp-WK-QDf" id="emQ-wa-6wE"/>
                 <outlet property="imgPostUserImage" destination="g3b-rn-m0R" id="jb3-rC-VAM"/>
+                <outlet property="lblCurrentTime" destination="npI-Yb-bzB" id="ZWc-CV-9Qw"/>
                 <outlet property="lblPostDesc" destination="aib-Jh-IPE" id="2SH-KZ-yAk"/>
                 <outlet property="lblUserName" destination="YkK-VB-5pV" id="u9D-pF-bZz"/>
                 <outlet property="profileImage" destination="m4o-rV-cpm" id="XZM-2K-xoo"/>
                 <outlet property="profileImgTopCons" destination="PU9-5Y-e3m" id="eNu-KM-xkB"/>
+                <outlet property="stackViewBottomCons" destination="g38-Pw-wOv" id="adM-x4-XmU"/>
+                <outlet property="stackViewTime" destination="Rs5-vT-c1U" id="Yfs-9i-iIp"/>
                 <outlet property="timeLabel" destination="lcw-1B-vJa" id="dsg-UG-tEB"/>
                 <outlet property="viewLeadingConstraint" destination="E6f-nO-10y" id="c1B-y9-sOd"/>
                 <outlet property="viewTrailingConstraint" destination="SGb-Hl-dXc" id="dyh-Rn-iwX"/>

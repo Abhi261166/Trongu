@@ -334,8 +334,9 @@ extension HomeVC: HomeTVCellDelegate{
     
     func didTapShare(_ indexPath: IndexPath) {
         let vc = ShareProfilePopUpVC()
+        vc.postid = self.viewModel?.arrPostList[indexPath.row].id
+        vc.controller = self
         vc.hidesBottomBarWhenPushed = true
-       // vc.gbView?.backgroundColor = .gray
         vc.modalPresentationStyle = .overFullScreen
         self.present(vc, true)
     }

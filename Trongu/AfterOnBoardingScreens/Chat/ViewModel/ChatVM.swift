@@ -29,8 +29,8 @@ class ChatVM: NSObject {
     var otherUserName: String = ""
     var otherUserId: String = ""
     var roomId: String = ""
-    var page_no: Int = 0
-    var per_page: Int = 30
+    var page_no = 0
+    var per_page = 10
     var isLoadingMesssages: Bool = false
     var chatHistory = [MessageDetails]()
     var recieverDetails: UserData?
@@ -151,7 +151,7 @@ class ChatVM: NSObject {
                                 let indexPaths = messages.enumerated().map({IndexPath(row: $0.offset, section: 0)})
                                 self.observer?.observerPreviousMessages(indexPaths: indexPaths)
                             }
-                   
+                        
                     }
                 } else {
                     self.showMessage(message: response["message"] as? String ?? "" , isError: .error)
@@ -162,11 +162,12 @@ class ChatVM: NSObject {
     }
     
     
-    func apiSendMessages(message: String,type:Int,sender: UIButton) {
+    func apiSendMessages(message: String,type:Int,sender: UIButton,postId:String) {
        var params = JSON()
         params["message"] = message
         params["type"] = type
         params["room_id"] = self.roomId
+        params["post_id"] = postId
         print("params : ", params)
      
 //        add loader
@@ -196,9 +197,11 @@ class ChatVM: NSObject {
         
         print("Params in SearchUsers screen:-  \(params)")
         print("imageData in SearchUsers screen:-  \(imageData)")
-        
+        //show loder
+        ActivityIndicator.shared.showActivityIndicator()
         ApiHandler.uploadPost(key: "image_id", apiName: API.Name.sendMessage, dataArray: self.imageData, imgs_deleted: [], imageKey: ["uploads"], params: params) { succeeded, response, data in
-            
+            //hide loder
+        ActivityIndicator.shared.hideActivityIndicator()
             DispatchQueue.main.async {
                 sender.isUserInteractionEnabled = true
                 print("api responce in SendMessagesWithImges screen : \(response)")

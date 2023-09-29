@@ -6,15 +6,23 @@
 //
 
 import UIKit
+import GrowingTextView
 
 class FeedbackVC: UIViewController {
 
+    
+    @IBOutlet weak var btnSendFeedback: UIButton!
+    @IBOutlet weak var txtFldFeedBackType: UITextField!
+    @IBOutlet weak var txtVwFeedback: GrowingTextView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
        
     }
 
+    
     @IBAction func backAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }

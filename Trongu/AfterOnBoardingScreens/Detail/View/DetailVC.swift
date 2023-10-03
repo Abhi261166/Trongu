@@ -31,6 +31,7 @@ class DetailVC: UIViewController {
     var comeFrom = ""
     var postDetails:Post?
     var postIdFromApi = ""
+    var completion : (() -> Void)? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,7 +92,12 @@ class DetailVC: UIViewController {
     }
     
     @IBAction func backAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        
+        if let completion = completion{
+            popVC()
+            completion()
+        }
+       
     }
     
     @IBAction func sideMenuAction(_ sender: UIButton) {

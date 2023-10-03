@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VideoTrimmerVC" customModule="Clout_Lyfe" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VideoTrimmerVC" customModule="Trongu" customModuleProvider="target">
             <connections>
                 <outlet property="endTimeLabel" destination="nU1-Pk-0lK" id="e4j-qe-fPq"/>
                 <outlet property="playButton" destination="633-Sg-soQ" id="7Jd-bD-AO2"/>
@@ -26,13 +27,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rMT-n1-fh1" userLabel="Player View">
-                    <rect key="frame" x="0.0" y="54" width="414" height="634"/>
+                    <rect key="frame" x="0.0" y="58" width="414" height="686"/>
                     <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CTH-Av-xHa" customClass="TrimmerView" customModule="Clout_Lyfe" customModuleProvider="target">
-                    <rect key="frame" x="44" y="718" width="326" height="56"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CTH-Av-xHa" customClass="TrimmerView" customModule="Trongu" customModuleProvider="target">
+                    <rect key="frame" x="44" y="774" width="326" height="0.0"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="56" id="0Iw-k1-0l1"/>
+                        <constraint firstAttribute="height" id="0Iw-k1-0l1"/>
                     </constraints>
                 </view>
                 <view alpha="0.80000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZc-k2-M6F" userLabel="Bottom View">
@@ -52,8 +53,8 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RNQ-uQ-iQv" userLabel="Select Asset Button">
                             <rect key="frame" x="322" y="7" width="62" height="30"/>
-                            <state key="normal" title="Trim">
-                                <color key="titleColor" systemColor="linkColor"/>
+                            <state key="normal" title="Send">
+                                <color key="titleColor" name="OrengeAppColour"/>
                             </state>
                             <connections>
                                 <action selector="trimAction:" destination="-1" eventType="touchUpInside" id="v5e-Hh-wN7"/>
@@ -66,7 +67,7 @@
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="Cancel">
-                                <color key="titleColor" systemColor="linkColor"/>
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
                                 <action selector="dismissAction:" destination="-1" eventType="touchUpInside" id="4m8-3h-vTe"/>
@@ -87,13 +88,19 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xla-f1-7Pq">
-                    <rect key="frame" x="44" y="697" width="41.5" height="18"/>
+                    <rect key="frame" x="44" y="771" width="41.5" height="0.0"/>
+                    <constraints>
+                        <constraint firstAttribute="height" id="1Or-cv-fbx"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nU1-Pk-0lK">
-                    <rect key="frame" x="328.5" y="697" width="41.5" height="18"/>
+                    <rect key="frame" x="328.5" y="771" width="41.5" height="0.0"/>
+                    <constraints>
+                        <constraint firstAttribute="height" id="V7j-jT-fp3"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -122,6 +129,9 @@
         </view>
     </objects>
     <resources>
+        <namedColor name="OrengeAppColour">
+            <color red="0.92941176470588238" green="0.5725490196078431" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

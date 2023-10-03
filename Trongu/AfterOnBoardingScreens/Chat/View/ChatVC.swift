@@ -8,6 +8,8 @@
 import UIKit
 import IQKeyboardManager
 import GrowingTextView
+import AVFoundation
+import AVKit
 
 class ChatVC: UIViewController {
 
@@ -31,6 +33,7 @@ class ChatVC: UIViewController {
     var firstTimeLoadCell: Bool = true
     var comeFrom:String?
     var postId:String?
+    var isCallChatListApi = true
     
     init(roomId: String, otherUserName:String, otherUserId:String, otherUserProfileImage: String) {
         super.init(nibName: nil, bundle: nil)
@@ -57,7 +60,7 @@ class ChatVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         txtVwMessage.delegate = self
-       
+        setViewModel()
         self.chatTableView.delegate = self
         self.chatTableView.dataSource = self
         self.chatTableView.register(UINib(nibName: "MessageTableViewCell", bundle: nil), forCellReuseIdentifier: "MessageTableViewCell")
@@ -71,7 +74,7 @@ class ChatVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         IQKeyboardManager.shared().isEnabled = false
-        setViewModel()
+        apiCall()
         keyboard = KeyboardVM()
         keyboard?.setKeyboardNotification(self)
         setSocket()
@@ -85,12 +88,20 @@ class ChatVC: UIViewController {
 
     
     func setViewModel(){
-        
-        setuserData()
+               
         if self.viewModel == nil {
             self.viewModel = ChatVM(observer: self)
         }
-        self.viewModel?.getAllMessageList()
+        
+    }
+    
+    func apiCall(){
+        setuserData()
+        if isCallChatListApi{
+            self.viewModel?.chatHistory = []
+            self.viewModel?.getAllMessageList()
+        }
+        
     }
     
     
@@ -176,7 +187,7 @@ extension ChatVC: ImagePickerDelegate {
         
         if postImages.first?.fileName?.isImageType == false{
             
-            self.viewModel?.apiSendMessagesWithImges(type: 3, sender: UIButton())
+            self.viewModel?.apiSendMessagesWithVideo(type: 3, sender: UIButton())
             
         }else{
             self.viewModel?.apiSendMessagesWithImges(type: 2, sender: UIButton())
@@ -192,6 +203,14 @@ extension ChatVC: ImagePickerDelegate {
             }
             print("id is **** \(pickerData.id)")
             self.viewModel?.imageData.append(pickerData)
+            
+            if self.viewModel?.imageData.first?.fileName?.isImageType == false{
+                
+                self.viewModel?.apiSendMessagesWithVideo(type: 3, sender: UIButton())
+                
+            }else{
+                self.viewModel?.apiSendMessagesWithImges(type: 2, sender: UIButton())
+            }
 
         }
     }
@@ -535,6 +554,56 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
             
         }
         
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let dict = self.viewModel?.chatHistory[indexPath.row]
+        
+        let type = Int(dict?.type ?? "")
+        
+        switch type {
+        case 1:
+            print("Message Type")
+        case 2:
+            print("Image Type")
+            let vc = PhotosDetailsVC()
+          
+            vc.completion = {
+                self.isCallChatListApi = false
+            }
+            
+            vc.arrPhotos = dict?.images ?? []
+            self.pushViewController(vc, true)
+            
+        case 3:
+            print("Video Type")
+            let videoURL = URL(string: dict?.videos.first?.video ?? "")
+            let player = AVPlayer(url: videoURL!)
+            let playerViewController = AVPlayerViewController()
+            playerViewController.player = player
+            present(playerViewController, animated: true) {
+                player.play()
+            }
+            
+        case 4:
+            print("Post Type")
+            let vc = DetailVC()
+            
+            vc.completion = {
+                self.isCallChatListApi = false
+            }
+            
+            vc.comeFrom = "bucket"
+            vc.postId = dict?.postID
+            self.pushViewController(vc, true)
+            
+        default:
+            break
+        }
+        
+    }
+    
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         guard self.viewModel?.pageCompleted == false else {return}
@@ -545,7 +614,7 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
         if indexPath.row == 0 {
             self.checkHeaderAnimation(row: indexPath.row)
             print("pageNo---",self.viewModel?.page_no ?? 0)
-            self.viewModel?.apiListMessages()
+            self.viewModel?.getAllMessageList()
         }
         
     }
@@ -616,6 +685,7 @@ extension ChatVC:ChatVMObserver{
         keyboard = nil
         viewModel?.observer = nil
         viewModel = nil
+        self.isCallChatListApi = true
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -634,7 +704,7 @@ extension ChatVC:ChatVMObserver{
     }
     
     func observerListMessages() {
-        
+        isCallChatListApi = false
         chatTableView.reloadData()
         chatTableView.tableHeaderView = nil
         scrollToBottom(isScrolled: true)

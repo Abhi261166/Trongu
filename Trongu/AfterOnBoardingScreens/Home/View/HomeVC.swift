@@ -499,9 +499,10 @@ extension HomeVC:HomeVMObserver{
 extension HomeVC:TabBarRefreshDel {
     func scrollToTopRefresh () {
        
-        let indexPath = IndexPath(row: 0, section: 0)
-        self.homeTableView?.scrollToRow(at: indexPath, at: .top, animated: false)
-          
+        if (self.viewModel?.arrPostList.count ?? 0) > 0{
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.homeTableView?.scrollToRow(at: indexPath, at: .top, animated: false)
+        }
         self.apiCall()
         
     }

@@ -72,7 +72,7 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0I7-P6-c11">
+                                                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0I7-P6-c11">
                                                                 <rect key="frame" x="66.333333333333343" y="29.999999999999993" width="50" height="50.000000000000007"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="D5F-Of-Dwd"/>

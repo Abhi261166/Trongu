@@ -26,10 +26,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="530" height="270"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HQE-lZ-glw">
-                                <rect key="frame" x="250.5" y="5" width="29.5" height="13"/>
+                                <rect key="frame" x="248" y="5" width="34.5" height="15.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="70O-wJ-IAB">
-                                        <rect key="frame" x="0.0" y="0.0" width="29.5" height="13"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="34.5" height="15.5"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="11"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -52,7 +52,7 @@
                                 <rect key="frame" x="65" y="35" width="385" height="215"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mY7-0p-fDl">
-                                        <rect key="frame" x="20" y="10" width="325" height="35"/>
+                                        <rect key="frame" x="20" y="10" width="325" height="42"/>
                                         <string key="text">Hey, How are you.
 where are you Going</string>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="15"/>
@@ -60,7 +60,7 @@ where are you Going</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="07:14 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KtX-Xl-wsQ">
-                                        <rect key="frame" x="20" y="48" width="350" height="15.5"/>
+                                        <rect key="frame" x="20" y="55" width="350" height="18.5"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                         <color key="textColor" red="0.50588235294117645" green="0.50588235294117645" blue="0.51764705882352935" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -85,13 +85,13 @@ where are you Going</string>
                         </subviews>
                         <constraints>
                             <constraint firstItem="VVX-xo-vwW" firstAttribute="top" secondItem="lkY-tM-tzs" secondAttribute="top" constant="35" id="5ff-Xf-2hu"/>
+                            <constraint firstItem="eLD-6J-hX7" firstAttribute="top" secondItem="HQE-lZ-glw" secondAttribute="bottom" constant="14.5" id="8J5-co-WXy"/>
                             <constraint firstItem="HQE-lZ-glw" firstAttribute="centerX" secondItem="lkY-tM-tzs" secondAttribute="centerX" id="F35-3M-24V"/>
                             <constraint firstAttribute="bottom" secondItem="eLD-6J-hX7" secondAttribute="bottom" constant="20" id="Jdg-L4-HOu"/>
                             <constraint firstItem="HQE-lZ-glw" firstAttribute="top" secondItem="lkY-tM-tzs" secondAttribute="top" constant="5" id="R0O-FC-iYy"/>
                             <constraint firstItem="eLD-6J-hX7" firstAttribute="leading" secondItem="VVX-xo-vwW" secondAttribute="trailing" constant="10" id="XRG-I9-bgK"/>
                             <constraint firstItem="VVX-xo-vwW" firstAttribute="leading" secondItem="lkY-tM-tzs" secondAttribute="leading" constant="15" id="YrJ-DO-vP5"/>
                             <constraint firstAttribute="trailing" secondItem="eLD-6J-hX7" secondAttribute="trailing" constant="80" id="pdo-m7-EHU"/>
-                            <constraint firstItem="eLD-6J-hX7" firstAttribute="top" secondItem="VVX-xo-vwW" secondAttribute="top" id="vaQ-Ko-jc3"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -112,6 +112,7 @@ where are you Going</string>
                 <outlet property="messageLabel" destination="mY7-0p-fDl" id="4JN-jM-TVi"/>
                 <outlet property="profileImage" destination="VVX-xo-vwW" id="qCe-fh-Ig5"/>
                 <outlet property="profileImgTopCons" destination="5ff-Xf-2hu" id="l8C-jX-W5g"/>
+                <outlet property="stackViewBottomCons" destination="8J5-co-WXy" id="n92-Nt-9el"/>
                 <outlet property="timeLabel" destination="KtX-Xl-wsQ" id="HGj-ni-Ecg"/>
                 <outlet property="viewLeadingConstraint" destination="XRG-I9-bgK" id="4v2-80-wd7"/>
                 <outlet property="viewTrailingConstraint" destination="pdo-m7-EHU" id="xoJ-ph-PhW"/>

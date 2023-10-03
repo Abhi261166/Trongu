@@ -39,10 +39,11 @@ class API {
         static let googleLogin            = "j1/trongu/api/v1/users/googlelogin"
         static let fbLogin                = "j1/trongu/api/v1/users/facebooklogin"
         static let appleLogin             = "j1/trongu/api/v1/users/applelogin"
-        static let socialLogin             = "j1/trongu/api/v1/users/sociallogin"
+        static let socialLogin            = "j1/trongu/api/v1/users/sociallogin"
         static let changePass             = "j1/trongu/api/v1/users/change-password"
-        static let editProfile             = "j1/trongu/api/v1/users/editprofile"
+        static let editProfile            = "j1/trongu/api/v1/users/editprofile"
         static let getProfile             = "j1/trongu/api/v1/users/get-profile"
+        static let deleteAcount           = "j1/trongu/api/v1/users/del"
         
         // create post
         static let tagList                = "j1/trongu/api/v1/users/followers-following-with-type"
@@ -91,6 +92,8 @@ class API {
         static let getAllChat             = "j1/trongu/api/v1/users/get-all-chat-message"
         static let sendMessage            = "j1/trongu/api/v1/users/send-message"
         static let updateSeen             = "j1/trongu/api/v1/users/update-chat-status"
+        static let feedBackTypes          = "j1/trongu/api/v1/users/feedbacklisting"
+        static let SendFeedBack           = "j1/trongu/api/v1/users/feedbacksubmit"
         
     }
     

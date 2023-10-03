@@ -9,7 +9,7 @@
 import AVFoundation
 import UIKit
 
-public protocol TrimmerViewDelegate: AnyObject {
+public protocol TrimmerViewDelegate: class {
     func didChangePositionBar(_ playerTime: CMTime)
     func positionBarStoppedMoving(_ playerTime: CMTime)
 }
@@ -65,8 +65,8 @@ public protocol TrimmerViewDelegate: AnyObject {
 
     private var currentLeftConstraint: CGFloat = 0
     private var currentRightConstraint: CGFloat = 0
-  //  private var leftConstraint: NSLayoutConstraint?
-  //  private var rightConstraint: NSLayoutConstraint?
+    private var leftConstraintView: NSLayoutConstraint?
+    private var rightConstraintView: NSLayoutConstraint?
     private var positionConstraint: NSLayoutConstraint?
 
     private let handleWidth: CGFloat = 15
@@ -114,10 +114,10 @@ public protocol TrimmerViewDelegate: AnyObject {
 
         trimView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         trimView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-      //  leftConstraint = trimView.leftAnchor.constraint(equalTo: leftAnchor)
-      //  rightConstraint = trimView.rightAnchor.constraint(equalTo: rightAnchor)
-        leftConstraint?.isActive = true
-        rightConstraint?.isActive = true
+        leftConstraintView = trimView.leftAnchor.constraint(equalTo: leftAnchor)
+        rightConstraintView = trimView.rightAnchor.constraint(equalTo: rightAnchor)
+        leftConstraintView?.isActive = true
+        rightConstraintView?.isActive = true
     }
 
     private func setupHandleView() {
@@ -229,9 +229,9 @@ public protocol TrimmerViewDelegate: AnyObject {
 
         case .began:
             if isLeftGesture {
-                currentLeftConstraint = leftConstraint!.constant
+                currentLeftConstraint = leftConstraintView!.constant
             } else {
-                currentRightConstraint = rightConstraint!.constant
+                currentRightConstraint = rightConstraintView!.constant
             }
             updateSelectedTime(stoppedMoving: false)
         case .changed:
@@ -258,13 +258,13 @@ public protocol TrimmerViewDelegate: AnyObject {
     private func updateLeftConstraint(with translation: CGPoint) {
         let maxConstraint = max(rightHandleView.frame.origin.x - handleWidth - minimumDistanceBetweenHandle, 0)
         let newConstraint = min(max(0, currentLeftConstraint + translation.x), maxConstraint)
-        leftConstraint?.constant = newConstraint
+        leftConstraintView?.constant = newConstraint
     }
 
     private func updateRightConstraint(with translation: CGPoint) {
         let maxConstraint = min(2 * handleWidth - frame.width + leftHandleView.frame.origin.x + minimumDistanceBetweenHandle, 0)
         let newConstraint = max(min(0, currentRightConstraint + translation.x), maxConstraint)
-        rightConstraint?.constant = newConstraint
+        rightConstraintView?.constant = newConstraint
     }
 
     // MARK: - Asset loading
@@ -275,8 +275,8 @@ public protocol TrimmerViewDelegate: AnyObject {
     }
 
     private func resetHandleViewPosition() {
-        leftConstraint?.constant = 0
-        rightConstraint?.constant = 0
+        leftConstraintView?.constant = 0
+        rightConstraintView?.constant = 0
         layoutIfNeeded()
     }
 

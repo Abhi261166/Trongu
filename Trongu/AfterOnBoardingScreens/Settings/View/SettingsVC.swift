@@ -150,7 +150,7 @@ extension SettingsVC: UITableViewDelegate,UITableViewDataSource{
                 // Create an action to add to the alert controller
                 let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 let actionDelete = UIAlertAction(title: "Delete Account", style: .destructive) { (_) in
-                    //                 self.deleteAcountVM?.apiDeleteAccount()
+                    self.viewModel2?.apiDeleteAccount()
                 }
                 // Add the action to the alert controller
                 alertController.addAction(actionCancel)
@@ -220,7 +220,7 @@ extension SettingsVC: UITableViewDelegate,UITableViewDataSource{
                 // Create an action to add to the alert controller
                 let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 let actionDelete = UIAlertAction(title: "Delete Account", style: .destructive) { (_) in
-                    //                 self.deleteAcountVM?.apiDeleteAccount()
+                    self.viewModel2?.apiDeleteAccount()
                 }
                 // Add the action to the alert controller
                 alertController.addAction(actionCancel)
@@ -260,6 +260,11 @@ extension SettingsVC: UITableViewDelegate,UITableViewDataSource{
 }
 
 extension SettingsVC:SettingsVMObserver{
+    
+    func observeAcountDeletedSucessfull() {
+        removeLocalStorage()
+    }
+    
     
     func observeSwitchPublicPrivateSucessfull(index:Int) {
         isprivate.toggle()

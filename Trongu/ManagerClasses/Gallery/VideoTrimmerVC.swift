@@ -93,14 +93,14 @@ class VideoTrimmerVC: UIViewController {
         
         if let videoAssetTrack = videoUrlAsset.tracks(withMediaType: AVMediaType.video).first {
             videoCompositionTrack?.preferredTransform = videoAssetTrack.preferredTransform
-            try! videoCompositionTrack?.insertTimeRange(CMTimeRange(start: start, duration: end-start), of: videoAssetTrack, at: CMTime.zero)
+            try? videoCompositionTrack?.insertTimeRange(CMTimeRange(start: start, duration: end-start), of: videoAssetTrack, at: CMTime.zero)
             
         }
         if let audioAssetTrack = audioUrlAsset.tracks(withMediaType: AVMediaType.audio).first {
             
             let audioCompositionTrack = mixComposition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid)
             audioCompositionTrack?.preferredTransform = audioAssetTrack.preferredTransform
-            try! audioCompositionTrack?.insertTimeRange(CMTimeRange(start: start, duration: end-start), of: audioAssetTrack, at: CMTime.zero)
+            try? audioCompositionTrack?.insertTimeRange(CMTimeRange(start: start, duration: end-start), of: audioAssetTrack, at: CMTime.zero)
         }
         
         

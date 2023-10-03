@@ -222,10 +222,17 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
     }
     
     @IBAction func shareProfileAction(_ sender: UIButton) {
-        let vc = ShareProfilePopUpVC()
-         vc.modalPresentationStyle = .overFullScreen
-         self.present(vc, true)
-    }
+         
+        let profileLink = URL(string: "https://www.example.com/profile")!
+
+               let activityViewController = UIActivityViewController(activityItems: [profileLink], applicationActivities: nil)
+
+               if let popoverController = activityViewController.popoverPresentationController {
+                   popoverController.sourceView = self.view
+                   popoverController.sourceRect = sender.frame
+               }
+               present(activityViewController, animated: true, completion: nil)
+           }
     
 }
 extension UserProfileVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{

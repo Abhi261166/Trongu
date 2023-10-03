@@ -70,6 +70,10 @@
 		18679B322A821BD500FD3C98 /* TagListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18679B312A821BD500FD3C98 /* TagListVM.swift */; };
 		18679B362A826D2D00FD3C98 /* HomeDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18679B352A826D2D00FD3C98 /* HomeDataModel.swift */; };
 		18679B382A826D4300FD3C98 /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18679B372A826D4300FD3C98 /* HomeVM.swift */; };
+		186B113E2ACBECB600ED19B9 /* PhotosDetailsCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186B113C2ACBECB600ED19B9 /* PhotosDetailsCVC.swift */; };
+		186B113F2ACBECB600ED19B9 /* PhotosDetailsCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186B113D2ACBECB600ED19B9 /* PhotosDetailsCVC.xib */; };
+		186B11422ACBF68500ED19B9 /* VideoPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186B11402ACBF68500ED19B9 /* VideoPlayerVC.swift */; };
+		186B11432ACBF68500ED19B9 /* VideoPlayerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186B11412ACBF68500ED19B9 /* VideoPlayerVC.xib */; };
 		186DA22B2A81030300D4F879 /* AddLocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186DA2272A81030300D4F879 /* AddLocationTableViewCell.xib */; };
 		186DA22C2A81030300D4F879 /* AddLocationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186DA2282A81030300D4F879 /* AddLocationVC.xib */; };
 		186DA22D2A81030300D4F879 /* AddLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186DA2292A81030300D4F879 /* AddLocationTableViewCell.swift */; };
@@ -92,6 +96,8 @@
 		187B6ABF2A53FE75008E1399 /* SettingsTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187B6ABD2A53FE75008E1399 /* SettingsTVCell.xib */; };
 		187B6AC62A54081E008E1399 /* FeedbackVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B6AC42A54081E008E1399 /* FeedbackVC.swift */; };
 		187B6AC72A54081E008E1399 /* FeedbackVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187B6AC52A54081E008E1399 /* FeedbackVC.xib */; };
+		187E65772ACBEB130080BFF9 /* PhotosDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E65752ACBEB130080BFF9 /* PhotosDetailsVC.swift */; };
+		187E65782ACBEB130080BFF9 /* PhotosDetailsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187E65762ACBEB130080BFF9 /* PhotosDetailsVC.xib */; };
 		187F90502A4C1AFF00C00867 /* CommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187F904E2A4C1AFF00C00867 /* CommentVC.swift */; };
 		187F90512A4C1AFF00C00867 /* CommentVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187F904F2A4C1AFF00C00867 /* CommentVC.xib */; };
 		1882AFC72A52E432006CC3FC /* ShareProfilePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1882AFC52A52E432006CC3FC /* ShareProfilePopUpVC.swift */; };
@@ -334,6 +340,10 @@
 		18679B312A821BD500FD3C98 /* TagListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListVM.swift; sourceTree = "<group>"; };
 		18679B352A826D2D00FD3C98 /* HomeDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDataModel.swift; sourceTree = "<group>"; };
 		18679B372A826D4300FD3C98 /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
+		186B113C2ACBECB600ED19B9 /* PhotosDetailsCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosDetailsCVC.swift; sourceTree = "<group>"; };
+		186B113D2ACBECB600ED19B9 /* PhotosDetailsCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotosDetailsCVC.xib; sourceTree = "<group>"; };
+		186B11402ACBF68500ED19B9 /* VideoPlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerVC.swift; sourceTree = "<group>"; };
+		186B11412ACBF68500ED19B9 /* VideoPlayerVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlayerVC.xib; sourceTree = "<group>"; };
 		186DA2272A81030300D4F879 /* AddLocationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddLocationTableViewCell.xib; sourceTree = "<group>"; };
 		186DA2282A81030300D4F879 /* AddLocationVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddLocationVC.xib; sourceTree = "<group>"; };
 		186DA2292A81030300D4F879 /* AddLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLocationTableViewCell.swift; sourceTree = "<group>"; };
@@ -356,6 +366,8 @@
 		187B6ABD2A53FE75008E1399 /* SettingsTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsTVCell.xib; sourceTree = "<group>"; };
 		187B6AC42A54081E008E1399 /* FeedbackVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackVC.swift; sourceTree = "<group>"; };
 		187B6AC52A54081E008E1399 /* FeedbackVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackVC.xib; sourceTree = "<group>"; };
+		187E65752ACBEB130080BFF9 /* PhotosDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosDetailsVC.swift; sourceTree = "<group>"; };
+		187E65762ACBEB130080BFF9 /* PhotosDetailsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotosDetailsVC.xib; sourceTree = "<group>"; };
 		187F904E2A4C1AFF00C00867 /* CommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentVC.swift; sourceTree = "<group>"; };
 		187F904F2A4C1AFF00C00867 /* CommentVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentVC.xib; sourceTree = "<group>"; };
 		1882AFC52A52E432006CC3FC /* ShareProfilePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareProfilePopUpVC.swift; sourceTree = "<group>"; };
@@ -1052,6 +1064,12 @@
 				18EF10D62A542FF7005D55AB /* MediaTVCell.xib */,
 				18A81A9D2AC451D20053AE70 /* SharePostCVC.swift */,
 				18A81A9E2AC451D20053AE70 /* SharePostCVC.xib */,
+				187E65752ACBEB130080BFF9 /* PhotosDetailsVC.swift */,
+				187E65762ACBEB130080BFF9 /* PhotosDetailsVC.xib */,
+				186B113C2ACBECB600ED19B9 /* PhotosDetailsCVC.swift */,
+				186B113D2ACBECB600ED19B9 /* PhotosDetailsCVC.xib */,
+				186B11402ACBF68500ED19B9 /* VideoPlayerVC.swift */,
+				186B11412ACBF68500ED19B9 /* VideoPlayerVC.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2006,6 +2024,7 @@
 				31CB5DC32A67D1BC0020E409 /* cancel_notes@3x.png in Resources */,
 				1842FF362A4C6EC600CF6F41 /* NotificationTVCell.xib in Resources */,
 				18A0F8812A4C322100E34ED6 /* replyCommentTVCell.xib in Resources */,
+				186B11432ACBF68500ED19B9 /* VideoPlayerVC.xib in Resources */,
 				186679C32A4AB90C00522429 /* LoginVc.xib in Resources */,
 				185352722A4D5A5600EAC753 /* SearchTVCell.xib in Resources */,
 				044817982A7FCCB0009539FB /* MentionView.xib in Resources */,
@@ -2025,6 +2044,7 @@
 				189BC6452A4BF22A00C97BCA /* HomeTVCell.xib in Resources */,
 				186679BA2A4AA72A00522429 /* LoginTypeVC.xib in Resources */,
 				1864CA2D2A4AC34700B94360 /* ForgotPasswordVC.xib in Resources */,
+				187E65782ACBEB130080BFF9 /* PhotosDetailsVC.xib in Resources */,
 				18EF10C02A541F2A005D55AB /* FeedbackPopUpVC.xib in Resources */,
 				183CF2942A95F426000A82B3 /* CommentTableViewHeaderFooter.xib in Resources */,
 				184FE0CB2A4D982D009D666D /* OtherUserProfileCVCell.xib in Resources */,
@@ -2072,6 +2092,7 @@
 				188D8E852A52AE0100083DC0 /* FollowersVC.xib in Resources */,
 				18FC211A2A4FF2500064F471 /* ReplyPhotoCVCell.xib in Resources */,
 				31CB5DC22A67D1BC0020E409 /* cancel_notes@2x.png in Resources */,
+				186B113F2ACBECB600ED19B9 /* PhotosDetailsCVC.xib in Resources */,
 				18A0F87D2A4C2F9500E34ED6 /* CommentTVCell.xib in Resources */,
 				188D8E7D2A52A5D500083DC0 /* MapFilterVC.xib in Resources */,
 				189EC4942A4E9352001E6644 /* BlockReportPopUpVC.xib in Resources */,
@@ -2264,6 +2285,7 @@
 				189EC4932A4E9352001E6644 /* BlockReportPopUpVC.swift in Sources */,
 				1842FF212A4C691000CF6F41 /* ReportPopUpVC.swift in Sources */,
 				18944A912A8A005C005E07EC /* AVAssetManager.swift in Sources */,
+				186B11422ACBF68500ED19B9 /* VideoPlayerVC.swift in Sources */,
 				31CB5DBE2A67D1BC0020E409 /* Validator.swift in Sources */,
 				31CB5DD02A67D1BC0020E409 /* HttpManager.swift in Sources */,
 				186DA22D2A81030300D4F879 /* AddLocationTableViewCell.swift in Sources */,
@@ -2273,6 +2295,7 @@
 				185352712A4D5A5600EAC753 /* SearchTVCell.swift in Sources */,
 				18EF10C72A54278F005D55AB /* BlockedVC.swift in Sources */,
 				189551542A49BF60003EC8FD /* Constant.swift in Sources */,
+				187E65772ACBEB130080BFF9 /* PhotosDetailsVC.swift in Sources */,
 				189EC4A32A4EB3D1001E6644 /* AddPhotoVideoVC.swift in Sources */,
 				187B6ABE2A53FE75008E1399 /* SettingsTVCell.swift in Sources */,
 				18ABC7472AA70E05004E90F8 /* LikesModel.swift in Sources */,
@@ -2286,6 +2309,7 @@
 				18FC21152A4FF0E30064F471 /* ReplyPhotoTVCell.swift in Sources */,
 				189551492A49BEF6003EC8FD /* UIColor+Custom.swift in Sources */,
 				1850E3552AB46F7500155E0E /* SettingsVM.swift in Sources */,
+				186B113E2ACBECB600ED19B9 /* PhotosDetailsCVC.swift in Sources */,
 				31CB5C5C2A67BE050020E409 /* SignUpVM.swift in Sources */,
 				31CB5DBF2A67D1BC0020E409 /* GoogleManager.swift in Sources */,
 				1895515A2A49BFDF003EC8FD /* TabBarController.swift in Sources */,

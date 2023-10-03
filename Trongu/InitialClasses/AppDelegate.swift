@@ -41,6 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     
+    
+    
     func setNotification(_ application: UIApplication) {
 //         For iOS 10 display notification (sent via APNS)
 //        guard UserDefaultsCustom.firstTimeOpen == false else { return }
@@ -62,6 +64,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ app: UIApplication,
                      open url: URL,
                      options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        
+        print("share profile url---",url)
+        
 //        ApplicationDelegate.shared.application(
 //                   app,
 //                   open: url,

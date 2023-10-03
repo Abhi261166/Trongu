@@ -30,7 +30,7 @@ class ChatVM: NSObject {
     var otherUserId: String = ""
     var roomId: String = ""
     var page_no = 0
-    var per_page = 10
+    var per_page = 30
     var isLoadingMesssages: Bool = false
     var chatHistory = [MessageDetails]()
     var recieverDetails: UserData?
@@ -81,13 +81,13 @@ class ChatVM: NSObject {
     
     //MARK: Api massages listing
     
-    func apiListMessages() {
+    func apiListMessages(pageNo:Int) {
         guard self.isLoadingMesssages == false else { return }
         let userid = UserDefaultsCustom.userId
         //let lastid = self.chatHistory.count > 0 ? (self.chatHistory.first?.id ?? "") : "0"
         var params = JSON()
             params["per_page"] = "\(self.per_page)"
-            params["page_no"] = page_no + 1
+            params["page_no"] = 2//pageNo + 1
             params["room_id"] = self.roomId
         print("Params in post screen:-  \(params)")
         self.isLoadingMesssages = true
@@ -188,6 +188,7 @@ class ChatVM: NSObject {
    }
     
     
+    
     func apiSendMessagesWithImges(type:Int,sender: UIButton) {
         var params = JSON()
         params["message"] = ""
@@ -218,6 +219,41 @@ class ChatVM: NSObject {
             
         }
     }
+    
+    //MARK: - Api Send Video Start -
+    
+    func apiSendMessagesWithVideo(type:Int,sender: UIButton) {
+        var params = JSON()
+        params["message"] = ""
+        params["type"] = type
+        params["room_id"] = self.roomId
+        print("params : ", params)
+        
+        print("Params in SearchUsers screen:-  \(params)")
+        print("imageData in SearchUsers screen:-  \(imageData)")
+        //show loder
+        ActivityIndicator.shared.showActivityIndicator()
+        ApiHandler.uploadVideo(key: "image_id", apiName: API.Name.sendMessage, dataArray: self.imageData, imgs_deleted: [], imageKey: ["uploads"], params: params) { succeeded, response, data in
+            //hide loder
+        ActivityIndicator.shared.hideActivityIndicator()
+            DispatchQueue.main.async {
+                sender.isUserInteractionEnabled = true
+                print("api responce in SendMessagesWithImges screen : \(response)")
+                if succeeded == true {
+                    if let message = DataDecoder.decodeData(data, type: SendMessageModel.self)?.data,
+                        let json = response["data"] as? JSON {
+                       
+                        self.observer?.observerSendMessages(json: json, message: message)
+                    }
+                } else {
+                    self.showMessage(message: response["message"] as? String ?? "", isError: .error)
+                }
+            }
+            
+        }
+    }
+    
+    //MARK: - Api Send Video End -
     
     //MARK: Update seen Api
         func apiUpdateSeenStatus() {

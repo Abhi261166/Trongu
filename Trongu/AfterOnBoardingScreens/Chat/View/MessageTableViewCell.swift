@@ -20,6 +20,7 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     
     @IBOutlet weak var lblCurrentTime: UILabel!
+    @IBOutlet weak var stackViewBottomCons: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -46,8 +47,10 @@ class MessageTableViewCell: UITableViewCell {
             let previousDateString = getDateString(date: previous)
             if previousDateString == currentDateString {
                 lblCurrentTime.isHidden = true
+                stackViewBottomCons.constant = 0
             } else {
                 lblCurrentTime.isHidden = false
+                stackViewBottomCons.constant = 14.5
                 if Calendar.current.isDateInToday(current) == true {
                     lblCurrentTime.text = "Today"
                 }else if Calendar.current.isDateInYesterday(current) == true{
@@ -65,6 +68,8 @@ class MessageTableViewCell: UITableViewCell {
                 let current = Date(timeIntervalSince1970: currentTimeStamp)
 
                 lblCurrentTime.isHidden = false
+                stackViewBottomCons.constant = 14.5
+                
                 if Calendar.current.isDateInToday(current) == true {
                     lblCurrentTime.text = "Today"
                 }else if Calendar.current.isDateInYesterday(current) == true{

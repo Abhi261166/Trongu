@@ -9,6 +9,7 @@ import UIKit
 
 protocol SettingsVMObserver: NSObjectProtocol {
     func observeSwitchPublicPrivateSucessfull(index:Int)
+    func observeAcountDeletedSucessfull()
 }
 
 class SettingsVM: NSObject {
@@ -17,6 +18,7 @@ class SettingsVM: NSObject {
     init(observer: SettingsVMObserver?) {
         self.observer = observer
     }
+    
     func apiPublicPrivate(index:Int){
         var params = JSON()
         params = [:]
@@ -29,6 +31,32 @@ class SettingsVM: NSObject {
                 if let self = self {
                     if succeeded == true {
                         self.observer?.observeSwitchPublicPrivateSucessfull(index: index)
+                    }else{
+                        if let message = response["message"] as? String {
+                            self.showMessage(message: message, isError: .error)
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    func apiDeleteAccount(){
+        var params = JSON()
+        params = [:]
+        print("params : ", params)
+        //        add loader
+        ActivityIndicator.shared.showActivityIndicator()
+        ApiHandler.call(apiName: API.Name.deleteAcount, params: params, httpMethod: .GET) { [weak self] succeeded, response, data in
+            DispatchQueue.main.async {
+                ActivityIndicator.shared.hideActivityIndicator()
+                if let self = self {
+                    if succeeded == true {
+                        if let message = response["message"] as? String {
+                            self.showMessage(message: message, isError: .success)
+                        }
+                        self.observer?.observeAcountDeletedSucessfull()
                     }else{
                         if let message = response["message"] as? String {
                             self.showMessage(message: message, isError: .error)

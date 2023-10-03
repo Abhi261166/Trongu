@@ -267,5 +267,39 @@ extension ApiHandler{
     }
     
     
+    static public func uploadVideo(key:String,apiName:String, dataArray: [PickerData]?, imgs_deleted:[String], imageKey:[String], params: [String : Any]?, isImage:Bool = true, receivedResponse: @escaping (_ succeeded:Bool, _ response:[String:Any], _ data:Data?) -> ()) {
+        if IJReachability.isConnectedToNetwork() == true {
+            HttpManager.uploadingMultipleTaskVideo(apiName, key: key, params: params!, imgs_deleted: imgs_deleted, isImage: isImage, dataArray:dataArray,  imageKey: imageKey) { (isSucceeded, response, data) in
+                DispatchQueue.main.async {
+                    print(response)
+                    if(isSucceeded){
+                        if let status = response["status"] as? Int {
+                            switch(status) {
+                            case 200:
+                                receivedResponse(true, response, data)
+                            case API.statusCodes.INVALID_ACCESS_TOKEN:
+                                Singleton.shared.showErrorMessage(error: AlertMessage.INVALID_ACCESS_TOKEN, isError: .error)
+                                Singleton.shared.gotoLogin()
+                                receivedResponse(false, [:], nil)
+                            default:
+                                if let message = response["message"] as? String {
+                                    receivedResponse(false, ["statusCode":status, "message":message], nil)
+                                } else {
+                                    receivedResponse(false, ["statusCode":status, "message":AlertMessage.SERVER_NOT_RESPONDING], nil)
+                                }
+                            }
+                        } else {
+                            receivedResponse(false, ["statusCode":0,"message":AlertMessage.SERVER_NOT_RESPONDING], nil)
+                        }
+                    } else {
+                        receivedResponse(false, ["statusCode":0, "message":AlertMessage.SERVER_NOT_RESPONDING],nil)
+                    }
+                }
+            }
+        } else {
+            receivedResponse(false, ["statusCode":0, "message":AlertMessage.NO_INTERNET_CONNECTION], nil)
+        }
+    }
+    
     
 }

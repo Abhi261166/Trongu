@@ -193,7 +193,6 @@ extension ChatVC: ImagePickerDelegate {
             self.viewModel?.apiSendMessagesWithImges(type: 2, sender: UIButton())
         }
         
-        
     }
     
     func imagePicker(_ picker: ImagePicker, didCapture data: PickerData?) {

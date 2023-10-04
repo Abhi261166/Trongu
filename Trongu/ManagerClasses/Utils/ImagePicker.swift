@@ -352,9 +352,9 @@ extension ImagePicker: UIImagePickerControllerDelegate, UINavigationControllerDe
             } else {
                 data.data = imageUrl?.data
                 imageUrl?.getThumbnailImageFromVideoUrl(completion: { image in
-                    DispatchQueue.main.async {
+                   // DispatchQueue.main.async {
                         data.image = image
-                    }
+                 //   }
                 })
                 if data.id?.count ?? 0 == 0 {
                     data.id   = data.fileName
@@ -399,6 +399,7 @@ extension ImagePicker: GalleryVCDelegate {
     }
     
     func galleryControllerOpenCamera(_ gallery: GalleryVC) {
+        
     }
     
     func galleryController(_ gallery: GalleryVC, didselect images: [PHAsset], assetIds: [String]) {

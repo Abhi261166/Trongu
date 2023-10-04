@@ -56,9 +56,22 @@ extension MessageVC: UITableViewDelegate,UITableViewDataSource{
         cell.nameLabel.text = dict?.userName
         cell.messageLabel.text = dict?.lastMessage
         
-        let timestamp = Int(dict?.lastMessageTime ?? "") ?? 0
-        let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
-        cell.timeLabel.text = date.timeAgoSinceDate()
+        if dict?.lastMessageTime != ""{
+            let timestamp = Int(dict?.lastMessageTime ?? "") ?? 0
+            let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
+            cell.timeLabel.text = date.timeAgoSinceDate()
+        }else{
+            cell.timeLabel.text = ""
+        }
+        
+        if dict?.lastMessageTime != "" && dict?.lastMessage != ""{
+            cell.messageLabel.text = dict?.lastMessage
+            
+        }else{
+            
+            cell.messageLabel.text = "Media"
+        }
+        
         
         if dict?.badgeCount == "0"{
             

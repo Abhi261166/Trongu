@@ -15,7 +15,6 @@ import GoogleSignIn
 import GoogleMaps
 
 
-
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
@@ -113,6 +112,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let userInfo = response.notification.request.content.userInfo
         if let dict = userInfo as? [String:Any] {
             print("Background push notification \(dict)")
+            let pushData = PushModel(json: dict)
+            self.handleTap(_onBackgroundController: pushData)
         }
         completionHandler()
     }
@@ -121,7 +122,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.badge,.banner,.list,.sound])
 
+        let userInfo = notification.request.content.userInfo
+        if let dict = userInfo as? [String:Any] {
+            
+            print("Background push notification \(dict)")
+            let pushData = PushModel(json: dict)
+           
+            if pushData.pushType == .like || pushData.pushType == .comment_post {
+                //NotificationCenter.default.post(name: .updatePost, object: pushData)
+            }
+            Singleton.shared.showErrorMessage(pushData: pushData, isError: .notification) { data in
+                DispatchQueue.main.async {
+                    print("pushData.message :-  \(pushData.message)")
+                    self.handleTap(_onForgroundNotification: pushData)
+                }
+            }
+            completionHandler([])
+            
+        }
+        
     }
+    
+    
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         guard let dict = userInfo as? JSON  else { return }
@@ -137,6 +159,93 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         completionHandler(.newData)
     }
-
+    
+    //MARK: Forground push notification handle
+    func handleTap(_onForgroundNotification pushData: PushModel) {
+        let viewController = UIWindow.visibleViewController
+        switch pushData.pushType {
+        case .like:
+            let vc = DetailVC()
+            vc.postId = pushData.post_id
+            vc.comeFrom = "Push"
+            vc.hidesBottomBarWhenPushed = true
+            viewController?.pushViewController(vc, true)
+            
+        case .comment_post:
+            let vc = DetailVC()
+            vc.comeFrom = "Push"
+            vc.postId = pushData.post_id
+            vc.hidesBottomBarWhenPushed = true
+            viewController?.pushViewController(vc, true)
+            
+        case .following:
+            let vc = NotificationVC()
+            vc.hidesBottomBarWhenPushed = true
+            viewController?.pushViewController(vc, true)
+        case .followRequest:
+            let vc = NotificationVC()
+            vc.hidesBottomBarWhenPushed = true
+            viewController?.pushViewController(vc, true)
+        default: break
+        }
+    }
+    
+    //MARK: Background push notification
+    func handleTap(_onBackgroundController pushData: PushModel) {
+        let viewController = UIWindow.visibleViewController
+        switch pushData.pushType {
+        case .like:
+            let vc = DetailVC()
+            vc.comeFrom = "Push"
+            vc.postId = pushData.post_id
+            vc.hidesBottomBarWhenPushed = true
+            viewController?.pushViewController(vc, true)
+        case .comment_post:
+            let vc = DetailVC()
+            vc.comeFrom = "Push"
+            vc.postId = pushData.post_id
+            vc.hidesBottomBarWhenPushed = true
+            viewController?.pushViewController(vc, true)
+        case .following:
+            let vc = NotificationVC()
+            vc.hidesBottomBarWhenPushed = true
+            viewController?.pushViewController(vc, true)
+        case .followRequest:
+            let vc = NotificationVC()
+            vc.hidesBottomBarWhenPushed = true
+            viewController?.pushViewController(vc, true)
+        default: break
+        }
+    }
 }
 
+
+extension UIWindow {
+    /// Returns the currently visible view controller if any reachable within the window.
+    public static var visibleViewController: UIViewController? {
+        let rootViewController = UIApplication.shared.windows.first(where: {$0.isKeyWindow})?.rootViewController
+        return UIWindow.visibleViewController(from: rootViewController)
+    }
+
+    /// Recursively follows navigation controllers, tab bar controllers and modal presented view controllers starting
+    /// from the given view controller to find the currently visible view controller.
+    ///
+    /// - Parameters:
+    ///   - viewController: The view controller to start the recursive search from.
+    /// - Returns: The view controller that is most probably visible on screen right now.
+    public static func visibleViewController(from viewController: UIViewController?) -> UIViewController? {
+        switch viewController {
+        case let navigationController as UINavigationController:
+            return UIWindow.visibleViewController(from: navigationController.visibleViewController ?? navigationController.topViewController)
+
+        case let tabBarController as UITabBarController:
+            return UIWindow.visibleViewController(from: tabBarController.selectedViewController)
+
+        case let presentingViewController where viewController?.presentedViewController != nil:
+            return UIWindow.visibleViewController(from: presentingViewController?.presentedViewController)
+
+        default:
+            return viewController
+        }
+    }
+}

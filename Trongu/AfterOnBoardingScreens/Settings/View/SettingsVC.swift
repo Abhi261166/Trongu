@@ -115,17 +115,31 @@ extension SettingsVC: UITableViewDelegate,UITableViewDataSource{
             
             switch indexPath.row {
             case 0:
-                print("fd")
+                print("contact us")
+              
+                if let url = URL(string:"http://161.97.132.85/j1/trongu/frontend/web/trongu/contactus")
+                {
+                    let safariCC = SFSafariViewController(url: url)
+                    present(safariCC, animated: true, completion: nil)
+                }
         
             case 1:
-                print("sdsweddefwsd")
+                print("about us")
+                if let url = URL(string:"http://161.97.132.85/j1/trongu/frontend/web/trongu/aboutus")
+                {
+                    let safariCC = SFSafariViewController(url: url)
+                    present(safariCC, animated: true, completion: nil)
+                }
+                
             case 2:
+                
                 print("sdsddefwsd")
                 if let url = URL(string:"http://161.97.132.85/j1/trongu/frontend/web/trongu/termsandconditions")
                 {
                     let safariCC = SFSafariViewController(url: url)
                     present(safariCC, animated: true, completion: nil)
                 }
+                
             case 3:
             //    print("sdsdsd")
             
@@ -183,14 +197,27 @@ extension SettingsVC: UITableViewDelegate,UITableViewDataSource{
             
             switch indexPath.row {
             case 0:
-                print("fd")
+                print("contact us")
+              
+                if let url = URL(string:"http://161.97.132.85/j1/trongu/frontend/web/trongu/contactus")
+                {
+                    let safariCC = SFSafariViewController(url: url)
+                    present(safariCC, animated: true, completion: nil)
+                }
+                
             case 1:
                 let vc = ChangePswrdVC()
                 vc.hidesBottomBarWhenPushed = true
                 self.pushViewController(vc, true)
                 print("ChangePassword")
             case 2:
-                print("sdsweddefwsd")
+                print("about us")
+                if let url = URL(string:"http://161.97.132.85/j1/trongu/frontend/web/trongu/aboutus")
+                {
+                    let safariCC = SFSafariViewController(url: url)
+                    present(safariCC, animated: true, completion: nil)
+                }
+                
             case 3:
                 if let url = URL(string:"http://161.97.132.85/j1/trongu/frontend/web/trongu/termsandconditions")
                 {

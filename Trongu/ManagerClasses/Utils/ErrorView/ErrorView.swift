@@ -218,9 +218,9 @@ extension PushModel {
 }
 
 enum PUSH_TYPE: Int {
-    case following      = 0
-    case followRequest  = 1
+    case following      = 1
+    case followRequest  = 2
     case Message        = 5
-    case comment_post   = 6
-    case like           = 7
+    case comment_post   = 4
+    case like           = 3
 }

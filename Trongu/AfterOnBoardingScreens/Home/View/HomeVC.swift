@@ -220,7 +220,13 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
         guard let postsCount = self.viewModel?.arrPostList.count else { return }
         if indexPath.row == postsCount-1 && self.viewModel?.isLastPage == false {
             print("IndexRow\(indexPath.row)")
-           // self.viewModel?.apiHomePostList()
+            
+            if comeFrom{
+                
+            }else{
+                self.viewModel?.apiHomePostList()
+            }
+            
         }
         
         if (self.lastContentOffset > tableView.contentOffset.y) {

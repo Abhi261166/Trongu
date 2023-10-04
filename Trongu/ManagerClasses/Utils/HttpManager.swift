@@ -554,10 +554,12 @@ extension HttpManager{
                     body.append(("--\(boundary)\r\n" as String).data(using: String.Encoding.utf8, allowLossyConversion: true)!)
                     body.append("Content-Disposition: form-data; name=\"thumbnail_image\"; filename=\"\("thumb_file_name.jpg")\"\r\n" .data(using: String.Encoding.utf8, allowLossyConversion: true)!)
                     body.append("Content-Type: image/jpeg\r\n\r\n".data(using: String.Encoding.utf8, allowLossyConversion: true)!)
+                    
                     if let data1 = data.image?.jpegData(compressionQuality: 0.5) {
                         print("image image uploaded \(data1.count)")
                         body.append(data1)
                     }
+                    
                     print("thumb image uploaded")
                     body.append("\r\n".data(using: String.Encoding.utf8, allowLossyConversion: true)!)
                 }

@@ -92,10 +92,20 @@ class DetailVC: UIViewController {
     }
     
     @IBAction func backAction(_ sender: UIButton) {
-        
-        if let completion = completion{
-            popVC()
-            completion()
+     
+        if comeFrom == "Push"{
+            
+            let window: UIWindow? = HEIGHT.window
+             let vc = TabBarController()
+             window?.rootViewController = vc
+             window?.frame = UIScreen.main.bounds
+             window?.makeKeyAndVisible()
+            
+        }else{
+            if let completion = completion{
+                popVC()
+                completion()
+            }
         }
        
     }

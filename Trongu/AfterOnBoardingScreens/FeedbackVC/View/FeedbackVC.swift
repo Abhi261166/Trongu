@@ -64,10 +64,12 @@ class FeedbackVC: UIViewController, UIPickerViewDelegate, UITextFieldDelegate, U
        
         if txtFldFeedBackType.text == ""{
             
-            Singleton.shared.showErrorMessage(error: "Please select feedback type", isError: .error)
+           // Singleton.shared.showErrorMessage(error: "Please select feedback type", isError: .error)
+            Singleton.shared.showAlert(message: "Please select feedback type", controller: self, Title: "Feedback")
             
         }else if txtVwFeedback.text == ""{
-            Singleton.shared.showErrorMessage(error: "Please add feedback", isError: .error)
+           // Singleton.shared.showErrorMessage(error: "Please add feedback", isError: .error)
+            Singleton.shared.showAlert(message: "Please add feedback", controller: self, Title: "Feedback")
             
         }else{
             self.viewModel?.apiSendFeedback(feedback: txtVwFeedback.text.trim, feedback_category: self.selectedId)

@@ -126,19 +126,19 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
     
     func validation() {
         if (userNameTF.text?.isEmpty)!{
-            Trongu.showAlert(title: Constants.AppName, message: "Please enter username", view: self)
+            Trongu.showAlert(title: Constants.EditProfile, message: "Please enter username", view: self)
         }else if (userNameTF.text?.trimmingCharacters(in: .whitespaces).isEmpty)!{
-            Trongu.showAlert(title: Constants.AppName, message: "Please enter username", view: self)
+            Trongu.showAlert(title: Constants.EditProfile, message: "Please enter username", view: self)
         }
         else if nameTF.text == ""{
-            Trongu.showAlert(title: Constants.AppName, message: Constants.blankName, view: self)
+            Trongu.showAlert(title: Constants.EditProfile, message: Constants.blankName, view: self)
         }else if (nameTF.text?.trimmingCharacters(in: .whitespaces).isEmpty)!{
-            Trongu.showAlert(title: Constants.AppName, message: Constants.blankName, view: self)
+            Trongu.showAlert(title: Constants.EditProfile, message: Constants.blankName, view: self)
         }
         else if (dateOfBirthTF.text?.isEmpty)!{
-            Trongu.showAlert(title: Constants.AppName, message: Constants.blankDateofbirth, view: self)
+            Trongu.showAlert(title: Constants.EditProfile, message: Constants.blankDateofbirth, view: self)
         }else if (genderTF.text?.isEmpty)!{
-            Trongu.showAlert(title: Constants.AppName, message: Constants.blankGender, view: self)
+            Trongu.showAlert(title: Constants.EditProfile, message: Constants.blankGender, view: self)
         }
 //        else if passwordTF.text == ""{
 //            Trongu.showAlert(title: Constants.AppName, message: Constants.blankPassword, view: self)
@@ -150,9 +150,9 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
 //            Trongu.showAlert(title: Constants.AppName, message: "New password and confirm password not match.", view: self)
 //        }
         else if (addPlaceTF.text?.isEmpty)!{
-            Trongu.showAlert(title: Constants.AppName, message: Constants.blankPlace, view: self)
+            Trongu.showAlert(title: Constants.EditProfile, message: Constants.blankPlace, view: self)
         }else if (ethnicityTF.text?.isEmpty)!{
-            Trongu.showAlert(title: Constants.AppName, message: Constants.blankEthnicity, view: self)
+            Trongu.showAlert(title: Constants.EditProfile, message: Constants.blankEthnicity, view: self)
         }
 //        else if (bioTextView.text?.isEmpty)!{
 //            Trongu.showAlert(title: Constants.AppName, message: "Enter bio details", view: self)

@@ -340,8 +340,8 @@ class CreatePostVC: UIViewController{
             vc.hidesBottomBarWhenPushed = true
             self.pushViewController(vc, true)
         }else{
-            
-            Singleton.showMessage(message: "Please select atleast one video or image to post", isError: .error)
+            Singleton.shared.showAlert(message: "Please select at leaset one video or image to post", controller: self, Title: self.viewModel?.Title ?? "")
+           // Singleton.showMessage(message: "Please select atleast one video or image to post", isError: .error)
         }
        
     }
@@ -515,6 +515,10 @@ extension CreatePostVC : CustomPickerControllerDelegate{
 }
 
 extension CreatePostVC:TagListVMObserver{
+    func observeGetCategoriesListSucessfull() {
+        
+    }
+    
    
     func observeGetTagListSucessfull() {
         

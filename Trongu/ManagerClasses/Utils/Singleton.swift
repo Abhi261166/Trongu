@@ -187,6 +187,27 @@ extension Singleton: ErrorDelegate {
             self.errorMessageView = nil
         }
     }
+    
+    
+    func showAlert(message:String,controller:UIViewController?,Title:String){
+        
+        let alertController = UIAlertController(title: Title, message: message, preferredStyle: .alert)
+
+               // Create an action for the alert (e.g., OK button)
+               let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+                   // Handle the OK button tap (if needed)
+                   print("OK button tapped")
+               }
+
+               // Add the action to the alert controller
+               alertController.addAction(okAction)
+
+               // Present the alert
+            controller?.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    
 }
 
 //extension Singleton{

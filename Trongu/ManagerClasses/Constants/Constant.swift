@@ -9,6 +9,8 @@ import UIKit
 struct Constants{
     //    MARK: AppName
     static let AppName = "Trongu"
+    static let EditProfile = "Edit Profile"
+    
     
     //    MARK: Alert Messages
     static let blankEmail = "Please enter email or username"

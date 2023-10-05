@@ -32,6 +32,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     @IBOutlet weak var termAndConditionBtn: UIButton!
     @IBOutlet weak var bioTextView: UITextView!
     
+    
     var viewModel: SignUpVM?
     var selectGender = String()
     var selectEthnicity = String()
@@ -125,6 +126,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     func getCurrentLocation(){
         if #available(iOS 14.0, *) {
+            
             if locationManager.authorizationStatus == (CLAuthorizationStatus.authorizedWhenInUse) ||
                 locationManager.authorizationStatus ==  (CLAuthorizationStatus.authorizedAlways)  {
                 currentLocation = locationManager.location
@@ -205,57 +207,70 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         let isvalidEthnicity = Validator.validethnicity(ethnicity: ethnicityTF.text ?? "")
         
         guard isvalidUsername.0 == true else {
-            Singleton.showMessage(message: "\(isvalidUsername.1)", isError: .error)
+            
+           // Singleton.showMessage(message: "\(isvalidUsername.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isvalidUsername.1)", controller: self, Title: self.viewModel?.title ?? "")
+            
             print("isvalidUsername  \(isvalidUsername)")
             return false
+            
         }
         guard isvalidname.0 == true else {
-            Singleton.showMessage(message: "\(isvalidname.1)", isError: .error)
+        //    Singleton.showMessage(message: "\(isvalidname.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isvalidname.1)", controller: self, Title: self.viewModel?.title ?? "")
             print("isvalidUsername  \(isvalidname)")
             return false
         }
         
         
         guard isvalidEmail.0 == true else {
-            Singleton.showMessage(message: "\(isvalidEmail.1)", isError: .error)
+           // Singleton.showMessage(message: "\(isvalidEmail.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isvalidEmail.1)", controller: self, Title: self.viewModel?.title ?? "")
             print("isvalidEmail  \(isvalidEmail)")
             return false
         }
         guard isValidPassword.0 == true else {
-            Singleton.showMessage(message: "\(isValidPassword.1)", isError: .error)
+          //  Singleton.showMessage(message: "\(isValidPassword.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isValidPassword.1)", controller: self, Title: self.viewModel?.title ?? "")
             print("isValidPassword  \(isValidPassword)")
             return false
         }
         guard isValidConPassword.0 == true else {
-            Singleton.showMessage(message: "\(isValidConPassword.1)", isError: .error)
+           // Singleton.showMessage(message: "\(isValidConPassword.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isValidConPassword.1)", controller: self, Title: self.viewModel?.title ?? "")
             print("isValidConPassword  \(isValidPassword)")
             return false
         }
         guard isvalidPlace.0 == true else {
-            Singleton.showMessage(message: "\(isvalidPlace.1)", isError: .error)
+          //  Singleton.showMessage(message: "\(isvalidPlace.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isvalidPlace.1)", controller: self, Title: self.viewModel?.title ?? "")
             print("isvalidPlace  \(isvalidPlace)")
             return false
         }
         
         guard isvalidDob.0 == true else {
-            Singleton.showMessage(message: "\(isvalidDob.1)", isError: .error)
+          //  Singleton.showMessage(message: "\(isvalidDob.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isvalidDob.1)", controller: self, Title: self.viewModel?.title ?? "")
             print("isvalidDob  \(isvalidDob)")
             return false
         }
         
         guard isvaligender.0 == true else {
-            Singleton.showMessage(message: "\(isvaligender.1)", isError: .error)
+          //  Singleton.showMessage(message: "\(isvaligender.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isvaligender.1)", controller: self, Title: self.viewModel?.title ?? "")
             print("isValidPassword  \(isvaligender)")
             return false
         }
         guard isvalidEthnicity.0 == true else {
-            Singleton.showMessage(message: "\(isvalidEthnicity.1)", isError: .error)
+         //   Singleton.showMessage(message: "\(isvalidEthnicity.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isvalidEthnicity.1)", controller: self, Title: self.viewModel?.title ?? "")
             print("isValidPassword  \(isvalidEthnicity)")
             return false
         }
         
         guard termAndConditionBtn.isSelected == true else {
-            Singleton.showMessage(message: "Please accept terms and conditions", isError: .error)
+          //  Singleton.showMessage(message: "Please accept terms and conditions", isError: .error)
+            Singleton.shared.showAlert(message: "Please accept terms and conditions", controller: self, Title: self.viewModel?.title ?? "")
             return false
         }
         return true
@@ -354,13 +369,16 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
   
         let isvalidEthnicity = Validator.validethnicity(ethnicity: ethnicityTF.text ?? "")
         guard isvalidname.0 == true else {
-            Singleton.showMessage(message: "\(isvalidname.1)", isError: .error)
+           // Singleton.showMessage(message: "\(isvalidname.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isvalidname.1)", controller: self, Title: self.viewModel?.title ?? "")
             print("isvalidUsername  \(isvalidname)")
             return false
         }
         
         guard isvalidUsername.0 == true else {
-            Singleton.showMessage(message: "\(isvalidUsername.1)", isError: .error)
+          //  Singleton.showMessage(message: "\(isvalidUsername.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isvalidUsername.1)", controller: self, Title: self.viewModel?.title ?? "")
+            
             print("isvalidUsername  \(isvalidUsername)")
             return false
         }
@@ -380,30 +398,36 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
 //            return false
 //        }
         guard isvalidPlace.0 == true else {
-            Singleton.showMessage(message: "\(isvalidPlace.1)", isError: .error)
+           // Singleton.showMessage(message: "\(isvalidPlace.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isvalidPlace.1)", controller: self, Title: self.viewModel?.title ?? "")
+            
             print("isvalidPlace  \(isvalidPlace)")
             return false
         }
         
         guard isvalidDob.0 == true else {
-            Singleton.showMessage(message: "\(isvalidDob.1)", isError: .error)
+           // Singleton.showMessage(message: "\(isvalidDob.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isvalidDob.1)", controller: self, Title: self.viewModel?.title ?? "")
             print("isvalidDob  \(isvalidDob)")
             return false
         }
         
         guard isvaligender.0 == true else {
-            Singleton.showMessage(message: "\(isvaligender.1)", isError: .error)
+           // Singleton.showMessage(message: "\(isvaligender.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isvaligender.1)", controller: self, Title: self.viewModel?.title ?? "")
             print("isValidPassword  \(isvaligender)")
             return false
         }
         guard isvalidEthnicity.0 == true else {
-            Singleton.showMessage(message: "\(isvalidEthnicity.1)", isError: .error)
+           // Singleton.showMessage(message: "\(isvalidEthnicity.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isvalidEthnicity.1)", controller: self, Title: self.viewModel?.title ?? "")
             print("isValidPassword  \(isvalidEthnicity)")
             return false
         }
         
         guard termAndConditionBtn.isSelected == true else {
-            Singleton.showMessage(message: "Please accept terms and conditions", isError: .error)
+           // Singleton.showMessage(message: "Please accept terms and conditions", isError: .error)
+            Singleton.shared.showAlert(message: "Please accept terms and conditions", controller: self, Title: self.viewModel?.title ?? "")
             return false
         }
         return true

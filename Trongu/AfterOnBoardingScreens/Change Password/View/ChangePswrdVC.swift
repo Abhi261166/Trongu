@@ -16,6 +16,7 @@ class ChangePswrdVC: UIViewController {
     @IBOutlet weak var oldPswrdText: UITextField!
     
     var viewModel: ChangePasswordVM?
+    var errorTitle = "Change Password"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,29 +49,29 @@ class ChangePswrdVC: UIViewController {
     func validate() -> Bool {
         
         if ValidationManager.shared.isEmpty(text: oldPswrdText.text) == true {
-            showAlertMessage(title: "Trongu" , message: "Please enter current password." , okButton: "Ok", controller: self) {
+            showAlertMessage(title: errorTitle , message: "Please enter current password." , okButton: "Ok", controller: self) {
             }
             return false
         }
         
         if ValidationManager.shared.isEmpty(text: newPswrdText.text) == true {
-            showAlertMessage(title: "Trongu"  , message: "Please enter new password." , okButton: "Ok", controller: self) {
+            showAlertMessage(title: errorTitle  , message: "Please enter new password." , okButton: "Ok", controller: self) {
             }
             return false
         }
         if (newPswrdText!.text!.count ) < 8 || (newPswrdText!.text!.count) > 15 {
-            showAlertMessage(title: "Trongu"  ,  message: "Please enter minimum 8 characters." , okButton: "Ok", controller: self) {
+            showAlertMessage(title: errorTitle  ,  message: "Please enter minimum 8 characters." , okButton: "Ok", controller: self) {
             }
             return false
         }
         
         if ValidationManager.shared.isEmpty(text: reEnterPswrdText.text) == true {
-            showAlertMessage(title: "Trongu"  , message: "Please confirm new password." , okButton: "Ok", controller: self) {
+            showAlertMessage(title: errorTitle  , message: "Please confirm new password." , okButton: "Ok", controller: self) {
             }
             return false
         }
         if (newPswrdText.text != reEnterPswrdText.text) {
-            showAlertMessage(title: "Trongu"  , message: "Oops! It looks like the new password and re-enter new password fields don't match." , okButton: "Ok", controller: self) {
+            showAlertMessage(title: errorTitle  , message: "Oops! It looks like the new password and re-enter new password fields don't match." , okButton: "Ok", controller: self) {
             }
             return false
         }

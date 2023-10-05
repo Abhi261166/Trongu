@@ -16,7 +16,7 @@ class SignUpVM: NSObject {
     var editImage: PickerData?
     var imagePicker = GetImageFromPicker()
     var edit_cover_Image: PickerData?
-    
+    var title = "Signup"
     
     init(observer: SignUpVMObserver?) {
         self.observer = observer

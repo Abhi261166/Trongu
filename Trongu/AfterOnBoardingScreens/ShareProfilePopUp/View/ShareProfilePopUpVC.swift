@@ -131,6 +131,9 @@ extension ShareProfilePopUpVC: UITableViewDelegate,UITableViewDataSource{
 
 extension ShareProfilePopUpVC: TagListVMObserver{
     
+    func observeGetCategoriesListSucessfull() {
+        
+    }
     
     func observeGetTagListSucessfull() {
         

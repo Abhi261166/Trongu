@@ -28,7 +28,6 @@ class MessageVC: UIViewController {
         apiCall()
     }
     
-    
     func setViewModel(){
         
         self.viewModel = ChatListVM(observer: self)
@@ -44,7 +43,16 @@ class MessageVC: UIViewController {
 
 extension MessageVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel?.getChatUsersData.count ?? 0
+        
+        //return self.viewModel?.getChatUsersData.count ?? 0
+        if self.viewModel?.getChatUsersData.count ?? 0 == 0 {
+                   self.messageTableView.setBackgroundView(message: "No chat list found")
+                   return 0
+               }else{
+                   self.messageTableView.setBackgroundView(message: "")
+                   return self.viewModel?.getChatUsersData.count ?? 0
+               }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -93,7 +101,6 @@ extension MessageVC: UITableViewDelegate,UITableViewDataSource{
         
         vc.hidesBottomBarWhenPushed = true
         self.pushViewController(vc, true)
-        
         
     }
     

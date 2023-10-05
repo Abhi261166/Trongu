@@ -13,6 +13,7 @@ import CoreLocation
 
 protocol TagListVMObserver: NSObjectProtocol {
     func observeGetTagListSucessfull()
+    func observeGetCategoriesListSucessfull()
     
 }
 
@@ -26,13 +27,45 @@ class TagListVM: NSObject {
     var observer: TagListVMObserver?
     var arrTagList:[Userdetail] = []
     
+    var arrNoOfDays:[Category] = []
+    var arrTripComplexity:[Category] = []
+    var arrTripCategory:[Category] = []
+    var Title = "Create Post"
+    
     init(observer: TagListVMObserver?) {
         self.observer = observer
     }
     
+    
+    //MARK: - Get Categories -
+    
+    func apiGetCategoriesList(type:Int) {
+        var params = JSON()
+        params["type"] = type
+        print("params : ", params)
+        
+        ApiHandler.callWithMultipartForm(apiName: API.Name.getCategories, params: params) { succeeded, response, data in
+            DispatchQueue.main.async {
+                if succeeded == true, let data {
+                    let decoder = JSONDecoder()
+                    do {
+                        let decoded = try decoder.decode(CategoriesModel.self, from: data)
+                        self.arrNoOfDays.append(contentsOf: decoded.numberOfDays)
+                        self.arrTripCategory.append(contentsOf: decoded.tripCategory)
+                        self.arrTripComplexity.append(contentsOf: decoded.tripComplexity)
+                        self.observer?.observeGetCategoriesListSucessfull()
+                    } catch {
+                        print("error", error)
+                    }
+                }
+            }
+        }
+    }
+    
+    
     //MARK: Tag List Api
     func apiTagList(text:String?) {
-            var params = JSON()
+        var params = JSON()
         
         if UserDefaultsCustom.getUserData()?.is_private == "0"{
             params["type"] = "2"
@@ -45,41 +78,37 @@ class TagListVM: NSObject {
         params["per_page"] = perPage
         params["page_no"] = pageNo + 1
         print("params : ", params)
-
-    //        add loader
+        
+        //        add loader
         ActivityIndicator.shared.showActivityIndicator()
         
         ApiHandler.callWithMultipartForm(apiName: API.Name.tagList, params: params) { succeeded, response, data in
             DispatchQueue.main.async {
-//        remove loader
-        ActivityIndicator.shared.hideActivityIndicator()
-                    if succeeded == true, let data {
-                        let decoder = JSONDecoder()
-                        do {
-                            let decoded = try decoder.decode(TagListModel.self, from: data)
-                            
-                            if self.pageNo == 0 {
-                                self.arrTagList.removeAll()
-                            }
-//
-                            if let users = decoded.usersListing {
-                                self.isLastPage = users.count < (self.perPage)
-                                self.arrTagList.append(contentsOf: users)
-                                print("SearchUsers:-\(users.count)")
-                            }
-                            self.pageNo += 1
-                            self.observer?.observeGetTagListSucessfull()
-                        } catch {
-                            print("error", error)
+                //        remove loader
+                ActivityIndicator.shared.hideActivityIndicator()
+                if succeeded == true, let data {
+                    let decoder = JSONDecoder()
+                    do {
+                        let decoded = try decoder.decode(TagListModel.self, from: data)
+                        
+                        if self.pageNo == 0 {
+                            self.arrTagList.removeAll()
                         }
+                        //
+                        if let users = decoded.usersListing {
+                            self.isLastPage = users.count < (self.perPage)
+                            self.arrTagList.append(contentsOf: users)
+                            print("SearchUsers:-\(users.count)")
+                        }
+                        self.pageNo += 1
+                        self.observer?.observeGetTagListSucessfull()
+                    } catch {
+                        print("error", error)
                     }
+                }
             }
         }
-        
-        
-        
-        
-        }
+    }
     
     
 
@@ -129,38 +158,27 @@ class TagListVM: NSObject {
         let isValidConfirmPassword = Validator.validateTripComplex(tripComp: tripComp)
 
         guard imageSelected == true else {
-            Singleton.showMessage(message: "Please select at leaset one video or image to post", isError: .error)
+            //Singleton.showMessage(message: "Please select at leaset one video or image to post", isError: .error)
+            Singleton.shared.showAlert(message: "Please select at leaset one video or image to post", controller: controller, Title: self.Title)
             return false
         }
         guard isvalidUsername.0 == true else {
             
-            Singleton.showMessage(message: "\(isvalidUsername.1)", isError: .error)
-            
-//            let alertController = UIAlertController(title: "Create Post", message: "\(isvalidUsername.1)", preferredStyle: .alert)
-//
-//                   // Create an action for the alert (e.g., OK button)
-//                   let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
-//                       // Handle the OK button tap (if needed)
-//                       print("OK button tapped")
-//                   }
-//
-//                   // Add the action to the alert controller
-//                   alertController.addAction(okAction)
-//
-//                   // Present the alert
-//                controller?.present(alertController, animated: true, completion: nil)
-            
+            Singleton.shared.showAlert(message: "\(isvalidUsername.1)", controller: controller, Title: self.Title)
             
             print("isvalidUsername  \(isvalidUsername)")
             return false
         }
         guard isvalidEmail.0 == true else {
-            Singleton.showMessage(message: "\(isvalidEmail.1)", isError: .error)
+          //  Singleton.showMessage(message: "\(isvalidEmail.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isvalidEmail.1)", controller: controller, Title: self.Title)
             print("isvalidEmail  \(isvalidEmail)")
             return false
         }
         guard isvalidPhoneNumber.0 == true else {
-            Singleton.showMessage(message: "\(isvalidPhoneNumber.1)", isError: .error)
+           // Singleton.showMessage(message: "\(isvalidPhoneNumber.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isvalidPhoneNumber.1)", controller: controller, Title: self.Title)
+            
             print("isvalidPhoneNumber  \(isvalidPhoneNumber)")
             return false
         }
@@ -170,7 +188,9 @@ class TagListVM: NSObject {
 //            return false
 //        }
         guard isValidConfirmPassword.0 == true else {
-            Singleton.showMessage(message: "\(isValidConfirmPassword.1)", isError: .error)
+           // Singleton.showMessage(message: "\(isValidConfirmPassword.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isValidConfirmPassword.1)", controller: controller, Title: self.Title)
+
             print("isValidConfirmPassword  \(isValidConfirmPassword)")
             return false
         }

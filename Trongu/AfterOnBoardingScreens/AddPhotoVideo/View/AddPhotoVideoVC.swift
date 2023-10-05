@@ -22,6 +22,8 @@ class AddPhotoVideoVC: UIViewController {
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnTime: UIButton!
     @IBOutlet weak var btnDate: UIButton!
+    @IBOutlet weak var btnAdd: UIButton!
+    @IBOutlet weak var btnNext: UIButton!
     
     
     var postImage = ["AddImage_1","AddImage_2"]
@@ -36,6 +38,7 @@ class AddPhotoVideoVC: UIViewController {
     var dateFormat = "MM/dd/yy"  //  dd/MM/yyyy
     var deviceTimeZone:String?
     var timeZoneAbbreviation:String?
+    var errorTitle = "Create Post"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,7 +136,72 @@ class AddPhotoVideoVC: UIViewController {
         self.dateTF.resignFirstResponder()
     }
     
-
+    
+    @IBAction func acionNext(_ sender: UIButton) {
+        
+        if selectedIndex?.row == (arrPostItems.count - 2){
+            
+            if self.placeTF.text != ""{
+                
+                let collectionBounds = self.addPhotoVideoCollectionView.bounds
+                let contentOffset = CGFloat(floor(self.addPhotoVideoCollectionView.contentOffset.x + collectionBounds.size.width/3))
+                self.moveCollectionToFrame(contentOffset: contentOffset)
+                addPhotoVideoCollectionView.reloadData()
+                
+            self.selectedIndex = IndexPath(item: (self.selectedIndex?.row ?? 0) + 1, section: 0)
+            ActivityIndicator.shared.showActivityIndicator()
+                
+                self.dateTF.text = self.arrPostItems[self.selectedIndex?.row ?? 0].date
+                self.placeTF.text = self.arrPostItems[self.selectedIndex?.row ?? 0].place
+                self.timeTF.text = "\(self.arrPostItems[self.selectedIndex?.row ?? 0].time)"
+                
+                //self.showMetaDataInTextFileds(index: indexPath.row)
+                ActivityIndicator.shared.hideActivityIndicator()
+                
+                
+            self.addPhotoVideoCollectionView.reloadData()
+            self.btnNext.isHidden = true
+            }else{
+                
+                Singleton.shared.showAlert(message: "Please select address to move next.", controller: self, Title: self.errorTitle)
+            }
+            
+        }else{
+            if self.placeTF.text != ""{
+                
+                let collectionBounds = self.addPhotoVideoCollectionView.bounds
+                let contentOffset = CGFloat(floor(self.addPhotoVideoCollectionView.contentOffset.x + collectionBounds.size.width/3))
+                self.moveCollectionToFrame(contentOffset: contentOffset)
+                addPhotoVideoCollectionView.reloadData()
+                
+                self.selectedIndex = IndexPath(item: (self.selectedIndex?.row ?? 0) + 1, section: 0)
+                ActivityIndicator.shared.showActivityIndicator()
+                
+                self.dateTF.text = self.arrPostItems[self.selectedIndex?.row ?? 0].date
+                self.placeTF.text = self.arrPostItems[self.selectedIndex?.row ?? 0].place
+                self.timeTF.text = "\(self.arrPostItems[self.selectedIndex?.row ?? 0].time)"
+                
+                //self.showMetaDataInTextFileds(index: indexPath.row)
+                ActivityIndicator.shared.hideActivityIndicator()
+                
+                
+                self.addPhotoVideoCollectionView.reloadData()
+                self.btnNext.isHidden = false
+            }else{
+                Singleton.shared.showAlert(message: "Please select address to move next.", controller: self, Title: self.errorTitle)
+            }
+        }
+        
+    }
+    
+    
+    func moveCollectionToFrame(contentOffset : CGFloat) {
+            
+            let frame: CGRect = CGRect(x : contentOffset ,y : self.addPhotoVideoCollectionView.contentOffset.y ,width : self.addPhotoVideoCollectionView.frame.width,height : self.addPhotoVideoCollectionView.frame.height)
+            self.addPhotoVideoCollectionView.scrollRectToVisible(frame, animated: true)
+        }
+    
+    
     @objc func timePickerValueChanged(_ sender: UIDatePicker) {
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "h:mm a"
@@ -182,7 +250,8 @@ class AddPhotoVideoVC: UIViewController {
         for (index, post) in arrPostItems.enumerated() {
             
             if post.lat == "0.0" && post.long == "0.0"{
-                    self.showMessage(message: "Please select address for each post item", isError: .error)
+                  //  self.showMessage(message: "Please select address for each post item", isError: .error)
+                Singleton.shared.showAlert(message: "Please select address for each post item", controller: self, Title: errorTitle)
                     return false
                 }
             }
@@ -207,11 +276,13 @@ class AddPhotoVideoVC: UIViewController {
     }
     
     @IBAction func actionDate(_ sender: UIButton) {
-        Singleton.shared.showMessage(message: "Please select at least one image or video first", isError: .error)
+       // Singleton.shared.showMessage(message: "Please select at least one image or video first", isError: .error)
+        Singleton.shared.showAlert(message: "Please select at least one image or video first", controller: self, Title: errorTitle)
     }
     
     @IBAction func actionTime(_ sender: UIButton) {
-        Singleton.shared.showMessage(message: "Please select at least one image or video first", isError: .error)
+       // Singleton.shared.showMessage(message: "Please select at least one image or video first", isError: .error)
+        Singleton.shared.showAlert(message: "Please select at least one image or video first", controller: self, Title: errorTitle)
     }
     
     @IBAction func addAction(_ sender: UIButton) {
@@ -243,14 +314,18 @@ class AddPhotoVideoVC: UIViewController {
                     }
                     
                 }else{
-                    self.showMessage(message: "Please select address for each post item", isError: .error)
+                   // self.showMessage(message: "Please select address for each post item", isError: .error)
+                    
+                    Singleton.shared.showAlert(message: "Please select address for each post item", controller: self, Title: errorTitle)
+                    
                     //    self.showAlert(message: "Please select address for each post item", title: "Address") {
                     
                     //   }
                 }
                 
             }else{
-                Singleton.shared.showMessage(message: "Please select at least one image or video first", isError: .error)
+                //Singleton.shared.showMessage(message: "Please select at least one image or video first", isError: .error)
+                Singleton.shared.showAlert(message: "Please select at least one image or video first", controller: self, Title: errorTitle)
             }
             
         }else{
@@ -275,14 +350,18 @@ class AddPhotoVideoVC: UIViewController {
                     }
                     
                 }else{
-                    self.showMessage(message: "Please select address for each post item", isError: .error)
+                    //self.showMessage(message: "Please select address for each post item", isError: .error)
+                    Singleton.shared.showAlert(message: "Please select address for each post item", controller: self, Title: errorTitle)
+
                     //    self.showAlert(message: "Please select address for each post item", title: "Address") {
                     
                     //   }
                 }
                 
             }else{
-                Singleton.shared.showMessage(message: "Please select at least one image or video first", isError: .error)
+              //  Singleton.shared.showMessage(message: "Please select at least one image or video first", isError: .error)
+                Singleton.shared.showAlert(message: "Please select at least one image or video first", controller: self, Title: errorTitle)
+
             }
             
             
@@ -306,7 +385,8 @@ class AddPhotoVideoVC: UIViewController {
             self.navigationController?.pushViewController(vc, animated: true)
         }else{
             
-            self.showMessage(message: "Please select at least one image or video", isError: .error)
+            //self.showMessage(message: "Please select at least one image or video", isError: .error)
+            Singleton.shared.showAlert(message: "Please select at least one image or video first", controller: self, Title: errorTitle)
             
         }
         
@@ -352,8 +432,8 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
             if selectedIndex == indexPath{
                 cell.postImage.borderWidth = 2
                 cell.postImage.borderColor = UIColor(named: "OrengeAppColour")
-                ActivityIndicator.shared.showActivityIndicator()
-                self.showMetaDataInTextFileds(index: indexPath.row)
+              //  ActivityIndicator.shared.showActivityIndicator()
+              //  self.showMetaDataInTextFileds(index: indexPath.row)
                 
             }else{
                 cell.postImage.borderWidth = 0
@@ -396,8 +476,8 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
                 if selectedIndex == indexPath{
                     cell.postImage.borderWidth = 2
                     cell.postImage.borderColor = UIColor(named: "OrengeAppColour")
-                    ActivityIndicator.shared.showActivityIndicator()
-                    self.showMetaDataInTextFileds(index: indexPath.row)
+                  //  ActivityIndicator.shared.showActivityIndicator()
+                   // self.showMetaDataInTextFileds(index: indexPath.row)
                     
                 }else{
                     cell.postImage.borderWidth = 0
@@ -419,9 +499,24 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if self.comeFrom == "Edit"{
+            
+            if indexPath.row == (arrPostItems.count - 1){
+                self.btnNext.isHidden = true
+            }else{
+                self.btnNext.isHidden = false
+            }
+            
             self.selectedIndex = indexPath
             ActivityIndicator.shared.showActivityIndicator()
-            self.showMetaDataInTextFileds(index: indexPath.row)
+            
+            
+            self.dateTF.text = self.arrPostItems[indexPath.row].date
+            self.placeTF.text = self.arrPostItems[indexPath.row].place
+            self.timeTF.text = "\(self.arrPostItems[indexPath.row].time)"
+            
+            //self.showMetaDataInTextFileds(index: indexPath.row)
+            ActivityIndicator.shared.showActivityIndicator()
+            
             self.addPhotoVideoCollectionView.reloadData()
             
         }else{
@@ -431,9 +526,23 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
              //   arrPostItems = []
                 showPicker()
             }else{
+                
+                if indexPath.row == (arrPostItems.count - 1){
+                    self.btnNext.isHidden = true
+                }else{
+                    self.btnNext.isHidden = false
+                }
+                
                 self.selectedIndex = indexPath
                 ActivityIndicator.shared.showActivityIndicator()
-                self.showMetaDataInTextFileds(index: indexPath.row)
+                
+                self.dateTF.text = self.arrPostItems[indexPath.row].date
+                self.placeTF.text = self.arrPostItems[indexPath.row].place
+                self.timeTF.text = "\(self.arrPostItems[indexPath.row].time)"
+                
+                //self.showMetaDataInTextFileds(index: indexPath.row)
+                ActivityIndicator.shared.hideActivityIndicator()
+                
                 self.addPhotoVideoCollectionView.reloadData()
                 
             }
@@ -463,6 +572,7 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
         self.images.remove(at: sender.tag)
         // is last element
         
+    
         
         if (arrPostItems.count) == sender.tag{
            
@@ -510,6 +620,15 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
             self.disableTextFileds()
             
         }
+        
+        if arrPostItems.count == 1 || arrPostItems.count == 0{
+            
+            btnNext.isHidden = true
+            
+        }else{
+            btnNext.isHidden = false
+        }
+        
         
     }
     
@@ -562,6 +681,11 @@ extension AddPhotoVideoVC{
             
             print(self.arrPostItems.count, "Posts count")
             
+            if self.arrPostItems.count > 1{
+                self.btnNext.isHidden = false
+            }else{
+                self.btnNext.isHidden = true
+            }
             
             let post = self.selectedItems.first
                switch post{
@@ -570,9 +694,22 @@ extension AddPhotoVideoVC{
                    self.getAddressFromLatLong(latitude: photo.asset?.location?.coordinate.latitude ?? 0.0, longitude: photo.asset?.location?.coordinate.longitude ?? 0.0, completion: { address in
                        
                        if address ?? "" == "North Atlantic Ocean"{
-                           self.placeTF.text = ""
+                           
+                           if self.arrPostItems.count == 0{
+                               self.placeTF.text = ""
+                           }else{
+                               self.placeTF.text = self.arrPostItems[0].place
+                           }
+                           
                        }else{
-                           self.placeTF.text = address
+                           
+                           if self.arrPostItems.count == 0{
+                               self.placeTF.text = address
+                           }else{
+                               self.placeTF.text = self.arrPostItems[0].place
+                           }
+                           
+                           
                        }
                        print("Got address from picker -----",address ?? "")
                          
@@ -585,15 +722,31 @@ extension AddPhotoVideoVC{
                        let dateFormatter = DateFormatter()
                        dateFormatter.dateFormat = self.dateFormat
                        let formattedDate = dateFormatter.string(from: currentDate)
+                       
+                       if self.arrPostItems.count == 0{
+                       
                        self.dateTF.text = formattedDate
                        //self.timeTF.text = "\(photo.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")"
                        self.timeTF.text = "\(currentDate.dateToString(format: "h:mm a") ) \(self.timeZoneAbbreviation ?? "")"
-                       
+                   }else{
+                       self.dateTF.text = self.arrPostItems[0].date
+                       self.timeTF.text = self.arrPostItems[0].time
+                   }
                        
                    }else{
                        
-                       self.dateTF.text = photo.asset?.creationDate?.dateToString(format: self.dateFormat)
-                       self.timeTF.text = "\(photo.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")"
+                       if self.arrPostItems.count == 0{
+                           
+                           self.dateTF.text = photo.asset?.creationDate?.dateToString(format: self.dateFormat)
+                           self.timeTF.text = "\(photo.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")"
+                      
+                       }else{
+                           
+                           self.dateTF.text = self.arrPostItems[0].date
+                           self.timeTF.text = self.arrPostItems[0].time
+                           
+                           
+                       }
                    }
                    
                    ActivityIndicator.shared.hideActivityIndicator()
@@ -602,9 +755,22 @@ extension AddPhotoVideoVC{
                    self.selectedIndex = IndexPath(row: 0, section: 0)
                    self.getAddressFromLatLong(latitude: video.asset?.location?.coordinate.latitude ?? 0.0, longitude: video.asset?.location?.coordinate.longitude ?? 0.0, completion: { address in
                        if address ?? "" == "North Atlantic Ocean"{
-                           self.placeTF.text = ""
+                           
+                           if self.arrPostItems.count == 0{
+                               self.placeTF.text = ""
+                           }else{
+                               self.placeTF.text = self.arrPostItems[0].place
+                           }
+                           
                        }else{
-                           self.placeTF.text = address
+                           
+                           if self.arrPostItems.count == 0{
+                               self.placeTF.text = address
+                           }else{
+                               self.placeTF.text = self.arrPostItems[0].place
+                           }
+                           
+                           
                        }
                        print("Got address from picker -----",address ?? "")
                        print("capture pic date time",video.asset?.creationDate as Any)
@@ -616,15 +782,32 @@ extension AddPhotoVideoVC{
                            let dateFormatter = DateFormatter()
                            dateFormatter.dateFormat = self.dateFormat
                            let formattedDate = dateFormatter.string(from: currentDate)
-                           self.dateTF.text = formattedDate
-                           //self.timeTF.text = "\(photo.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")"
-                           self.timeTF.text = "\(currentDate.dateToString(format: "h:mm a") ) \(self.timeZoneAbbreviation ?? "")"
                            
+                           if self.arrPostItems.count == 0{
+                               self.dateTF.text = formattedDate
+                               //self.timeTF.text = "\(photo.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")"
+                               self.timeTF.text = "\(currentDate.dateToString(format: "h:mm a") ) \(self.timeZoneAbbreviation ?? "")"
+                           }else{
+                               self.dateTF.text = self.arrPostItems[0].date
+                               self.timeTF.text = self.arrPostItems[0].time
+                           }
                            
                        }else{
                            
-                           self.dateTF.text = video.asset?.creationDate?.dateToString(format: self.dateFormat)
-                           self.timeTF.text = "\(video.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")"
+                           if self.arrPostItems.count == 0{
+                               
+                               self.dateTF.text = video.asset?.creationDate?.dateToString(format: self.dateFormat)
+                               self.timeTF.text = "\(video.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")"
+                          
+                           }else{
+                               
+                               self.dateTF.text = self.arrPostItems[0].date
+                               self.timeTF.text = self.arrPostItems[0].time
+                               
+                               
+                           }
+                           
+                           
                        }
                      
                        
@@ -702,33 +885,41 @@ extension AddPhotoVideoVC{
                 // Create a dictionary to hold the address components
                 var addressComponents = [String]()
 
-//                if let name = placemark.name {
-//                    addressComponents.append(name)
-//                }
-
-//                if let thoroughfare = placemark.thoroughfare {
-//                    addressComponents.append(thoroughfare)
-//                }
-
-//                if let subThoroughfare = placemark.subThoroughfare {
-//                    addressComponents.append(subThoroughfare)
-//                }
-
-                if let locality = placemark.locality {
-                    addressComponents.append(locality)
+                if let name = placemark.name {
+                   // addressComponents.append(name)
+                    addressComponents.append(name)
+                    print("name---", name)
                 }
 
-//                if let administrativeArea = placemark.administrativeArea {
-//                    addressComponents.append(administrativeArea)
-//                }
+                if let thoroughfare = placemark.thoroughfare {
+                   // addressComponents.append(thoroughfare)
+                    print("thoroughfare---", thoroughfare)
+                }
 
-//                if let postalCode = placemark.postalCode {
-//                    addressComponents.append(postalCode)
-//                }
+                if let subThoroughfare = placemark.subThoroughfare {
+                   // addressComponents.append(subThoroughfare)
+                    print("subThoroughfare---", subThoroughfare)
+                }
 
-//                if let country = placemark.country {
-//                    addressComponents.append(country)
-//                }
+                if let locality = placemark.locality {
+                   // addressComponents.append(locality)
+                    print("locality---", locality)
+                }
+
+                if let administrativeArea = placemark.administrativeArea {
+                    //addressComponents.append(administrativeArea)
+                    print("administrativeArea---", administrativeArea)
+                }
+
+                if let postalCode = placemark.postalCode {
+                   // addressComponents.append(postalCode)
+                    print("postalCode---", postalCode)
+                }
+
+                if let country = placemark.country {
+                   // addressComponents.append(country)
+                    print("country---", country)
+                }
 
                 // Join all the address components to get the complete address
                 let address = addressComponents.joined(separator: ", ")
@@ -820,12 +1011,12 @@ extension AddPhotoVideoVC{
                     let formattedDate = dateFormatter.string(from: currentDate)
                     let time = "\(currentDate.dateToString(format: "h:mm a") ) \(self.timeZoneAbbreviation ?? "")"
                     
-                    let post = PostImagesVideo(id: "", postID: "", place: place, date: formattedDate, time: time, lat: "\(photo.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(photo.asset?.location?.coordinate.longitude ?? 0.0)", image: "", videoTitle: "", videoURL: "", height: "", width: "", thumbNailImage: "", type: "0", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
+                    let post = PostImagesVideo(id: "", postID: "", place: place, date: formattedDate, time: time, lat: "\(photo.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(photo.asset?.location?.coordinate.longitude ?? 0.0)", image: "", country: "", videoTitle: "", videoURL: "", height: "", width: "", thumbNailImage: "", type: "0", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
                     self.images.append(photo.image)
                     arrPostItems.append(post)
                     
                 }else{
-                    let post = PostImagesVideo(id: "", postID: "", place: place, date: photo.asset?.creationDate?.dateToString(format: dateFormat) ?? "", time: "\(photo.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")", lat: "\(photo.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(photo.asset?.location?.coordinate.longitude ?? 0.0)", image: "", videoTitle: "", videoURL: "", height: "", width: "", thumbNailImage: "", type: "0", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
+                    let post = PostImagesVideo(id: "", postID: "", place: place, date: photo.asset?.creationDate?.dateToString(format: dateFormat) ?? "", time: "\(photo.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")", lat: "\(photo.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(photo.asset?.location?.coordinate.longitude ?? 0.0)", image: "", country: "", videoTitle: "", videoURL: "", height: "", width: "", thumbNailImage: "", type: "0", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
                     self.images.append(photo.image)
                     arrPostItems.append(post)
                 }
@@ -845,13 +1036,13 @@ extension AddPhotoVideoVC{
                     let formattedDate = dateFormatter.string(from: currentDate)
                     let time = "\(currentDate.dateToString(format: "h:mm a") ) \(self.timeZoneAbbreviation ?? "")"
                     
-                    let post = PostImagesVideo(id: "", postID: "", place: place, date: formattedDate, time:time, lat: "\(video.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(video.asset?.location?.coordinate.longitude ?? 0.0)", image: "", videoTitle: "", videoURL: video.url.path, height: "", width: "", thumbNailImage: "", type: "1", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
+                    let post = PostImagesVideo(id: "", postID: "", place: place, date: formattedDate, time:time, lat: "\(video.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(video.asset?.location?.coordinate.longitude ?? 0.0)", image: "", country: "", videoTitle: "", videoURL: video.url.path, height: "", width: "", thumbNailImage: "", type: "1", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
                     self.images.append(video.thumbnail)
                     arrPostItems.append(post)
                     
                 }else{
                     
-                    let post = PostImagesVideo(id: "", postID: "", place: place, date: video.asset?.creationDate?.dateToString(format: dateFormat) ?? "", time: "\(video.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")", lat: "\(video.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(video.asset?.location?.coordinate.longitude ?? 0.0)", image: "", videoTitle: "", videoURL: video.url.path, height: "", width: "", thumbNailImage: "", type: "1", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
+                    let post = PostImagesVideo(id: "", postID: "", place: place, date: video.asset?.creationDate?.dateToString(format: dateFormat) ?? "", time: "\(video.asset?.creationDate?.dateToString(format: "h:mm a") ?? "") \(self.timeZoneAbbreviation ?? "")", lat: "\(video.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(video.asset?.location?.coordinate.longitude ?? 0.0)", image: "", country: "", videoTitle: "", videoURL: video.url.path, height: "", width: "", thumbNailImage: "", type: "1", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
                     self.images.append(video.thumbnail)
                     arrPostItems.append(post)
                 }

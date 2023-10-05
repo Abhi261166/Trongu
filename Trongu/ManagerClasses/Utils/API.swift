@@ -95,6 +95,12 @@ class API {
         static let feedBackTypes          = "j1/trongu/api/v1/users/feedbacklisting"
         static let SendFeedBack           = "j1/trongu/api/v1/users/feedbacksubmit"
         
+        // categorys
+        
+        static let getCategories          = "j1/trongu/api/v1/users/post-categories-dropdown"
+        
+        
+        
     }
     
     struct keys {

@@ -204,6 +204,7 @@
 		18EF10D42A542E75005D55AB /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EF10D22A542E75005D55AB /* MessageTableViewCell.xib */; };
 		18EF10D72A542FF7005D55AB /* MediaTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EF10D52A542FF7005D55AB /* MediaTVCell.swift */; };
 		18EF10D82A542FF7005D55AB /* MediaTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EF10D62A542FF7005D55AB /* MediaTVCell.xib */; };
+		18EFE1562ACE87BF005D6B6C /* CategoriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EFE1552ACE87BF005D6B6C /* CategoriesModel.swift */; };
 		18FC210D2A4FEA2A0064F471 /* ReceivePhotoTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC210B2A4FEA2A0064F471 /* ReceivePhotoTVCell.swift */; };
 		18FC210E2A4FEA2A0064F471 /* ReceivePhotoTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FC210C2A4FEA2A0064F471 /* ReceivePhotoTVCell.xib */; };
 		18FC21112A4FEBCF0064F471 /* ReceivePhotoCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC210F2A4FEBCF0064F471 /* ReceivePhotoCVCell.swift */; };
@@ -481,6 +482,7 @@
 		18EF10D22A542E75005D55AB /* MessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageTableViewCell.xib; sourceTree = "<group>"; };
 		18EF10D52A542FF7005D55AB /* MediaTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTVCell.swift; sourceTree = "<group>"; };
 		18EF10D62A542FF7005D55AB /* MediaTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaTVCell.xib; sourceTree = "<group>"; };
+		18EFE1552ACE87BF005D6B6C /* CategoriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesModel.swift; sourceTree = "<group>"; };
 		18FC210B2A4FEA2A0064F471 /* ReceivePhotoTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivePhotoTVCell.swift; sourceTree = "<group>"; };
 		18FC210C2A4FEA2A0064F471 /* ReceivePhotoTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReceivePhotoTVCell.xib; sourceTree = "<group>"; };
 		18FC210F2A4FEBCF0064F471 /* ReceivePhotoCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivePhotoCVCell.swift; sourceTree = "<group>"; };
@@ -1786,6 +1788,7 @@
 		31CB5C592A67BDC70020E409 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				18EFE1552ACE87BF005D6B6C /* CategoriesModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2257,6 +2260,7 @@
 				31CB5DCF2A67D1BC0020E409 /* Utils.swift in Sources */,
 				18DBA0962AC6F9B000EC9913 /* FeedbackVM.swift in Sources */,
 				1895513F2A49BEF6003EC8FD /* DataDecoder.swift in Sources */,
+				18EFE1562ACE87BF005D6B6C /* CategoriesModel.swift in Sources */,
 				183DA5BD2A569E2300A82EC7 /* MessageView.swift in Sources */,
 				189551442A49BEF6003EC8FD /* UICollectionView+Custom.swift in Sources */,
 				31CB5DD22A67D1BC0020E409 /* ApiHandler.swift in Sources */,

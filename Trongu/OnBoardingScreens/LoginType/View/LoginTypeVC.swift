@@ -39,7 +39,7 @@ class LoginTypeVC: UIViewController {
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] result, error in
             guard error == nil else {
                 // ...
-                print("Error Data")
+                print("Error Data",error)
                 return
             }
             googleToken = result?.user.userID ?? ""

@@ -200,7 +200,7 @@ extension FilterScreenVC: UITextFieldDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
                 let index = arrDays.firstIndex(where: {$0 == numberOfDaysTF.text ?? ""}) ?? 0
                 pickerView.selectRow(index, inComponent: 0, animated: false)
-                numberOfDaysTF.text = arrDays[index]
+               // numberOfDaysTF.text = arrDays[index]
             })
             
         } else if textField == tripCategoryTF {
@@ -209,7 +209,7 @@ extension FilterScreenVC: UITextFieldDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
                 let index = arrTripCat.firstIndex(where: {$0 == tripCategoryTF.text ?? ""}) ?? 0
                 pickerView.selectRow(index, inComponent: 0, animated: false)
-                tripCategoryTF.text = arrTripCat[index]
+                //tripCategoryTF.text = arrTripCat[index]
             })
             
         }else if textField == ethnicityTF {
@@ -218,7 +218,7 @@ extension FilterScreenVC: UITextFieldDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
                 let index = arrEthnicityPicker.firstIndex(where: {$0 == ethnicityTF.text ?? ""}) ?? 0
                 pickerView.selectRow(index, inComponent: 0, animated: false)
-                ethnicityTF.text = arrEthnicityPicker[index]
+              //  ethnicityTF.text = arrEthnicityPicker[index]
             })
         }else if textField == complexityTF {
             complexityTF.inputView = pickerView
@@ -226,12 +226,60 @@ extension FilterScreenVC: UITextFieldDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
                 let index = arrTripComplexity.firstIndex(where: {$0 == complexityTF.text ?? ""}) ?? 0
                 pickerView.selectRow(index, inComponent: 0, animated: false)
-                complexityTF.text = arrTripComplexity[index]
+              //  complexityTF.text = arrTripComplexity[index]
             })
             
         }
         
     }
+    
+    
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+            switch textField {
+            case numberOfDaysTF:
+                DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
+                    let index = arrDays.firstIndex(where: {$0 == numberOfDaysTF.text ?? ""}) ?? 0
+                    pickerView.selectRow(index, inComponent: 0, animated: false)
+                    //                self.mId = home_Search_Data?[index].brand_name ?? ""
+                    self.numberOfDaysTF.text = arrDays[index]
+                    print("   brandName[index]     \(   arrDays[index] )")
+                })
+                pickerView.reloadAllComponents()
+                
+            case tripCategoryTF:
+                DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
+                    let index = arrTripCat.firstIndex(where: {$0 == tripCategoryTF.text ?? ""}) ?? 0
+                    pickerView.selectRow(index, inComponent: 0, animated: false)
+                    //                self.caliber_Id = viewModel?.caliberData[index].id
+                    self.tripCategoryTF.text = arrTripCat[index]
+                    print("  caliberName[index]    \(  self.arrTripCat[index])")
+                })
+                pickerView.reloadAllComponents()
+                
+            case ethnicityTF:
+                DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
+                    let index = arrEthnicityPicker.firstIndex(where: {$0 == ethnicityTF.text ?? ""}) ?? 0
+                    pickerView.selectRow(index, inComponent: 0, animated: false)
+                    //                self.caliber_Id = viewModel?.caliberData[index].id
+                    self.ethnicityTF.text = arrEthnicityPicker[index]
+                    print("  caliberName[index]    \(  self.arrEthnicityPicker[index])")
+                })
+                pickerView.reloadAllComponents()
+            case complexityTF:
+                DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
+                    let index = arrTripComplexity.firstIndex(where: {$0 == complexityTF.text ?? ""}) ?? 0
+                    pickerView.selectRow(index, inComponent: 0, animated: false)
+                    //                self.caliber_Id = viewModel?.caliberData[index].id
+                    self.complexityTF.text = arrTripComplexity[index]
+                    print("  caliberName[index]    \(  self.arrTripComplexity[index])")
+                })
+                pickerView.reloadAllComponents()
+            default: break
+            }
+        }
+    
+    
 }
 
 extension FilterScreenVC : CustomPickerControllerDelegate{

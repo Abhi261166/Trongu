@@ -26,7 +26,7 @@ struct Cities {
     init(dict: [String:Any]) {
         let description = (dict["description"] as? String)
         self.city       = description?.components(separatedBy: ", ").first ?? ""
-        self.shortName  = description ?? ""
+        self.shortName  = description?.components(separatedBy: ", ").last ?? ""
         self.placeId    = dict["place_id"] as? String ?? ""
         self.lat = 0.0
         self.long = 0.0

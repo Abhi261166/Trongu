@@ -11,7 +11,7 @@ import MapKit
 import CoreLocation
 
 protocol AddLocationVCDelegate: NSObjectProtocol {
-    func setLocation(text: String,lat: Double,long: Double,address:String)
+    func setLocation(text: String,lat: Double,long: Double,address:String,country:String)
 }
 class AddLocationVC: UIViewController {
     
@@ -65,7 +65,7 @@ extension AddLocationVC: UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         SearchGooglePlaces.details(place_id: city[indexPath.row].placeId) { coordinates in
-            self.delegate?.setLocation(text: self.city[indexPath.row].city, lat: coordinates?.lat ?? 0.0, long: coordinates?.lng ?? 0.0 , address: self.city[indexPath.row].city)
+            self.delegate?.setLocation(text: self.city[indexPath.row].city, lat: coordinates?.lat ?? 0.0, long: coordinates?.lng ?? 0.0 , address: self.city[indexPath.row].city, country: self.city[indexPath.row].shortName)
         }
         self.navigationController?.popViewController(animated: true)
     }

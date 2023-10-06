@@ -78,14 +78,11 @@ class CreatePostVC: UIViewController{
     }
           
           
-          
           func addDoneButtonToPickerView() {
                   let toolbar = UIToolbar()
                   toolbar.sizeToFit()
                   let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
                   toolbar.setItems([doneButton], animated: false)
-              
-                  
               
               
               if txtNoOffDays.isFirstResponder {
@@ -102,7 +99,6 @@ class CreatePostVC: UIViewController{
               @objc func doneButtonTapped() {
               
                   let selectedRow = pickerView.selectedRow(inComponent: 0)
-                 
           
                   if txtNoOffDays.isFirstResponder {
                       txtNoOffDays.text = arrDays[selectedRow]
@@ -127,6 +123,8 @@ class CreatePostVC: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.viewModel?.apiGetCategoriesList(type: 1)
         
         if comeFrom == "Edit"{
             setData()
@@ -352,35 +350,26 @@ extension CreatePostVC:UITextFieldDelegate{
     
     // UITextFieldDelegate method to detect the "@" symbol
       func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//          guard let currentText = textField.text else {
-//              return true
-//          }
-//
-//                // Check if the user has typed "@" in the text field
-//                  if string == "@" {
-//                      // Show the mentionView as an overlay
-//                      let optionItemListVC = MentionVC()
-//                      optionItemListVC.modalPresentationStyle = .popover
-//                    guard let popoverPresentationController = optionItemListVC.popoverPresentationController else { fatalError("Set Modal presentation style") }
-//                      optionItemListVC.popoverPresentationController?.sourceView = txtTags
-//                      popoverPresentationController.permittedArrowDirections = .down
-//                      optionItemListVC.preferredContentSize = CGSize(width: 300, height: 300)
-//                    popoverPresentationController.delegate = self
-//                      optionItemListVC.completion = { name,id in
-//                          self.tagIds.append(id)
-//                          self.txtTags.text = "@\(name)"
-//                          self.tagPeople = "@\(name)"
-//                          self.txtTags.resignFirstResponder()
-//                      }
-//                      self.present(optionItemListVC, animated: true, completion: nil)
-//                      print("view presented....")
-//                  } else {
-//                      // Hide the mentionView if "@" is not detected
-//                  }
-          
-          
+
           if textField == txtBudget{
               let newText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+              
+              if string.isEmpty {
+                  return true
+              }
+
+              // Check if the first character of the entered text is '0'
+              if txtBudget.text?.count ?? 0 > 0{
+                  
+              }else{
+                  
+                  if let firstCharacter = string.first, firstCharacter == "0" {
+                      // Reject the input by returning false
+                      return false
+                  }
+                  
+              }
+              
              if newText.count > 10{
                  Singleton.showMessage(message: "maximum limit reached.", isError: .error)
              }
@@ -577,5 +566,22 @@ extension CreatePostVC{
             default: break
             }
         }
+    
+    
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        // Check if the replacement string is empty (e.g., when the user taps the delete key)
+//        if string.isEmpty {
+//            return true
+//        }
+//
+//        // Check if the first character of the entered text is '0'
+//        if let firstCharacter = string.first, firstCharacter == "0" {
+//            // Reject the input by returning false
+//            return false
+//        }
+//
+//        // Allow the input if it doesn't start with '0'
+//        return true
+//    }
     
 }

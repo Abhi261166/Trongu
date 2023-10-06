@@ -272,7 +272,7 @@ extension PostVC{
                 var addressComponents = [String]()
 
                 if let locality = placemark.locality {
-                    addressComponents.append(locality)
+                  //  addressComponents.append(locality)
                 }
                 
                 if let country = placemark.country {

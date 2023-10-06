@@ -58,17 +58,26 @@ class AddPhotoVideoVC: UIViewController {
             ActivityIndicator.shared.showActivityIndicator()
             self.selectedIndex = IndexPath(row: 0, section: 0)
             enableTextFileds()
-            getAddressFromLatLong(latitude: Double(arrPostItems[0].lat) ?? 0.0, longitude: Double(arrPostItems[0].long) ?? 0.0, completion: { address in
-                if address ?? "" == "North Atlantic Ocean"{
-                    self.placeTF.text = ""
-                }else{
-                    self.placeTF.text = address
-                }
-                print("Got address from picker -----",address ?? "")
-                self.dateTF.text = self.arrPostItems[0].date
-                self.timeTF.text = self.arrPostItems[0].time
-                ActivityIndicator.shared.hideActivityIndicator()
-            })
+            
+            if self.arrPostItems.count > 1{
+                self.btnNext.isHidden = false
+            }else{
+                self.btnNext.isHidden = true
+            }
+            
+//            getAddressFromLatLong(latitude: Double(arrPostItems[0].lat) ?? 0.0, longitude: Double(arrPostItems[0].long) ?? 0.0, completion: { address in
+//                if address ?? "" == "North Atlantic Ocean"{
+//                    self.placeTF.text = ""
+//                }else{
+//                    self.placeTF.text = address
+//                }
+               
+       //     })
+        
+            self.dateTF.text = self.arrPostItems[0].date
+            self.placeTF.text = self.arrPostItems[0].place
+            self.timeTF.text = self.arrPostItems[0].time
+            ActivityIndicator.shared.hideActivityIndicator()
             
         }
         
@@ -476,8 +485,14 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
                 if selectedIndex == indexPath{
                     cell.postImage.borderWidth = 2
                     cell.postImage.borderColor = UIColor(named: "OrengeAppColour")
-                  //  ActivityIndicator.shared.showActivityIndicator()
-                   // self.showMetaDataInTextFileds(index: indexPath.row)
+                
+                    ActivityIndicator.shared.showActivityIndicator()
+                    
+                    self.dateTF.text = self.arrPostItems[indexPath.row].date
+                    self.placeTF.text = self.arrPostItems[indexPath.row].place
+                    self.timeTF.text = "\(self.arrPostItems[indexPath.row].time)"
+                   
+                    ActivityIndicator.shared.hideActivityIndicator()
                     
                 }else{
                     cell.postImage.borderWidth = 0
@@ -514,8 +529,8 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
             self.placeTF.text = self.arrPostItems[indexPath.row].place
             self.timeTF.text = "\(self.arrPostItems[indexPath.row].time)"
             
-            //self.showMetaDataInTextFileds(index: indexPath.row)
-            ActivityIndicator.shared.showActivityIndicator()
+           
+            ActivityIndicator.shared.hideActivityIndicator()
             
             self.addPhotoVideoCollectionView.reloadData()
             
@@ -1055,15 +1070,16 @@ extension AddPhotoVideoVC{
 }
 
 extension AddPhotoVideoVC:AddLocationVCDelegate{
-    
-    func setLocation(text: String, lat: Double, long: Double, address: String) {
+   
+    func setLocation(text: String, lat: Double, long: Double, address: String,country: String) {
         DispatchQueue.main.async {
             
             self.arrPostItems[self.selectedIndex?.row ?? 0].lat = "\(lat)"
             self.arrPostItems[self.selectedIndex?.row ?? 0].long = "\(long)"
-            
             self.placeTF.text = address
             self.arrPostItems[self.selectedIndex?.row ?? 0].place = address
+            self.arrPostItems[self.selectedIndex?.row ?? 0].country = country
+            
 //            self.getAddressFromLatLong(latitude: lat, longitude:
 //                                        long, completion: { address in
 //                self.placeTF.text = address

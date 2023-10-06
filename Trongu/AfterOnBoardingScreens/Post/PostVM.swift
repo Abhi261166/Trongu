@@ -72,6 +72,14 @@ class PostVM: NSObject {
                ]
                arrImagesDict.append(dictPlace)
                
+                let dictCountry : [String
+                            :Any] = [
+                  "key": "image[\(index)][country]",
+                  "value": arrPosts2[index].country ?? "",
+                  "type": "text"
+                ]
+                arrImagesDict.append(dictCountry)
+                
                let dictImageUrl : [String
                            :Any] = [
                  "key": "image[\(index)][image]",
@@ -143,6 +151,14 @@ class PostVM: NSObject {
                ]
                arrImagesDict.append(dictPlace)
                
+                let dictCountry : [String
+                            :Any] = [
+                  "key": "image[\(index)][country]",
+                  "value": arrPosts2[index].country ?? "",
+                  "type": "text"
+                ]
+                arrImagesDict.append(dictCountry)
+                
                let dictImageUrl : [String
                            :Any] = [
                  "key": "image[\(index)][image]",
@@ -360,6 +376,14 @@ class PostVM: NSObject {
                ]
                arrImagesDict.append(dictPlace)
                
+                let dictCountry : [String
+                            :Any] = [
+                  "key": "image[\(index)][country]",
+                  "value": arrPosts2[index].country ?? "",
+                  "type": "text"
+                ]
+                arrImagesDict.append(dictCountry)
+                
 //               let dictImageUrl : [String
 //                           :Any] = [
 //                 "key": "image[\(index)][image]",
@@ -441,6 +465,14 @@ class PostVM: NSObject {
                ]
                arrImagesDict.append(dictPlace)
                
+                let dictCountry : [String
+                            :Any] = [
+                  "key": "image[\(index)][country]",
+                  "value": arrPosts2[index].country ?? "",
+                  "type": "text"
+                ]
+                arrImagesDict.append(dictCountry)
+                
 //               let dictImageUrl : [String
 //                           :Any] = [
 //                 "key": "image[\(index)][image]",

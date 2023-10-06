@@ -163,6 +163,7 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTVCell", for: indexPath) as! HomeTVCell
         cell.delegate = self
+        cell.tableDelegate = self
         cell.controller = self
         cell.homeCollectionView.reloadData()
         let dict = self.viewModel?.arrPostList[indexPath.row]
@@ -178,7 +179,7 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
 //            cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") \(dict?.noOfDays ?? "")"
 //        }
         cell.lblTimeAddress.text = "\(dict?.postImagesVideo.first?.time ?? "") \(dict?.postImagesVideo.first?.place ?? "")"
-        cell.lblTopAddress.text = "\(dict?.postImagesVideo.first?.place ?? "")"
+        cell.lblTopAddress.text = "\(dict?.postImagesVideo.first?.country ?? "")"
         cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") (\(dict?.noOfDays ?? ""))"
         
         
@@ -218,15 +219,17 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let postsCount = self.viewModel?.arrPostList.count else { return }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTVCell", for: indexPath) as! HomeTVCell
+       
+        cell.homeCollectionView.reloadData()
+        
         if indexPath.row == postsCount-1 && self.viewModel?.isLastPage == false {
             print("IndexRow\(indexPath.row)")
-            
             if comeFrom{
                 
             }else{
                 self.viewModel?.apiHomePostList()
             }
-            
         }
         
         if (self.lastContentOffset > tableView.contentOffset.y) {
@@ -512,4 +515,21 @@ extension HomeVC:TabBarRefreshDel {
         self.apiCall()
         
     }
+}
+
+extension HomeVC:CellDelegate{
+    func reloadCell(_ cell: HomeTVCell) {
+        if let indexPath = homeTableView.indexPath(for: cell) {
+            
+            homeTableView.beginUpdates()
+            homeTableView.reloadRows(at: [indexPath], with: .automatic)
+            
+            guard let cell = homeTableView.visibleCells.first as? HomeTVCell else{ return }
+            
+    //        cell.homeCollectionView.scrollToItem(at: IndexPath(item: cell.arrPostImagesVideosList.count, section: 0), at: .right, animated: false)
+            
+            homeTableView.endUpdates()
+        }
+    }
+    
 }

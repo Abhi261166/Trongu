@@ -6,6 +6,22 @@
 //
 import UIKit
 import CoreLocation
+
+extension UITableViewCell{
+    func getTable() -> UITableView?{
+        var view = self.superview
+        while (view != nil && (view as? UITableView) == nil) {
+            view = view?.superview
+        }
+        return  view as? UITableView
+    }
+}
+
+
+protocol CellDelegate: AnyObject {
+    func reloadCell(_ cell: HomeTVCell)
+}
+
 protocol HomeTVCellDelegate: NSObjectProtocol {
     //func viewUserProfile(_ indexPath: IndexPath)
     func didTapProfileBtn(_ indexPath: IndexPath)
@@ -51,7 +67,7 @@ class HomeTVCell: UITableViewCell {
     var noOfDays = ""
     var address : [String] = []
     var isReloadHome = true
-    
+    weak var tableDelegate: CellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -63,11 +79,11 @@ class HomeTVCell: UITableViewCell {
         homeCollectionView.register(UINib(nibName: "MapCVC", bundle: nil), forCellWithReuseIdentifier: "MapCVC")
         pageController.hidesForSinglePage = true
         
-     }
+    }
     
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//
-//    }
+    //    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    //
+    //    }
     
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -77,7 +93,7 @@ class HomeTVCell: UITableViewCell {
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         pageController.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
     }
-        
+    
     
     @IBAction func profileBtnAction(_ sender: UIButton) {
         if let indexPath = self.indexPath {
@@ -103,7 +119,7 @@ class HomeTVCell: UITableViewCell {
             self.delegate?.didTapComment(indexPath)
         }
     }
-
+    
     @IBAction func shareAction(_ sender: UIButton) {
         if let indexPath = self.indexPath {
             self.delegate?.didTapShare(indexPath)
@@ -139,8 +155,8 @@ class HomeTVCell: UITableViewCell {
     @IBAction func PageCotrolAction(_ sender: UIPageControl) {
         var indexPath: IndexPath!
         let current = pageController.currentPage
-                indexPath = IndexPath(item: current, section: 0)
-                homeCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        indexPath = IndexPath(item: current, section: 0)
+        homeCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -157,7 +173,7 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddPostCVC", for: indexPath) as! AddPostCVC
         let mapCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MapCVC", for: indexPath) as! MapCVC
         
@@ -180,15 +196,15 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             default:
                 break
             }
-                return cell
+            return cell
         }
-       
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-     
+        
         if indexPath.row == arrPostImagesVideosList.count{
-           print("In Map Cell")
+            print("In Map Cell")
             let vc = MapVC()
             vc.post = arrPostImagesVideosList
             vc.initialLat = Double(arrPostImagesVideosList.first?.lat ?? "") ?? 0.0
@@ -197,12 +213,12 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             vc.hidesBottomBarWhenPushed = true
             controller?.navigationController?.pushViewController(vc, animated: true)
         }else{
-//            let vc = ImageVideoLocationVC()
-//            vc.arrPost = arrPostImagesVideosList
-//            vc.hidesBottomBarWhenPushed = true
-//            controller?.navigationController?.pushViewController(vc, animated: true)
+            //            let vc = ImageVideoLocationVC()
+            //            vc.arrPost = arrPostImagesVideosList
+            //            vc.hidesBottomBarWhenPushed = true
+            //            controller?.navigationController?.pushViewController(vc, animated: true)
         }
-  
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -214,11 +230,11 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         
         if (self.lastContentOffset > homeCollectionView.contentOffset.x) {
             print("scrolling up")
-//            self.view.sendSubviewToBack(cell)
+            //            self.view.sendSubviewToBack(cell)
             self.homeCollectionView.sendSubviewToBack(cell)
         } else if (self.lastContentOffset < homeCollectionView.contentOffset.x) {
             print("scrolling Down")
-//            self.view.sendSubviewToBack(cell)
+            //            self.view.sendSubviewToBack(cell)
             self.homeCollectionView.bringSubviewToFront(cell)
         }
         self.lastContentOffset = homeCollectionView.contentOffset.x
@@ -231,14 +247,7 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     
     @objc func actionPostDetails(sender:UIButton){
         
-//        let vc = ImageVideoLocationVC()
-//        vc.index = sender.tag
-//        vc.arrPost = arrPostImagesVideosList
-//        vc.completion = {
-//            self.isReloadHome = false
-//        }
-//        vc.hidesBottomBarWhenPushed = true
-//        controller?.navigationController?.pushViewController(vc, animated: true)
+       
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -249,11 +258,7 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let witdh = scrollView.frame.width - (scrollView.contentInset.left*2)
-//        let index = scrollView.contentOffset.x / witdh
-//        let roundedIndex = round(index)
-//        self.pageController.currentPage = Int(roundedIndex)
-        
+       
         self.lastContentOffset = homeCollectionView.contentOffset.x
         if self.timer != nil {
             self.timer?.invalidate()
@@ -261,10 +266,10 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         }
         let indexPaths = self.homeCollectionView.visibleCells.map({$0.indexPath!}).sorted(by: {$0.item < $1.item})
         indexPaths.forEach { index in
-          
+            
             if let cell = self.homeCollectionView.cellForItem(at: index){
                 self.homeCollectionView.bringSubviewToFront(cell)
-
+                
             }
             
         }
@@ -282,8 +287,22 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     }
     
     @objc func pauseOnMapCell() {
+        guard let visibleCell = self.homeCollectionView.visibleCells.first as? MapCVC else { return }
         
-        guard let visibleCell = homeCollectionView.visibleCells.first as? MapCVC else { return }
+        let tableView = self.getTable()
+        tableView?.beginUpdates()
+        UIView.animate(
+            withDuration: 0.3,
+            delay: 0,
+            animations: {
+                let address = self.arrPostImagesVideosList.map({"\($0.place) \($0.time)"}).joined(separator: "\n")
+                self.lblTimeAddress.text = address
+                self.contentView.layoutIfNeeded()
+            }, completion: { completed in
+                self.contentView.layoutIfNeeded()
+            }
+        )
+        tableView?.endUpdates()
         
         if let player = DAVideoPlayerView.player {
             player.pause()
@@ -293,12 +312,6 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     }
     
     @objc func playCurrentVideo() {
-//        print("timer running")
-      //  let visibleRect = CGRect(origin: self.homeCollectionView.contentOffset, size: self.homeCollectionView.bounds.size)
-//        let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
-//        guard let indexPath = self.homeCollectionView.indexPathForItem(at: visiblePoint) else { return }
-//        guard let cell = self.homeCollectionView.cellForItem(at: indexPath) as? HomeTVCell else { return }
-//        guard let videoCell = cell.homeCollectionView?.visibleCells.first as? AddPostCVC else { return }
         
         guard let visibleCell = homeCollectionView.visibleCells.first as? AddPostCVC else { return }
         
@@ -311,24 +324,51 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             visibleCell.volumeButton.isSelected = isMuted
             visibleCell.videoPlayerView.isMuted = isMuted
             visibleCell.videoPlayerView.play()
-           // getAddressFromLatLong(latitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].lat ) ?? 0.0, longitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].long ) ?? 0.0) { address in
-                self.lblTimeAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ) \(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].place ?? "")"
-                self.lblTopAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].place ?? "")"
-                
-              //  self.lblAddressPriceDays.text = " . $\(self.budget ) . \(self.noOfDays )"
-           // }
+            
+            let tableView = self.getTable()
+            tableView?.beginUpdates()
+            UIView.animate(
+                withDuration: 0.3,
+                delay: 0,
+                animations: {
+            
+            self.lblTimeAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ) \(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].place )"
+            self.lblTopAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].country ?? "")"
+            
+                    self.contentView.layoutIfNeeded()
+                }, completion: { completed in
+                    self.contentView.layoutIfNeeded()
+                }
+            )
+            tableView?.endUpdates()
+                    
         }else if visibleCell.urlString?.isImageType == true {
-           // getAddressFromLatLong(latitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].lat ) ?? 0.0, longitude: Double(arrPostImagesVideosList[homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].long ) ?? 0.0) { address in
-                self.lblTimeAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ) \(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].place ?? "")"
-                self.lblTopAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].place ?? "")"
-         //     //  self.lblAddressPriceDays.text = " . $\(self.budget ) . \(self.noOfDays )"
-         //   }
+            
+            let tableView = self.getTable()
+            tableView?.beginUpdates()
+            UIView.animate(
+                withDuration: 0.3,
+                delay: 0,
+                animations: {
+            
+            self.lblTimeAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ) \(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].place )"
+            self.lblTopAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].country ?? "")"
+            
+            self.contentView.layoutIfNeeded()
+        }, completion: { completed in
+            self.contentView.layoutIfNeeded()
+        }
+    )
+    tableView?.endUpdates()
+            
             if let player = DAVideoPlayerView.player {
                 player.pause()
                 DAVideoPlayerView.player = nil
             }
+            
         }else{
             print("In map cell")
+            
             if let player = DAVideoPlayerView.player {
                 player.pause()
                 DAVideoPlayerView.player = nil
@@ -340,29 +380,29 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     func setPostData(postData : [PostImagesVideo], budget:String , noOfDays:String) {
         
         self.arrPostImagesVideosList = postData
-         self.pageController.numberOfPages = arrPostImagesVideosList.count + 1
-
+        self.pageController.numberOfPages = arrPostImagesVideosList.count + 1
+        
     }
     
     func getAddressFromLatLong(latitude: Double, longitude: Double, completion: @escaping (String?) -> Void) {
         let location = CLLocation(latitude: latitude, longitude: longitude)
         let geocoder = CLGeocoder()
-
+        
         geocoder.reverseGeocodeLocation(location) { placemarks, error in
             if let error = error {
                 print("Error geocoding location: \(error.localizedDescription)")
                 completion(nil)
                 return
             }
-
+            
             if let placemark = placemarks?.first {
                 // Create a dictionary to hold the address components
                 var addressComponents = [String]()
-
+                
                 if let country = placemark.country {
                     addressComponents.append(country)
                 }
-
+                
                 // Join all the address components to get the complete address
                 let address = addressComponents.joined(separator: ", ")
                 completion(address)
@@ -372,5 +412,5 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         }
     }
     
-   
+    
 }

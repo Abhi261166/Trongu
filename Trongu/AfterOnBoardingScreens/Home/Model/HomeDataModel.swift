@@ -54,7 +54,7 @@ struct PostImagesVideo: Codable {
     var id, postID, place, date: String
     var time, lat, long: String
     let image: String
-    let country: String?
+    var country: String?
     let videoTitle: String
     let videoURL: String
     let height, width: String

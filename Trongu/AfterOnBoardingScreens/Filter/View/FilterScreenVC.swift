@@ -128,8 +128,9 @@ class FilterScreenVC: UIViewController {
 }
 
 extension FilterScreenVC:AddLocationVCDelegate{
+   
     
-    func setLocation(text: String, lat: Double, long: Double, address: String) {
+    func setLocation(text: String, lat: Double, long: Double, address: String,country: String) {
         
         DispatchQueue.main.async {
             self.placeTF.text = address

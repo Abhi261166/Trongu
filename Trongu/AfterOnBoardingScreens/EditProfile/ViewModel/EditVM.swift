@@ -7,9 +7,8 @@
 
 protocol EditVMObserver: NSObjectProtocol {
     func observeGetEditProfileSucessfull()
-    
+    func observeGetCategoriesListSucessfull()
 }
-
 
 import UIKit
 
@@ -20,40 +19,12 @@ class EditVM: NSObject {
     var editImage: PickerData?
     var imagePicker = GetImageFromPicker()
     var edit_cover_Image: PickerData?
+    var arrGender:[SignUpCatItem] = []
+    var arrEthnicity:[SignUpCatItem] = []
+    
     init(observer: EditVMObserver?) {
         self.observer = observer
     }
-    
-//    func validatePersnalDetails(name: String,userNamme:String,dob: String,gender: String, paswrd: String,place:String,ethnicity:String,bio:String) -> Bool {
-//        let isvalidname = Validator.validateName(name: name)
-//        let isvalidusername = Validator.validateName(name: userNamme)
-//
-//        let isvalidLearnReason = Validator.validateLearnReson(learnReason: learnReason)
-//        let isvalidLearningGoal = Validator.validateDailyLearningGoal(lerningGoal: lerningGoal)
-//        let isvalidEnglishLevel = Validator.validateEnglishLevel(englishLevel: englishLevel)
-//
-//        guard isvalidname.0 == true else {
-//            Singleton.showMessage(message: "\(isvalidname.1)", isError: .error)
-//            print("isvalidname  \(isvalidname)")
-//            return false
-//        }
-//        guard isvalidLearnReason.0 == true else {
-//            Singleton.showMessage(message: "\(isvalidLearnReason.1)", isError: .error)
-//            print("isvalidAge  \(isvalidLearnReason)")
-//            return false
-//        }
-//        guard isvalidLearningGoal.0 == true else {
-//            Singleton.showMessage(message: "\(isvalidLearningGoal.1)", isError: .error)
-//            print("isvalidGender  \(isvalidLearningGoal)")
-//            return false
-//        }
-//        guard isvalidEnglishLevel.0 == true else {
-//            Singleton.showMessage(message: "\(isvalidEnglishLevel.1)", isError: .error)
-//            print("isValidBio  \(isvalidEnglishLevel)")
-//            return false
-//        }
-//        return true
-//    }
     
     func apiEditProfile(name:String,username:String,pswrd:String,place:String,birthDate:String,gender:String,ethnicity:String,
                         lat :String, long:String,bio:String){
@@ -96,4 +67,34 @@ class EditVM: NSObject {
         
         
     }
+    
+    
+    //MARK: - Get Categories -
+    
+    func apiGetCategoriesList(type:Int) {
+        
+        arrGender = []
+        arrEthnicity = []
+        
+        var params = JSON()
+        params["type"] = type
+        print("params : ", params)
+        
+        ApiHandler.callWithMultipartForm(apiName: API.Name.getCategories, params: params) { succeeded, response, data in
+            DispatchQueue.main.async {
+                if succeeded == true, let data {
+                    let decoder = JSONDecoder()
+                    do {
+                        let decoded = try decoder.decode(SignUpCatModel.self, from: data)
+                        self.arrGender.append(contentsOf: decoded.gender)
+                        self.arrEthnicity.append(contentsOf: decoded.ethnicity)
+                        self.observer?.observeGetCategoriesListSucessfull()
+                    } catch {
+                        print("error", error)
+                    }
+                }
+            }
+        }
+    }
+    
 }

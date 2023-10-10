@@ -98,6 +98,8 @@ class API {
         // categorys
         
         static let getCategories          = "j1/trongu/api/v1/users/post-categories-dropdown"
+        static let updateOnlineStatus     = "j1/trongu/api/v1/users/check-online-status"
+        
         
         
         

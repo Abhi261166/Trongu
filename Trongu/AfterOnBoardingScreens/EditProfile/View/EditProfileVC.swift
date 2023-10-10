@@ -41,6 +41,19 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
         setPicker()
         setViewModel()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        apiCall()
+    }
+    
+    
+    func apiCall(){
+        
+        self.viewModel?.apiGetCategoriesList(type: 2)
+        
+    }
+    
     func setViewModel() {
         self.viewModel = EditVM(observer: self)
     }
@@ -65,21 +78,11 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
         print(UserDefaultsCustom.getUserData()?.user_name ?? "","Nmm")
         print(userNameTF.text,nameTF.text,"Names")
         dateOfBirthTF.text = UserDefaultsCustom.getUserData()?.dob ?? ""
-        if UserDefaultsCustom.getUserData()?.gender == "0" {
-            genderTF.text = "Male"
-        }else{
-            genderTF.text = "Female"
-        }
+        genderTF.text = UserDefaultsCustom.getUserData()?.gender_name ?? ""
         passwordTF.text = AppDefaults.password
         confirmPasswordTF.text = AppDefaults.password
         addPlaceTF.text = UserDefaultsCustom.getUserData()?.place
-        if UserDefaultsCustom.getUserData()?.ethnicity == "1"{
-            ethnicityTF.text = "American"
-        }else if UserDefaultsCustom.getUserData()?.ethnicity == "2"{
-            ethnicityTF.text = "Australian"
-        }else{
-            ethnicityTF.text = "Asian"
-        }
+        ethnicityTF.text = UserDefaultsCustom.getUserData()?.ethnicity_name ?? ""
         self.selectGender = UserDefaultsCustom.getUserData()?.gender ?? ""
         self.selectEthnicity = UserDefaultsCustom.getUserData()?.ethnicity ?? ""
         bioTextView.text = UserDefaultsCustom.getUserData()?.bio
@@ -184,32 +187,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
     
     @IBAction func cameraAction(_ sender: UIButton) {
         self.openGalaryPhoto(tag: 1)
-//        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-//        let action = UIAlertAction(title: "Camera", style: .default){ [self] action in
-//            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-//                imagePickerController.sourceType = .camera;
-//                imagePickerController.allowsEditing = true
-//                self.imagePickerController.delegate = self
-//                self.present(imagePickerController, animated: true, completion: nil)
-//            }
-//            else{
-//                let alert = UIAlertController(title: "Camera not found", message: "This device has no camera", preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "Ok", style: .default,handler: nil))
-//                present(alert, animated: true,completion: nil)
-//            }
-//        }
-//        let action1 = UIAlertAction(title: "Gallery", style: .default){ action in
-//            self.imagePickerController.allowsEditing = false
-//            self.imagePickerController.sourceType = .photoLibrary
-//            self.imagePickerController.delegate = self
-//            self.present(self.imagePickerController, animated: true, completion: nil)
-//        }
-//        let action2 = UIAlertAction(title: "Cancel", style: .cancel)
-//        alert.addAction(action)
-//        alert.addAction(action1)
-//        alert.addAction(action2)
-//        present(alert, animated: true, completion: nil)
-    
+
     }
     
     func openGalaryPhoto(tag: Int) {
@@ -242,30 +220,30 @@ extension EditProfileVC :UIPickerViewDelegate, UIPickerViewDataSource{
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if genderTF.isFirstResponder {
-            return genderPicker.count
+            return self.viewModel?.arrGender.count ?? 0
         }else if ethnicityTF.isFirstResponder {
-            return ethnicityPicker.count
+            return self.viewModel?.arrEthnicity.count ?? 0
         }
         return 0
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if genderTF.isFirstResponder {
-            return genderPicker[row]
+            return self.viewModel?.arrGender[row].genderName
         }else if ethnicityTF.isFirstResponder{
-            return ethnicityPicker[row]
+            return self.viewModel?.arrEthnicity[row].name
         }
         return nil
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if genderTF.isFirstResponder {
-            genderTF.text = genderPicker[row]
-            self.selectGender = String(row)
-            print(self.selectGender,"Etfdfdhhh")
+            genderTF.text = self.viewModel?.arrGender[row].genderName
+            self.selectGender = self.viewModel?.arrGender[row].id ?? ""
+            print("Selected Gender ID -- ",self.selectGender)
         }else if ethnicityTF.isFirstResponder {
-            ethnicityTF.text = ethnicityPicker[row]
-            self.selectEthnicity = String(row + 1)
-            print(self.selectEthnicity,"Ethhh")
+            ethnicityTF.text = self.viewModel?.arrEthnicity[row].name
+            self.selectEthnicity = self.viewModel?.arrEthnicity[row].id ?? ""
+            print("Selected ethnicity ID",self.selectEthnicity)
         }
     }
     
@@ -279,7 +257,7 @@ extension EditProfileVC : UITextFieldDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
                 let index = genderPicker.firstIndex(where: {$0 == genderTF.text ?? ""}) ?? 0
                 pickerView.selectRow(index, inComponent: 0, animated: false)
-                genderTF.text = genderPicker[index]
+               // genderTF.text = genderPicker[index]
                 //                self.selectGender = String(genderPicker[index])
             })
             
@@ -289,13 +267,18 @@ extension EditProfileVC : UITextFieldDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
                 let index = ethnicityPicker.firstIndex(where: {$0 == ethnicityTF.text ?? ""}) ?? 0
                 pickerView.selectRow(index, inComponent: 0, animated: false)
-                ethnicityTF.text = ethnicityPicker[index]
+              //  ethnicityTF.text = ethnicityPicker[index]
                 //                self.selectEthnicity = String(ethnicityPicker[index + 1])
             })
         }else{}
     }
 }
 extension EditProfileVC : EditVMObserver{
+    
+    func observeGetCategoriesListSucessfull() {
+        
+    }
+    
     func observeGetEditProfileSucessfull() {
         if let completion = completion{
             self.popViewController(true)

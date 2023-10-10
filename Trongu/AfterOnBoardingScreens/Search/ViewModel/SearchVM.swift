@@ -99,7 +99,6 @@ class SearchVM: NSObject {
             }
         }
     }
-
     
     //MARK: Remove Recent User
     func apiRemoveRecentHistory(actionId: String,actionType: String) {

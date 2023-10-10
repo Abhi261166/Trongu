@@ -491,6 +491,10 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
                     self.dateTF.text = self.arrPostItems[indexPath.row].date
                     self.placeTF.text = self.arrPostItems[indexPath.row].place
                     self.timeTF.text = "\(self.arrPostItems[indexPath.row].time)"
+                    
+                    if self.placeTF.text == "" && self.arrPostItems[indexPath.row].lat != ""{
+                        self.showMetaDataInTextFileds(index: indexPath.row)
+                    }
                    
                     ActivityIndicator.shared.hideActivityIndicator()
                     
@@ -504,7 +508,6 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
             cell.btnCross.isHidden = true
             cell.postImage.image = UIImage(named: "AddImage_2")
             cell.postImage.borderWidth = 0
-            
             self.disableTextFileds()
         }
     }
@@ -555,7 +558,10 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
                 self.placeTF.text = self.arrPostItems[indexPath.row].place
                 self.timeTF.text = "\(self.arrPostItems[indexPath.row].time)"
                 
-                //self.showMetaDataInTextFileds(index: indexPath.row)
+                if self.placeTF.text == "" && self.arrPostItems[indexPath.row].lat != ""{
+                    self.showMetaDataInTextFileds(index: indexPath.row)
+                }
+                
                 ActivityIndicator.shared.hideActivityIndicator()
                 
                 self.addPhotoVideoCollectionView.reloadData()
@@ -637,13 +643,17 @@ extension AddPhotoVideoVC: UICollectionViewDelegate,UICollectionViewDataSource,U
         }
         
         if arrPostItems.count == 1 || arrPostItems.count == 0{
-            
             btnNext.isHidden = true
             
         }else{
             btnNext.isHidden = false
         }
         
+        if selectedIndex?.row == arrPostItems.count - 1{
+            btnNext.isHidden = true
+        }else{
+            btnNext.isHidden = false
+        }
         
     }
     

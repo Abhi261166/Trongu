@@ -35,9 +35,11 @@ class UserData: Codable  {
     var login_type: String?
     var dob:String?
     var ethnicity: String?
+    var ethnicity_name: String?
     var expireAt: String?
     var id, google_id, facebook_id: String?
     var gender: String?
+    var gender_name:String?
     var image:String?
     var lat:String?
     var long:String?

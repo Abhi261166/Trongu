@@ -43,26 +43,50 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
+       // onlineOfflineApiCall(isOnline: 1)
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
+        
+      //  onlineOfflineApiCall(isOnline: 2)
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
+        onlineOfflineApiCall(isOnline: 1)
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
+        onlineOfflineApiCall(isOnline: 0)
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
 
+    
+    func onlineOfflineApiCall(isOnline:Int){
+            
+            var params = JSON()
+            params["is_online"] = isOnline
+            print("params : ", params)
+            
+            ApiHandler.callWithMultipartForm(apiName: API.Name.updateOnlineStatus, params: params) { succeeded, response, data in
+                DispatchQueue.main.async {
+                    if succeeded == true{
+                        if isOnline == 1{
+                            print("User is online")
+                        }else{
+                            print("User is offline")
+                        }
+                    }
+                }
+            }
+    }
 
 }
 

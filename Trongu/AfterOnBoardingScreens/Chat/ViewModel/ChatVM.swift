@@ -12,7 +12,7 @@ protocol CreateRoomObserver: NSObjectProtocol {
 }
 
 protocol ChatVMObserver: NSObjectProtocol {
-    func observerListMessages()
+    func observerListMessages(image:String)
     func observerRemoveHeader()
     func observerPreviousMessages(indexPaths:[IndexPath])
     func observerSendMessages(json: [String: Any], message: MessageDetails)
@@ -30,7 +30,7 @@ class ChatVM: NSObject {
     var otherUserId: String = ""
     var roomId: String = ""
     var page_no = 0
-    var per_page = 30
+    var per_page = 100
     var isLoadingMesssages: Bool = false
     var chatHistory = [MessageDetails]()
     var recieverDetails: UserData?
@@ -103,7 +103,7 @@ class ChatVM: NSObject {
                             self.pageCompleted = messages.count < self.per_page
                             if self.chatHistory.count == 0 {
                                 self.chatHistory.insert(contentsOf: messages, at: 0)
-                                self.observer?.observerListMessages()
+                                self.observer?.observerListMessages(image: response.userImage)
                             } else {
                                 self.chatHistory.insert(contentsOf: messages, at: 0)
                                 let indexPaths = messages.enumerated().map({IndexPath(row: $0.offset, section: 0)})
@@ -145,7 +145,7 @@ class ChatVM: NSObject {
                             self.pageCompleted = messages.count < self.per_page
                             if self.chatHistory.count == 0 {
                                 self.chatHistory.insert(contentsOf: messages, at: 0)
-                                self.observer?.observerListMessages()
+                                self.observer?.observerListMessages(image: response.userImage)
                             } else {
                                 self.chatHistory.insert(contentsOf: messages, at: 0)
                                 let indexPaths = messages.enumerated().map({IndexPath(row: $0.offset, section: 0)})

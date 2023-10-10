@@ -252,8 +252,6 @@ extension DetailVC:DetailsVMObserver{
         
     }
     
-    
-    
     func setPostData(post:Post?){
         
         let dict = post
@@ -261,10 +259,10 @@ extension DetailVC:DetailsVMObserver{
         self.pageControl.numberOfPages = (dict?.postImagesVideo.count ?? 0)
         self.imgUserProfile.setImage(image: dict?.userDetail.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
         self.lblName.text = dict?.userDetail.name
-        self.lblTripComplexity.text = dict?.tripComplexity
+        self.lblTripComplexity.text = dict?.trip_complexity_name
         self.lblDescription.text = dict?.description
         self.lblTimeAndAddress.text = "\(dict?.postImagesVideo.first?.time ?? "") \(dict?.postImagesVideo.first?.place ?? "")"
-        self.lblAddressPriceNoOfDays.text = "\(dict?.postImagesVideo.first?.place ?? "") $\(dict?.budget ?? "") (\(dict?.noOfDays ?? ""))"
+        self.lblAddressPriceNoOfDays.text = "\(dict?.postImagesVideo.first?.country ?? "") $\(dict?.budget ?? "") (\(dict?.no_of_days_name ?? ""))"
         
         if dict?.isLike == "1"{
             self.btnLike.isSelected = true

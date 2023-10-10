@@ -206,7 +206,7 @@ extension PushModel {
                 self.title_message = title_message
                 let user_id = data["user_id"] as? String ?? ""
                 self.user_id = user_id
-                let username = data["username"] as? String ?? ""
+                let username = data["other_user_name"] as? String ?? ""
                 self.username = username
                 let viewed_status = data["viewed_status"] as? String ?? ""
                 self.viewed_status = viewed_status
@@ -220,7 +220,7 @@ extension PushModel {
 enum PUSH_TYPE: Int {
     case following      = 1
     case followRequest  = 2
-    case Message        = 5
+    case Message        = 6
     case comment_post   = 4
     case like           = 3
 }

@@ -38,6 +38,11 @@ class CreatePostVC: UIViewController{
     var isFromTabbar = false
     var selectedForTag:[Userdetail] = []
     
+    // selected id's
+    var selectedDaysId = ""
+    var selectedTripCatId = ""
+    var selectedTripComplexityId = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         textFiledDelegates()
@@ -67,7 +72,10 @@ class CreatePostVC: UIViewController{
             
             let UserData = UserDetail(id: "", googleID: "", facebookID: "", appleID: "", name: "", userName: "", loginType: "", gender: "", email: "", image: "", password: "", place: "", bio: "", dob: "", ethnicity: "", deviceToken: "", deviceType: "", isStatus: "", mailStatus: "", smsStatus: "", status: "", authKey: "", accessToken: "", lat: "", long: "", verificationToken: "", passwordResetToken: "", expireAt: "", createdAt: "", updatedAt: "")
             
-            let post = Post(id: "", userID: "", budget: "", noOfDays: "", tripCategory: "", description: "", tripComplexity: "", status: "", createdAt: "", tripCategoryName: "", userDetail: UserData)
+          //  let post = Post(id: "", userID: "", budget: "", noOfDays: "", tripCategory: "", description: "", tripComplexity: "", status: "", createdAt: "", tripCategoryName: "", userDetail: UserData)
+            
+            let post = Post(id: "", userID: "", budget: "", noOfDays: "", trip_complexity_name: "", no_of_days_name: "", tripCategory: "", description: "", tripComplexity: "", status: "", createdAt: "", tripCategoryName: "", userDetail: UserData)
+            
             myPost.append(post)
             
         }
@@ -101,14 +109,14 @@ class CreatePostVC: UIViewController{
                   let selectedRow = pickerView.selectedRow(inComponent: 0)
           
                   if txtNoOffDays.isFirstResponder {
-                      txtNoOffDays.text = arrDays[selectedRow]
+                      txtNoOffDays.text = self.viewModel?.arrNoOfDays[selectedRow].noOfDays
                       txtNoOffDays.resignFirstResponder()
                   } else if txtTripCategory.isFirstResponder {
-                      txtTripCategory.text = arrTripCat[selectedRow]
+                      txtTripCategory.text = self.viewModel?.arrTripCategory[selectedRow].name
                       txtTripCategory.resignFirstResponder()
                       
                   } else if txtTripComplexity.isFirstResponder {
-                      txtTripComplexity.text = arrTripComplexity[selectedRow]
+                      txtTripComplexity.text = self.viewModel?.arrTripComplexity[selectedRow].name
                       txtTripCategory.resignFirstResponder()
                   }
                   
@@ -123,16 +131,12 @@ class CreatePostVC: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+       
         self.viewModel?.apiGetCategoriesList(type: 1)
         
         if comeFrom == "Edit"{
             setData()
         }else{
-            //            let UserData = UserDetail(id: "", googleID: "", facebookID: "", appleID: "", name: "", userName: "", loginType: "", gender: "", email: "", image: "", password: "", place: "", bio: "", dob: "", ethnicity: "", deviceToken: "", deviceType: "", isStatus: "", mailStatus: "", smsStatus: "", status: "", authKey: "", accessToken: "", lat: "", long: "", verificationToken: "", passwordResetToken: "", expireAt: "", createdAt: "", updatedAt: "")
-            //            let post = Post(id: "", userID: "", budget: "", noOfDays: "", tripCategory: "", description: "", tripComplexity: "", status: "", createdAt: "", tripCategoryName: "", userDetail: UserData)
-            //            myPost.append(post)
-            print("Data Removed....")
         
         if isFromTabbar{
             setData()
@@ -157,7 +161,7 @@ class CreatePostVC: UIViewController{
         txtTripCategory.text = ""
         let UserData = UserDetail(id: "", googleID: "", facebookID: "", appleID: "", name: "", userName: "", loginType: "", gender: "", email: "", image: "", password: "", place: "", bio: "", dob: "", ethnicity: "", deviceToken: "", deviceType: "", isStatus: "", mailStatus: "", smsStatus: "", status: "", authKey: "", accessToken: "", lat: "", long: "", verificationToken: "", passwordResetToken: "", expireAt: "", createdAt: "", updatedAt: "")
         
-        let post = Post(id: "", userID: "", budget: "", noOfDays: "", tripCategory: "", description: "", tripComplexity: "", status: "", createdAt: "", tripCategoryName: "", userDetail: UserData)
+        let post = Post(id: "", userID: "", budget: "", noOfDays: "", trip_complexity_name: "", no_of_days_name: "", tripCategory: "", description: "", tripComplexity: "", status: "", createdAt: "", tripCategoryName: "", userDetail: UserData)
         myPost.append(post)
         
     }
@@ -169,8 +173,12 @@ class CreatePostVC: UIViewController{
             txtBudget.text = myPost[0].budget
             txtNoOffDays.text = myPost[0].noOfDays
             txtTripCategory.text = myPost[0].tripCategoryName
-            txtTripComplexity.text = myPost[0].tripComplexity
+            txtTripComplexity.text = myPost[0].trip_complexity_name
             txtViewDesc.text = myPost[0].description
+            
+            selectedDaysId = myPost[0].noOfDays
+            selectedTripCatId = myPost[0].tripCategory
+            selectedTripComplexityId = myPost[0].tripComplexity
             
             if myPost[0].tagPeople?.count ?? 0 > 0 {
                 for index in 0...((myPost[0].tagPeople?.count ?? 0) - 1){
@@ -180,7 +188,6 @@ class CreatePostVC: UIViewController{
                     
                         selectedForTag.append(user)
                 }
-                 
                 
             }else{
                 
@@ -204,7 +211,6 @@ class CreatePostVC: UIViewController{
         txtNoOffDays.delegate = self
         txtTripCategory.delegate = self
         txtTripComplexity.delegate = self
-  
     }
     
     func textFiledDelegates(){
@@ -212,7 +218,6 @@ class CreatePostVC: UIViewController{
         txtTripCategory.delegate = self
         txtTripComplexity.delegate = self
         txtNoOffDays.delegate = self
-        
     }
     
     @IBAction func actionTagPeople(_ sender: UIButton) {
@@ -278,7 +283,9 @@ class CreatePostVC: UIViewController{
                 }else{
                     self.lblSelectedItems.text = ""
                 }
+                
                 print("finalPostItems count --- ",self.finalPostItems.count)
+                
             }
         }
         vc.selectedItems = finalPostItems
@@ -326,6 +333,9 @@ class CreatePostVC: UIViewController{
                 self.isFromTabbar = true
             }
             
+            vc.selectedDaysId = selectedDaysId
+            vc.selectedTripCatId = selectedTripCatId
+            vc.selectedTripComplexityId = selectedTripComplexityId
             vc.arrPostYP = finalPostItems
             vc.finalPost = myPost.first
             vc.tagIds = tagIds
@@ -397,11 +407,11 @@ extension CreatePostVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
 
         if txtNoOffDays.isFirstResponder {
-            return arrDays.count
+            return self.viewModel?.arrNoOfDays.count ?? 0
         } else if txtTripCategory.isFirstResponder {
-            return arrTripCat.count
+            return self.viewModel?.arrTripCategory.count ?? 0
         } else if  txtTripComplexity.isFirstResponder {
-            return arrTripComplexity.count
+            return self.viewModel?.arrTripComplexity.count ?? 0
         }
         
         return 0
@@ -411,12 +421,12 @@ extension CreatePostVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
           
         if txtNoOffDays.isFirstResponder {
-            return arrDays[row]
+            return self.viewModel?.arrNoOfDays[row].noOfDays
             
         } else if txtTripCategory.isFirstResponder {
-            return arrTripCat[row]
+            return self.viewModel?.arrTripCategory[row].name
         } else if txtTripComplexity.isFirstResponder {
-            return arrTripComplexity[row]
+            return self.viewModel?.arrTripComplexity[row].name
         }
         
         return nil
@@ -425,11 +435,11 @@ extension CreatePostVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 
         if txtNoOffDays.isFirstResponder {
-            txtNoOffDays.text = arrDays[row]
+            txtNoOffDays.text = self.viewModel?.arrNoOfDays[row].noOfDays
         } else if txtTripCategory.isFirstResponder {
-            txtTripCategory.text = arrTripCat[row]
+            txtTripCategory.text = self.viewModel?.arrTripCategory[row].name
         } else if txtTripComplexity.isFirstResponder {
-            txtTripComplexity.text = arrTripComplexity[row]
+            txtTripComplexity.text = self.viewModel?.arrTripComplexity[row].name
         }
         
     }
@@ -442,7 +452,7 @@ extension CreatePostVC{
             txtNoOffDays.inputView = pickerView
             pickerView.reloadAllComponents()
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
-                let index = arrDays.firstIndex(where: {$0 == txtNoOffDays.text ?? ""}) ?? 0
+                let index = self.viewModel?.arrNoOfDays.firstIndex(where: {$0.noOfDays == txtNoOffDays.text ?? ""}) ?? 0
                 pickerView.selectRow(index, inComponent: 0, animated: false)
                // txtNoOffDays.text = arrDays[index]
             })
@@ -451,7 +461,7 @@ extension CreatePostVC{
             txtTripCategory.inputView = pickerView
             pickerView.reloadAllComponents()
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
-                let index = arrTripCat.firstIndex(where: {$0 == txtTripCategory.text ?? ""}) ?? 0
+                let index = self.viewModel?.arrTripCategory.firstIndex(where: {$0.name == txtTripCategory.text ?? ""}) ?? 0
                 pickerView.selectRow(index, inComponent: 0, animated: false)
                 //txtTripCategory.text = arrTripCat[index]
             })
@@ -460,7 +470,7 @@ extension CreatePostVC{
             txtTripComplexity.inputView = pickerView
             pickerView.reloadAllComponents()
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
-                let index = arrTripComplexity.firstIndex(where: {$0 == txtTripComplexity.text ?? ""}) ?? 0
+                let index = self.viewModel?.arrTripComplexity.firstIndex(where: {$0.name == txtTripComplexity.text ?? ""}) ?? 0
                 pickerView.selectRow(index, inComponent: 0, animated: false)
                // txtTripComplexity.text = arrTripComplexity[index]
             })
@@ -476,7 +486,7 @@ extension CreatePostVC : CustomPickerControllerDelegate{
     //    MARK: - learn Reason PICKER
         func showLearnReasonPicker(_ textField: UITextField, indexPath: IndexPath?) {
             let picker = CustomPickerController()
-            let statesArray: [String] = arrDays
+            let statesArray: [Category] = self.viewModel?.arrNoOfDays ?? []//arrDays
             picker.set(statesArray, delegate: self, tag: indexPath?.row ?? 0, element: textField)
             self.present(picker, animated: false, completion: nil)
         }
@@ -535,21 +545,23 @@ extension CreatePostVC{
             switch textField {
             case txtNoOffDays:
                 DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
-                    let index = arrDays.firstIndex(where: {$0 == txtNoOffDays.text ?? ""}) ?? 0
+                    let index = self.viewModel?.arrNoOfDays.firstIndex(where: {$0.noOfDays == txtNoOffDays.text ?? ""}) ?? 0
                     pickerView.selectRow(index, inComponent: 0, animated: false)
                     //                self.mId = home_Search_Data?[index].brand_name ?? ""
-                    self.txtNoOffDays.text = arrDays[index]
-                    print("   brandName[index]     \(   arrDays[index] )")
+                    self.txtNoOffDays.text = self.viewModel?.arrNoOfDays[index].noOfDays
+                    self.selectedDaysId = self.viewModel?.arrNoOfDays[index].id ?? ""
+                    print("   Selected No Off Days   \(self.viewModel?.arrNoOfDays[index].noOfDays ?? "") id  \(self.viewModel?.arrNoOfDays[index].id ?? "")")
                 })
                 pickerView.reloadAllComponents()
                 
             case txtTripCategory:
                 DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
-                    let index = arrTripCat.firstIndex(where: {$0 == txtTripCategory.text ?? ""}) ?? 0
+                    let index = self.viewModel?.arrTripCategory.firstIndex(where: {$0.name == txtTripCategory.text ?? ""}) ?? 0
                     pickerView.selectRow(index, inComponent: 0, animated: false)
                     //                self.caliber_Id = viewModel?.caliberData[index].id
-                    self.txtTripCategory.text = arrTripCat[index]
-                    print("  caliberName[index]    \(  self.arrTripCat[index])")
+                    self.txtTripCategory.text = self.viewModel?.arrTripCategory[index].name
+                    self.selectedTripCatId = self.viewModel?.arrTripCategory[index].id ?? ""
+                    print("  Selected Trip Category   \(self.viewModel?.arrTripCategory[index].name ?? "") id  \(self.viewModel?.arrTripCategory[index].id ?? "")")
                 })
                 pickerView.reloadAllComponents()
                 
@@ -558,30 +570,14 @@ extension CreatePostVC{
                     let index = arrTripComplexity.firstIndex(where: {$0 == txtTripComplexity.text ?? ""}) ?? 0
                     pickerView.selectRow(index, inComponent: 0, animated: false)
                     //                self.caliber_Id = viewModel?.caliberData[index].id
-                    self.txtTripComplexity.text = arrTripComplexity[index]
-                    print("  caliberName[index]    \(  self.arrTripComplexity[index])")
+                    self.txtTripComplexity.text = self.viewModel?.arrTripComplexity[index].name
+                    self.selectedTripComplexityId = self.viewModel?.arrTripComplexity[index].id ?? ""
+                    print("  Selected Trip Complexity   \(self.viewModel?.arrTripComplexity[index].name ?? "")  Id  \(self.viewModel?.arrTripComplexity[index].id ?? "")")
                 })
                 pickerView.reloadAllComponents()
                 
             default: break
             }
         }
-    
-    
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        // Check if the replacement string is empty (e.g., when the user taps the delete key)
-//        if string.isEmpty {
-//            return true
-//        }
-//
-//        // Check if the first character of the entered text is '0'
-//        if let firstCharacter = string.first, firstCharacter == "0" {
-//            // Reject the input by returning false
-//            return false
-//        }
-//
-//        // Allow the input if it doesn't start with '0'
-//        return true
-//    }
-    
+   
 }

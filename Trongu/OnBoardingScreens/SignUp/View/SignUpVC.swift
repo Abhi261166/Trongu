@@ -78,6 +78,9 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         }
     }
     
+   
+    
+    
     func setData(){
         if comeFrom == true{
             self.nameTF.text = name
@@ -102,9 +105,11 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     func setViewModel() {
         self.viewModel = SignUpVM(observer: self)
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getCurrentLocation()
+        self.viewModel?.apiGetCategoriesList(type: 2)
     }
     
     
@@ -831,17 +836,17 @@ extension SignUpVC :UIPickerViewDelegate, UIPickerViewDataSource{
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if genderTF.isFirstResponder {
-            return genderPicker.count
+            return self.viewModel?.arrGender.count ?? 0
         }else if ethnicityTF.isFirstResponder {
-            return ethnicityPicker.count
+            return self.viewModel?.arrEthnicity.count ?? 0
         }
         return 0
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if genderTF.isFirstResponder {
-            return genderPicker[row]
+            return self.viewModel?.arrGender[row].genderName
         }else if ethnicityTF.isFirstResponder{
-            return ethnicityPicker[row]
+            return self.viewModel?.arrEthnicity[row].name
         }
         return nil
     }
@@ -849,13 +854,13 @@ extension SignUpVC :UIPickerViewDelegate, UIPickerViewDataSource{
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
                 if genderTF.isFirstResponder {
-                    genderTF.text = genderPicker[row]
-                    self.selectGender = String(row)
-                    print(self.selectGender,"Etfdfdhhh")
+                    genderTF.text = self.viewModel?.arrGender[row].genderName
+                    self.selectGender = self.viewModel?.arrGender[row].id ?? ""
+                    print("Selected Gender Id ",self.selectGender)
                 }else if ethnicityTF.isFirstResponder {
-                    ethnicityTF.text = ethnicityPicker[row]
-                    self.selectEthnicity = String(row + 1)
-                    print(self.selectEthnicity,"Ethhh")
+                    ethnicityTF.text = self.viewModel?.arrEthnicity[row].name
+                    self.selectEthnicity = self.viewModel?.arrEthnicity[row].id ?? ""
+                    print("Selected ethnicity id ",self.selectEthnicity)
                 }
         
     }
@@ -883,13 +888,7 @@ extension SignUpVC : UITextFieldDelegate {
                 //                self.selectEthnicity = String(ethnicityPicker[index + 1])
             })
         }
-        //        else if textField == addPlaceTF{
-        //            self.addPlaceTF.resignFirstResponder()
-        //            let autocompleteController = GMSAutocompleteViewController()
-        //            autocompleteController.delegate = self
-        //            autocompleteController.placeFields = .coordinate
-        //            present(autocompleteController, animated: true, completion: nil)
-        //        }
+    
         else{}
     }
     
@@ -920,13 +919,7 @@ extension SignUpVC : UITextFieldDelegate {
         }
     }
     
- 
-    
-    
-//    emailAddressTF.delegate = self
-//    nameTF.delegate = self
-//    userNameTF.delegate = self
-//    addPlaceTF.delegate = self
+
 }
 extension UITextField {
     
@@ -1000,6 +993,10 @@ extension UITextField {
 }
 
 extension SignUpVC:SignUpVMObserver{
+    func observeGetCategoriesListSucessfull() {
+        
+    }
+    
     func observeSignUpSucessfull(){
         if googleId != "" {
             let vc = TabBarController()
@@ -1020,60 +1017,7 @@ extension SignUpVC:SignUpVMObserver{
         }
     }
 }
-//extension SignUpVC: GMSAutocompleteViewControllerDelegate {
-//        
-//        func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-//            //        print("Place name: \(place.name)")
-//            //         print("Place ID: \(place.placeID)")
-//            //         print("Place attributions: \(place.attributions)")
-//            self.latitude = "\(place.coordinate.latitude.rounded(toPlaces: 4))"
-//            self.longitude = "\(place.coordinate.longitude.rounded(toPlaces: 4))"
-//            print(self.latitude)
-//            print(self.longitude)
-//            
-//            let geoCoder = CLGeocoder()
-//            let location = CLLocation(latitude: place.coordinate.latitude, longitude:  place.coordinate.longitude)
-//            
-//            geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
-//                placemarks?.forEach { (placemark) in
-//                    
-//                    if let city = placemark.locality {
-//                        print(city)
-//                        self.addPlaceTF.text = city
-//                    }
-//                    else{
-//                        if let thoroughfare = placemark.thoroughfare {
-//    //                        self.searchTF.text = thoroughfare
-//                        }
-//                    }
-//                }
-//            })
-//            dismiss(animated: true, completion: nil)
-//        }
-//        
-//        func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-//            // TODO: handle the error.
-//            print("Error: ", error.localizedDescription)
-//        }
-//        
-//    //    func viewController(_ viewController: GMSAutocompleteViewController, didSelect prediction: GMSAutocompletePrediction) -> Bool {
-//    //        self.searchTF.text = prediction.attributedFullText.string
-//    //        return true
-//    //    }
-//        // User canceled the operation.
-//        func wasCancelled(_ viewController: GMSAutocompleteViewController) {
-//            dismiss(animated: true, completion: nil)
-//        }
-//        
-//        // Turn the network activity indicator on and off again.
-//        func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-//            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-//        }
-//        
-//        func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-//            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-//        }
-//    }
+
 extension String {
     
     var isValidName: Bool {
@@ -1082,7 +1026,6 @@ extension String {
         return Test.evaluate(with: self)
     }
     
-   
 }
 
 extension SignUpVC:AddLocationVCDelegate{
@@ -1105,22 +1048,32 @@ extension SignUpVC{
             switch textField {
             case genderTF:
                 DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
-                    let index = genderPicker.firstIndex(where: {$0 == genderTF.text ?? ""}) ?? 0
-                    pickerView.selectRow(index, inComponent: 0, animated: false)
-                    //                self.mId = home_Search_Data?[index].brand_name ?? ""
-                    self.genderTF.text = genderPicker[index]
-                    print("   brandName[index]     \(   genderPicker[index] )")
+                    let index = self.viewModel?.arrGender.firstIndex(where: {$0.genderName == genderTF.text ?? ""}) ?? 0
+                 
+                    if (self.viewModel?.arrGender.count ?? 0) > 0 {
+                        self.genderTF.text = self.viewModel?.arrGender[index].genderName ?? ""
+                        self.selectGender = self.viewModel?.arrGender[index].id ?? ""
+                        print("   Selected Gender   \(self.viewModel?.arrGender[index].genderName ?? "") id  \(self.viewModel?.arrGender[index].id ?? "")")
+                    }
+                    
                 })
                 pickerView.reloadAllComponents()
                 
             case ethnicityTF:
                 DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
-                    let index = ethnicityPicker.firstIndex(where: {$0 == ethnicityTF.text ?? ""}) ?? 0
-                    pickerView.selectRow(index, inComponent: 0, animated: false)
-                    //                self.caliber_Id = viewModel?.caliberData[index].id
-                    self.ethnicityTF.text = ethnicityPicker[index]
-                    print("  caliberName[index]    \(  self.ethnicityPicker[index])")
+                    let index = self.viewModel?.arrEthnicity.firstIndex(where: {$0.name == ethnicityTF.text ?? ""}) ?? 0
+                  
+                    if (self.viewModel?.arrEthnicity.count ?? 0) > 0 {
+                        
+                        self.ethnicityTF.text = self.viewModel?.arrEthnicity[index].name ?? ""
+                        self.selectEthnicity = self.viewModel?.arrEthnicity[index].id ?? ""
+                        
+                        print("Selected Gender   \(self.viewModel?.arrEthnicity[index].genderName ?? "") id  \(self.viewModel?.arrEthnicity[index].id ?? "")")
+                        
+                    }
+                    
                 })
+                
                 pickerView.reloadAllComponents()
                 
             default: break

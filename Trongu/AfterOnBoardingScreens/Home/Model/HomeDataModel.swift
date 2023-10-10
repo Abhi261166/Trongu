@@ -18,6 +18,7 @@ struct HomeDataModel: Codable {
 struct Post: Codable {
     var id, userID, budget, noOfDays: String
     var isLike,post_like_count:String?
+    var trip_complexity_name,no_of_days_name:String
     var tripCategory, description, tripComplexity, status: String
     var createdAt: String
     var postImagesVideo: [PostImagesVideo] = []
@@ -41,6 +42,8 @@ struct Post: Codable {
         case userDetail = "user_detail"
         case isLike = "is_like"
         case post_like_count = "post_like_count"
+        case trip_complexity_name
+        case no_of_days_name
         
     }
 }

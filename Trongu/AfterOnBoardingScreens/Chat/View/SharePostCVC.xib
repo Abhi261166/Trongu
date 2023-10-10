@@ -24,7 +24,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rs5-vT-c1U">
-                        <rect key="frame" x="164.33333333333334" y="26.000000000000004" width="34.333333333333343" height="15.666666666666668"/>
+                        <rect key="frame" x="164.33333333333334" y="16" width="34.333333333333343" height="15.666666666666664"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="npI-Yb-bzB">
                                 <rect key="frame" x="0.0" y="0.0" width="34.333333333333336" height="15.666666666666666"/>
@@ -35,7 +35,7 @@
                         </subviews>
                     </stackView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chatProfileImage" translatesAutoresizingMaskIntoConstraints="NO" id="m4o-rV-cpm">
-                        <rect key="frame" x="20" y="43.666666666666664" width="40" height="39.999999999999993"/>
+                        <rect key="frame" x="20" y="33.666666666666664" width="40" height="39.999999999999993"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="PAh-N0-t9n"/>
                             <constraint firstAttribute="height" constant="40" id="Qnz-Y1-Jcd"/>
@@ -47,7 +47,7 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="62N-bs-c6j">
-                        <rect key="frame" x="70" y="55.666666666666671" width="273" height="225.33333333333331"/>
+                        <rect key="frame" x="70" y="45.666666666666671" width="273" height="225.33333333333331"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Abhi260116" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YkK-VB-5pV">
                                 <rect key="frame" x="70" y="26.000000000000007" width="183" height="28"/>
@@ -113,13 +113,13 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="62N-bs-c6j" firstAttribute="leading" secondItem="m4o-rV-cpm" secondAttribute="trailing" constant="10" id="E6f-nO-10y"/>
-                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="62N-bs-c6j" secondAttribute="bottom" id="JoY-5E-IrH"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="62N-bs-c6j" secondAttribute="bottom" constant="15" id="JoY-5E-IrH"/>
                     <constraint firstItem="Rs5-vT-c1U" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="NaM-Rz-cEt"/>
                     <constraint firstItem="m4o-rV-cpm" firstAttribute="top" secondItem="Rs5-vT-c1U" secondAttribute="bottom" constant="2" id="PU9-5Y-e3m"/>
                     <constraint firstAttribute="trailing" secondItem="62N-bs-c6j" secondAttribute="trailing" constant="20" id="SGb-Hl-dXc"/>
                     <constraint firstItem="62N-bs-c6j" firstAttribute="top" secondItem="Rs5-vT-c1U" secondAttribute="bottom" constant="14" id="g38-Pw-wOv"/>
                     <constraint firstItem="m4o-rV-cpm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="ka9-in-PJD"/>
-                    <constraint firstItem="Rs5-vT-c1U" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="15" id="qKR-7k-wcx"/>
+                    <constraint firstItem="Rs5-vT-c1U" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="qKR-7k-wcx"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

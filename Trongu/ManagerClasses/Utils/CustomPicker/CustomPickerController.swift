@@ -21,7 +21,7 @@ class CustomPickerController: UIViewController {
     @IBOutlet weak var customPicker: UIPickerView!
     
     var delegate: CustomPickerControllerDelegate?
-    var valueArray: [String]?
+    var valueArray: [Category]?
     var selectedIndex: Int = 0
     var tag: Int?
     var element: Any?
@@ -33,7 +33,7 @@ class CustomPickerController: UIViewController {
         toolbar.transform = CGAffineTransform(translationX: 0, y: self.view.frame.height)
     }
 
-    func set(_ values:[String]?, delegate: CustomPickerControllerDelegate?, tag:Int? = 0, element: Any?) {
+    func set(_ values:[Category]?, delegate: CustomPickerControllerDelegate?, tag:Int? = 0, element: Any?) {
         self.modalPresentationStyle = .overFullScreen
         self.valueArray = values
         self.delegate = delegate
@@ -72,7 +72,7 @@ class CustomPickerController: UIViewController {
     @IBAction func doneAction(_ sender: UIBarButtonItem) {
         self.doneButton.isEnabled = false
         self.cancelButotn.isEnabled = false
-        let selectedValue = valueArray![customPicker.selectedRow(inComponent: 0)] //valueArray[customPicker.selectedRow(inComponent: 0)])
+        let selectedValue = valueArray![customPicker.selectedRow(inComponent: 0)].name ?? "" //valueArray[customPicker.selectedRow(inComponent: 0)])
         self.delegate?.didSelectPicker(selectedValue, customPicker.selectedRow(inComponent: 0), self.tag, custom: self, element: self.element)
     }
 
@@ -84,7 +84,7 @@ extension CustomPickerController:  UIPickerViewDelegate, UIPickerViewDataSource 
     }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let attributedString = NSMutableAttributedString(string: valueArray?[row] ?? "")
+        let attributedString = NSMutableAttributedString(string: valueArray?[row].name ?? "")
         return attributedString
     }
     

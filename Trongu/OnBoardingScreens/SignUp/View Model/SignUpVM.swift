@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 protocol SignUpVMObserver: NSObjectProtocol {
     func observeSignUpSucessfull()
+    func observeGetCategoriesListSucessfull()
+
 }
 class SignUpVM: NSObject {
     
@@ -17,37 +19,13 @@ class SignUpVM: NSObject {
     var imagePicker = GetImageFromPicker()
     var edit_cover_Image: PickerData?
     var title = "Signup"
+    var arrGender:[SignUpCatItem] = []
+    var arrEthnicity:[SignUpCatItem] = []
     
     init(observer: SignUpVMObserver?) {
         self.observer = observer
     }
-//    func validateSignUpDetails(username:String,name:String,email: String, password: String,terms: Bool) -> Bool {
-//        let isvalidUsername = Validator.validateName(name: name)
-//        let isvalidEmail = Validator.validateEmail(candidate: email)
-//        let isValidPassword = Validator.validateOldPassword(password: password)
-//        
-//        guard isvalidUsername.0 == true else {
-//            Singleton.showMessage(message: "\(isvalidUsername.1)", isError: .error)
-//            print("isvalidUsername  \(isvalidUsername)")
-//            return false
-//        }
-//        guard isvalidEmail.0 == true else {
-//            Singleton.showMessage(message: "\(isvalidEmail.1)", isError: .error)
-//            print("isvalidEmail  \(isvalidEmail)")
-//            return false
-//        }
-//        guard isValidPassword.0 == true else {
-//            Singleton.showMessage(message: "\(isValidPassword.1)", isError: .error)
-//            print("isValidPassword  \(isValidPassword)")
-//            return false
-//        }
-//        
-//        guard terms == true else {
-//            Singleton.showMessage(message: "Please accept terms and conditions", isError: .error)
-//            return false
-//        }
-//        return true
-//    }
+
     func apiSignup(name:String,email:String,pswrd:String,place:String,birthDate:String,gender:String,ethnicity:String,
                    lat :String, long:String,username:String,bio:String){
         var params = JSON()
@@ -86,35 +64,7 @@ class SignUpVM: NSObject {
   
         }
         
-        
-        
-//        ActivityIndicator.shared.showActivityIndicator()
-//        ApiHandler.callWithMultipartForm(apiName: API.Name.signup, params: params) { [weak self] succeeded, response, data in
-//            DispatchQueue.main.async {
-//                ActivityIndicator.shared.hideActivityIndicator()
-//                if let self = self{
-//                    if succeeded == true, let data{
-//                        let decoder = JSONDecoder()
-////                        if let message = response["message"] as? String {
-////                            self.showMessage(message: message, isError: .success)
-////                        }
-//                        if let message = response["message"] as? String {
-//                            self.showMessage(message: message, isError: .success)
-//                        }
-//
-//
-//                            self.observer?.observeSignUpSucessfull()
-////                        }catch{
-////                            print("error",error)
-////                        }
-//                    }else{
-//                        if let message = response["message"] as? String {
-//                            self.showMessage(message: message, isError: .error)
-//                        }
-//                    }
-//                }
-//            }
-//        }
+    
     }
     
     
@@ -181,18 +131,12 @@ class SignUpVM: NSObject {
         var params = JSON()
         params["user_name"] = username
         params["name"] = name
-//        params["email"] = email
-//        params["password"] = pswrd
-//        params["device_type"] = "2"
         params["place"] = place
         params["dob"] = birthDate
         params["gender"] = gender
         params["ethnicity"] = ethnicity
-//        params["device_token"] = UserDefaultsCustom.deviceToken
         params["lat"] = lat
         params["long"] = long
-//        params["login_type"] = 0
-//        params["apple_id"] = appleId
         print(params,"Okkk")
         AppDefaults.password = pswrd
         
@@ -239,21 +183,13 @@ class SignUpVM: NSObject {
         var params = JSON()
         params["user_name"] = username
         params["name"] = name
-//        params["email"] = email
-//        params["password"] = pswrd
-//        params["device_type"] = "2"
         params["place"] = place
         params["dob"] = birthDate
         params["gender"] = gender
         params["ethnicity"] = ethnicity
-//        params["device_token"] = UserDefaultsCustom.deviceToken
         params["lat"] = lat
         params["long"] = long
         params["bio"] = bio
-//        params["login_type"] = 0
-//        params["google_id"] = googleId
-//        params["facebook_id"] = "0"
-//        params["apple_id"] = "0"
         print(params,"Okkk")
         AppDefaults.password = pswrd
         
@@ -286,51 +222,41 @@ class SignUpVM: NSObject {
                         print("error", error)
                     }
                     
-                    
                 } else {
                     self.showMessage(message: response["message"] as? String ?? "" , isError: .error)
                 }
             }
-  
         }
-        
-  //      ActivityIndicator.shared.showActivityIndicator()
-  //      ApiHandler.callWithMultipartForm(apiName: API.Name.socialLogin, params: params) { [weak self] succeeded, response, data in
-//            DispatchQueue.main.async {
-//                ActivityIndicator.shared.hideActivityIndicator()
-//                   if let self = self{
-//                    if succeeded == true, let data{
-//                        let decoder = JSONDecoder()
-//
-//                            if let message = response["message"] as? String {
-//                                self.showMessage(message: message, isError: .success)
-//
-//                                do {
-//                                    let decoded = try decoder.decode(UserModel.self, from: data)
-//                                    if let userData = decoded.data {
-//                                        UserDefaultsCustom.saveUserData(userData: userData)
-//                                        UserDefaultsCustom.userId = userData.id
-//                                        UserDefaultsCustom.authToken = userData.access_token
-//                                        DefaultManager.shared.isNew = "yes"
-//                                        if let message = response["message"] as? String {
-//                                            self.showMessage(message: message, isError: .success)
-//                                        }
-//                                        self.observer?.observeSignUpSucessfull()
-//                                    }
-//
-//                                } catch {
-//                                    print("error", error)
-//                                }
-//                            }
-//                    }else{
-//                        if let message = response["message"] as? String {
-//                            self.showMessage(message: message, isError: .error)
-//                        }
-//                    }
-//                }
-//            }
-   //     }
     }
+    
+    //MARK: - Get Categories -
+    
+    func apiGetCategoriesList(type:Int) {
+        
+        arrGender = []
+        arrEthnicity = []
+        
+        var params = JSON()
+        params["type"] = type
+        print("params : ", params)
+        
+        ApiHandler.callWithMultipartForm(apiName: API.Name.getCategories, params: params) { succeeded, response, data in
+            DispatchQueue.main.async {
+                if succeeded == true, let data {
+                    let decoder = JSONDecoder()
+                    do {
+                        let decoded = try decoder.decode(SignUpCatModel.self, from: data)
+                        self.arrGender.append(contentsOf: decoded.gender)
+                        self.arrEthnicity.append(contentsOf: decoded.ethnicity)
+                        self.observer?.observeGetCategoriesListSucessfull()
+                    } catch {
+                        print("error", error)
+                    }
+                }
+            }
+        }
+    }
+    
 }
 extension NSObject {
     

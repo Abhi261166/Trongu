@@ -99,8 +99,12 @@ extension BucketListVC: UITableViewDelegate,UITableViewDataSource{
         
         let vc = DetailVC()
         vc.comeFrom = "bucket"
+        vc.completion = {
+            
+        }
         vc.postDetails = self.viewModel?.arrPostList[indexPath.row]
         vc.postId = self.viewModel?.arrPostList[indexPath.row].id
+        vc.hidesBottomBarWhenPushed = true
         self.pushViewController(vc, true)
         
     }

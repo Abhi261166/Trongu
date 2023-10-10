@@ -40,6 +40,11 @@ class TagListVM: NSObject {
     //MARK: - Get Categories -
     
     func apiGetCategoriesList(type:Int) {
+        
+        arrNoOfDays = []
+        arrTripComplexity = []
+        arrTripCategory = []
+        
         var params = JSON()
         params["type"] = type
         print("params : ", params)

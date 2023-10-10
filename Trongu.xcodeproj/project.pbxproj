@@ -33,6 +33,7 @@
 		1842FF322A4C6E7D00CF6F41 /* NotificationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1842FF302A4C6E7D00CF6F41 /* NotificationVC.xib */; };
 		1842FF352A4C6EC600CF6F41 /* NotificationTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1842FF332A4C6EC600CF6F41 /* NotificationTVCell.swift */; };
 		1842FF362A4C6EC600CF6F41 /* NotificationTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1842FF342A4C6EC600CF6F41 /* NotificationTVCell.xib */; };
+		184478D42AD11F1D00F6AB58 /* FilterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184478D32AD11F1D00F6AB58 /* FilterVM.swift */; };
 		1849346A2A552C6B00729656 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184934682A552C6B00729656 /* MapVC.swift */; };
 		1849346B2A552C6B00729656 /* MapVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184934692A552C6B00729656 /* MapVC.xib */; };
 		1849346E2A55408000729656 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1849346C2A55408000729656 /* DetailVC.swift */; };
@@ -309,6 +310,7 @@
 		1842FF302A4C6E7D00CF6F41 /* NotificationVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationVC.xib; sourceTree = "<group>"; };
 		1842FF332A4C6EC600CF6F41 /* NotificationTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTVCell.swift; sourceTree = "<group>"; };
 		1842FF342A4C6EC600CF6F41 /* NotificationTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationTVCell.xib; sourceTree = "<group>"; };
+		184478D32AD11F1D00F6AB58 /* FilterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterVM.swift; sourceTree = "<group>"; };
 		184934682A552C6B00729656 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		184934692A552C6B00729656 /* MapVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapVC.xib; sourceTree = "<group>"; };
 		1849346C2A55408000729656 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
@@ -612,18 +614,10 @@
 		1842FF232A4C6DCA00CF6F41 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
-				1842FF262A4C6DEC00CF6F41 /* Model */,
+				184478D22AD11EF700F6AB58 /* ViewModel */,
 				1842FF252A4C6DDD00CF6F41 /* View */,
-				1842FF242A4C6DD400CF6F41 /* ViewModel */,
 			);
 			path = Filter;
-			sourceTree = "<group>";
-		};
-		1842FF242A4C6DD400CF6F41 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		1842FF252A4C6DDD00CF6F41 /* View */ = {
@@ -633,13 +627,6 @@
 				1842FF282A4C6E1000CF6F41 /* FilterScreenVC.xib */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		1842FF262A4C6DEC00CF6F41 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		1842FF2B2A4C6E2600CF6F41 /* Notification */ = {
@@ -661,6 +648,14 @@
 				1842FF342A4C6EC600CF6F41 /* NotificationTVCell.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		184478D22AD11EF700F6AB58 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				184478D32AD11F1D00F6AB58 /* FilterVM.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		184FE0C02A4D895E009D666D /* OtherUserProfile */ = {
@@ -2253,6 +2248,7 @@
 				1895513D2A49BEF6003EC8FD /* Date+Custom.swift in Sources */,
 				1853526D2A4D581600EAC753 /* SearchVC.swift in Sources */,
 				31CB5DD12A67D1BC0020E409 /* GetImageFromPicker.swift in Sources */,
+				184478D42AD11F1D00F6AB58 /* FilterVM.swift in Sources */,
 				18FC21112A4FEBCF0064F471 /* ReceivePhotoCVCell.swift in Sources */,
 				3114AAE72A69154500F444B5 /* LogoutVM.swift in Sources */,
 				186679C22A4AB90C00522429 /* LoginVc.swift in Sources */,

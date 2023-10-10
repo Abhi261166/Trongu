@@ -89,6 +89,12 @@ extension MessageVC: UITableViewDelegate,UITableViewDataSource{
             cell.messageCountView.isHidden = false
         }
         
+        if dict?.isOnline == "0"{
+            cell.showOnlineView.isHidden = true
+        }else{
+            cell.showOnlineView.isHidden = false
+        }
+        
         return cell
     }
     

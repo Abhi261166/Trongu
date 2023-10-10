@@ -169,7 +169,7 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
         let dict = self.viewModel?.arrPostList[indexPath.row]
         cell.otherUserProfileImage.setImage(image: dict?.userDetail.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
         cell.lblName.text = dict?.userDetail.name
-        cell.lblTripComplexity.text = dict?.tripComplexity
+        cell.lblTripComplexity.text = dict?.trip_complexity_name
         
         cell.lblDesc.text = dict?.description
         
@@ -180,8 +180,12 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
 //        }
         cell.lblTimeAddress.text = "\(dict?.postImagesVideo.first?.time ?? "") \(dict?.postImagesVideo.first?.place ?? "")"
         cell.lblTopAddress.text = "\(dict?.postImagesVideo.first?.country ?? "")"
-        cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") (\(dict?.noOfDays ?? ""))"
         
+        if dict?.no_of_days_name == "1"{
+            cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") (\(dict?.no_of_days_name ?? "") day)"
+        }else{
+            cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") (\(dict?.no_of_days_name ?? "") days)"
+        }
         
         if dict?.isLike == "1"{
             cell.btnLike.isSelected = true

@@ -88,9 +88,9 @@ class Singleton: NSObject {
                     completionHandler(data)
                 }
                 self.errorMessageView.frame = CGRect(x: 10, y: 43 , width: SCREEN_SIZE.width-20, height: HEIGHT.errorMessageHeight)
-                window?.addSubview(self.errorMessageView)
+               // window?.addSubview(self.errorMessageView)
             }
-            self.errorMessageView.setErrorMessage(message: pushData.title ?? "", isError: isError)
+            //self.errorMessageView.setErrorMessage(message: pushData.title ?? "", isError: isError)
         }
     }
     

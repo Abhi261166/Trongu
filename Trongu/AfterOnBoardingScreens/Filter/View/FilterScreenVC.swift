@@ -27,13 +27,39 @@ class FilterScreenVC: UIViewController {
     var completion : ((_ place:String?,_ budget:String?,_ noOffDays:String?,_ tripCat:String?,_ ethnicity:String?,_ complexity:String?) -> Void)? = nil
     var minPrice = ""
     var maxPrice = ""
+    var viewModel:FilterVM?
+    // selected id's
+    var selectedDaysId = ""
+    var selectedTripCatId = ""
+    var selectedTripComplexityId = ""
+    var selectedEthnicity = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         multislider.addTarget(self, action: #selector(sliderChanged), for: .valueChanged)
         setPicker()
+        setViewModel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        getPickerData()
+        
     }
 
+    func setViewModel(){
+        
+        self.viewModel = FilterVM(observer: self)
+        
+    }
+    
+    func getPickerData(){
+        self.viewModel?.apiGetCategoriesList(type: 1)
+        self.viewModel?.apiGetEthnicityCategoriesList(type: 2)
+    }
+    
     func setPicker() {
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -86,33 +112,10 @@ class FilterScreenVC: UIViewController {
         noOfDays = noOfDays?.replacingOccurrences(of: "day", with: "")
         noOfDays = noOfDays?.replacingOccurrences(of: "days", with: "")
         noOfDays = noOfDays?.replacingOccurrences(of: "s", with: "")
-        var tripCat = ""
-        switch tripCategoryTF.text{
-        case "Business Trip":
-            tripCat = "1"
-        case "Family Trip":
-            tripCat = "2"
-        case "Friends Trip":
-            tripCat = "3"
-        case "Solo Trip":
-            tripCat = "4"
-        default:
-            break
-        }
-        
-        var ethnicity = ""
-        switch ethnicityTF.text {
-        case "America":
-            ethnicity = "1"
-        case "Canada":
-            ethnicity = "2"
-        default:
-            break
-        }
         
         if let completion = completion{
             popVC()
-            completion(placeTF.text,"\(minPrice)-\(maxPrice)",noOfDays,tripCat,ethnicity,complexityTF.text)
+            completion(placeTF.text,"\(minPrice)-\(maxPrice)",selectedDaysId,selectedTripCatId,selectedEthnicity,selectedTripComplexityId)
             
         }
         
@@ -137,7 +140,6 @@ extension FilterScreenVC:AddLocationVCDelegate{
         }
         
     }
-    
      
 }
 
@@ -149,16 +151,15 @@ extension FilterScreenVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-
         
         if numberOfDaysTF.isFirstResponder {
-            return arrDays.count
+            return self.viewModel?.arrNoOfDays.count ?? 0
         } else if tripCategoryTF.isFirstResponder {
-            return arrTripCat.count
+            return self.viewModel?.arrTripCategory.count ?? 0
         } else if  ethnicityTF.isFirstResponder {
-            return arrEthnicityPicker.count
+            return self.viewModel?.arrEthnicity.count ?? 0
         }else if complexityTF.isFirstResponder{
-            return arrTripComplexity.count
+            return self.viewModel?.arrTripComplexity.count ?? 0
         }
         return 0
     }
@@ -166,13 +167,13 @@ extension FilterScreenVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
           
         if numberOfDaysTF.isFirstResponder {
-            return arrDays[row]
+            return self.viewModel?.arrNoOfDays[row].noOfDays
         } else if tripCategoryTF.isFirstResponder {
-            return arrTripCat[row]
+            return self.viewModel?.arrTripCategory[row].name
         } else if ethnicityTF.isFirstResponder {
-            return arrEthnicityPicker[row]
+            return self.viewModel?.arrEthnicity[row].name
         }else if complexityTF.isFirstResponder{
-            return arrTripComplexity[row]
+            return self.viewModel?.arrTripComplexity[row].name
         }
         
         return nil
@@ -181,13 +182,13 @@ extension FilterScreenVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 
         if numberOfDaysTF.isFirstResponder {
-            numberOfDaysTF.text = arrDays[row]
+            numberOfDaysTF.text = self.viewModel?.arrNoOfDays[row].noOfDays
         } else if tripCategoryTF.isFirstResponder {
-            tripCategoryTF.text = arrTripCat[row]
+            tripCategoryTF.text = self.viewModel?.arrTripCategory[row].name
         } else if ethnicityTF.isFirstResponder {
-            ethnicityTF.text = arrEthnicityPicker[row]
+            ethnicityTF.text = self.viewModel?.arrEthnicity[row].name
         }else if complexityTF.isFirstResponder{
-            complexityTF.text = arrTripComplexity[row]
+            complexityTF.text = self.viewModel?.arrTripComplexity[row].name
         }
         
     }
@@ -241,39 +242,46 @@ extension FilterScreenVC: UITextFieldDelegate {
             case numberOfDaysTF:
                 DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
                     let index = arrDays.firstIndex(where: {$0 == numberOfDaysTF.text ?? ""}) ?? 0
-                    pickerView.selectRow(index, inComponent: 0, animated: false)
+                  //  pickerView.selectRow(index, inComponent: 0, animated: false)
                     //                self.mId = home_Search_Data?[index].brand_name ?? ""
-                    self.numberOfDaysTF.text = arrDays[index]
-                    print("   brandName[index]     \(   arrDays[index] )")
+                    
+                    
+                    self.numberOfDaysTF.text = self.viewModel?.arrNoOfDays[index].noOfDays
+                    self.selectedDaysId = self.viewModel?.arrNoOfDays[index].id ?? ""
+                    print("   Selected No Off Days   \(self.viewModel?.arrNoOfDays[index].noOfDays ?? "") id  \(self.viewModel?.arrNoOfDays[index].id ?? "")")
+                    
                 })
                 pickerView.reloadAllComponents()
                 
             case tripCategoryTF:
                 DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
                     let index = arrTripCat.firstIndex(where: {$0 == tripCategoryTF.text ?? ""}) ?? 0
-                    pickerView.selectRow(index, inComponent: 0, animated: false)
+                  //  pickerView.selectRow(index, inComponent: 0, animated: false)
                     //                self.caliber_Id = viewModel?.caliberData[index].id
-                    self.tripCategoryTF.text = arrTripCat[index]
-                    print("  caliberName[index]    \(  self.arrTripCat[index])")
+                    self.tripCategoryTF.text = self.viewModel?.arrTripCategory[index].name
+                    self.selectedTripCatId = self.viewModel?.arrTripCategory[index].id ?? ""
+                    print("  Selected Trip Category   \(self.viewModel?.arrTripCategory[index].name ?? "") id  \(self.viewModel?.arrTripCategory[index].id ?? "")")
                 })
                 pickerView.reloadAllComponents()
                 
             case ethnicityTF:
                 DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
                     let index = arrEthnicityPicker.firstIndex(where: {$0 == ethnicityTF.text ?? ""}) ?? 0
-                    pickerView.selectRow(index, inComponent: 0, animated: false)
+                   // pickerView.selectRow(index, inComponent: 0, animated: false)
                     //                self.caliber_Id = viewModel?.caliberData[index].id
-                    self.ethnicityTF.text = arrEthnicityPicker[index]
-                    print("  caliberName[index]    \(  self.arrEthnicityPicker[index])")
+                    self.ethnicityTF.text = self.viewModel?.arrEthnicity[index].name
+                    self.selectedEthnicity = self.viewModel?.arrEthnicity[index].id ?? ""
+                    print("  Selected Trip Complexity   \(self.viewModel?.arrEthnicity[index].name ?? "")  Id  \(self.viewModel?.arrEthnicity[index].id ?? "")")
                 })
                 pickerView.reloadAllComponents()
             case complexityTF:
                 DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
                     let index = arrTripComplexity.firstIndex(where: {$0 == complexityTF.text ?? ""}) ?? 0
-                    pickerView.selectRow(index, inComponent: 0, animated: false)
+                   // pickerView.selectRow(index, inComponent: 0, animated: false)
                     //                self.caliber_Id = viewModel?.caliberData[index].id
-                    self.complexityTF.text = arrTripComplexity[index]
-                    print("  caliberName[index]    \(  self.arrTripComplexity[index])")
+                    self.complexityTF.text = self.viewModel?.arrTripComplexity[index].name
+                    self.selectedTripComplexityId = self.viewModel?.arrTripComplexity[index].id ?? ""
+                    print("  Selected Trip Complexity   \(self.viewModel?.arrTripComplexity[index].name ?? "")  Id  \(self.viewModel?.arrTripComplexity[index].id ?? "")")
                 })
                 pickerView.reloadAllComponents()
             default: break
@@ -288,7 +296,7 @@ extension FilterScreenVC : CustomPickerControllerDelegate{
     //    MARK: - learn Reason PICKER
         func showLearnReasonPicker(_ textField: UITextField, indexPath: IndexPath?) {
             let picker = CustomPickerController()
-            let statesArray: [String] = arrDays
+            let statesArray: [Category] = self.viewModel?.arrNoOfDays ?? []
             picker.set(statesArray, delegate: self, tag: indexPath?.row ?? 0, element: textField)
             self.present(picker, animated: false, completion: nil)
         }
@@ -313,4 +321,12 @@ extension FilterScreenVC : CustomPickerControllerDelegate{
     func cancel(picker: CustomPickerController, _ tag: Int) {
         
     }
+}
+
+extension FilterScreenVC: FilterVMObserver{
+    
+    func observeGetCategoriesListSucessfull() {
+        
+    }
+    
 }

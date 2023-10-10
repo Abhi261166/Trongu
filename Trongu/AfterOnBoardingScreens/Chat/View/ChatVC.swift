@@ -78,6 +78,7 @@ class ChatVC: UIViewController {
         keyboard = KeyboardVM()
         keyboard?.setKeyboardNotification(self)
         setSocket()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -248,9 +249,13 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     cell.messageBGView.shadowColor = .gray
                     cell.messageBGView.backgroundColor = .white
                     cell.profileImage.isHidden = false
-                    cell.profileImgTopCons.constant = 35
+                    if indexPath.row == 0 || self.viewModel?.chatHistory[indexPath.row - 1].userID == UserDefaultsCustom.getUserData()?.id{
+                        cell.profileImgTopCons.constant = 35
+                    }else{
+                        cell.profileImgTopCons.constant = 0
+                    }
                     cell.imageWidthConstraint.constant = 40
-                    cell.profileImage.setImage(image: self.viewModel?.otherUserProfile)
+                    cell.profileImage.setImage(image: self.viewModel?.otherUserProfile,placeholder: UIImage(named: "ic_profilePlaceHolder"))
                 }else{
                     cell.messageBGView.clipsToBounds = true
                     cell.messageLabel.text = dict?.message
@@ -320,7 +325,7 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                             break
                         }
                     }
-                    cell.profileImage.setImage(image: self.viewModel?.otherUserProfile)
+                    cell.profileImage.setImage(image: self.viewModel?.otherUserProfile,placeholder: UIImage(named: "ic_profilePlaceHolder"))
                     cell.imageWidthConstraint.constant = 40
                     cell.profileImage.isHidden = false
                     cell.viewLeadingConstraint.constant = 10
@@ -432,7 +437,7 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                             break
                         }
                     }
-                    cell.profileImage.setImage(image: self.viewModel?.otherUserProfile)
+                    cell.profileImage.setImage(image: self.viewModel?.otherUserProfile,placeholder: UIImage(named: "ic_profilePlaceHolder"))
                     cell.imageWidthConstraint.constant = 40
                     cell.profileImage.isHidden = false
                     cell.viewLeadingConstraint.constant = 10
@@ -512,7 +517,7 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     cell.imgPostUserImage.setImage(image: dict?.userDetails?.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
                     cell.lblUserName.text = dict?.userDetails?.userName
                     cell.lblPostDesc.text = ""
-                    cell.profileImage.setImage(image: self.viewModel?.otherUserProfile)
+                    cell.profileImage.setImage(image: self.viewModel?.otherUserProfile,placeholder: UIImage(named: "ic_profilePlaceHolder"))
                     cell.imageWidthConstraint.constant = 40
                     cell.profileImage.isHidden = false
                     cell.viewLeadingConstraint.constant = 10
@@ -647,6 +652,7 @@ extension ChatVC: KeyboardVMObserver {
     
     func keyboard(didChange height: CGFloat, duration: Double, animation: UIView.AnimationOptions) {
         if txtVwMessage.isFirstResponder {
+            chatTableView.scrollToBottom
             if bottomCons.constant == height {
                 return
             }
@@ -702,7 +708,13 @@ extension ChatVC:ChatVMObserver{
         self.comeFrom = ""
     }
     
-    func observerListMessages() {
+    func observerListMessages(image: String) {
+        
+        if viewModel?.otherUserProfile == ""{
+            viewModel?.otherUserProfile = image
+            self.imgProfile.setImage(image: image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
+        }
+        
         isCallChatListApi = false
         chatTableView.reloadData()
         chatTableView.tableHeaderView = nil

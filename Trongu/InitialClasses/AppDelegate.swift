@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setNotification(application)
+        onlineOfflineApiCall(isOnline: 1)
         let splash = LoginTypeVC()
         let navController = UINavigationController(rootViewController: splash)
         navController.navigationBar.isHidden = true
@@ -66,22 +67,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         print("share profile url---",url)
         
-//        ApplicationDelegate.shared.application(
-//                   app,
-//                   open: url,
-//                   sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-//                   annotation: options[UIApplication.OpenURLOptionsKey.annotation])
+
       return GIDSignIn.sharedInstance.handle(url)
     }
 
-//    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-//
-//        let token = deviceToken.reduce("") { $0 + String(format: "%02.2hhx", $1) }
-//        print("registered for notifications", token)
-//        UserDefaultsCustom.deviceToken = token
-//
-//    }
-//
+
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
             let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
@@ -120,24 +110,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     //MARK: - Forground push notification
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.badge,.banner,.list,.sound])
+        
 
         let userInfo = notification.request.content.userInfo
         if let dict = userInfo as? [String:Any] {
             
             print("Background push notification \(dict)")
             let pushData = PushModel(json: dict)
-           
-            if pushData.pushType == .like || pushData.pushType == .comment_post {
-                //NotificationCenter.default.post(name: .updatePost, object: pushData)
-            }
-            Singleton.shared.showErrorMessage(pushData: pushData, isError: .notification) { data in
-                DispatchQueue.main.async {
-                    print("pushData.message :-  \(pushData.message)")
-                    self.handleTap(_onForgroundNotification: pushData)
+            
+            
+            
+            if UIApplication.shared.topViewController() is ChatVC {
+                print("do not show push")
+                       completionHandler([])
+            } else {
+                print("show push")
+                completionHandler([.badge,.banner,.list,.sound])
+                if pushData.pushType == .Message {
+                    let vc = UIWindow.visibleViewController
+                    if let controller = vc as? ChatVC {
+                        if controller.viewModel?.roomId == pushData.room_id {
+                            return
+                        }
+                    }
                 }
+                
+                if pushData.pushType == .like || pushData.pushType == .comment_post {
+                    //NotificationCenter.default.post(name: .updatePost, object: pushData)
+                }
+                
+                Singleton.shared.showErrorMessage(pushData: pushData, isError: .notification) { data in
+                    DispatchQueue.main.async {
+                        print("pushData.message :-  \(pushData.message)")
+                        self.handleTap(_onForgroundNotification: pushData)
+                    }
+                }
+                completionHandler([])
+                
             }
-            completionHandler([])
             
         }
         
@@ -160,6 +170,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         completionHandler(.newData)
     }
     
+    func redirectToSingleChat(pushData: PushModel, vc: UIViewController?){
+            print("visibleViewController :- \(vc)")
+          
+        let chat = ChatVC(roomId: pushData.room_id ?? "", otherUserName: pushData.username ?? "", otherUserId: pushData.otherID ?? "", otherUserProfileImage: "")
+        print("push data",pushData.room_id ?? "" )
+        vc?.pushViewController(chat , true)
+    }
+    
+    
     //MARK: Forground push notification handle
     func handleTap(_onForgroundNotification pushData: PushModel) {
         let viewController = UIWindow.visibleViewController
@@ -170,14 +189,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             vc.comeFrom = "Push"
             vc.hidesBottomBarWhenPushed = true
             viewController?.pushViewController(vc, true)
-            
         case .comment_post:
             let vc = DetailVC()
             vc.comeFrom = "Push"
             vc.postId = pushData.post_id
             vc.hidesBottomBarWhenPushed = true
             viewController?.pushViewController(vc, true)
-            
         case .following:
             let vc = NotificationVC()
             vc.hidesBottomBarWhenPushed = true
@@ -186,6 +203,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             let vc = NotificationVC()
             vc.hidesBottomBarWhenPushed = true
             viewController?.pushViewController(vc, true)
+        case .Message:
+            redirectToSingleChat(pushData: pushData, vc: viewController)
         default: break
         }
     }
@@ -214,8 +233,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             let vc = NotificationVC()
             vc.hidesBottomBarWhenPushed = true
             viewController?.pushViewController(vc, true)
+        case .Message:
+            redirectToSingleChat(pushData: pushData, vc: viewController)
         default: break
         }
+    }
+
+    func onlineOfflineApiCall(isOnline:Int){
+            
+            var params = JSON()
+            params["is_online"] = isOnline
+            print("params : ", params)
+            
+            ApiHandler.callWithMultipartForm(apiName: API.Name.updateOnlineStatus, params: params) { succeeded, response, data in
+                DispatchQueue.main.async {
+                    if succeeded == true{
+                        if isOnline == 1{
+                            print("User is online")
+                        }else{
+                            print("User is offline")
+                        }
+                    }
+                }
+            }
     }
 }
 
@@ -246,6 +286,19 @@ extension UIWindow {
 
         default:
             return viewController
+        }
+    }
+}
+
+extension UIApplication {
+    func topViewController(_ base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+        switch (base) {
+        case let controller as UINavigationController:
+            return topViewController(controller.visibleViewController)
+        case let controller as UITabBarController:
+            return controller.selectedViewController.flatMap { topViewController($0) } ?? base
+        default:
+            return base?.presentedViewController.flatMap { topViewController($0) } ?? base
         }
     }
 }

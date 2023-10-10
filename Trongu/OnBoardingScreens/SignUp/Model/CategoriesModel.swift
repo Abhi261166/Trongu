@@ -36,3 +36,29 @@ struct Category: Codable {
         case name
     }
 }
+
+struct SignUpCatModel: Codable {
+    let status: Int
+    let message: String
+    let ethnicity, gender: [SignUpCatItem]
+
+    enum CodingKeys: String, CodingKey {
+        case status, message
+        case ethnicity = "Ethnicity"
+        case gender = "Gender"
+    }
+}
+
+// MARK: - Ethnicity
+struct SignUpCatItem: Codable {
+    let id: String
+    let name: String?
+    let status, createdAt: String
+    let genderName: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id, name, status
+        case createdAt = "created_at"
+        case genderName = "gender_name"
+    }
+}

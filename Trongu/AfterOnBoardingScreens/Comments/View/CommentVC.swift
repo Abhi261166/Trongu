@@ -155,7 +155,7 @@ extension CommentVC: UITableViewDelegate,UITableViewDataSource{
             if dict?.replyCommentCount == "1"{
                 cell.lblSeeReply.setAttributed(str1: "See Reply", font1: UIFont.setCustom(.Poppins_Medium, 13), color1: .lightGray, str2:  "(\(dict?.replyCommentCount ?? "0"))", font2: UIFont.setCustom(.Poppins_Medium, 13), color2: .black)
             }else{
-                cell.lblSeeReply.setAttributed(str1: "See Replys", font1: UIFont.setCustom(.Poppins_Medium, 13), color1: .lightGray, str2:  "(\(dict?.replyCommentCount ?? "0"))", font2: UIFont.setCustom(.Poppins_Medium, 13), color2: .black)
+                cell.lblSeeReply.setAttributed(str1: "See Replies", font1: UIFont.setCustom(.Poppins_Medium, 13), color1: .lightGray, str2:  "(\(dict?.replyCommentCount ?? "0"))", font2: UIFont.setCustom(.Poppins_Medium, 13), color2: .black)
             }
             
             cell.btnViewReplys.tag = indexPath.section
@@ -224,8 +224,10 @@ extension CommentVC: UITableViewDelegate,UITableViewDataSource{
               
               if self.viewModel?.arrCommentList[index].userID == UserDefaultsCustom.getUserData()?.id{
                   
-//                  let vc = UserProfileVC()
-//                  self.pushViewController(vc, true)
+                  let vc = UserProfileVC()
+                  vc.comeFrom = "Comment"
+                  vc.hidesBottomBarWhenPushed = true
+                  self.pushViewController(vc, true)
                   print("Own Profile")
                   
               }else{
@@ -248,8 +250,11 @@ extension CommentVC: UITableViewDelegate,UITableViewDataSource{
               
               if self.viewModel?.arrCommentList[section].replyComment[index].userID == UserDefaultsCustom.getUserData()?.id{
                   
-//                  let vc = UserProfileVC()
-//                  self.pushViewController(vc, true)
+                  let vc = UserProfileVC()
+                  vc.comeFrom = "Comment"
+                  vc.hidesBottomBarWhenPushed = true
+                  self.pushViewController(vc, true)
+                  
                   print("Own Profile")
                   
               }else{

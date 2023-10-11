@@ -171,7 +171,7 @@ class CreatePostVC: UIViewController{
         
         if comeFrom == "Edit"{
             txtBudget.text = myPost[0].budget
-            txtNoOffDays.text = myPost[0].noOfDays
+            txtNoOffDays.text = myPost[0].no_of_days_name
             txtTripCategory.text = myPost[0].tripCategoryName
             txtTripComplexity.text = myPost[0].trip_complexity_name
             txtViewDesc.text = myPost[0].description
@@ -330,6 +330,7 @@ class CreatePostVC: UIViewController{
             let vc = PostVC()
             
             vc.completion = {
+                self.selectedForTag = []
                 self.isFromTabbar = true
             }
             

@@ -383,7 +383,7 @@ class AddPhotoVideoVC: UIViewController {
 //            Singleton.shared.showMessage(message: "Post images and videos added sucsessfully, Now please enter remaning information and post ", isError: .success)
 //            completion(selectedItems)
 //        }
-//
+
     }
     
     @IBAction func addAddress(_ sender: UIButton) {
@@ -942,7 +942,7 @@ extension AddPhotoVideoVC{
                 }
 
                 if let country = placemark.country {
-                   // addressComponents.append(country)
+                    addressComponents.append(country)
                     print("country---", country)
                 }
 
@@ -957,8 +957,6 @@ extension AddPhotoVideoVC{
     
     
     func showMetaDataInTextFileds(index:Int){
-        
-        
         
         if self.comeFrom == "Edit"{
             
@@ -982,8 +980,12 @@ extension AddPhotoVideoVC{
                     if address ?? "" == "North Atlantic Ocean"{
                         self.placeTF.text = ""
                     }else{
-                        self.placeTF.text = address
-                        self.arrPostItems[self.selectedIndex?.row ?? 0].place = address ?? ""
+                        let addressFromLatLong = address?.components(separatedBy: ",")
+                        let place = addressFromLatLong?.first
+                        let country = addressFromLatLong?.last?.trim
+                        self.placeTF.text = place
+                        self.arrPostItems[self.selectedIndex?.row ?? 0].country = country ?? ""
+                        self.arrPostItems[self.selectedIndex?.row ?? 0].place = place ?? ""
                         
                     }
                     print("Got address from picker -----",address ?? "")
@@ -997,8 +999,12 @@ extension AddPhotoVideoVC{
                     if address ?? "" == "North Atlantic Ocean"{
                         self.placeTF.text = ""
                     }else{
-                        self.placeTF.text = address
-                        self.arrPostItems[self.selectedIndex?.row ?? 0].place = address ?? ""
+                        let addressFromLatLong = address?.components(separatedBy: ",")
+                        let place = addressFromLatLong?.first
+                        let country = addressFromLatLong?.last?.trim
+                        self.placeTF.text = place
+                        self.arrPostItems[self.selectedIndex?.row ?? 0].country = country ?? ""
+                        self.arrPostItems[self.selectedIndex?.row ?? 0].place = place ?? ""
                     }
                     print("Got address from picker -----",address ?? "")
                     self.dateTF.text = self.arrPostItems[index].date

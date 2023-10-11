@@ -21,7 +21,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserProfileVC" customModule="Trongu" customModuleProvider="target">
             <connections>
                 <outlet property="addressLbl" destination="dVb-vI-iRd" id="Zsd-r0-KUs"/>
+                <outlet property="backButtonWidthConstant" destination="ajz-4y-T1S" id="vs9-LD-mfC"/>
                 <outlet property="bioLbl" destination="LOg-Ev-TWF" id="bCK-Ct-g7V"/>
+                <outlet property="btnback" destination="knZ-Ck-F9y" id="Lft-oq-S2h"/>
                 <outlet property="bucketListButton" destination="5Xs-Dj-VwU" id="pU3-eL-dlF"/>
                 <outlet property="bucketListView" destination="1BN-gr-btQ" id="1nf-WV-Pja"/>
                 <outlet property="emailLbl" destination="a2D-Es-lfo" id="2k7-NB-pE8"/>
@@ -64,8 +66,19 @@
                                         <action selector="settingsAction:" destination="-1" eventType="touchUpInside" id="lgx-M1-Rtp"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="knZ-Ck-F9y">
+                                    <rect key="frame" x="0.0" y="9" width="25" height="22"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="25" id="ajz-4y-T1S"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="ic_Back"/>
+                                    <connections>
+                                        <action selector="actionBack:" destination="-1" eventType="touchUpInside" id="aLg-s9-h1x"/>
+                                    </connections>
+                                </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bm3-a6-o7E">
-                                    <rect key="frame" x="0.0" y="20" width="303" height="0.0"/>
+                                    <rect key="frame" x="30" y="20" width="273" height="0.0"/>
                                     <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins Medium" pointSize="22"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -78,7 +91,9 @@
                                 <constraint firstItem="Bm3-a6-o7E" firstAttribute="centerY" secondItem="1A7-rH-NE5" secondAttribute="centerY" id="MsG-pd-AX0"/>
                                 <constraint firstItem="NrZ-GJ-9fV" firstAttribute="centerY" secondItem="1A7-rH-NE5" secondAttribute="centerY" id="dOI-eS-hu4"/>
                                 <constraint firstAttribute="trailing" secondItem="NrZ-GJ-9fV" secondAttribute="trailing" id="fJ4-hu-ZFY"/>
-                                <constraint firstItem="Bm3-a6-o7E" firstAttribute="leading" secondItem="1A7-rH-NE5" secondAttribute="leading" id="xDe-rG-7yT"/>
+                                <constraint firstItem="knZ-Ck-F9y" firstAttribute="centerY" secondItem="1A7-rH-NE5" secondAttribute="centerY" id="qSO-pl-qx8"/>
+                                <constraint firstItem="Bm3-a6-o7E" firstAttribute="leading" secondItem="knZ-Ck-F9y" secondAttribute="trailing" constant="5" id="qmc-nx-SGv"/>
+                                <constraint firstItem="knZ-Ck-F9y" firstAttribute="leading" secondItem="1A7-rH-NE5" secondAttribute="leading" id="qsn-Dp-QFv"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JI2-e4-Vmq">
@@ -567,6 +582,7 @@
         <image name="GrayMapImage" width="28" height="30"/>
         <image name="Graybucketlist" width="30" height="30"/>
         <image name="MapSelectedImage" width="28" height="30"/>
+        <image name="ic_Back" width="18.333333969116211" height="18"/>
         <image name="ic_Settings" width="20.333333969116211" height="20"/>
         <image name="ic_profilePlaceHolder" width="166.66667175292969" height="166.66667175292969"/>
         <systemColor name="systemBackgroundColor">

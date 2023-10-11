@@ -29,6 +29,8 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
     @IBOutlet weak var locationView: UIView!
     @IBOutlet weak var mapKitView: MKMapView!
     @IBOutlet weak var userProfileCollectionView: UICollectionView!
+    @IBOutlet weak var backButtonWidthConstant: NSLayoutConstraint!
+    @IBOutlet weak var btnback: UIButton!
     
     var gallery = ["OtherUserImage_1","OtherUserImage_2","OtherUserImage_3","OtherUserImage_4","OtherUserImage_5","OtherUserImage_6","OtherUserImage_7","OtherUserImage_8","OtherUserImage_9"]
     var bucketList = ["OtherUserImage_1","OtherUserImage_2","BucketListImage_3","BucketListImage_4","BucketListImage_5","OtherUserImage_6","OtherUserImage_7","BucketListImage_8","OtherUserImage_9"]
@@ -39,7 +41,7 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
     var initialLong = 0.0
     var isSelfCreatedPosts = true
     var isFromFilter = false
-    
+    var comeFrom = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,14 +60,27 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = false
+        
+        hideShowBackButton()
        // self.navigationController?.tabBarController?.selectedIndex = 4
         if isFromFilter{
-            
         }else{
             setData2()
         }
     }
+    
+    func hideShowBackButton(){
+        
+        print("comeFrom ",comeFrom)
+        
+        if comeFrom == "Comment"{
+            backButtonWidthConstant.constant = 25
+        }else{
+            self.tabBarController?.tabBar.isHidden = false
+            backButtonWidthConstant.constant = 0
+        }
+    }
+    
     
     func setData2(){
         galleryView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -118,6 +133,7 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
     @IBAction func galleryAction(_ sender: UIButton) {
         sender.isSelected.toggle()
         hitGetProfilePostsApi()
@@ -132,7 +148,6 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
         bucketListButton.isSelected = false
         mapButton.isSelected = false
         locationView.isHidden = true
-        
     }
     
     @IBAction func bucketListAction(_ sender: UIButton) {
@@ -234,6 +249,10 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
                present(activityViewController, animated: true, completion: nil)
            }
     
+    @IBAction func actionBack(_ sender: UIButton) {
+        popVC()
+    }
+    
 }
 extension UserProfileVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -304,6 +323,7 @@ extension UserProfileVC: UICollectionViewDelegate,UICollectionViewDataSource,UIC
             vc.comeFrom = true
             vc.index = indexPath
             vc.arrPostList = self.viewModel!.arrPostList
+            vc.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
         }
         

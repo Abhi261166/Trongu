@@ -78,6 +78,7 @@ extension MessageVC: UITableViewDelegate,UITableViewDataSource{
         }else{
             
             cell.messageLabel.text = "Media"
+            
         }
         
         

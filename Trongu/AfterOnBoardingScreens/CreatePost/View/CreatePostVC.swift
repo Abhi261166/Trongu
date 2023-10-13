@@ -330,7 +330,7 @@ class CreatePostVC: UIViewController{
             let vc = PostVC()
             
             vc.completion = {
-                self.selectedForTag = []
+                self.txtTags.text = ""
                 self.isFromTabbar = true
             }
             

@@ -10,6 +10,7 @@ import IQKeyboardManager
 import GrowingTextView
 import AVFoundation
 import AVKit
+import SDWebImage
 
 class ChatVC: UIViewController {
 
@@ -240,7 +241,8 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                 if dict?.userID != UserDefaultsCustom.getUserData()?.id{
                     cell.messageLabel.text = dict?.message
                     cell.viewLeadingConstraint.constant = 10
-                    cell.viewTrailingConstraint.constant = 80
+                   // cell.viewTrailingConstraint.constant = 80
+                    cell.viewTrailingConstraint = cell.viewTrailingConstraint.setRelation(relation: .greaterThanOrEqual, constant: 80)
                     cell.messageBGView.shadowRadius = 3
                     cell.messageBGView.shadowOpacity = 0.4
                     cell.messageLabel.textColor = .black
@@ -262,7 +264,8 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     cell.messageLabel.textColor = .white
                     cell.timeLabel.textColor = .white
                     cell.profileImgTopCons.constant = 0
-                    cell.viewLeadingConstraint.constant = 80
+                    cell.viewLeadingConstraint = cell.viewLeadingConstraint.setRelation(relation: .greaterThanOrEqual, constant: 80)
+                   // cell.viewLeadingConstraint.constant = 80
                     cell.viewTrailingConstraint.constant = 20
                     cell.imageWidthConstraint.constant = 0
                     cell.profileImage.isHidden = true
@@ -314,13 +317,28 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                         
                         switch i {
                         case 0:
-                            cell.imgFirst.setImage(image: dict?.images[i].image)
+                          //  cell.imgFirst.setImage(image: dict?.images[i].image)
+                            
+                            cell.imgFirst.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                            cell.imgFirst.sd_imageIndicator?.startAnimatingIndicator()
+                            cell.imgFirst.sd_setImage(with: URL(string: dict?.images[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
                         case 1:
-                            cell.imgTwo.setImage(image: dict?.images[i].image)
+                           // cell.imgTwo.setImage(image: dict?.images[i].image)
+                            cell.imgTwo.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                            cell.imgTwo.sd_imageIndicator?.startAnimatingIndicator()
+                            cell.imgTwo.sd_setImage(with: URL(string: dict?.images[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
                         case 2:
-                            cell.imgThree.setImage(image: dict?.images[i].image)
+                           // cell.imgThree.setImage(image: dict?.images[i].image)
+                            cell.imgThree.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                            cell.imgThree.sd_imageIndicator?.startAnimatingIndicator()
+                            cell.imgThree.sd_setImage(with: URL(string: dict?.images[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                            
                         case 3:
-                            cell.imgFour.setImage(image: dict?.images[i].image)
+                           // cell.imgFour.setImage(image: dict?.images[i].image)
+                            cell.imgFour.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                            cell.imgFour.sd_imageIndicator?.startAnimatingIndicator()
+                            cell.imgFour.sd_setImage(with: URL(string: dict?.images[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                            
                         default:
                             break
                         }
@@ -361,13 +379,29 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                         
                         switch i {
                         case 0:
-                            cell.imgFirst.setImage(image: dict?.images[i].image)
+                           // cell.imgFirst.setImage(image: dict?.images[i].image)
+                            cell.imgFirst.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                            cell.imgFirst.sd_imageIndicator?.startAnimatingIndicator()
+                            cell.imgFirst.sd_setImage(with: URL(string: dict?.images[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                            
                         case 1:
-                            cell.imgTwo.setImage(image: dict?.images[i].image)
+                           // cell.imgTwo.setImage(image: dict?.images[i].image)
+                            cell.imgTwo.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                            cell.imgTwo.sd_imageIndicator?.startAnimatingIndicator()
+                            cell.imgTwo.sd_setImage(with: URL(string: dict?.images[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                            
                         case 2:
-                            cell.imgThree.setImage(image: dict?.images[i].image)
+                          //  cell.imgThree.setImage(image: dict?.images[i].image)
+                            cell.imgThree.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                            cell.imgThree.sd_imageIndicator?.startAnimatingIndicator()
+                            cell.imgThree.sd_setImage(with: URL(string: dict?.images[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                            
                         case 3:
-                            cell.imgFour.setImage(image: dict?.images[i].image)
+                           // cell.imgFour.setImage(image: dict?.images[i].image)
+                            cell.imgFour.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                            cell.imgFour.sd_imageIndicator?.startAnimatingIndicator()
+                            cell.imgFour.sd_setImage(with: URL(string: dict?.images[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                            
                         default:
                             break
                         }

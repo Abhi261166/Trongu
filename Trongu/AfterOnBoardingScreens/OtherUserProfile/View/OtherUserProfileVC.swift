@@ -82,6 +82,9 @@ class OtherUserProfileVC: UIViewController {
         vc.isSelected = "Followers"
         vc.userId = self.viewModel?.userData?.id
         vc.comeFrom = "otherUser"
+        vc.userName = self.viewModel?.userData?.user_name ?? ""
+        vc.followersCount = Int(self.viewModel?.userData?.Followers ?? "") ?? 0
+        vc.followingCount = Int(self.viewModel?.userData?.Following ?? "") ?? 0
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -90,6 +93,9 @@ class OtherUserProfileVC: UIViewController {
         vc.isSelected = "Following"
         vc.userId = self.viewModel?.userData?.id
         vc.comeFrom = "otherUser"
+        vc.userName = self.viewModel?.userData?.user_name ?? ""
+        vc.followersCount = Int(self.viewModel?.userData?.Followers ?? "") ?? 0
+        vc.followingCount = Int(self.viewModel?.userData?.Following ?? "") ?? 0
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -100,7 +106,7 @@ class OtherUserProfileVC: UIViewController {
     }
     
     @IBAction func followAction(_ sender: UIButton) {
-        
+        btnFollow.isUserInteractionEnabled = true
         self.viewModel?.apiFollowUnfollow(userID: userId ?? "")
         
     }
@@ -241,6 +247,8 @@ extension OtherUserProfileVC:ProfileVMObserver{
         default:
             break
         }
+        
+        btnFollow.isUserInteractionEnabled = true
         
     }
     

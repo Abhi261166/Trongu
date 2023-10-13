@@ -24,6 +24,14 @@ class HomeVC: UIViewController {
     var arrPostList:[Post] = []
     var comeFromFilter = false
     
+    var place:String?
+    var budget:String?
+    var noOfDays:String?
+    var tripCat:String?
+    var ethnicity:String?
+    var complexity:String?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         homeTableView.delegate = self
@@ -88,6 +96,7 @@ class HomeVC: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        comeFromFilter = false
         DispatchQueue.main.asyncAfter(deadline: .now()+1.0) {
             if DAVideoPlayerView.player != nil {
                 DAVideoPlayerView.player?.pause()
@@ -133,6 +142,14 @@ class HomeVC: UIViewController {
             print("tripCat - ",tripCat ?? "")
             print("ethnicity - ",ethnicity ?? "")
             print("complexity - ",complexity ?? "")
+            
+            self.place = place
+            self.budget = budget
+            self.noOfDays = noOfDays
+            self.tripCat = tripCat
+            self.ethnicity = ethnicity
+            self.complexity = complexity
+            
             self.comeFromFilter = true
             self.viewModel?.pageNo = 0
             self.viewModel?.apiFilterHomePostList(place: place, budget: budget, noOfDays: noOfDays, tripCat: tripCat, ethnicity: ethnicity, complexity: complexity)
@@ -358,6 +375,7 @@ extension HomeVC: HomeTVCellDelegate{
 //        let vc = MapVC()
 //        vc.hidesBottomBarWhenPushed = true
 //        self.navigationController?.pushViewController(vc, animated: true)
+        Singleton.shared.showErrorMessage(error: "Not implemented yet", isError: .message)
     }
     
     func didTapBucketList(_ indexPath: IndexPath) {
@@ -491,15 +509,21 @@ extension HomeVC:HomeVMObserver{
             self.viewModel?.pageNo = 0
             self.viewModel?.apiProfilePostDetails(type: "1", userId: "")
         }else{
-            self.apiCall()
+            if comeFromFilter{
+                print("Data not changed")
+                self.viewModel?.pageNo = 0
+                self.viewModel?.apiFilterHomePostList(place: place, budget: budget, noOfDays: noOfDays, tripCat: tripCat, ethnicity: ethnicity, complexity: complexity)
+                
+            }else{
+                self.apiCall()
+            }
         }
-       
     }
     
     func observeGetHomeDataSucessfull() {
-        comeFromFilter = false
-        self.homeTableView.reloadData()
         
+        self.homeTableView.reloadData()
+                
         if DAVideoPlayerView.player?.isPlaying != true {
             DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
                 self.playCurrentVideo()

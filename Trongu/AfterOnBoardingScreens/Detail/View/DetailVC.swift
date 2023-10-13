@@ -131,8 +131,10 @@ class DetailVC: UIViewController {
     }
     
     @IBAction func mapAction(_ sender: UIButton) {
-        let vc = MapVC()
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = MapVC()
+//        self.navigationController?.pushViewController(vc, animated: true)
+        
+        Singleton.shared.showErrorMessage(error: "Not implemented yet", isError: .message)
     }
     
     @IBAction func bucketListAction(_ sender: UIButton) {
@@ -262,7 +264,15 @@ extension DetailVC:DetailsVMObserver{
         self.lblTripComplexity.text = dict?.trip_complexity_name
         self.lblDescription.text = dict?.description
         self.lblTimeAndAddress.text = "\(dict?.postImagesVideo.first?.time ?? "") \(dict?.postImagesVideo.first?.place ?? "")"
-        self.lblAddressPriceNoOfDays.text = "\(dict?.postImagesVideo.first?.country ?? "") $\(dict?.budget ?? "") (\(dict?.no_of_days_name ?? ""))"
+        
+        if dict?.no_of_days_name == "1"{
+            self.lblAddressPriceNoOfDays.text = "\(dict?.postImagesVideo.first?.country ?? "") $\(dict?.budget ?? "") (\(dict?.no_of_days_name ?? "") day)"
+        }else{
+            
+            self.lblAddressPriceNoOfDays.text = "\(dict?.postImagesVideo.first?.country ?? "") $\(dict?.budget ?? "") (\(dict?.no_of_days_name ?? "") days)"
+        }
+        
+        
         
         if dict?.isLike == "1"{
             self.btnLike.isSelected = true

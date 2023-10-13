@@ -15,6 +15,7 @@ class FollowersVC: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var searchTF: UITextField!
     @IBOutlet weak var crossButton: UIButton!
     @IBOutlet weak var followersTableView: UITableView!
+    @IBOutlet weak var userNameLable: UILabel!
     
     var followers = [("LikesImage_1","_rebeka_99","Reveka"),("LikesImage_2","mr.krish_021","Reveka"),("LikesImage_3","dessertsoul_09_","Reveka"),("LikesImage_4","_nishwan_009","Nishwan" ),("LikesImage_5","_uddin509","Reveka"),("LikesImage_6","mahesh_z","Reveka"),("LikesImage_7","_nishwan_009","Nishwan"),("LikesImage_8","_uddin509","Reveka")]
     
@@ -25,6 +26,12 @@ class FollowersVC: UIViewController,UITextFieldDelegate {
     var comeFrom:String? = "ownProfile"
     var userId:String?
     var timer: Timer?
+    var followersCount = 0
+    var followingCount = 0
+    var userName = ""
+    var completion : (() -> Void)? = nil
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +48,17 @@ class FollowersVC: UIViewController,UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setFollowerFollowing()
+        setcountsAndUserName()
+    }
+    
+    func setcountsAndUserName(){
+        userNameLable.text = userName
+        if followersCount == 1{
+            followersButton.setTitle("\(followersCount) follower", for: .normal)
+        }else{
+            followersButton.setTitle("\(followersCount) followers", for: .normal)
+        }
+        followingButton.setTitle("\(followingCount) following", for: .normal)
     }
     
     
@@ -118,7 +136,14 @@ class FollowersVC: UIViewController,UITextFieldDelegate {
     }
     
     @IBAction func backAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        
+        if let completion = completion{
+            popVC()
+            completion()
+        }
+        
+        
+        
     }
     
     @IBAction func followersAction(_ sender: UIButton) {

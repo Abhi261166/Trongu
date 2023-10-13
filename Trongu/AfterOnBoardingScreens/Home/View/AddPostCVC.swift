@@ -8,6 +8,7 @@
 import UIKit
 import AVKit
 import AVFoundation
+import SDWebImage
 
 
 var isMuted = false
@@ -64,12 +65,18 @@ class AddPostCVC: UICollectionViewCell {
             self.videoTimeLabel.isHidden = false
             videoPlayerView.isHidden = false
         } else {
-            if let urlStr = url?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-               let url = URL(string: urlStr) {
-                self.postImage.setImage(image: urlStr)
-                
-                print("post image url **** \(url)")
-            }
+//            if let urlStr = url?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+//               let url = URL(string: urlStr) {
+//                self.postImage.setImage(image: urlStr)
+//                
+//                print("post image url **** \(url)")
+//            }
+            
+            self.postImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
+            self.postImage.sd_imageIndicator?.startAnimatingIndicator()
+            self.postImage.sd_setImage(with: URL(string: url ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+            
+            
             postImage.isHidden = false
             videoPlayerView.isHidden = true
             self.volumeButton.isHidden = true

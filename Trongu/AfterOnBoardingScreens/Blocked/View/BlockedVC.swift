@@ -77,6 +77,7 @@ class BlockedVC: UIViewController,UITextFieldDelegate {
     @IBAction func crossAction(_ sender: UIButton) {
         searchTF.text = ""
         crossButton.isHidden = true
+        apiCall()
     }
     
 }

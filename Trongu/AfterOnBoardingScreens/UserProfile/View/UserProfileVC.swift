@@ -42,6 +42,7 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
     var isSelfCreatedPosts = true
     var isFromFilter = false
     var comeFrom = ""
+    var isReloadController = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +66,12 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
        // self.navigationController?.tabBarController?.selectedIndex = 4
         if isFromFilter{
         }else{
-            setData2()
+            if isReloadController{
+                setData2()
+            }else{
+                isReloadController = true
+                print("Do not reload controller")
+            }
         }
     }
     
@@ -121,7 +127,6 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
         self.viewModel?.apiBucketList(type: "2", userId: "")
         
     }
-    
     
     @IBAction func settingsAction(_ sender: UIButton) {
         let vc = SettingsVC()
@@ -210,19 +215,34 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
     @IBAction func followersAction(_ sender: UIButton) {
         let vc = FollowersVC()
         vc.isSelected = "Followers"
+        vc.completion = {
+            self.isReloadController = false
+        }
+        vc.userName = self.viewModel?.userData?.user_name ?? ""
+        vc.followersCount = Int(self.viewModel?.userData?.Followers ?? "") ?? 0
+        vc.followingCount = Int(self.viewModel?.userData?.Following ?? "") ?? 0
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func followingAction(_ sender: UIButton) {
         let vc = FollowersVC()
         vc.isSelected = "Following"
+        vc.completion = {
+            self.isReloadController = false
+        }
+        vc.userName = self.viewModel?.userData?.user_name ?? ""
+        vc.followersCount = Int(self.viewModel?.userData?.Followers ?? "") ?? 0
+        vc.followingCount = Int(self.viewModel?.userData?.Following ?? "") ?? 0
         self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     @IBAction func editProfileAction(_ sender: UIButton) {
         let vc = EditProfileVC()
         vc.completion = {
          //   self.navigationController?.tabBarController?.selectedIndex = 3
+            
+            self.isReloadController = false
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [self] in
                

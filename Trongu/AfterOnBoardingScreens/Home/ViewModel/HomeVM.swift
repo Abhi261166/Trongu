@@ -22,7 +22,7 @@ class HomeVM: NSObject {
     var perPage = 20
     var pageNo = 0
     var isLastPage: Bool = false
-    
+    var notificationCount = 0
     
     init(observer: HomeVMObserver?) {
         self.observer = observer
@@ -46,6 +46,7 @@ class HomeVM: NSObject {
                         let decoder = JSONDecoder()
                         do {
                             let decoded = try decoder.decode(HomeDataModel.self, from: data)
+                            self.notificationCount = decoded.noticationCount ?? 0
                             let posts = decoded.data
                             if self.pageNo == 0 {
                                 self.arrPostList.removeAll()

@@ -101,7 +101,11 @@ class OtherUserProfileVC: UIViewController {
     
     @IBAction func messageAction(_ sender: UIButton) {
         
-        ChatVM.apiCreateRoom(otherUserId: userId ?? "", observer: self)
+      //  ChatVM.apiCreateRoom(otherUserId: userId ?? "", observer: self)
+        
+        let vc = ChatVC(roomId: self.viewModel?.roomId ?? "", otherUserName: self.viewModel?.userData?.name ?? "", otherUserId: self.viewModel?.userData?.id ?? "", otherUserProfileImage: self.viewModel?.userData?.image ?? "" )
+        vc.comeFrom = "Profile"
+        self.pushViewController(vc, true)
        
     }
     
@@ -123,8 +127,6 @@ extension OtherUserProfileVC: UICollectionViewDelegate,UICollectionViewDataSourc
             return self.viewModel?.arrPostList.count ?? 0
         }
         
-        
-       // return image.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OtherUserProfileCVCell", for: indexPath) as! OtherUserProfileCVCell
@@ -256,9 +258,9 @@ extension OtherUserProfileVC:ProfileVMObserver{
 
 extension OtherUserProfileVC: CreateRoomObserver{
     func observeCreateRoom(model: ChatUserData) {
-        let vc = ChatVC(roomId: model.roomID, otherUserName: self.viewModel?.userData?.name ?? "", otherUserId: model.userID, otherUserProfileImage: self.viewModel?.userData?.image ?? "" )
-        vc.comeFrom = "Profile"
-        self.pushViewController(vc, true)
+//        let vc = ChatVC(roomId: model.roomID, otherUserName: self.viewModel?.userData?.name ?? "", otherUserId: model.userID, otherUserProfileImage: self.viewModel?.userData?.image ?? "" )
+//        vc.comeFrom = "Profile"
+//        self.pushViewController(vc, true)
     }
     
 }

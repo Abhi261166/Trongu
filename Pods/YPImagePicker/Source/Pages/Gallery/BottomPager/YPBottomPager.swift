@@ -69,9 +69,7 @@ open class YPBottomPager: UIViewController, UIScrollViewDelegate {
         // Build headers
         for (index, c) in controllers.enumerated() {
             let menuItem = YPMenuItem()
-            let arrBottomTitle = ["Gallery","Camera","Video"]
-          //  menuItem.textLabel.text = c.title?.capitalized
-            menuItem.textLabel.text = arrBottomTitle[index]
+            menuItem.textLabel.text = c.title?.capitalized
             menuItem.button.tag = index
             menuItem.button.addTarget(self,
                                       action: #selector(tabTapped(_:)),

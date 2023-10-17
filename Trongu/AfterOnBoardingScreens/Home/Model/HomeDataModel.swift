@@ -11,6 +11,13 @@ import Foundation
 struct HomeDataModel: Codable {
     let status: Int
     let message: String
+    let noticationCount:Int
+    let data: [Post]
+}
+
+struct ProfilePostsModel: Codable {
+    let status: Int
+    let message: String
     let data: [Post]
 }
 
@@ -25,6 +32,7 @@ struct Post: Codable {
     var tripCategoryName: String
     var tagPeople: [TagPerson]?
     var userDetail: UserDetail
+    
 
     enum CodingKeys: String, CodingKey {
         case id

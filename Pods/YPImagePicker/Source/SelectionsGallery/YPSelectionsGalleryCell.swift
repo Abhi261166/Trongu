@@ -18,7 +18,7 @@ public class YPSelectionsGalleryCell: UICollectionViewCell {
     weak var delegate: YPSelectionsGalleryCellDelegate?
     let imageView = UIImageView()
     let editIcon = UIView()
-    let editSquare = UIImageView()
+    let editSquare = UIView()
     let removeButton = UIButton()
     
     override init(frame: CGRect) {
@@ -34,7 +34,6 @@ public class YPSelectionsGalleryCell: UICollectionViewCell {
         imageView.fillContainer()
         editIcon.size(32).left(12).bottom(12)
         editSquare.size(16)
-        editSquare.image = UIImage(named: "ic_filterKeep")
         editSquare.CenterY == editIcon.CenterY
         editSquare.CenterX == editIcon.CenterX
         
@@ -55,7 +54,7 @@ public class YPSelectionsGalleryCell: UICollectionViewCell {
         }
         editSquare.style { v in
             v.layer.borderWidth = 1
-            v.layer.borderColor = UIColor.ypSystemBackground.cgColor
+            v.layer.borderColor = UIColor.ypLabel.cgColor
         }
         removeButton.setImage(YPConfig.icons.removeImage, for: .normal)
         removeButton.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)

@@ -11,6 +11,7 @@ class UserModel: Codable {
     var status: Int?
     var message: String?
     var data: UserData?
+    var room_id: String?
 }
 
 class UserData: Codable  {

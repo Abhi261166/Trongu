@@ -79,6 +79,7 @@ slider.isVertical = false // same effect, but accessible from Interface Builder
 
 ```swift
 slider.valueLabelPosition = .left // .notAnAttribute = don't show labels
+slider.valueLabelAlternatePosition = true // alternate left and right positions (false by default)
 slider.isValueLabelRelative = true // show differences between thumbs instead of absolute values
 slider.valueLabelFormatter.positiveSuffix = " 𝞵s"
 slider.valueLabelColor = .green
@@ -169,7 +170,7 @@ Legacy versions:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/yonat/MultiSlider", from: "2.0.0")
+    .package(url: "https://github.com/yonat/MultiSlider", from: "2.1.2")
 ]
 ```
 

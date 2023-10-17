@@ -17,6 +17,7 @@ class BlockReportPopUpVC: UIViewController,UIGestureRecognizerDelegate {
     var userID:String?
     var postId:String?
     var viewModel:BlockReportVM?
+    var comeFrom = "Profile"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +41,11 @@ class BlockReportPopUpVC: UIViewController,UIGestureRecognizerDelegate {
         self.viewModel?.apiReportUser(userId: userID ?? "")
     }
     
+    func reportPostApiCall(){
+        
+        self.viewModel?.apiReportPost(postId: postId ?? "")
+    }
+    
     func setPopUpDismiss() {
         var tapGesture = UITapGestureRecognizer()
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.myviewTapped(_:)))
@@ -49,13 +55,16 @@ class BlockReportPopUpVC: UIViewController,UIGestureRecognizerDelegate {
     }
     
     @IBAction func actionBlock(_ sender: UIButton) {
-        
         blockApiCall()
     }
     
     @IBAction func actionReport(_ sender: UIButton) {
         
-        reportApiCall()
+        if comeFrom == "Profile"{
+            reportApiCall()
+        }else{
+            reportPostApiCall()
+        }
     }
     
     @objc func myviewTapped(_ recognizer: UIGestureRecognizer) {

@@ -25,6 +25,7 @@ class ProfileVM: NSObject {
     var arrSelfCreatedPosts:[TDetail] = []
     var arrBucketList:[TDetail] = []
     var arrFinalList:[TDetail] = []
+    var roomId:String?
     
     var perPage = 20
     var pageNo = 0
@@ -55,7 +56,7 @@ class ProfileVM: NSObject {
                             let decoded = try decoder.decode(UserModel.self, from: data)
                             if let userData = decoded.data {
                                 self.userData = userData
-                                
+                                self.roomId = decoded.room_id
                                 if isOtherUser{
                                     print("Do Not Save Data...")
                                 }else{
@@ -98,7 +99,7 @@ class ProfileVM: NSObject {
                     if succeeded == true, let data {
                         let decoder = JSONDecoder()
                         do {
-                            let decoded = try decoder.decode(HomeDataModel.self, from: data)
+                            let decoded = try decoder.decode(ProfilePostsModel.self, from: data)
                             let posts = decoded.data
                             if self.pageNo == 0 {
                                 self.arrPostList.removeAll()
@@ -140,7 +141,7 @@ class ProfileVM: NSObject {
                     if succeeded == true, let data {
                         let decoder = JSONDecoder()
                         do {
-                            let decoded = try decoder.decode(HomeDataModel.self, from: data)
+                            let decoded = try decoder.decode(ProfilePostsModel.self, from: data)
                             let posts = decoded.data
                             if self.pageNo == 0 {
                                 self.arrPostList.removeAll()

@@ -80,4 +80,31 @@ class BlockReportVM: NSObject {
         }
     }
     
+    
+    func apiReportPost(postId: String) {
+        var params = JSON()
+        params["report_post_id"] = postId
+        print("params : ", params)
+        
+        //        add loader
+        ActivityIndicator.shared.showActivityIndicator()
+        ApiHandler.callWithMultipartForm(apiName: API.Name.reportPost, params: params) { succeeded, response, data in
+            DispatchQueue.main.async {
+                //        remove loader
+                ActivityIndicator.shared.hideActivityIndicator()
+                if succeeded == true{
+                    if let message = response["message"] as? String {
+                        self.showMessage(message: message, isError: .success)
+                    }
+                        self.observer?.observeReportUserSucessfull()
+                    
+                }else{
+                    if let message = response["message"] as? String {
+                        self.showMessage(message: message, isError: .error)
+                    }
+                }
+            }
+        }
+    }
+    
 }

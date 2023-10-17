@@ -14,7 +14,7 @@ class HomeVC: UIViewController {
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var homeTableView: UITableView!
-    
+    @IBOutlet weak var btnNotification: UIButton!
     
     var viewModel:HomeVM?
     var lastContentOffset: CGFloat = 0
@@ -68,6 +68,7 @@ class HomeVC: UIViewController {
         super.viewWillAppear(animated)
         
        // self.tabBarController?.tabBar.isHidden = false
+        
         
         if comeFromFilter{
             
@@ -340,6 +341,7 @@ extension HomeVC: HomeTVCellDelegate{
              vc.controller = self
             vc.userID = self.viewModel?.arrPostList[indexPath.row].userDetail.id
             vc.postId = self.viewModel?.arrPostList[indexPath.row].id
+            vc.comeFrom = "Home"
             vc.completion = {
                 self.apiCall()
             }
@@ -523,6 +525,12 @@ extension HomeVC:HomeVMObserver{
     func observeGetHomeDataSucessfull() {
         
         self.homeTableView.reloadData()
+        
+        if self.viewModel?.notificationCount == 0{
+            self.btnNotification.setImage(UIImage(named: "ic_Notification"), for: .normal)
+        }else{
+            self.btnNotification.setImage(UIImage(named: "ic_notificationWithBages"), for: .normal)
+        }
                 
         if DAVideoPlayerView.player?.isPlaying != true {
             DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {

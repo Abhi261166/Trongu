@@ -40,7 +40,7 @@ class ChatVC: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.hidesBottomBarWhenPushed = true
         
-        if roomId.count > 0 {
+       // if roomId.count > 0 {
             self.viewModel = ChatVM(observer: self)
             self.viewModel?.roomId = roomId
             self.viewModel?.otherUserName = otherUserName
@@ -49,7 +49,7 @@ class ChatVC: UIViewController {
             print("room \(roomId) **** otherUserName \(otherUserName) **** otherUserId \(otherUserId)")
             print("my id \(String(describing: UserDefaultsCustom.userId))")
             
-        }
+       // }
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -75,7 +75,17 @@ class ChatVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         IQKeyboardManager.shared().isEnabled = false
-        apiCall()
+        
+        if comeFrom == "Profile"{
+            setuserData()
+        }
+        
+        if self.viewModel?.roomId == "" || self.viewModel?.roomId == nil{
+            
+        }else{
+            apiCall()
+        }
+        
         keyboard = KeyboardVM()
         keyboard?.setKeyboardNotification(self)
         setSocket()
@@ -149,13 +159,21 @@ class ChatVC: UIViewController {
         
         disableButtonForHalfSecond()
         
-        guard IJReachability.isConnectedToNetwork() == true else {
-            Singleton.shared.showErrorMessage(error: AlertMessage.NO_INTERNET_CONNECTION, isError: .error)
-            return
+        if self.viewModel?.roomId != ""{
+            
+            guard IJReachability.isConnectedToNetwork() == true else {
+                Singleton.shared.showErrorMessage(error: AlertMessage.NO_INTERNET_CONNECTION, isError: .error)
+                return
+            }
+            let message = (txtVwMessage.text ?? "").trim
+                guard message.count > 0 else { return }
+            self.viewModel?.apiSendMessages(message: message, type: 1, sender: sender, postId: "")
+            
+        }else{
+            
+            ChatVM.apiCreateRoom(otherUserId: self.viewModel?.otherUserId ?? "", observer: self)
+            
         }
-        let message = (txtVwMessage.text ?? "").trim
-            guard message.count > 0 else { return }
-        self.viewModel?.apiSendMessages(message: message, type: 1, sender: sender, postId: "")
         
     }
     
@@ -822,5 +840,19 @@ extension ChatVC: SockettonDelegate {
         return (self.chatTableView.contentOffset.y < (self.chatTableView.contentSize.height - SCREEN_SIZE.height))
     }
     
+    
+}
+
+extension ChatVC: CreateRoomObserver{
+    func observeCreateRoom(model: ChatUserData) {
+        guard IJReachability.isConnectedToNetwork() == true else {
+            Singleton.shared.showErrorMessage(error: AlertMessage.NO_INTERNET_CONNECTION, isError: .error)
+            return
+        }
+        self.viewModel?.roomId = model.roomID
+        let message = (txtVwMessage.text ?? "").trim
+            guard message.count > 0 else { return }
+        self.viewModel?.apiSendMessages(message: message, type: 1, sender: UIButton(), postId: "")
+    }
     
 }

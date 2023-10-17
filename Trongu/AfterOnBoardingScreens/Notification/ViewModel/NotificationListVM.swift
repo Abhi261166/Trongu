@@ -11,6 +11,7 @@ protocol NotificationListVMObserver: NSObjectProtocol {
    
     func observeNotificationListSucessfull()
     func observeAcceptedOrRejectedSucessfull()
+    func observeUpdateCountSucessfull()
     
 }
 
@@ -91,6 +92,28 @@ class NotificationListVM: NSObject {
         }
     }
     
+    //MARK: - Follow Request Accept/Reject APi -
     
+    func apiUpdateSeen() {
+        var params = JSON()
+        params = [:]
+        
+        print("params : ", params)
+       
+        ApiHandler.callWithMultipartForm(apiName: API.Name.notificationCountUpdate, params: params) { [weak self] succeeded, response, data in
+            DispatchQueue.main.async {
+               
+                if let self = self{
+                    if succeeded == true {
+                        self.observer?.observeUpdateCountSucessfull()
+                    } else {
+                        if let message = response["message"] as? String {
+                            self.showMessage(message: message, isError: .error)
+                        }
+                    }
+                }
+            }
+        }
+    }
     
 }

@@ -77,7 +77,7 @@ class SearchVC: UIViewController,UITextFieldDelegate {
             timer?.invalidate()
             timer = nil
         }
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.searchTimerAction(_:)), userInfo: textField.text, repeats: false)
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.searchTimerAction(_:)), userInfo: textField.text, repeats: false)
     }
     
     

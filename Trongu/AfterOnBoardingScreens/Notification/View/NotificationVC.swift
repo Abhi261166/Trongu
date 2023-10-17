@@ -45,7 +45,9 @@ class NotificationVC: UIViewController {
     
     
     @IBAction func backAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        
+        self.viewModel?.apiUpdateSeen()
+        
     }
    
 }
@@ -115,6 +117,10 @@ extension NotificationVC: UITableViewDelegate,UITableViewDataSource{
 }
 
 extension NotificationVC:NotificationListVMObserver{
+    
+    func observeUpdateCountSucessfull() {
+        popVC()
+    }
     
     func observeAcceptedOrRejectedSucessfull() {
         self.apiCall()

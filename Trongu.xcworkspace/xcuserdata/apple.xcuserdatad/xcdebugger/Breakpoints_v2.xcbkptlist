@@ -3,4 +3,70 @@
    uuid = "ACDBD09F-9393-4A32-A219-385AC3343EC2"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B7DD1F87-7F7A-46A8-AB47-2BCFF6924FB5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trongu/AfterOnBoardingScreens/Chat/View/ChatVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "actionSendMessage(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0B52C93B-9291-416A-98ED-777D26521B2C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trongu/AfterOnBoardingScreens/Chat/View/ChatVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
+            landmarkName = "actionSendMessage(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0B52C93B-9291-416A-98ED-777D26521B2C - f9751d7ac505ef29"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.ChatVC.actionSendMessage(__C.UIButton) -&gt; ()"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/Chat/View/ChatVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "174"
+                  endingLineNumber = "174"
+                  offsetFromSymbolStart = "1880">
+               </Location>
+               <Location
+                  uuid = "0B52C93B-9291-416A-98ED-777D26521B2C - f9751d7ac505ef29"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trongu.ChatVC.actionSendMessage(__C.UIButton) -&gt; ()"
+                  moduleName = "Trongu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Documents/github/Trongu/Trongu/AfterOnBoardingScreens/Chat/View/ChatVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "174"
+                  endingLineNumber = "174"
+                  offsetFromSymbolStart = "1532">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

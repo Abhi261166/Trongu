@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -170,20 +170,30 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGG-k6-hyE">
-                                                                <rect key="frame" x="72.666666666666629" y="34.666666666666657" width="37" height="37.333333333333343"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="182.33333333333334" height="107"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.69517963435374164" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="32"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <real key="value" value="7"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstItem="l8g-LL-GfI" firstAttribute="leading" secondItem="aBa-hh-IPm" secondAttribute="leading" id="BOr-gY-qPF"/>
+                                                            <constraint firstAttribute="trailing" secondItem="ZGG-k6-hyE" secondAttribute="trailing" id="TlP-Ir-ETG"/>
                                                             <constraint firstItem="ZGG-k6-hyE" firstAttribute="centerY" secondItem="aBa-hh-IPm" secondAttribute="centerY" id="VGu-EQ-D5E"/>
+                                                            <constraint firstItem="ZGG-k6-hyE" firstAttribute="top" secondItem="aBa-hh-IPm" secondAttribute="top" id="ZQl-k0-TZa"/>
                                                             <constraint firstItem="l8g-LL-GfI" firstAttribute="top" secondItem="aBa-hh-IPm" secondAttribute="top" id="aKp-6P-8Wu"/>
                                                             <constraint firstAttribute="trailing" secondItem="l8g-LL-GfI" secondAttribute="trailing" id="bDU-uA-OoD"/>
+                                                            <constraint firstItem="ZGG-k6-hyE" firstAttribute="leading" secondItem="aBa-hh-IPm" secondAttribute="leading" id="c0f-UU-deu"/>
                                                             <constraint firstAttribute="bottom" secondItem="l8g-LL-GfI" secondAttribute="bottom" id="hjV-Y5-kya"/>
                                                             <constraint firstItem="ZGG-k6-hyE" firstAttribute="centerX" secondItem="aBa-hh-IPm" secondAttribute="centerX" id="i8R-xX-UzC"/>
+                                                            <constraint firstAttribute="bottom" secondItem="ZGG-k6-hyE" secondAttribute="bottom" id="syL-xI-KhA"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>

@@ -128,6 +128,14 @@ class HomeVC: UIViewController {
     
     @IBAction func notificationAction(_ sender: UIButton) {
         let vc = NotificationVC()
+        vc.completion = {
+            self.viewModel?.notificationCount = 0
+            if self.viewModel?.notificationCount == 0{
+                self.btnNotification.setImage(UIImage(named: "ic_Notification"), for: .normal)
+            }else{
+                self.btnNotification.setImage(UIImage(named: "ic_notificationWithBages"), for: .normal)
+            }
+        }
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -339,6 +347,7 @@ extension HomeVC: HomeTVCellDelegate{
         }else {
             let vc = BlockReportPopUpVC()
              vc.controller = self
+            vc.isReported = self.viewModel?.arrPostList[indexPath.row].is_report ?? ""
             vc.userID = self.viewModel?.arrPostList[indexPath.row].userDetail.id
             vc.postId = self.viewModel?.arrPostList[indexPath.row].id
             vc.comeFrom = "Home"

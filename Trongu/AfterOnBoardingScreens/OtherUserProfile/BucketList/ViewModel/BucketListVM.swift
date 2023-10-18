@@ -43,7 +43,7 @@ class BucketListVM: NSObject {
                     if succeeded == true, let data {
                         let decoder = JSONDecoder()
                         do {
-                            let decoded = try decoder.decode(HomeDataModel.self, from: data)
+                            let decoded = try decoder.decode(ProfilePostsModel.self, from: data)
                             let posts = decoded.data
                             if self.pageNo == 0 {
                                 self.arrPostList.removeAll()

@@ -24,7 +24,7 @@ struct ProfilePostsModel: Codable {
 // MARK: - Datum
 struct Post: Codable {
     var id, userID, budget, noOfDays: String
-    var isLike,post_like_count:String?
+    var isLike,is_report,post_like_count:String?
     var trip_complexity_name,no_of_days_name:String
     var tripCategory, description, tripComplexity, status: String
     var createdAt: String
@@ -52,6 +52,7 @@ struct Post: Codable {
         case post_like_count = "post_like_count"
         case trip_complexity_name
         case no_of_days_name
+        case is_report
         
     }
 }

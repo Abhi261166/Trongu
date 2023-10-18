@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hXB-CT-yKk">
-                    <rect key="frame" x="0.0" y="684" width="393" height="168"/>
+                    <rect key="frame" x="0.0" y="699" width="393" height="153"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Zp-EU-krG">
                             <rect key="frame" x="156.66666666666666" y="20" width="80" height="5"/>
@@ -41,40 +41,42 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ea8-Tk-tmI" userLabel="Block">
-                            <rect key="frame" x="30" y="55" width="343" height="31"/>
-                            <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="22"/>
-                            <inset key="titleEdgeInsets" minX="28" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="Block" image="ic_Block">
-                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <connections>
-                                <action selector="actionBlock:" destination="-1" eventType="touchUpInside" id="a8y-9h-vcw"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Pt-Is-FiK" userLabel="Report / Abuse">
-                            <rect key="frame" x="30" y="106" width="343" height="32"/>
-                            <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="22"/>
-                            <inset key="titleEdgeInsets" minX="21" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="Report" image="complain (2) 1">
-                                <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="actionReport:" destination="-1" eventType="touchUpInside" id="dCB-ej-DEc"/>
-                            </connections>
-                        </button>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="lSd-MB-zlk">
+                            <rect key="frame" x="30" y="40" width="333" height="83"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ea8-Tk-tmI" userLabel="Block">
+                                    <rect key="frame" x="0.0" y="0.0" width="333" height="31"/>
+                                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="22"/>
+                                    <inset key="titleEdgeInsets" minX="28" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="Block" image="ic_Block">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="actionBlock:" destination="-1" eventType="touchUpInside" id="a8y-9h-vcw"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Pt-Is-FiK" userLabel="Report / Abuse">
+                                    <rect key="frame" x="0.0" y="51" width="333" height="32"/>
+                                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="22"/>
+                                    <inset key="titleEdgeInsets" minX="21" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="Report" image="complain (2) 1">
+                                        <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="actionReport:" destination="-1" eventType="touchUpInside" id="dCB-ej-DEc"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="lSd-MB-zlk" secondAttribute="trailing" constant="30" id="4bY-7R-7B1"/>
                         <constraint firstItem="4Zp-EU-krG" firstAttribute="centerX" secondItem="hXB-CT-yKk" secondAttribute="centerX" id="Mda-z3-KQj"/>
                         <constraint firstItem="4Zp-EU-krG" firstAttribute="top" secondItem="hXB-CT-yKk" secondAttribute="top" constant="20" id="UKt-80-wwd"/>
-                        <constraint firstItem="3Pt-Is-FiK" firstAttribute="leading" secondItem="ea8-Tk-tmI" secondAttribute="leading" id="WdQ-uX-63U"/>
-                        <constraint firstItem="ea8-Tk-tmI" firstAttribute="top" secondItem="4Zp-EU-krG" secondAttribute="bottom" constant="30" id="YzX-re-b7T"/>
-                        <constraint firstItem="3Pt-Is-FiK" firstAttribute="top" secondItem="ea8-Tk-tmI" secondAttribute="bottom" constant="20" id="dwv-k0-Nme"/>
-                        <constraint firstItem="ea8-Tk-tmI" firstAttribute="leading" secondItem="hXB-CT-yKk" secondAttribute="leading" constant="30" id="lAI-Ta-Pfm"/>
-                        <constraint firstItem="3Pt-Is-FiK" firstAttribute="trailing" secondItem="ea8-Tk-tmI" secondAttribute="trailing" id="mF8-y8-46q"/>
-                        <constraint firstAttribute="bottom" secondItem="3Pt-Is-FiK" secondAttribute="bottom" constant="30" id="oAR-fc-G5Y"/>
-                        <constraint firstAttribute="trailing" secondItem="ea8-Tk-tmI" secondAttribute="trailing" constant="20" id="zRV-hS-tFg"/>
+                        <constraint firstItem="lSd-MB-zlk" firstAttribute="leading" secondItem="hXB-CT-yKk" secondAttribute="leading" constant="30" id="fkD-04-IME"/>
+                        <constraint firstItem="lSd-MB-zlk" firstAttribute="top" secondItem="hXB-CT-yKk" secondAttribute="top" constant="40" id="q1B-Ka-Tai"/>
+                        <constraint firstAttribute="bottom" secondItem="lSd-MB-zlk" secondAttribute="bottom" constant="30" id="yxZ-x5-fq5"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="topCornerRadius">

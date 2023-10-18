@@ -183,7 +183,6 @@ class ChatVC: UIViewController {
             self.btnSendMessage.isEnabled = true
         }
     }
-    
 }
 
 extension ChatVC: ImagePickerDelegate {
@@ -269,11 +268,11 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     cell.messageBGView.shadowColor = .gray
                     cell.messageBGView.backgroundColor = .white
                     cell.profileImage.isHidden = false
-                    if indexPath.row == 0 || self.viewModel?.chatHistory[indexPath.row - 1].userID == UserDefaultsCustom.getUserData()?.id{
-                        cell.profileImgTopCons.constant = 35
-                    }else{
+//                    if indexPath.row == 0 || self.viewModel?.chatHistory[indexPath.row - 1].userID == UserDefaultsCustom.getUserData()?.id{
+//                        cell.profileImgTopCons.constant = 35
+//                    }else{
                         cell.profileImgTopCons.constant = 0
-                    }
+                   // }
                     cell.imageWidthConstraint.constant = 40
                     cell.profileImage.setImage(image: self.viewModel?.otherUserProfile,placeholder: UIImage(named: "ic_profilePlaceHolder"))
                 }else{
@@ -322,14 +321,13 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     case 4:
                         cell.playVideoButton.isHidden = true
                         cell.lblExtraImagesCount.isHidden = true
-                    case 5:
+                    case 5,6,7,8,9,10:
                         cell.lblExtraImagesCount.isHidden = false
                         cell.playVideoButton.isHidden = true
-                        cell.lblExtraImagesCount.text = "\((dict?.images.count ?? 0) - 1)"
+                        cell.lblExtraImagesCount.text = "+\((dict?.images.count ?? 0) - 4)"
                     default:
                         break
                     }
-                    
                     
                     for i in 0...(dict?.images.count ?? 0) - 1{
                         
@@ -366,7 +364,6 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     cell.profileImage.isHidden = false
                     cell.viewLeadingConstraint.constant = 10
                     cell.viewTrailingConstraint.constant = 80
-                    
                    
                 }else{
                    
@@ -384,14 +381,13 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     case 4:
                         cell.playVideoButton.isHidden = true
                         cell.lblExtraImagesCount.isHidden = true
-                    case 5:
-                        cell.playVideoButton.isHidden = true
+                    case 5,6,7,8,9,10:
                         cell.lblExtraImagesCount.isHidden = false
-                        cell.lblExtraImagesCount.text = "\((dict?.images.count ?? 0) - 1)"
+                        cell.playVideoButton.isHidden = true
+                        cell.lblExtraImagesCount.text = "+\((dict?.images.count ?? 0) - 4)"
                     default:
                         break
                     }
-                    
                     
                     for i in 0...(dict?.images.count ?? 0) - 1{
                         
@@ -797,7 +793,6 @@ extension ChatVC:ChatVMObserver{
         chatTableView.tableHeaderView = nil
     }
     
-    
 }
 
 
@@ -839,7 +834,6 @@ extension ChatVC: SockettonDelegate {
     func isTableScrolled() -> Bool {
         return (self.chatTableView.contentOffset.y < (self.chatTableView.contentSize.height - SCREEN_SIZE.height))
     }
-    
     
 }
 

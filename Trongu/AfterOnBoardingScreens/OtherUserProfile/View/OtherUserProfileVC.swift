@@ -153,8 +153,18 @@ extension OtherUserProfileVC: UICollectionViewDelegate,UICollectionViewDataSourc
 //        vc.comeFrom = true
 //        vc.index = indexPath
 //        vc.arrPostList = self.viewModel!.arrPostList
+//        vc.hidesBottomBarWhenPushed = true
 //        self.navigationController?.pushViewController(vc, animated: true)
         
+        let vc = DetailVC()
+        
+        vc.completion = {
+            
+        }
+        vc.postDetails = self.viewModel?.arrPostList[indexPath.row]
+        vc.postId = self.viewModel?.arrPostList[indexPath.row].id
+        vc.hidesBottomBarWhenPushed = true
+        self.pushViewController(vc, true)
         
     }
     

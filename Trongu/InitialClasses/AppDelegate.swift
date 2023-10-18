@@ -127,7 +127,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 print("show push")
                 completionHandler([.badge,.banner,.list,.sound])
                 if pushData.pushType == .Message {
+                    NotificationCenter.default.post(name: .init("updateChatList"), object: nil)
                     let vc = UIWindow.visibleViewController
+                    
                     if let controller = vc as? ChatVC {
                         if controller.viewModel?.roomId == pushData.room_id {
                             return

@@ -16,6 +16,7 @@ class NotificationVC: UIViewController {
     
     var following = [" are requested to follow you"," Started following you"," Started following you"," liked your post"]
     var viewModel:NotificationListVM?
+    var completion : (() -> Void)? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +47,11 @@ class NotificationVC: UIViewController {
     
     @IBAction func backAction(_ sender: UIButton) {
         
-        self.viewModel?.apiUpdateSeen()
+        if let completion = completion{
+            
+            self.viewModel?.apiUpdateSeen()
+            completion()
+        }
         
     }
    
@@ -100,7 +105,6 @@ extension NotificationVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-    
     
     @objc func actionReject(sender:UIButton){
         

@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+
 class MessageVC: UIViewController {
     
     @IBOutlet weak var messageTableView: UITableView!
@@ -17,6 +19,7 @@ class MessageVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        registerNotification()
         setViewModel()
         self.messageTableView.delegate = self
         self.messageTableView.dataSource = self
@@ -31,6 +34,13 @@ class MessageVC: UIViewController {
     func setViewModel(){
         
         self.viewModel = ChatListVM(observer: self)
+    }
+    func registerNotification() {
+              NotificationCenter.default.addObserver(self, selector: #selector(self.updateChatListWithNotification), name: .init("updateChatList"), object: nil)
+          }
+    
+    @objc func updateChatListWithNotification() {
+        apiCall()
     }
     
     func apiCall(){

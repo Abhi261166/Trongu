@@ -60,7 +60,7 @@ class MentionVC: UIViewController, UITextFieldDelegate {
             timer?.invalidate()
             timer = nil
         }
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.searchTimerAction(_:)), userInfo: textField.text, repeats: false)
+        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(self.searchTimerAction(_:)), userInfo: textField.text, repeats: false)
     }
     func updateCrossButtonVisibility() {
         btnCross.isHidden = false

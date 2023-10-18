@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class PhotosDetailsVC: UIViewController {
 
@@ -46,7 +47,12 @@ extension PhotosDetailsVC: UICollectionViewDelegate,UICollectionViewDataSource,U
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosDetailsCVC", for: indexPath) as! PhotosDetailsCVC
         
-         cell.imgPhoto.setImage(image: self.arrPhotos[indexPath.row].image)
+        
+        cell.imgPhoto.sd_imageIndicator = SDWebImageActivityIndicator.gray
+        cell.imgPhoto.sd_imageIndicator?.startAnimatingIndicator()
+        cell.imgPhoto.sd_setImage(with: URL(string: self.arrPhotos[indexPath.row].image), placeholderImage: UIImage(named: ""), context: nil)
+      //  cell.imgPhoto.setImage(image: self.arrPhotos[indexPath.row].image)
+        
         cell.btnLeft.tag = indexPath.row
         cell.btnRight.tag = indexPath.row
         cell.btnLeft.addTarget(self, action: #selector(actionLeft), for: .touchUpInside)

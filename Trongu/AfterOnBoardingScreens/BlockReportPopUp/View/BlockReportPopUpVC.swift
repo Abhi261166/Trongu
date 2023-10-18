@@ -18,6 +18,7 @@ class BlockReportPopUpVC: UIViewController,UIGestureRecognizerDelegate {
     var postId:String?
     var viewModel:BlockReportVM?
     var comeFrom = "Profile"
+    var isReported = "0"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,16 @@ class BlockReportPopUpVC: UIViewController,UIGestureRecognizerDelegate {
         setPopUpDismiss()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if isReported == "0"{
+            btnReport.isHidden = false
+        }else{
+            btnReport.isHidden = true
+        }
+    }
+    
     func setViewModel(){
         
         self.viewModel = BlockReportVM(observer: self)

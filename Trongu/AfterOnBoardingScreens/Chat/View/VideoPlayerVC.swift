@@ -25,7 +25,5 @@ class VideoPlayerVC: UIViewController {
         }
 
     }
-    
-    
    
 }

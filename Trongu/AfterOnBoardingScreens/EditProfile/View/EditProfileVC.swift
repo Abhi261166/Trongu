@@ -168,7 +168,13 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
         
     }
     @IBAction func backAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        
+        if let completion = completion{
+            popVC()
+            completion()
+        }
+        
+        
     }
     
     @IBAction func passwordHideAction(_ sender: UIButton) {

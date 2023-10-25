@@ -114,10 +114,10 @@ class ApiHandler {
                     if(isSucceeded){
                         if let status = response["status"] as? Int {
                             switch(status) {
-//                            case API.statusCodes.UNAUTHORIZED_ACCESS:
-//                                Singleton.shared.showErrorMessage(error: AlertMessage.invalidPassword, isError: .error)
-//                                Singleton.shared.logoutFromDevice()
-//                                receivedResponse(false, [:], nil)
+                            case API.statusCodes.UNAUTHORIZED_ACCESS:
+                                Singleton.shared.showErrorMessage(error: AlertMessage.INVALID_ACCESS_TOKEN, isError: .error)
+                                Singleton.shared.logoutFromDevice()
+                                receivedResponse(false, [:], nil)
                             case 200:
                                 receivedResponse(true, response, data)
 //                                Singleton.shared.showErrorMessage(error: "Sign Up Successfully", isError: .success)

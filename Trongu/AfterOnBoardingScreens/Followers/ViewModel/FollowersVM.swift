@@ -11,6 +11,7 @@ protocol FollowersVMObserver: NSObjectProtocol {
     func observeFollowingListSucessfull()
     func observeRemoveFromListSucessfull()
     func observeUnfollowSucessfull()
+    func observeGetProfileSucessfull()
     
 }
 
@@ -21,6 +22,8 @@ class FollowersVM: NSObject {
     var pageNo = 0
     var arrUser:[Follower] = []
     var isLastPage: Bool = false
+    var userData:UserData?
+    var roomId:String?
     
     init(observer: FollowersVMObserver?) {
         self.observer = observer
@@ -120,6 +123,50 @@ class FollowersVM: NSObject {
             }
         }
     }
+    
+    func apiGetProfile(userId:String,isOtherUser:Bool = false) {
+        var params = JSON()
+        params["other_id"] = userId
+//        params = [:]
+        print("params : ", params)
+        ActivityIndicator.shared.showActivityIndicator()
+        ApiHandler.callWithMultipartForm(apiName: API.Name.getProfile, params: params) { [weak self]
+            succeeded, response, data in
+            
+            DispatchQueue.main.async {
+                ActivityIndicator.shared.hideActivityIndicator()
+                
+                if let self = self {
+                    if succeeded == true, let data {
+                        let decoder = JSONDecoder()
+                        do {
+                            let decoded = try decoder.decode(UserModel.self, from: data)
+                            if let userData = decoded.data {
+                                self.userData = userData
+                                self.roomId = decoded.room_id
+                                if isOtherUser{
+                                    print("Do Not Save Data...")
+                                }else{
+                                    UserDefaultsCustom.saveUserData(userData: userData)
+                                }
+                                
+                            }
+                            self.observer?.observeGetProfileSucessfull()
+                        }catch{
+                            print("error", error)
+                        }
+                    }else{
+                        if let message = response["message"] as? String {
+               
+                            self.showMessage(message: message, isError: .error)
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+    
     
     
 }

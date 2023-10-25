@@ -89,6 +89,7 @@ class HomeVC: UIViewController {
                 stackView.isHidden = false
                 imgLogo.isHidden = false
                 lblTitle.isHidden = true
+                addRefreshControl()
               //  apiCall()
             }
         }
@@ -104,6 +105,18 @@ class HomeVC: UIViewController {
                 DAVideoPlayerView.player = nil
             }
         }
+    }
+    
+    func addRefreshControl() {
+        self.homeTableView.addRefreshControl { [self] refresh in
+            
+            DispatchQueue.main.async {
+                self.apiCall()
+            }
+            
+            refresh.endRefreshing()
+            
+            }
     }
     
     func setViewModel(){
@@ -187,64 +200,69 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (self.viewModel?.arrPostList.count ?? 0) > 0 {
+            
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTVCell", for: indexPath) as! HomeTVCell
         cell.delegate = self
         cell.tableDelegate = self
         cell.controller = self
         cell.homeCollectionView.reloadData()
-        let dict = self.viewModel?.arrPostList[indexPath.row]
-        cell.otherUserProfileImage.setImage(image: dict?.userDetail.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
-        cell.lblName.text = dict?.userDetail.name
-        cell.lblTripComplexity.text = dict?.trip_complexity_name
         
-        cell.lblDesc.text = dict?.description
-        
-//        getAddressFromLatLong(latitude: Double(dict?.postImagesVideo.first?.lat ?? "") ?? 0.0, longitude: Double(dict?.postImagesVideo.first?.long ?? "") ?? 0.0) { address in
-//            cell.lblTimeAddress.text = "\(dict?.postImagesVideo.first?.time ?? "") \(address ?? "")"
-//           // cell.lblTopAddress.text = "\(address ?? "")"
-//            cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") \(dict?.noOfDays ?? "")"
-//        }
-        cell.lblTimeAddress.text = "\(dict?.postImagesVideo.first?.time ?? "") \(dict?.postImagesVideo.first?.place ?? "")"
-        cell.lblTopAddress.text = "\(dict?.postImagesVideo.first?.country ?? "")"
-        
-        if dict?.no_of_days_name == "1"{
-            cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") (\(dict?.no_of_days_name ?? "") day)"
-        }else{
-            cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") (\(dict?.no_of_days_name ?? "") days)"
+            let dict = self.viewModel?.arrPostList[indexPath.row]
+            
+            cell.otherUserProfileImage.setImage(image: dict?.userDetail.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
+            cell.lblName.text = dict?.userDetail.name
+            cell.lblTripComplexity.text = dict?.trip_complexity_name
+            cell.lblDesc.text = dict?.description
+            
+            //        getAddressFromLatLong(latitude: Double(dict?.postImagesVideo.first?.lat ?? "") ?? 0.0, longitude: Double(dict?.postImagesVideo.first?.long ?? "") ?? 0.0) { address in
+            //            cell.lblTimeAddress.text = "\(dict?.postImagesVideo.first?.time ?? "") \(address ?? "")"
+            //           // cell.lblTopAddress.text = "\(address ?? "")"
+            //            cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") \(dict?.noOfDays ?? "")"
+            //        }
+            cell.lblTimeAddress.text = "\(dict?.postImagesVideo.first?.time ?? "") \(dict?.postImagesVideo.first?.place ?? "")"
+            cell.lblTopAddress.text = "\(dict?.postImagesVideo.first?.country ?? "")"
+            
+            if dict?.no_of_days_name == "1"{
+                cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") (\(dict?.no_of_days_name ?? "") day)"
+            }else{
+                cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") (\(dict?.no_of_days_name ?? "") days)"
+            }
+            
+            if dict?.isLike == "1"{
+                cell.btnLike.isSelected = true
+                cell.btnDislike.isSelected = false
+            }else if dict?.isLike == "0"{
+                cell.btnLike.isSelected = false
+                cell.btnDislike.isSelected = false
+            }else{
+                cell.btnDislike.isSelected = true
+                cell.btnLike.isSelected = false
+            }
+            
+            if dict?.post_like_count == "1"{
+                cell.btnLikeCount.setTitle("\(dict?.post_like_count ?? "0") like", for: .normal)
+                cell.heightConsLikeButton.constant = 30
+            }else if dict?.post_like_count == "0"{
+                cell.heightConsLikeButton.constant = 0
+                cell.btnLikeCount.setTitle("", for: .normal)
+            }else {
+                cell.heightConsLikeButton.constant = 30
+                cell.btnLikeCount.setTitle("\(dict?.post_like_count ?? "0") likes", for: .normal)
+            }
+            
+            //        let date = getDate(dateStr: dict?.createdAt ?? "")
+            //        print(date as Any,"Post date is")
+            //        cell.lblPostCreatedTime.text = date?.timeAgoSinceDate()
+            
+            let timestamp = Int(dict?.createdAt ?? "") ?? 0
+            let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
+            cell.lblPostCreatedTime.text = date.timeAgoSinceDate()
+            
+            cell.setPostData(postData: self.viewModel?.arrPostList[indexPath.row].postImagesVideo ?? [],budget: dict?.budget ?? "",noOfDays: dict?.noOfDays ?? "")
+            return cell
         }
-        
-        if dict?.isLike == "1"{
-            cell.btnLike.isSelected = true
-            cell.btnDislike.isSelected = false
-        }else if dict?.isLike == "0"{
-            cell.btnLike.isSelected = false
-            cell.btnDislike.isSelected = false
-        }else{
-            cell.btnDislike.isSelected = true
-            cell.btnLike.isSelected = false
-        }
-        
-        if dict?.post_like_count == "1"{
-            cell.btnLikeCount.setTitle("\(dict?.post_like_count ?? "0") like", for: .normal)
-            cell.heightConsLikeButton.constant = 30
-        }else if dict?.post_like_count == "0"{
-            cell.heightConsLikeButton.constant = 0
-            cell.btnLikeCount.setTitle("", for: .normal)
-        }else {
-            cell.heightConsLikeButton.constant = 30
-            cell.btnLikeCount.setTitle("\(dict?.post_like_count ?? "0") likes", for: .normal)
-        }
-        
-//        let date = getDate(dateStr: dict?.createdAt ?? "")
-//        print(date as Any,"Post date is")
-//        cell.lblPostCreatedTime.text = date?.timeAgoSinceDate()
-        
-        let timestamp = Int(dict?.createdAt ?? "") ?? 0
-        let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
-        cell.lblPostCreatedTime.text = date.timeAgoSinceDate()
-        
-        cell.setPostData(postData: self.viewModel?.arrPostList[indexPath.row].postImagesVideo ?? [],budget: dict?.budget ?? "",noOfDays: dict?.noOfDays ?? "")
-        return cell
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

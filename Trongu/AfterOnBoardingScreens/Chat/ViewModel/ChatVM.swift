@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CreateRoomObserver: NSObjectProtocol {
-    func observeCreateRoom(model: ChatUserData)
+    func observeCreateRoom(model: ChatUserData ,sender:UIButton?)
 }
 
 protocol ChatVMObserver: NSObjectProtocol {
@@ -42,7 +42,7 @@ class ChatVM: NSObject {
         self.observer = observer
     }
     
-    class func apiCreateRoom(otherUserId: String, observer: CreateRoomObserver?) {
+    class func apiCreateRoom(otherUserId: String, observer: CreateRoomObserver?,sender:UIButton?) {
         var params = JSON()
        
         params["other_id"] = otherUserId
@@ -62,7 +62,7 @@ class ChatVM: NSObject {
                             let decoded = try? decoder.decode(CreateRoomModel.self, from: data)
                            
                             if let model = decoded?.data {
-                                observer?.observeCreateRoom(model: model)
+                                observer?.observeCreateRoom(model: model, sender: sender)
                             }
                            
                         } catch {

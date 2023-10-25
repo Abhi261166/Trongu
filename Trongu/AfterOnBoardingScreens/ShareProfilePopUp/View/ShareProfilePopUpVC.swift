@@ -16,6 +16,7 @@ class ShareProfilePopUpVC: PannableViewController,UITextFieldDelegate {
     
     var timer: Timer?
     var viewModel:TagListVM?
+  
     var postid:String?
     var otherUserName:String?
     var otherUserId:String?
@@ -64,7 +65,7 @@ class ShareProfilePopUpVC: PannableViewController,UITextFieldDelegate {
             timer?.invalidate()
             timer = nil
         }
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.searchTimerAction(_:)), userInfo: textField.text, repeats: false)
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.searchTimerAction(_:)), userInfo: textField.text, repeats: false)
     }
     
     func updateCrossButtonVisibility() {
@@ -75,7 +76,6 @@ class ShareProfilePopUpVC: PannableViewController,UITextFieldDelegate {
     @objc func searchTimerAction(_ timer:Timer) {
         guard let searchText = timer.userInfo as? String else{return}
         print(searchText)
-        
         self.apiSearchCall(text: searchText.trim)
         
     }
@@ -118,19 +118,25 @@ extension ShareProfilePopUpVC: UITableViewDelegate,UITableViewDataSource{
     
     
     @objc func actionSend(sender:UIButton){
-        
+        sender.isUserInteractionEnabled = false
         let dict = self.viewModel?.arrTagList[sender.tag]
         self.otherUserId = dict?.id
         self.otherUserProfileImage = dict?.image
         self.otherUserName = dict?.userName
-        ChatVM.apiCreateRoom(otherUserId: self.otherUserId ?? "", observer: self)
+        ChatVM.apiCreateRoom(otherUserId: self.otherUserId ?? "", observer: self, sender: sender)
   
     }
     
 }
 
 extension ShareProfilePopUpVC: TagListVMObserver{
-    
+    func observerSendMessages(json: JSON, roomId: String?, sender: UIButton?) {
+        sender?.isUserInteractionEnabled = true
+        print("share message json is *** \(roomId ?? "")")
+        BlukMessageSend().setSocket(message: json, roomId: roomId ?? "")
+        self.dismiss(animated: true)
+    }
+        
     func observeGetCategoriesListSucessfull() {
         
     }
@@ -143,12 +149,17 @@ extension ShareProfilePopUpVC: TagListVMObserver{
 }
 
 extension ShareProfilePopUpVC: CreateRoomObserver{
-    func observeCreateRoom(model: ChatUserData) {
-        let vc = ChatVC(roomId: model.roomID, otherUserName: self.otherUserName ?? "", otherUserId: model.userID, otherUserProfileImage: self.otherUserProfileImage ?? "" )
-        vc.comeFrom = "SharePost"
-        vc.postId = self.postid
-        self.dismiss(animated: false)
-        controller?.pushViewController(vc, true)
+    
+    func observeCreateRoom(model: ChatUserData, sender: UIButton?) {
+        
+//        let vc = ChatVC(roomId: model.roomID, otherUserName: self.otherUserName ?? "", otherUserId: model.userID, otherUserProfileImage: self.otherUserProfileImage ?? "" )
+//        vc.comeFrom = "SharePost"
+//        vc.postId = self.postid
+//        self.dismiss(animated: false)
+//        controller?.pushViewController(vc, true)
+        
+        self.viewModel?.apiSendMessages(message: "", type: 4, sender: sender, postId: self.postid ?? "", roomId: model.roomID)
+        
     }
     
 }

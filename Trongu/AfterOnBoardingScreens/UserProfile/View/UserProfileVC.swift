@@ -217,6 +217,7 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
         vc.isSelected = "Followers"
         vc.completion = {
             self.isReloadController = false
+            self.hitGetProfileApi()
         }
         vc.userName = self.viewModel?.userData?.user_name ?? ""
         vc.followersCount = Int(self.viewModel?.userData?.Followers ?? "") ?? 0
@@ -229,6 +230,7 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
         vc.isSelected = "Following"
         vc.completion = {
             self.isReloadController = false
+            self.hitGetProfileApi()
         }
         vc.userName = self.viewModel?.userData?.user_name ?? ""
         vc.followersCount = Int(self.viewModel?.userData?.Followers ?? "") ?? 0

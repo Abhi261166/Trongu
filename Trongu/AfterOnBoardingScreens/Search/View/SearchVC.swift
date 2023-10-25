@@ -89,6 +89,7 @@ class SearchVC: UIViewController,UITextFieldDelegate {
             isRecentSearch = false
             self.viewModel?.pageNo = 0
             self.viewModel?.isLastPage = false
+            self.viewModel?.arrUserAndPlace = []
             self.viewModel?.apiSearch(text: searchText)
             self.recentLable.isHidden = true
             self.recentLable.text = ""

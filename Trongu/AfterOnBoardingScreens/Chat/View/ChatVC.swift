@@ -48,7 +48,22 @@ class ChatVC: UIViewController {
             self.viewModel?.otherUserProfile = otherUserProfileImage
             print("room \(roomId) **** otherUserName \(otherUserName) **** otherUserId \(otherUserId)")
             print("my id \(String(describing: UserDefaultsCustom.userId))")
-            
+        
+        // socket connection
+//        if roomId.count > 0 {
+//            guard socketton == nil else { return }
+//            socketton = Socketton()
+//            socketton?.delegate = self
+//            socketton?.establishConnection()
+//            socketton?.checkConnection(complition: { succ in
+//                if succ == true {
+//                    self.socketton?.conncetedChat(roomId: roomId)
+//                    
+//                }
+//            })
+//        }
+     //   setSocket()
+        
        // }
     }
     required init?(coder: NSCoder) {
@@ -60,6 +75,7 @@ class ChatVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         txtVwMessage.delegate = self
         setViewModel()
         self.chatTableView.delegate = self
@@ -67,7 +83,7 @@ class ChatVC: UIViewController {
         self.chatTableView.register(UINib(nibName: "MessageTableViewCell", bundle: nil), forCellReuseIdentifier: "MessageTableViewCell")
         self.chatTableView.register(UINib(nibName: "MediaTVCell", bundle: nil), forCellReuseIdentifier: "MediaTVCell")
         self.chatTableView.register(UINib(nibName: "SharePostCVC", bundle: nil), forCellReuseIdentifier: "SharePostCVC")
-
+        
     }
     
    
@@ -125,6 +141,7 @@ class ChatVC: UIViewController {
         socketton?.checkConnection(complition: { succ in
             if succ == true {
                 self.socketton?.conncetedChat(roomId: self.viewModel?.roomId ?? "")
+                
             }
         })
     }
@@ -135,6 +152,7 @@ class ChatVC: UIViewController {
         self.lblName.text = self.viewModel?.otherUserName
         
         if comeFrom == "SharePost"{
+            
             self.viewModel?.apiSendMessages(message: "", type: 4, sender: UIButton(), postId: self.postId ?? "")
         }
         
@@ -171,7 +189,7 @@ class ChatVC: UIViewController {
             
         }else{
             
-            ChatVM.apiCreateRoom(otherUserId: self.viewModel?.otherUserId ?? "", observer: self)
+            ChatVM.apiCreateRoom(otherUserId: self.viewModel?.otherUserId ?? "", observer: self, sender: UIButton())
             
         }
         
@@ -557,10 +575,19 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                 if dict?.userID != UserDefaultsCustom.getUserData()?.id{
                     
                     if dict?.postImages?.first?.thumbnailImage != ""{
-                        cell.imgPostFirstImage.setImage(image: dict?.postImages?.first?.thumbnailImage,placeholder: UIImage(named: "ic_profilePlaceHolder"))
+                        
+                        cell.imgPostFirstImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                        cell.imgPostFirstImage.sd_imageIndicator?.startAnimatingIndicator()
+                        cell.imgPostFirstImage.sd_setImage(with: URL(string: dict?.postImages?.first?.thumbnailImage ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                      //  cell.imgPostFirstImage.setImage(image: dict?.postImages?.first?.thumbnailImage,placeholder: UIImage(named: "ic_profilePlaceHolder"))
                     }else{
-                        cell.imgPostFirstImage.setImage(image: dict?.postImages?.first?.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
+                        cell.imgPostFirstImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                        cell.imgPostFirstImage.sd_imageIndicator?.startAnimatingIndicator()
+                        cell.imgPostFirstImage.sd_setImage(with: URL(string: dict?.postImages?.first?.image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                        
+                       // cell.imgPostFirstImage.setImage(image: dict?.postImages?.first?.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
                     }
+                    
                     
                     cell.imgPostUserImage.setImage(image: dict?.userDetails?.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
                     cell.lblUserName.text = dict?.userDetails?.userName
@@ -574,9 +601,19 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                 }else{
                     
                     if dict?.postImages?.first?.thumbnailImage != ""{
-                        cell.imgPostFirstImage.setImage(image: dict?.postImages?.first?.thumbnailImage,placeholder: UIImage(named: "ic_profilePlaceHolder"))
+                        
+                        cell.imgPostFirstImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                        cell.imgPostFirstImage.sd_imageIndicator?.startAnimatingIndicator()
+                        cell.imgPostFirstImage.sd_setImage(with: URL(string: dict?.postImages?.first?.thumbnailImage ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                        
+                       // cell.imgPostFirstImage.setImage(image: dict?.postImages?.first?.thumbnailImage,placeholder: UIImage(named: "ic_profilePlaceHolder"))
                     }else{
-                        cell.imgPostFirstImage.setImage(image: dict?.postImages?.first?.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
+                        
+                        cell.imgPostFirstImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                        cell.imgPostFirstImage.sd_imageIndicator?.startAnimatingIndicator()
+                        cell.imgPostFirstImage.sd_setImage(with: URL(string: dict?.postImages?.first?.image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                        
+                     //   cell.imgPostFirstImage.setImage(image: dict?.postImages?.first?.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
                     }
                     
                     cell.imgPostUserImage.setImage(image: dict?.userDetails?.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
@@ -838,7 +875,8 @@ extension ChatVC: SockettonDelegate {
 }
 
 extension ChatVC: CreateRoomObserver{
-    func observeCreateRoom(model: ChatUserData) {
+    
+    func observeCreateRoom(model: ChatUserData, sender: UIButton?) {
         guard IJReachability.isConnectedToNetwork() == true else {
             Singleton.shared.showErrorMessage(error: AlertMessage.NO_INTERNET_CONNECTION, isError: .error)
             return

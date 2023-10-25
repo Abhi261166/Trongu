@@ -111,7 +111,7 @@ class FollowersVC: UIViewController,UITextFieldDelegate {
             timer?.invalidate()
             timer = nil
         }
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.searchTimerAction(_:)), userInfo: textField.text, repeats: false)
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.searchTimerAction(_:)), userInfo: textField.text, repeats: false)
     }
     
     
@@ -122,6 +122,7 @@ class FollowersVC: UIViewController,UITextFieldDelegate {
         if searchText.trim.count > 0 {
             self.viewModel?.pageNo = 0
             self.viewModel?.isLastPage = false
+            self.viewModel?.arrUser = []
             if isSelected == "Followers"{
                 self.viewModel?.apiFollowFollowingList(search: searchText, userID: self.userId ?? "")
             }else{
@@ -167,13 +168,14 @@ class FollowersVC: UIViewController,UITextFieldDelegate {
     @IBAction func crossAction(_ sender: UIButton) {
         searchTF.text = ""
         crossButton.isHidden = true
+        setFollowerFollowing()
     }
 }
 extension FollowersVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isSelected == "Followers"{
             if self.viewModel?.arrUser.count == 0{
-                self.followersTableView.setBackgroundView(message: "No followers yet")
+                self.followersTableView.setBackgroundView(message: "No followers found")
                 return 0
             }else{
                 self.followersTableView.setBackgroundView(message: "")
@@ -181,7 +183,7 @@ extension FollowersVC: UITableViewDelegate,UITableViewDataSource{
             }
         }else{
             if self.viewModel?.arrUser.count == 0{
-                self.followersTableView.setBackgroundView(message: "No followings yet")
+                self.followersTableView.setBackgroundView(message: "No followings found")
                 return 0
             }else{
                 self.followersTableView.setBackgroundView(message: "")
@@ -312,11 +314,38 @@ extension FollowersVC: UITableViewDelegate,UITableViewDataSource{
 
 extension FollowersVC:FollowersVMObserver{
     
+    func observeGetProfileSucessfull() {
+        
+        userNameLable.text = self.viewModel?.userData?.user_name
+        if self.viewModel?.userData?.Followers == "1"{
+            followersButton.setTitle("\(self.viewModel?.userData?.Followers ?? "") follower", for: .normal)
+        }else{
+            followersButton.setTitle("\(self.viewModel?.userData?.Followers ?? "") followers", for: .normal)
+        }
+        followingButton.setTitle("\(self.viewModel?.userData?.Following ?? "") following", for: .normal)
+        
+    }
+    
+    
     func observeUnfollowSucessfull() {
+        
+        if comeFrom == "ownProfile"{
+            self.viewModel?.apiGetProfile(userId: "", isOtherUser: false)
+        }else{
+            self.viewModel?.apiGetProfile(userId: "\(self.userId ?? "")", isOtherUser: true)
+        }
+        
         setFollowerFollowing()
     }
     
     func observeRemoveFromListSucessfull() {
+        
+        if comeFrom == "ownProfile"{
+            self.viewModel?.apiGetProfile(userId: "", isOtherUser: false)
+        }else{
+            self.viewModel?.apiGetProfile(userId: "\(self.userId ?? "")", isOtherUser: true)
+        }
+        
         apiCall()
     }
     

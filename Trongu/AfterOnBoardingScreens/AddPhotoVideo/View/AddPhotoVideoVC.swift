@@ -1042,6 +1042,7 @@ extension AddPhotoVideoVC{
                     let formattedDate = dateFormatter.string(from: currentDate)
                     let time = "\(currentDate.dateToString(format: "h:mm a") ) \(self.timeZoneAbbreviation ?? "")"
                     
+                    
                     let post = PostImagesVideo(id: "", postID: "", place: place, date: formattedDate, time: time, lat: "\(photo.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(photo.asset?.location?.coordinate.longitude ?? 0.0)", image: "", country: "", videoTitle: "", videoURL: "", height: "", width: "", thumbNailImage: "", type: "0", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
                     self.images.append(photo.image)
                     arrPostItems.append(post)

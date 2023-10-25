@@ -14,6 +14,7 @@ import CoreLocation
 protocol TagListVMObserver: NSObjectProtocol {
     func observeGetTagListSucessfull()
     func observeGetCategoriesListSucessfull()
+    func observerSendMessages(json:JSON,roomId:String?,sender:UIButton?)
     
 }
 
@@ -36,6 +37,34 @@ class TagListVM: NSObject {
         self.observer = observer
     }
     
+    //MARK: - Share post -
+    
+    
+    func apiSendMessages(message: String,type:Int,sender: UIButton?,postId:String,roomId:String) {
+       var params = JSON()
+        params["message"] = message
+        params["type"] = type
+        params["room_id"] = roomId
+        params["post_id"] = postId
+        print("params : ", params)
+     
+//        add loader
+      // ActivityIndicator.shared.showActivityIndicator()
+       ApiHandler.callWithMultipartForm(apiName: API.Name.sendMessage, params: params) { succeeded, response, data in
+            DispatchQueue.main.async {
+                sender?.isUserInteractionEnabled = true
+               if succeeded == true {
+                   if let message = DataDecoder.decodeData(data, type: SendMessageModel.self)?.data,
+                       let json = response["data"] as? JSON {
+                       self.showMessage(message: "Sent" as? String ?? "", isError: .error)
+                       self.observer?.observerSendMessages(json: json, roomId: roomId, sender: sender)
+                   }
+               } else {
+                   self.showMessage(message: response["message"] as? String ?? "", isError: .error)
+               }
+           }
+       }
+   }
     
     //MARK: - Get Categories -
     
@@ -85,12 +114,12 @@ class TagListVM: NSObject {
         print("params : ", params)
         
         //        add loader
-        ActivityIndicator.shared.showActivityIndicator()
+       // ActivityIndicator.shared.showActivityIndicator()
         
         ApiHandler.callWithMultipartForm(apiName: API.Name.tagList, params: params) { succeeded, response, data in
             DispatchQueue.main.async {
                 //        remove loader
-                ActivityIndicator.shared.hideActivityIndicator()
+            //    ActivityIndicator.shared.hideActivityIndicator()
                 if succeeded == true, let data {
                     let decoder = JSONDecoder()
                     do {

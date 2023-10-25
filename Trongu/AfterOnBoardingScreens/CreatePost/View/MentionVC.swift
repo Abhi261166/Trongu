@@ -158,10 +158,10 @@ extension MentionVC: UITableViewDelegate,UITableViewDataSource{
         
         if dataid.contains(dict?.id ?? "") {
             cell.btnSelect.isSelected = true
-            
         }else{
             cell.btnSelect.isSelected = false
         }
+        
         cell.btnSelect.isUserInteractionEnabled = false
         cell.btnSelect.tag = indexPath.row
         cell.btnSelect.addTarget(target: self, action: #selector(actionSelect))
@@ -244,6 +244,13 @@ extension MentionVC: UITableViewDelegate,UITableViewDataSource{
 }
 
 extension MentionVC:TagListVMObserver{
+    func observerSendMessages(json: JSON, roomId: String?, sender: UIButton?) {
+        
+    }
+    
+    
+   
+    
     
     func observeGetCategoriesListSucessfull() {
         

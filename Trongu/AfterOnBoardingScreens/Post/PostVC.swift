@@ -98,8 +98,8 @@ class PostVC: UIViewController {
         
         
         lblTripCat.text = finalPost?.tripCategoryName
-        lblTripComp.text = finalPost?.tripComplexity
-        lblNoOfDays.text = finalPost?.noOfDays
+        lblTripComp.text = finalPost?.trip_complexity_name
+        lblNoOfDays.text = finalPost?.no_of_days_name
         
     }
     

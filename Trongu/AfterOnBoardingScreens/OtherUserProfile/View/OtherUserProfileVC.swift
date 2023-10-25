@@ -79,6 +79,10 @@ class OtherUserProfileVC: UIViewController {
     
     @IBAction func followersAction(_ sender: UIButton) {
         let vc = FollowersVC()
+        
+        vc.completion = {
+            
+        }
         vc.isSelected = "Followers"
         vc.userId = self.viewModel?.userData?.id
         vc.comeFrom = "otherUser"
@@ -90,6 +94,9 @@ class OtherUserProfileVC: UIViewController {
     
     @IBAction func followingAction(_ sender: UIButton) {
         let vc = FollowersVC()
+        vc.completion = {
+            
+        }
         vc.isSelected = "Following"
         vc.userId = self.viewModel?.userData?.id
         vc.comeFrom = "otherUser"
@@ -267,11 +274,12 @@ extension OtherUserProfileVC:ProfileVMObserver{
 }
 
 extension OtherUserProfileVC: CreateRoomObserver{
-    func observeCreateRoom(model: ChatUserData) {
-//        let vc = ChatVC(roomId: model.roomID, otherUserName: self.viewModel?.userData?.name ?? "", otherUserId: model.userID, otherUserProfileImage: self.viewModel?.userData?.image ?? "" )
-//        vc.comeFrom = "Profile"
-//        self.pushViewController(vc, true)
-    }
     
+    func observeCreateRoom(model: ChatUserData, sender: UIButton?) {
+        //        let vc = ChatVC(roomId: model.roomID, otherUserName: self.viewModel?.userData?.name ?? "", otherUserId: model.userID, otherUserProfileImage: self.viewModel?.userData?.image ?? "" )
+        //        vc.comeFrom = "Profile"
+        //        self.pushViewController(vc, true)
+    }
+   
 }
 

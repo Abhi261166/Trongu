@@ -126,6 +126,8 @@ class DetailVC: UIViewController {
     
     @IBAction func shareAction(_ sender: UIButton) {
         let vc = ShareProfilePopUpVC()
+        vc.postid = self.viewModel?.postDetails?.id
+        vc.controller = self
         vc.modalPresentationStyle = .overFullScreen
         self.present(vc, true)
     }

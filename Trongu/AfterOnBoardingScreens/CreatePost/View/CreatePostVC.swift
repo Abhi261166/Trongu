@@ -37,7 +37,7 @@ class CreatePostVC: UIViewController{
     var comeFrom:String?
     var isFromTabbar = false
     var selectedForTag:[Userdetail] = []
-    
+    var comeFromPostBack = false
     // selected id's
     var selectedDaysId = ""
     var selectedTripCatId = ""
@@ -180,19 +180,32 @@ class CreatePostVC: UIViewController{
             selectedTripCatId = myPost[0].tripCategory
             selectedTripComplexityId = myPost[0].tripComplexity
             
-            if myPost[0].tagPeople?.count ?? 0 > 0 {
-                for index in 0...((myPost[0].tagPeople?.count ?? 0) - 1){
-                    txtTags.text = "\(txtTags.text ?? "") @\(myPost[0].tagPeople?[index].name ?? "")"
-                    
-                    let user = Userdetail(id: myPost[0].tagPeople?[index].id ?? "", googleID: "", facebookID: "", appleID: "", name: myPost[0].tagPeople?[index].name ?? "", userName: "", loginType: "", gender: "", email: "", image: "", password: nil, place: nil, bio: nil, dob: nil, ethnicity: "", deviceToken: "", deviceType: "", isStatus: "", mailStatus: "", smsStatus: "", status: "", authKey: "", accessToken: "", lat: "", long: "", verificationToken: "", passwordResetToken: "", expireAt: "", superUser: "", isPrivate: "", createdAt: "", updatedAt: "")
-                    
-                        selectedForTag.append(user)
-                }
+            if comeFromPostBack{
                 
+               
             }else{
                 
+                if myPost[0].tagPeople?.count ?? 0 > 0 {
+                    for index in 0...((myPost[0].tagPeople?.count ?? 0) - 1){
+                        txtTags.text = "\(txtTags.text ?? "") @\(myPost[0].tagPeople?[index].name ?? "")"
+                        
+                        if self.tagIds == ""{
+                            self.tagIds = "\(self.tagIds)\(myPost[0].tagPeople?[index].id ?? "")"
+                        }else{
+                            self.tagIds = "\(self.tagIds),\(myPost[0].tagPeople?[index].id ?? "")"
+                        }
+                        
+                        let user = Userdetail(id: myPost[0].tagPeople?[index].id ?? "", googleID: "", facebookID: "", appleID: "", name: myPost[0].tagPeople?[index].name ?? "", userName: "", loginType: "", gender: "", email: "", image: "", password: nil, place: nil, bio: nil, dob: nil, ethnicity: "", deviceToken: "", deviceType: "", isStatus: "", mailStatus: "", smsStatus: "", status: "", authKey: "", accessToken: "", lat: "", long: "", verificationToken: "", passwordResetToken: "", expireAt: "", superUser: "", isPrivate: "", createdAt: "", updatedAt: "")
+                        
+                        selectedForTag.append(user)
+                    }
+                    
+                }else{
+                    
+                }
+                self.comeFromPostBack = false
+                
             }
-            
         }
         
     }
@@ -226,7 +239,8 @@ class CreatePostVC: UIViewController{
         optionItemListVC.modalPresentationStyle = .overFullScreen
         optionItemListVC.selectedPeople = selectedForTag
         optionItemListVC.completion = { selectedPeoples in
-            self.selectedForTag = selectedPeoples
+           // self.selectedForTag = selectedPeoples
+            self.selectedForTag.append(contentsOf: selectedPeoples)
             self.tagIds = ""
             self.txtTags.text = ""
             for people in selectedPeoples {
@@ -322,15 +336,16 @@ class CreatePostVC: UIViewController{
                   viewModel.validateCreatePostDetails(imageSelected: imagesSelected, budget: self.txtBudget.text ?? "", noOfDays: self.txtNoOffDays.text ?? "", tripCat: txtTripCategory.text ?? "", desc: txtViewDesc.text ?? "", tripComp: txtTripComplexity.text ?? "", controller: self)else { return }
             
             self.myPost[0].budget = self.txtBudget.text ?? ""
-            self.myPost[0].noOfDays = self.txtNoOffDays.text ?? ""
+            self.myPost[0].no_of_days_name = self.txtNoOffDays.text ?? ""
             self.myPost[0].tripCategoryName = self.txtTripCategory.text ?? ""
             self.myPost[0].description = self.txtViewDesc.text ?? ""
-            self.myPost[0].tripComplexity = self.txtTripComplexity.text ?? ""
+            self.myPost[0].trip_complexity_name = self.txtTripComplexity.text ?? ""
             
             let vc = PostVC()
             
             vc.completion = {
-                self.txtTags.text = ""
+                //self.txtTags.text = ""
+                self.comeFromPostBack = true
                 self.isFromTabbar = true
             }
             
@@ -515,6 +530,12 @@ extension CreatePostVC : CustomPickerControllerDelegate{
 }
 
 extension CreatePostVC:TagListVMObserver{
+    
+    func observerSendMessages(json: JSON, roomId: String?, sender: UIButton?) {
+        
+    }
+    
+    
     func observeGetCategoriesListSucessfull() {
         
     }

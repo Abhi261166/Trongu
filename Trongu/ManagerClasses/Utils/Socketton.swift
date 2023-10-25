@@ -255,21 +255,13 @@ class BlukMessageSend: NSObject {
     
     var socketton: Socketton?
     
-    func setSocket(message: JSON, roomIds: [String]) {
+    func setSocket(message: JSON, roomId: String) {
         guard socketton == nil else { return }
         socketton = Socketton()
         socketton?.establishConnection()
         socketton?.checkConnection(complition: { succ in
             if succ == true {
-                roomIds.forEach { id in
-                    self.socketton?.sendMessage(message, roomId: id)
-                }
-//                self.socketton?.sendMessage(message, roomIds: roomIds, completion: {
-//                    DispatchQueue.main.async {
-//                        print("complition of message send")
-////                        self.socketton
-//                    }
-//                })
+                    self.socketton?.sendMessage(message, roomId: roomId)
             }
         })
     }

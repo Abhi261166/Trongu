@@ -151,7 +151,8 @@ struct Image: Codable {
 // MARK: - PostClass
 struct PostClass: Codable {
     let id, userID, budget, noOfDays: String
-    let tripCategory, description, tripComplexity, status: String
+    let description, tripComplexity, status: String
+    let tripCategory:String
     let createdAt: String
 
     enum CodingKeys: String, CodingKey {
@@ -167,7 +168,8 @@ struct PostClass: Codable {
     }
 }
 
-// MARK: - PostImage
+// MARK: - PostImage -
+
 struct PostImage: Codable {
     let id, postID, place, date: String
     let time, lat, long: String
@@ -276,7 +278,7 @@ struct MessageDetails: Codable {
     let postID, type, imageID, readStatus: String
     let status, createdAt: String
     let images, videos: [Image]
-    let post: PostUnion
+    let post: PostClass
     let postImages: [PostImage]?
     let userDetails: UserDetails?
 

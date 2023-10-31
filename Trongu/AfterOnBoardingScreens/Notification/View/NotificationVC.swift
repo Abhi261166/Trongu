@@ -7,8 +7,11 @@
 
 import UIKit
 
+var isfromAppDelegates = false
+
 class NotificationVC: UIViewController {
     
+    @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var notificationTableView: UITableView!
     var notification = [("NotificationImage_1","James Perry, are requested to follow you","4h"),("NotificationImage_2","Kevin Lowe, Started following you","5h"),("NotificationImage_3","Kevin Lowe, Started following you","12h"),("NotificationImage_4","Jasmine Blake, liked your post","13h")]
     
@@ -17,6 +20,8 @@ class NotificationVC: UIViewController {
     var following = [" are requested to follow you"," Started following you"," Started following you"," liked your post"]
     var viewModel:NotificationListVM?
     var completion : (() -> Void)? = nil
+    var comeFrom = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +35,11 @@ class NotificationVC: UIViewController {
         super.viewWillAppear(animated)
         setViewModel()
         apiCall()
+        
+        if comeFrom != ""{
+            self.viewModel?.apiUpdateSeen(comeFrom: "Yes")
+        }
+        
     }
 
     func setViewModel(){
@@ -46,13 +56,20 @@ class NotificationVC: UIViewController {
     
     
     @IBAction func backAction(_ sender: UIButton) {
-        
+        disableButtonForHalfSecond()
         if let completion = completion{
             
-            self.viewModel?.apiUpdateSeen()
+            self.viewModel?.apiUpdateSeen(comeFrom: "No")
             completion()
         }
         
+    }
+    
+    func disableButtonForHalfSecond() {
+        btnBack.isEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.btnBack.isEnabled = true
+        }
     }
    
 }
@@ -102,6 +119,47 @@ extension NotificationVC: UITableViewDelegate,UITableViewDataSource{
         
     }
     
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 1=>follow 2=>following 3=>like 4=>comment 5=>mass push 6=>send message
+        let dict = self.viewModel?.arrNotificationList[indexPath.row]
+        
+        switch dict?.notificationType {
+        case "1":
+            let vc = OtherUserProfileVC()
+            vc.userId = dict?.userID
+            vc.hidesBottomBarWhenPushed = true
+            pushViewController(vc, true)
+        case "2":
+            let vc = OtherUserProfileVC()
+            vc.userId = dict?.userID
+            vc.hidesBottomBarWhenPushed = true
+            pushViewController(vc, true)
+        case "3":
+                let vc = DetailVC()
+                vc.completion = {}
+                vc.postId = dict?.postID
+                vc.hidesBottomBarWhenPushed = true
+                pushViewController(vc, true)
+        case "4":
+                let vc = DetailVC()
+                vc.completion = {}
+                vc.postId = dict?.postID
+                vc.hidesBottomBarWhenPushed = true
+                pushViewController(vc, true)
+        default:
+            break
+        }
+        
+    }
+    
+    
+//    let vc = DetailVC()
+//    vc.comeFrom = "Push"
+//    vc.postId = pushData.post_id
+//    vc.hidesBottomBarWhenPushed = true
+//    viewController?.pushViewController(vc, true)
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
@@ -121,10 +179,22 @@ extension NotificationVC: UITableViewDelegate,UITableViewDataSource{
 }
 
 extension NotificationVC:NotificationListVMObserver{
-    
-    func observeUpdateCountSucessfull() {
-        popVC()
+    func observeUpdateCountSucessfull(comeFrom: String) {
+        
+        if comeFrom == "No"{
+            if self.comeFrom == ""{
+                popVC()
+            }else{
+                self.comeFrom = ""
+                isfromAppDelegates = true
+                let vc = TabBarController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }else{
+            
+        }
     }
+    
     
     func observeAcceptedOrRejectedSucessfull() {
         self.apiCall()

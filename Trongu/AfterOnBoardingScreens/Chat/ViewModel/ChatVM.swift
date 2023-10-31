@@ -100,14 +100,14 @@ class ChatVM: NSObject {
                         self.observer?.observerRemoveHeader()
                   
                             let messages = response.data
-                            self.pageCompleted = messages.count < self.per_page
+                        self.pageCompleted = messages?.count ?? 0 < self.per_page
                             if self.chatHistory.count == 0 {
-                                self.chatHistory.insert(contentsOf: messages, at: 0)
+                                self.chatHistory.insert(contentsOf: messages ?? [], at: 0)
                                 self.observer?.observerListMessages(image: response.userImage)
                             } else {
-                                self.chatHistory.insert(contentsOf: messages, at: 0)
-                                let indexPaths = messages.enumerated().map({IndexPath(row: $0.offset, section: 0)})
-                                self.observer?.observerPreviousMessages(indexPaths: indexPaths)
+                                self.chatHistory.insert(contentsOf: messages ?? [], at: 0)
+                                let indexPaths = messages?.enumerated().map({IndexPath(row: $0.offset, section: 0)})
+                                self.observer?.observerPreviousMessages(indexPaths: indexPaths ?? [])
                             }
                    
                     }
@@ -142,14 +142,14 @@ class ChatVM: NSObject {
                         self.observer?.observerRemoveHeader()
                   
                             let messages = response.data
-                            self.pageCompleted = messages.count < self.per_page
+                        self.pageCompleted = messages?.count ?? 0 < self.per_page
                             if self.chatHistory.count == 0 {
-                                self.chatHistory.insert(contentsOf: messages, at: 0)
+                                self.chatHistory.insert(contentsOf: messages ?? [], at: 0)
                                 self.observer?.observerListMessages(image: response.userImage)
                             } else {
-                                self.chatHistory.insert(contentsOf: messages, at: 0)
-                                let indexPaths = messages.enumerated().map({IndexPath(row: $0.offset, section: 0)})
-                                self.observer?.observerPreviousMessages(indexPaths: indexPaths)
+                                self.chatHistory.insert(contentsOf: messages ?? [], at: 0)
+                                let indexPaths = messages?.enumerated().map({IndexPath(row: $0.offset, section: 0)})
+                                self.observer?.observerPreviousMessages(indexPaths: indexPaths ?? [])
                             }
                         
                     }

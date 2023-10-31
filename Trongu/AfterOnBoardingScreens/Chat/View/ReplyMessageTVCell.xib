@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,23 +23,34 @@
                 <rect key="frame" x="0.0" y="0.0" width="552" height="153"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p5Q-Hf-O4R">
-                        <rect key="frame" x="295" y="20" width="227" height="74.333333333333329"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hkz-PK-zpU">
+                        <rect key="frame" x="259" y="4.9999999999999991" width="34.333333333333314" height="15.666666666666664"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi , am  Good.                     " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Hu-Cf-v4u">
-                                <rect key="frame" x="30" y="20" width="187" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="983-D7-R5N">
+                                <rect key="frame" x="0.0" y="0.0" width="34.333333333333336" height="15.666666666666666"/>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p5Q-Hf-O4R">
+                        <rect key="frame" x="80" y="35.333333333333336" width="457" height="85.333333333333314"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi , am  Good.        jyjtjtykitkhrkjgjkrjkgnjkthjjktrhrjth             ghjgrjh" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Hu-Cf-v4u">
+                                <rect key="frame" x="30" y="10" width="417" height="42"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="07:40 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ArL-CW-SgU">
-                                <rect key="frame" x="30" y="46" width="187" height="18.333333333333329"/>
+                                <rect key="frame" x="30" y="56.999999999999993" width="417" height="18.333333333333336"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.92941176470588238" green="0.5725490196078431" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="OrengeAppColour"/>
                         <constraints>
                             <constraint firstItem="ArL-CW-SgU" firstAttribute="leading" secondItem="4Hu-Cf-v4u" secondAttribute="leading" id="GFV-1V-RAT"/>
                             <constraint firstAttribute="bottom" secondItem="ArL-CW-SgU" secondAttribute="bottom" constant="10" id="PZr-3b-8Fp"/>
@@ -46,15 +58,9 @@
                             <constraint firstItem="ArL-CW-SgU" firstAttribute="top" secondItem="4Hu-Cf-v4u" secondAttribute="bottom" constant="5" id="dLH-iF-40W"/>
                             <constraint firstItem="4Hu-Cf-v4u" firstAttribute="leading" secondItem="p5Q-Hf-O4R" secondAttribute="leading" constant="30" id="s2k-gL-GqM"/>
                             <constraint firstItem="ArL-CW-SgU" firstAttribute="trailing" secondItem="4Hu-Cf-v4u" secondAttribute="trailing" id="ukm-BM-ZVG"/>
-                            <constraint firstItem="4Hu-Cf-v4u" firstAttribute="top" secondItem="p5Q-Hf-O4R" secondAttribute="top" constant="20" id="xyL-eq-s9m"/>
+                            <constraint firstItem="4Hu-Cf-v4u" firstAttribute="top" secondItem="p5Q-Hf-O4R" secondAttribute="top" constant="10" id="xyL-eq-s9m"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                <real key="value" value="4"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOptacity">
-                                <real key="value" value="0.40000000000000002"/>
-                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
                                 <size key="value" width="0.0" height="0.0"/>
                             </userDefinedRuntimeAttribute>
@@ -64,21 +70,35 @@
                             <userDefinedRuntimeAttribute type="number" keyPath="leftRadius">
                                 <real key="value" value="20"/>
                             </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="topCornerRadius">
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <real key="value" value="20"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="p5Q-Hf-O4R" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="ICk-jR-uHO"/>
-                    <constraint firstItem="p5Q-Hf-O4R" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="90" id="LlZ-NA-wnd"/>
-                    <constraint firstAttribute="trailing" secondItem="p5Q-Hf-O4R" secondAttribute="trailing" constant="30" id="Ooh-80-6W5"/>
-                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="p5Q-Hf-O4R" secondAttribute="bottom" id="oK1-rd-R9c"/>
+                    <constraint firstItem="Hkz-PK-zpU" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="0ie-Pg-qc5"/>
+                    <constraint firstItem="p5Q-Hf-O4R" firstAttribute="top" secondItem="Hkz-PK-zpU" secondAttribute="bottom" constant="14.5" id="HHo-Gj-JAz"/>
+                    <constraint firstItem="p5Q-Hf-O4R" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="80" id="LlZ-NA-wnd"/>
+                    <constraint firstItem="Hkz-PK-zpU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="Lt2-XR-RI1"/>
+                    <constraint firstAttribute="trailing" secondItem="p5Q-Hf-O4R" secondAttribute="trailing" constant="15" id="Ooh-80-6W5"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="p5Q-Hf-O4R" secondAttribute="bottom" constant="5" id="oK1-rd-R9c"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lblCurrentTime" destination="983-D7-R5N" id="Spd-zM-0zO"/>
+                <outlet property="lblMessage" destination="4Hu-Cf-v4u" id="czb-Gu-klR"/>
+                <outlet property="lblTime" destination="ArL-CW-SgU" id="ou0-Oq-rnb"/>
+                <outlet property="messageBGView" destination="p5Q-Hf-O4R" id="Al8-1L-2l8"/>
+                <outlet property="stackViewBottomCons" destination="HHo-Gj-JAz" id="Y03-0C-Fqm"/>
+            </connections>
             <point key="canvasLocation" x="306.87022900763355" y="27.112676056338028"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <namedColor name="OrengeAppColour">
+            <color red="0.92941176470588238" green="0.5725490196078431" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
 </document>

@@ -94,6 +94,8 @@ class HomeVC: UIViewController {
             }
         }
         
+       
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -142,12 +144,18 @@ class HomeVC: UIViewController {
     @IBAction func notificationAction(_ sender: UIButton) {
         let vc = NotificationVC()
         vc.completion = {
-            self.viewModel?.notificationCount = 0
-            if self.viewModel?.notificationCount == 0{
+            if isfromAppDelegates{
                 self.btnNotification.setImage(UIImage(named: "ic_Notification"), for: .normal)
+                
             }else{
-                self.btnNotification.setImage(UIImage(named: "ic_notificationWithBages"), for: .normal)
+                self.viewModel?.notificationCount = 0
+                if self.viewModel?.notificationCount == 0{
+                    self.btnNotification.setImage(UIImage(named: "ic_Notification"), for: .normal)
+                }else{
+                    self.btnNotification.setImage(UIImage(named: "ic_notificationWithBages"), for: .normal)
+                }
             }
+            
         }
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
@@ -404,7 +412,8 @@ extension HomeVC: HomeTVCellDelegate{
 //        let vc = MapVC()
 //        vc.hidesBottomBarWhenPushed = true
 //        self.navigationController?.pushViewController(vc, animated: true)
-        Singleton.shared.showErrorMessage(error: "Not implemented yet", isError: .message)
+        
+    //    Singleton.shared.showErrorMessage(error: "Not implemented yet", isError: .message)
     }
     
     func didTapBucketList(_ indexPath: IndexPath) {
@@ -426,6 +435,7 @@ extension HomeVC: HomeTVCellDelegate{
     
     func didTapLikecountList(_ indexPath: IndexPath) {
         let vc = LikesVC()
+        vc.controller = self
         vc.postId = self.viewModel?.arrPostList[indexPath.row].id
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
@@ -553,12 +563,17 @@ extension HomeVC:HomeVMObserver{
         
         self.homeTableView.reloadData()
         
-        if self.viewModel?.notificationCount == 0{
-            self.btnNotification.setImage(UIImage(named: "ic_Notification"), for: .normal)
+        if isfromAppDelegates{
+        isfromAppDelegates = false
+        
         }else{
-            self.btnNotification.setImage(UIImage(named: "ic_notificationWithBages"), for: .normal)
+            if self.viewModel?.notificationCount == 0{
+                self.btnNotification.setImage(UIImage(named: "ic_Notification"), for: .normal)
+            }else{
+                self.btnNotification.setImage(UIImage(named: "ic_notificationWithBages"), for: .normal)
+            }
         }
-                
+        
         if DAVideoPlayerView.player?.isPlaying != true {
             DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
                 self.playCurrentVideo()

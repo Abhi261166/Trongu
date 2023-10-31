@@ -128,28 +128,38 @@ class HomeTVCell: UITableViewCell {
     }
     
     @IBAction func mapAction(_ sender: UIButton) {
-        if let indexPath = self.indexPath {
-            self.delegate?.didTapmap(indexPath)
-        }
+        
+//        if let indexPath = self.indexPath {
+//            self.delegate?.didTapmap(indexPath)
+//        }
+        
+        homeCollectionView.scrollToItem(at: IndexPath(item: arrPostImagesVideosList.count, section: 0), at: .right, animated: true)
+        
     }
     
     @IBAction func bucketListAction(_ sender: UIButton) {
+        
         if let indexPath = self.indexPath {
             self.delegate?.didTapBucketList(indexPath)
         }
+        
     }
     
     @IBAction func dislikeAction(_ sender: UIButton) {
+        
         sender.isSelected.toggle()
         if let indexPath = self.indexPath {
             self.delegate?.didTapDislike(indexPath)
         }
+        
     }
     
     @IBAction func likeCountListAction(_ sender: UIButton) {
+        
         if let indexPath = self.indexPath {
             self.delegate?.didTapLikecountList(indexPath)
         }
+        
     }
     
     @IBAction func PageCotrolAction(_ sender: UIPageControl) {

@@ -13,7 +13,7 @@ class PhotosDetailsVC: UIViewController {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var PhotosCollection: UICollectionView!
     
-    var arrPhotos:[Image] = []
+    var arrPhotos:[Imagess] = []
     var completion : (() -> Void)? = nil
     
     override func viewDidLoad() {

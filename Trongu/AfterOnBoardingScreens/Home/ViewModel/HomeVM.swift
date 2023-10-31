@@ -46,7 +46,7 @@ class HomeVM: NSObject {
                         let decoder = JSONDecoder()
                         do {
                             let decoded = try decoder.decode(HomeDataModel.self, from: data)
-                            self.notificationCount = decoded.noticationCount ?? 0
+                            self.notificationCount = decoded.noticationCount 
                             let posts = decoded.data
                             if self.pageNo == 0 {
                                 self.arrPostList.removeAll()

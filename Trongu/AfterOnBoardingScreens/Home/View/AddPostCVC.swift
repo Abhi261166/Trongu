@@ -133,7 +133,7 @@ extension AddPostCVC:UIScrollViewDelegate{
             }
             
             let transform = CGAffineTransform(scaleX: newScale, y: newScale)
-        postImage.transform = transform
+            postImage.transform = transform
             
             gestureRecognizer.scale = 1.0
   

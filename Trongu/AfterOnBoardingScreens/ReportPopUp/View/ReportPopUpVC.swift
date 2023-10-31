@@ -16,7 +16,6 @@ class ReportPopUpVC: UIViewController, UIGestureRecognizerDelegate {
     var viewModel:DeleteVM?
     var completion : (() -> Void)? = nil
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 

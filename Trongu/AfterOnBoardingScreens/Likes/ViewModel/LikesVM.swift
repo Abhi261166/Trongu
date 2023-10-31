@@ -9,6 +9,7 @@ import UIKit
 protocol LikesVMObserver: NSObjectProtocol {
     func observeLikesListSucessfull()
     func observeSearchLikesListSucessfull()
+    func observeFollowUnfollowSucessfull()
 }
 
 class LikesVM: NSObject {
@@ -23,6 +24,27 @@ class LikesVM: NSObject {
     init(observer: LikesVMObserver?) {
         self.observer = observer
     }
+    
+    
+    // MARK: - Follow/Unfollow Api -
+    
+    func apiFollowUnfollow(userID: String) {
+        var params = JSON()
+        params["other_id"] = userID
+        
+        print("params : ", params)
+        ApiHandler.callWithMultipartForm(apiName: API.Name.follow, params: params) { succeeded, response, data in
+            DispatchQueue.main.async {
+                
+                if succeeded == true {
+                  
+                        self.observer?.observeFollowUnfollowSucessfull()
+                   
+                }
+            }
+        }
+    }
+    
     
     //MARK: Like List Api
     func apiLikesList(postId: String) {
@@ -68,11 +90,11 @@ class LikesVM: NSObject {
        
         print("params : ", params)
 //        add loader
-        ActivityIndicator.shared.showActivityIndicator()
+       // ActivityIndicator.shared.showActivityIndicator()
         ApiHandler.callWithMultipartForm(apiName: API.Name.searchLikesList, params: params) { [weak self] succeeded, response, data in
             DispatchQueue.main.async {
 //        remove loader
-        ActivityIndicator.shared.hideActivityIndicator()
+       // ActivityIndicator.shared.hideActivityIndicator()
                 if let self = self {
                     if succeeded == true, let data {
                         let decoder = JSONDecoder()

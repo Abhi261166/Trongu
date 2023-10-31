@@ -63,7 +63,7 @@ class SearchVC: UIViewController,UITextFieldDelegate {
     @objc fileprivate func keyboardWillShow(_ notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             // Do something with size
-            bottomConstraint.constant = keyboardSize.height + 20
+            bottomConstraint.constant = keyboardSize.height
         }
     }
     
@@ -98,6 +98,7 @@ class SearchVC: UIViewController,UITextFieldDelegate {
             self.viewModel?.pageNo = 0
             self.viewModel?.isLastPage = false
             self.recentLable.isHidden = false
+            self.viewModel?.arrUserAndPlace = []
             self.viewModel?.apiSearch(text: "")
             self.recentLable.text = "Recent Search"
         }

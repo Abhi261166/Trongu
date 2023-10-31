@@ -16,6 +16,7 @@ class LikesVC: UIViewController,UITextFieldDelegate {
     var postId:String?
     var viewModel:LikesVM?
     var likes = [("LikesImage_1","_rebeka_99","Reveka","Followed by _akshara_1..."),("LikesImage_2","mr.krish_021","Reveka","Followed by _akshara_1..."),("LikesImage_3","dessertsoul_09_","Reveka","Followed by _akshara_1..."),("LikesImage_4","_nishwan_009","Nishwan","Followed by _rebeka_1..."),("LikesImage_5","_uddin509","Reveka","Followed by _akshara_1..."),("LikesImage_6","mahesh_z","Reveka","Followed by _akshara_1..."),("LikesImage_7","_nishwan_009","Nishwan","Followed by _rebeka_1..."),("LikesImage_8","_uddin509","Reveka","Followed by _akshara_1...")]
+    var controller:UIViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +53,7 @@ class LikesVC: UIViewController,UITextFieldDelegate {
             timer = nil
         }
         
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.searchTimerAction(_:)), userInfo: textField.text, repeats: false)
+        timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(self.searchTimerAction(_:)), userInfo: textField.text, repeats: false)
         
     }
     
@@ -94,7 +95,11 @@ extension LikesVC: UITableViewDelegate,UITableViewDataSource{
         cell.profileImage.setImage(image: dict?.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
         cell.userNameLabel.text = dict?.userName
         cell.nameLabel.text = dict?.name
+        cell.followButton.tag = indexPath.row
         cell.followButton.addTarget(self, action: #selector(actionFollow), for: .touchUpInside)
+        cell.btnProfile.tag = indexPath.row
+        cell.btnProfile.addTarget(self, action: #selector(actionGoToProfile), for: .touchUpInside)
+        cell.followButton.setTitleColor(.black, for: .normal)
         
         if UserDefaultsCustom.getUserData()?.id == dict?.id{
             
@@ -103,18 +108,58 @@ extension LikesVC: UITableViewDelegate,UITableViewDataSource{
             cell.followButton.isHidden = false
         }
         
+        switch Int(dict?.isFollow ?? ""){
+        case 0:
+            cell.followButton.setTitle("Requested", for: .normal)
+            cell.followButton.backgroundColor = UIColor(named: "followingBackground")
+        case 1:
+            cell.followButton.setTitle("Following", for: .normal)
+            cell.followButton.backgroundColor = UIColor(named: "followingBackground")
+        case 2:
+            cell.followButton.setTitle("Follow", for: .normal)
+            cell.followButton.backgroundColor = UIColor(named: "OrengeAppColour")
+        case 3:
+            cell.followButton.setTitle("Follow", for: .normal)
+            cell.followButton.backgroundColor = UIColor(named: "OrengeAppColour")
+        default:
+            break
+        }
+        cell.followButton.isUserInteractionEnabled = true
+        
         return cell
         
     }
     
-    @objc func actionFollow(){
+    @objc func actionFollow(sender:UIButton){
+        sender.isUserInteractionEnabled = false
+        self.viewModel?.apiFollowUnfollow(userID: self.viewModel?.arrUsers[sender.tag].id ?? "" )
         
-        Singleton.shared.showErrorMessage(error: "Not Implemented Yet", isError: .message)
+       // Singleton.shared.showErrorMessage(error: "Not Implemented Yet", isError: .message)
+    }
+    
+    @objc func actionGoToProfile(sender:UIButton){
+        
+        if self.viewModel?.arrUsers[sender.tag].id == UserDefaultsCustom.getUserData()?.id{
+            
+            controller?.navigationController?.tabBarController?.selectedIndex = 4
+            
+        }else{
+            let vc = OtherUserProfileVC()
+            vc.userId = self.viewModel?.arrUsers[sender.tag].id
+            vc.hidesBottomBarWhenPushed = true
+            controller?.navigationController?.pushViewController(vc, animated: true)
+        }
+        
     }
     
 }
 
 extension LikesVC:LikesVMObserver{
+    
+    func observeFollowUnfollowSucessfull() {
+        apiCall()
+    }
+    
     
     func observeSearchLikesListSucessfull() {
         self.likesTableView.reloadData()

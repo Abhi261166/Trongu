@@ -12,7 +12,7 @@ class MapFilterVC: UIViewController {
     
     @IBOutlet weak var txtFilter: UITextField!
     
-    var arrFilter:[String] = ["Place visited","Added in bucket"]
+    var arrFilter:[String] = ["Places visited","Added in bucket"]
     var selectedValue:String?
    
     var completion : (( _ text:String) -> Void)?  = nil
@@ -45,7 +45,7 @@ class MapFilterVC: UIViewController {
             var filterBy = ""
             
             switch txtFilter.text {
-            case "Place visited":
+            case "Places visited":
                 filterBy = "1"
             case "Added in bucket":
                 filterBy = "2"
@@ -88,4 +88,5 @@ extension MapFilterVC:UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
         txtFilter.text = arrFilter[0]
     }
+    
 }

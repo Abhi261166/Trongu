@@ -119,7 +119,7 @@ class FollowersVC: UIViewController,UITextFieldDelegate {
         guard let searchText = timer.userInfo as? String else{return}
         print(searchText)
         
-        if searchText.trim.count > 0 {
+      //  if searchText.trim.count > 0 {
             self.viewModel?.pageNo = 0
             self.viewModel?.isLastPage = false
             self.viewModel?.arrUser = []
@@ -128,7 +128,7 @@ class FollowersVC: UIViewController,UITextFieldDelegate {
             }else{
                 self.viewModel?.apiFollowFollowingList(search: searchText, userID: self.userId ?? "",isFollower: false)
             }
-        }
+       // }
     }
     
     func updateCrossButtonVisibility() {
@@ -142,9 +142,6 @@ class FollowersVC: UIViewController,UITextFieldDelegate {
             popVC()
             completion()
         }
-        
-        
-        
     }
     
     @IBAction func followersAction(_ sender: UIButton) {
@@ -353,4 +350,11 @@ extension FollowersVC:FollowersVMObserver{
         self.followersTableView.reloadData()
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        return true
+    }
+    
 }
+
+

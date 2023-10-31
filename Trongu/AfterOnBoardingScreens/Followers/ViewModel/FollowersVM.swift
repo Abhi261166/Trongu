@@ -39,11 +39,17 @@ class FollowersVM: NSObject {
         
         print("params : ", params)
         //        add loader
-        ActivityIndicator.shared.showActivityIndicator()
+        
+        if search.count == 0{
+            ActivityIndicator.shared.showActivityIndicator()
+        }
+        
         ApiHandler.callWithMultipartForm(apiName: API.Name.getFollowFollowingList, params: params) { succeeded, response, data in
             DispatchQueue.main.async {
                 //        remove loader
-                ActivityIndicator.shared.hideActivityIndicator()
+                if search.count == 0{
+                    ActivityIndicator.shared.hideActivityIndicator()
+                }
                 if succeeded == true, let data {
                     let decoder = JSONDecoder()
                     do {

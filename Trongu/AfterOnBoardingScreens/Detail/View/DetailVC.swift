@@ -147,6 +147,7 @@ class DetailVC: UIViewController {
     @IBAction func likeCountAction(_ sender: UIButton) {
         let vc = LikesVC()
         vc.postId = postIdFromApi
+        vc.controller = self
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }

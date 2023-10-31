@@ -168,6 +168,7 @@ extension OtherUserProfileVC: UICollectionViewDelegate,UICollectionViewDataSourc
         vc.completion = {
             
         }
+        
         vc.postDetails = self.viewModel?.arrPostList[indexPath.row]
         vc.postId = self.viewModel?.arrPostList[indexPath.row].id
         vc.hidesBottomBarWhenPushed = true
@@ -249,6 +250,7 @@ extension OtherUserProfileVC:ProfileVMObserver{
         self.lblFollowing.text = dict?.Following
         self.lblBio.text = dict?.bio
         self.lblAddress.text = dict?.place
+        
         //0=>requested,1=>accept,2=>reject,3=>not requested
         switch Int(dict?.is_follow ?? ""){
         case 0:

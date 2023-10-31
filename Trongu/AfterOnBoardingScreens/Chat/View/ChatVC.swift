@@ -83,6 +83,8 @@ class ChatVC: UIViewController {
         self.chatTableView.register(UINib(nibName: "MessageTableViewCell", bundle: nil), forCellReuseIdentifier: "MessageTableViewCell")
         self.chatTableView.register(UINib(nibName: "MediaTVCell", bundle: nil), forCellReuseIdentifier: "MediaTVCell")
         self.chatTableView.register(UINib(nibName: "SharePostCVC", bundle: nil), forCellReuseIdentifier: "SharePostCVC")
+        self.chatTableView.register(UINib(nibName: "ReplyMessageTVCell", bundle: nil), forCellReuseIdentifier: "ReplyMessageTVCell")
+        self.chatTableView.register(UINib(nibName: "ReceiveMessageTVCell", bundle: nil), forCellReuseIdentifier: "ReceiveMessageTVCell")
         
     }
     
@@ -176,6 +178,10 @@ class ChatVC: UIViewController {
     @IBAction func actionSendMessage(_ sender: UIButton) {
         
         disableButtonForHalfSecond()
+     
+        if txtVwMessage.text.count > 0{
+            btnSendMessage.isUserInteractionEnabled = false
+        }
         
         if self.viewModel?.roomId != ""{
             
@@ -274,50 +280,74 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: "MessageTableViewCell", for: indexPath) as? MessageTableViewCell
                     else{return UITableViewCell()}
                 if dict?.userID != UserDefaultsCustom.getUserData()?.id{
-                    cell.messageLabel.text = dict?.message
-                    cell.viewLeadingConstraint.constant = 10
-                   // cell.viewTrailingConstraint.constant = 80
-                    cell.viewTrailingConstraint = cell.viewTrailingConstraint.setRelation(relation: .greaterThanOrEqual, constant: 80)
+                    
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ReceiveMessageTVCell", for: indexPath) as? ReceiveMessageTVCell
+                    else{return UITableViewCell()}
+                    
+                    cell.lblMessage.text = dict?.message
+//                    cell.viewLeadingConstraint.constant = 10
+//                   // cell.viewTrailingConstraint.constant = 80
+//                    cell.viewTrailingConstraint = cell.viewTrailingConstraint.setRelation(relation: .greaterThanOrEqual, constant: 80)
                     cell.messageBGView.shadowRadius = 3
                     cell.messageBGView.shadowOpacity = 0.4
-                    cell.messageLabel.textColor = .black
-                    cell.timeLabel.textColor = .gray
+//                    cell.messageLabel.textColor = .black
+//                    cell.timeLabel.textColor = .gray
                     cell.messageBGView.shadowOffset = CGSize(width: 0, height: 1)
                     cell.messageBGView.shadowColor = .gray
                     cell.messageBGView.backgroundColor = .white
-                    cell.profileImage.isHidden = false
-//                    if indexPath.row == 0 || self.viewModel?.chatHistory[indexPath.row - 1].userID == UserDefaultsCustom.getUserData()?.id{
-//                        cell.profileImgTopCons.constant = 35
-//                    }else{
-                        cell.profileImgTopCons.constant = 0
-                   // }
-                    cell.imageWidthConstraint.constant = 40
-                    cell.profileImage.setImage(image: self.viewModel?.otherUserProfile,placeholder: UIImage(named: "ic_profilePlaceHolder"))
+//                    cell.profileImage.isHidden = false
+////                    if indexPath.row == 0 || self.viewModel?.chatHistory[indexPath.row - 1].userID == UserDefaultsCustom.getUserData()?.id{
+////                        cell.profileImgTopCons.constant = 35
+////                    }else{
+//                        cell.profileImgTopCons.constant = 0
+//                   // }
+//                    cell.imageWidthConstraint.constant = 40
+                    cell.imgProfile.setImage(image: self.viewModel?.otherUserProfile,placeholder: UIImage(named: "ic_profilePlaceHolder"))
+                    
+                    if indexPath.row == 0 {
+                    cell.setDate(currentDate: dict?.createdAt, previousDate: nil)
+                    }else{
+                        cell.setDate(currentDate: dict?.createdAt, previousDate:  self.viewModel?.chatHistory[indexPath.row - 1].createdAt)
+                    }
+                    
+                    let date = Date(timeIntervalSince1970: TimeInterval(dict?.createdAt ?? "") ?? 0.0)
+                    print(date)
+                    cell.lblTime.text = date.dateToString(format: timeFormat)
+                        return cell
+                    
                 }else{
+                    
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ReplyMessageTVCell", for: indexPath) as? ReplyMessageTVCell
+                    else{return UITableViewCell()}
+                     cell.lblMessage.text = dict?.message
+                    
                     cell.messageBGView.clipsToBounds = true
-                    cell.messageLabel.text = dict?.message
-                    cell.messageLabel.textColor = .white
-                    cell.timeLabel.textColor = .white
-                    cell.profileImgTopCons.constant = 0
-                    cell.viewLeadingConstraint = cell.viewLeadingConstraint.setRelation(relation: .greaterThanOrEqual, constant: 80)
-                   // cell.viewLeadingConstraint.constant = 80
-                    cell.viewTrailingConstraint.constant = 20
-                    cell.imageWidthConstraint.constant = 0
-                    cell.profileImage.isHidden = true
+//                    cell.messageLabel.text = dict?.message
+//                    cell.messageLabel.textColor = .white
+//                    cell.timeLabel.textColor = .white
+//                    cell.profileImgTopCons.constant = 0
+//                    cell.viewLeadingConstraint = cell.viewLeadingConstraint.setRelation(relation: .greaterThanOrEqual, constant: 80)
+//                   // cell.viewLeadingConstraint.constant = 80
+//                    cell.viewTrailingConstraint.constant = 20
+//                    cell.imageWidthConstraint.constant = 0
+//                    cell.profileImage.isHidden = true
                     cell.messageBGView.backgroundColor = .orange
+                    
+                    let date = Date(timeIntervalSince1970: TimeInterval(dict?.createdAt ?? "") ?? 0.0)
+                    print(date)
+                    cell.lblTime.text = date.dateToString(format: timeFormat)
+                    
+                    if indexPath.row == 0 {
+                    cell.setDate(currentDate: dict?.createdAt, previousDate: nil)
+                    }else{
+                        cell.setDate(currentDate: dict?.createdAt, previousDate:  self.viewModel?.chatHistory[indexPath.row - 1].createdAt)
+                    }
+                    
+                        return cell
                     
                 }
                 
-                if indexPath.row == 0 {
-                cell.setDate(currentDate: dict?.createdAt, previousDate: nil)
-                }else{
-                    cell.setDate(currentDate: dict?.createdAt, previousDate:  self.viewModel?.chatHistory[indexPath.row - 1].createdAt)
-                }
                 
-                let date = Date(timeIntervalSince1970: TimeInterval(dict?.createdAt ?? "") ?? 0.0)
-                print(date)
-                cell.timeLabel.text = date.dateToString(format: timeFormat)
-                    return cell
                 
             case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "MediaTVCell", for: indexPath) as? MediaTVCell
@@ -325,7 +355,7 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                 
                 if dict?.userID != UserDefaultsCustom.getUserData()?.id{
                     
-                    switch dict?.images.count {
+                    switch dict?.images?.count {
                     case 1:
                         cell.playVideoButton.isHidden = true
                         cell.secondImageView.isHidden = true
@@ -342,12 +372,12 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     case 5,6,7,8,9,10:
                         cell.lblExtraImagesCount.isHidden = false
                         cell.playVideoButton.isHidden = true
-                        cell.lblExtraImagesCount.text = "+\((dict?.images.count ?? 0) - 4)"
+                        cell.lblExtraImagesCount.text = "+\((dict?.images?.count ?? 0) - 4)"
                     default:
                         break
                     }
                     
-                    for i in 0...(dict?.images.count ?? 0) - 1{
+                    for i in 0...(dict?.images?.count ?? 0) - 1{
                         
                         switch i {
                         case 0:
@@ -355,23 +385,23 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                             
                             cell.imgFirst.sd_imageIndicator = SDWebImageActivityIndicator.gray
                             cell.imgFirst.sd_imageIndicator?.startAnimatingIndicator()
-                            cell.imgFirst.sd_setImage(with: URL(string: dict?.images[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                            cell.imgFirst.sd_setImage(with: URL(string: dict?.images?[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
                         case 1:
                            // cell.imgTwo.setImage(image: dict?.images[i].image)
                             cell.imgTwo.sd_imageIndicator = SDWebImageActivityIndicator.gray
                             cell.imgTwo.sd_imageIndicator?.startAnimatingIndicator()
-                            cell.imgTwo.sd_setImage(with: URL(string: dict?.images[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                            cell.imgTwo.sd_setImage(with: URL(string: dict?.images?[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
                         case 2:
                            // cell.imgThree.setImage(image: dict?.images[i].image)
                             cell.imgThree.sd_imageIndicator = SDWebImageActivityIndicator.gray
                             cell.imgThree.sd_imageIndicator?.startAnimatingIndicator()
-                            cell.imgThree.sd_setImage(with: URL(string: dict?.images[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                            cell.imgThree.sd_setImage(with: URL(string: dict?.images?[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
                             
                         case 3:
                            // cell.imgFour.setImage(image: dict?.images[i].image)
                             cell.imgFour.sd_imageIndicator = SDWebImageActivityIndicator.gray
                             cell.imgFour.sd_imageIndicator?.startAnimatingIndicator()
-                            cell.imgFour.sd_setImage(with: URL(string: dict?.images[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                            cell.imgFour.sd_setImage(with: URL(string: dict?.images?[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
                             
                         default:
                             break
@@ -385,7 +415,7 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                    
                 }else{
                    
-                    switch dict?.images.count {
+                    switch dict?.images?.count {
                     case 1:
                         cell.playVideoButton.isHidden = true
                         cell.secondImageView.isHidden = true
@@ -402,37 +432,37 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     case 5,6,7,8,9,10:
                         cell.lblExtraImagesCount.isHidden = false
                         cell.playVideoButton.isHidden = true
-                        cell.lblExtraImagesCount.text = "+\((dict?.images.count ?? 0) - 4)"
+                        cell.lblExtraImagesCount.text = "+\((dict?.images?.count ?? 0) - 4)"
                     default:
                         break
                     }
                     
-                    for i in 0...(dict?.images.count ?? 0) - 1{
+                    for i in 0...(dict?.images?.count ?? 0) - 1{
                         
                         switch i {
                         case 0:
                            // cell.imgFirst.setImage(image: dict?.images[i].image)
                             cell.imgFirst.sd_imageIndicator = SDWebImageActivityIndicator.gray
                             cell.imgFirst.sd_imageIndicator?.startAnimatingIndicator()
-                            cell.imgFirst.sd_setImage(with: URL(string: dict?.images[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                            cell.imgFirst.sd_setImage(with: URL(string: dict?.images?[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
                             
                         case 1:
                            // cell.imgTwo.setImage(image: dict?.images[i].image)
                             cell.imgTwo.sd_imageIndicator = SDWebImageActivityIndicator.gray
                             cell.imgTwo.sd_imageIndicator?.startAnimatingIndicator()
-                            cell.imgTwo.sd_setImage(with: URL(string: dict?.images[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                            cell.imgTwo.sd_setImage(with: URL(string: dict?.images?[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
                             
                         case 2:
                           //  cell.imgThree.setImage(image: dict?.images[i].image)
                             cell.imgThree.sd_imageIndicator = SDWebImageActivityIndicator.gray
                             cell.imgThree.sd_imageIndicator?.startAnimatingIndicator()
-                            cell.imgThree.sd_setImage(with: URL(string: dict?.images[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                            cell.imgThree.sd_setImage(with: URL(string: dict?.images?[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
                             
                         case 3:
                            // cell.imgFour.setImage(image: dict?.images[i].image)
                             cell.imgFour.sd_imageIndicator = SDWebImageActivityIndicator.gray
                             cell.imgFour.sd_imageIndicator?.startAnimatingIndicator()
-                            cell.imgFour.sd_setImage(with: URL(string: dict?.images[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                            cell.imgFour.sd_setImage(with: URL(string: dict?.images?[i].image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
                             
                         default:
                             break
@@ -467,7 +497,7 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                 
                 if dict?.userID != UserDefaultsCustom.getUserData()?.id{
                     
-                    switch dict?.videos.count {
+                    switch dict?.videos?.count {
                     case 1:
                         cell.playVideoButton.isHidden = false
                         cell.secondImageView.isHidden = true
@@ -482,23 +512,23 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                         cell.playVideoButton.isHidden = true
                     case 5:
                         cell.playVideoButton.isHidden = true
-                        cell.lblExtraImagesCount.text = "\((dict?.images.count ?? 0) - 1)"
+                        cell.lblExtraImagesCount.text = "\((dict?.images?.count ?? 0) - 1)"
                     default:
                         break
                     }
                     
                     
-                    for i in 0...(dict?.videos.count ?? 0) - 1{
+                    for i in 0...(dict?.videos?.count ?? 0) - 1{
                         
                         switch i {
                         case 0:
-                            cell.imgFirst.setImage(image: dict?.videos[i].thumbnailImage)
+                            cell.imgFirst.setImage(image: dict?.videos?[i].thumbnailImage)
                         case 1:
-                            cell.imgTwo.setImage(image: dict?.videos[i].thumbnailImage)
+                            cell.imgTwo.setImage(image: dict?.videos?[i].thumbnailImage)
                         case 2:
-                            cell.imgThree.setImage(image: dict?.videos[i].thumbnailImage)
+                            cell.imgThree.setImage(image: dict?.videos?[i].thumbnailImage)
                         case 3:
-                            cell.imgFour.setImage(image: dict?.videos[i].thumbnailImage)
+                            cell.imgFour.setImage(image: dict?.videos?[i].thumbnailImage)
                         default:
                             break
                         }
@@ -511,7 +541,7 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                    
                 }else{
                    
-                    switch dict?.videos.count {
+                    switch dict?.videos?.count {
                     case 1:
                         cell.playVideoButton.isHidden = false
                         cell.secondImageView.isHidden = true
@@ -526,22 +556,22 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                         cell.playVideoButton.isHidden = true
                     case 5:
                         cell.playVideoButton.isHidden = true
-                        cell.lblExtraImagesCount.text = "\((dict?.images.count ?? 0) - 1)"
+                        cell.lblExtraImagesCount.text = "\((dict?.images?.count ?? 0) - 1)"
                     default:
                         break
                     }
                     
-                    for i in 0...(dict?.videos.count ?? 0) - 1{
+                    for i in 0...(dict?.videos?.count ?? 0) - 1{
                         
                         switch i {
                         case 0:
-                            cell.imgFirst.setImage(image: dict?.videos[i].thumbnailImage)
+                            cell.imgFirst.setImage(image: dict?.videos?[i].thumbnailImage)
                         case 1:
-                            cell.imgTwo.setImage(image: dict?.videos[i].thumbnailImage)
+                            cell.imgTwo.setImage(image: dict?.videos?[i].thumbnailImage)
                         case 2:
-                            cell.imgThree.setImage(image: dict?.videos[i].thumbnailImage)
+                            cell.imgThree.setImage(image: dict?.videos?[i].thumbnailImage)
                         case 3:
-                            cell.imgFour.setImage(image: dict?.videos[i].thumbnailImage)
+                            cell.imgFour.setImage(image: dict?.videos?[i].thumbnailImage)
                         default:
                             break
                         }
@@ -569,28 +599,28 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                 
                     return cell
             case 4:
+                print("In case 4")
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: "SharePostCVC", for: indexPath) as? SharePostCVC
                     else{return UITableViewCell()}
                 
                 if dict?.userID != UserDefaultsCustom.getUserData()?.id{
                     
-                    if dict?.postImages?.first?.thumbnailImage != ""{
+                    if dict?.post?.postImages?.thumb_nail_image != ""{
                         
                         cell.imgPostFirstImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
                         cell.imgPostFirstImage.sd_imageIndicator?.startAnimatingIndicator()
-                        cell.imgPostFirstImage.sd_setImage(with: URL(string: dict?.postImages?.first?.thumbnailImage ?? ""), placeholderImage: UIImage(named: ""), context: nil)
-                      //  cell.imgPostFirstImage.setImage(image: dict?.postImages?.first?.thumbnailImage,placeholder: UIImage(named: "ic_profilePlaceHolder"))
+                        cell.imgPostFirstImage.sd_setImage(with: URL(string: dict?.post?.postImages?.thumb_nail_image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                      
                     }else{
                         cell.imgPostFirstImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
                         cell.imgPostFirstImage.sd_imageIndicator?.startAnimatingIndicator()
-                        cell.imgPostFirstImage.sd_setImage(with: URL(string: dict?.postImages?.first?.image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
-                        
-                       // cell.imgPostFirstImage.setImage(image: dict?.postImages?.first?.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
+                        cell.imgPostFirstImage.sd_setImage(with: URL(string: dict?.post?.postImages?.image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                      
                     }
                     
                     
-                    cell.imgPostUserImage.setImage(image: dict?.userDetails?.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
-                    cell.lblUserName.text = dict?.userDetails?.userName
+                    cell.imgPostUserImage.setImage(image: dict?.post?.userDetails?.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
+                    cell.lblUserName.text = dict?.post?.userDetails?.name
                     cell.lblPostDesc.text = ""
                     cell.profileImage.setImage(image: self.viewModel?.otherUserProfile,placeholder: UIImage(named: "ic_profilePlaceHolder"))
                     cell.imageWidthConstraint.constant = 40
@@ -600,26 +630,25 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     
                 }else{
                     
-                    if dict?.postImages?.first?.thumbnailImage != ""{
+                    if dict?.post?.postImages?.thumb_nail_image != ""{
                         
                         cell.imgPostFirstImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
                         cell.imgPostFirstImage.sd_imageIndicator?.startAnimatingIndicator()
-                        cell.imgPostFirstImage.sd_setImage(with: URL(string: dict?.postImages?.first?.thumbnailImage ?? ""), placeholderImage: UIImage(named: ""), context: nil)
-                        
-                       // cell.imgPostFirstImage.setImage(image: dict?.postImages?.first?.thumbnailImage,placeholder: UIImage(named: "ic_profilePlaceHolder"))
+                        cell.imgPostFirstImage.sd_setImage(with: URL(string: dict?.post?.postImages?.thumb_nail_image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                
                     }else{
                         
                         cell.imgPostFirstImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
                         cell.imgPostFirstImage.sd_imageIndicator?.startAnimatingIndicator()
-                        cell.imgPostFirstImage.sd_setImage(with: URL(string: dict?.postImages?.first?.image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
+                        cell.imgPostFirstImage.sd_setImage(with: URL(string: dict?.post?.postImages?.image ?? ""), placeholderImage: UIImage(named: ""), context: nil)
                         
                      //   cell.imgPostFirstImage.setImage(image: dict?.postImages?.first?.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
                     }
                     
-                    cell.imgPostUserImage.setImage(image: dict?.userDetails?.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
-                    cell.lblUserName.text = dict?.userDetails?.userName
+                    cell.imgPostUserImage.setImage(image: dict?.post?.userDetails?.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
+                    cell.lblUserName.text = dict?.post?.userDetails?.name
                     cell.profileImgTopCons.constant = 0
-                    cell.viewLeadingConstraint.constant = 80
+                    cell.viewLeadingConstraint.constant = 110
                     cell.viewTrailingConstraint.constant = 20
                     cell.imageWidthConstraint.constant = 0
                     cell.profileImage.isHidden = true
@@ -635,7 +664,7 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                 print(date)
                 cell.timeLabel.text = date.dateToString(format: timeFormat)
                
-                    return cell
+                return cell
                 
             default:
                 return UITableViewCell()
@@ -666,7 +695,7 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
             
         case 3:
             print("Video Type")
-            let videoURL = URL(string: dict?.videos.first?.video ?? "")
+            let videoURL = URL(string: dict?.videos?.first?.video ?? "")
             let player = AVPlayer(url: videoURL!)
             let playerViewController = AVPlayerViewController()
             playerViewController.player = player
@@ -791,6 +820,7 @@ extension ChatVC:ChatVMObserver{
         socketton?.sendMessage(json, roomId: self.viewModel?.roomId ?? "")
         self.chatTableView.tableHeaderView = nil
         self.comeFrom = ""
+        btnSendMessage.isUserInteractionEnabled = true
     }
     
     func observerListMessages(image: String) {
@@ -854,9 +884,10 @@ extension ChatVC: SockettonDelegate {
         chatTableView.beginUpdates()
         chatTableView.insertRows(at: [indexPath], with: .bottom)
         chatTableView.endUpdates()
+       // btnSendMessage.isUserInteractionEnabled = true
     }
     
-//    MARK: - SCROLL TO BOTTOM
+//    MARK: - SCROLL TO BOTTOM -
     func scrollToBottom(isScrolled:Bool) {
         guard isTableScrolled() == false || isScrolled == true  else { return }
         guard let count = self.viewModel?.chatHistory.count,

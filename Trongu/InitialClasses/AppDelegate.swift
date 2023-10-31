@@ -199,10 +199,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             viewController?.pushViewController(vc, true)
         case .following:
             let vc = NotificationVC()
+            vc.comeFrom = "notification"
+            vc.completion = { }
             vc.hidesBottomBarWhenPushed = true
             viewController?.pushViewController(vc, true)
         case .followRequest:
             let vc = NotificationVC()
+            vc.comeFrom = "notification"
+            vc.completion = { }
             vc.hidesBottomBarWhenPushed = true
             viewController?.pushViewController(vc, true)
         case .Message:
@@ -229,10 +233,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             viewController?.pushViewController(vc, true)
         case .following:
             let vc = NotificationVC()
+            vc.comeFrom = "notification"
+            vc.completion = { }
             vc.hidesBottomBarWhenPushed = true
             viewController?.pushViewController(vc, true)
         case .followRequest:
             let vc = NotificationVC()
+            vc.comeFrom = "notification"
+            vc.completion = { }
             vc.hidesBottomBarWhenPushed = true
             viewController?.pushViewController(vc, true)
         case .Message:

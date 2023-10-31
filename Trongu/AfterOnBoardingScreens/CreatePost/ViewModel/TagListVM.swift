@@ -56,7 +56,7 @@ class TagListVM: NSObject {
                if succeeded == true {
                    if let message = DataDecoder.decodeData(data, type: SendMessageModel.self)?.data,
                        let json = response["data"] as? JSON {
-                       self.showMessage(message: "Sent" as? String ?? "", isError: .error)
+                       self.showMessage(message: "Sent" as? String ?? "", isError: .success)
                        self.observer?.observerSendMessages(json: json, roomId: roomId, sender: sender)
                    }
                } else {

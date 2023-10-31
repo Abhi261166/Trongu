@@ -18,7 +18,7 @@ class AddLocationVC: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var locationTableView: UITableView!
     @IBOutlet weak var searchLocationTF: UITextField!
-    
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     var delegate: AddLocationVCDelegate?
     var city : [Cities] = []
@@ -28,6 +28,13 @@ class AddLocationVC: UIViewController {
     var cuntry:String?
     var address:String?
     
+    deinit{
+        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchLocationTF.delegate = self
@@ -35,6 +42,20 @@ class AddLocationVC: UIViewController {
         locationTableView.dataSource = self
        // getCurrentLocation()
         locationTableView.register(UINib(nibName: "AddLocationTableViewCell", bundle: nil), forCellReuseIdentifier: "AddLocationTableViewCell")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc fileprivate func keyboardWillShow(_ notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            // Do something with size
+            bottomConstraint.constant = keyboardSize.height
+        }
+    }
+    
+    @objc fileprivate func keyboardWillHide(_ notification: Notification) {
+        bottomConstraint.constant = 0
     }
     
     func getCurrentLocation(){

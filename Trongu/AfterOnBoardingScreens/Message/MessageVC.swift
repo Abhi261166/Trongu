@@ -66,47 +66,52 @@ extension MessageVC: UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageTVCell", for: indexPath) as! MessageTVCell
-        
-        let dict = self.viewModel?.getChatUsersData[indexPath.row]
-        
-        cell.profileImage.setImage(image: dict?.userImage,placeholder: UIImage(named: "ic_profilePlaceHolder"))
-        cell.nameLabel.text = dict?.userName
-        cell.messageLabel.text = dict?.lastMessage
-        
-        if dict?.lastMessageTime != ""{
-            let timestamp = Int(dict?.lastMessageTime ?? "") ?? 0
-            let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
-            cell.timeLabel.text = date.timeAgoSinceDate()
-        }else{
-            cell.timeLabel.text = ""
-        }
-        
-        if dict?.lastMessageTime != "" && dict?.lastMessage != ""{
+       
+        if (self.viewModel?.getChatUsersData.count ?? 0) > 0 {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MessageTVCell", for: indexPath) as! MessageTVCell
+            
+            let dict = self.viewModel?.getChatUsersData[indexPath.row]
+            
+            cell.profileImage.setImage(image: dict?.userImage,placeholder: UIImage(named: "ic_profilePlaceHolder"))
+            cell.nameLabel.text = dict?.userName
             cell.messageLabel.text = dict?.lastMessage
             
-        }else{
+            if dict?.lastMessageTime != ""{
+                let timestamp = Int(dict?.lastMessageTime ?? "") ?? 0
+                let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
+                cell.timeLabel.text = date.timeAgoSinceDate()
+            }else{
+                cell.timeLabel.text = ""
+            }
             
-            cell.messageLabel.text = "Media"
+            if dict?.lastMessageTime != "" && dict?.lastMessage != ""{
+                cell.messageLabel.text = dict?.lastMessage
+                
+            }else{
+                cell.messageLabel.text = "Media"
+            }
             
-        }
-        
-        
-        if dict?.badgeCount == "0"{
             
-            cell.messageCountView.isHidden = true
+            if dict?.badgeCount == "0"{
+                
+                cell.messageCountView.isHidden = true
+            }else{
+                cell.lblLatestMessageCount.text = dict?.badgeCount
+                cell.messageCountView.isHidden = false
+            }
+            
+            if dict?.isOnline == "0"{
+                cell.showOnlineView.isHidden = true
+            }else{
+                cell.showOnlineView.isHidden = true
+            }
+            
+            return cell
+            
         }else{
-            cell.lblLatestMessageCount.text = dict?.badgeCount
-            cell.messageCountView.isHidden = false
+            return UITableViewCell()
         }
-        
-        if dict?.isOnline == "0"{
-            cell.showOnlineView.isHidden = true
-        }else{
-            cell.showOnlineView.isHidden = false
-        }
-        
-        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

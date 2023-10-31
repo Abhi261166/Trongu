@@ -15,8 +15,9 @@ class LikesTVCell: UITableViewCell {
     @IBOutlet weak var followedByLabel: UILabel!
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var followedByView: UIView!
-    
     @IBOutlet weak var followWidthCons: NSLayoutConstraint!
+    @IBOutlet weak var btnProfile: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
        

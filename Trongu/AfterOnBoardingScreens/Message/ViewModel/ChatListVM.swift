@@ -34,11 +34,11 @@ class ChatListVM: NSObject {
         
         print("params : ", params)
 //        add loader
-      // ActivityIndicator.shared.showActivityIndicator()
+       ActivityIndicator.shared.showActivityIndicator()
         ApiHandler.callWithMultipartForm(apiName: API.Name.getAllChatUsers, params: params) { [weak self] succeeded, response, data in
             DispatchQueue.main.async {
 //        remove loader
-       // ActivityIndicator.shared.hideActivityIndicator()
+        ActivityIndicator.shared.hideActivityIndicator()
                 if let self = self {
                     if succeeded == true, let data {
                         let decoder = JSONDecoder()

@@ -228,13 +228,13 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
             //           // cell.lblTopAddress.text = "\(address ?? "")"
             //            cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") \(dict?.noOfDays ?? "")"
             //        }
-            cell.lblTimeAddress.text = "\(dict?.postImagesVideo.first?.time ?? "") \(dict?.postImagesVideo.first?.place ?? "")"
+            cell.lblTimeAddress.text = "\(dict?.postImagesVideo.first?.date ?? "") \(dict?.postImagesVideo.first?.time ?? "") \(dict?.postImagesVideo.first?.place ?? "")"
             cell.lblTopAddress.text = "\(dict?.postImagesVideo.first?.country ?? "")"
             
             if dict?.no_of_days_name == "1"{
                 cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") (\(dict?.no_of_days_name ?? "") day)"
             }else{
-                cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") (\(dict?.no_of_days_name ?? "") days)"
+                cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") (\(dict?.noOfDays ?? "") days)"
             }
             
             if dict?.isLike == "1"{
@@ -250,12 +250,11 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
             
             if dict?.post_like_count == "1"{
                 cell.btnLikeCount.setTitle("\(dict?.post_like_count ?? "0") like", for: .normal)
-                cell.heightConsLikeButton.constant = 30
+                cell.btnLikeCount.isHidden = false
             }else if dict?.post_like_count == "0"{
-                cell.heightConsLikeButton.constant = 0
-                cell.btnLikeCount.setTitle("", for: .normal)
+                cell.btnLikeCount.isHidden = true
             }else {
-                cell.heightConsLikeButton.constant = 30
+                cell.btnLikeCount.isHidden = false
                 cell.btnLikeCount.setTitle("\(dict?.post_like_count ?? "0") likes", for: .normal)
             }
             
@@ -268,6 +267,23 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
             cell.lblPostCreatedTime.text = date.timeAgoSinceDate()
             
             cell.setPostData(postData: self.viewModel?.arrPostList[indexPath.row].postImagesVideo ?? [],budget: dict?.budget ?? "",noOfDays: dict?.noOfDays ?? "")
+            
+            
+            if dict?.commentCount ?? "" == "0"{
+                cell.btnViewAllComments.isHidden = true
+            }else if dict?.commentCount ?? "" == "1"{
+                cell.btnViewAllComments.isHidden = false
+                cell.btnViewAllComments.setTitle("View \(dict?.commentCount ?? "") comment", for: .normal)
+                
+                cell.lblLatestComments.setAttributed2(str1: dict?.latestComments?.first?.user_name ?? "", font1: UIFont.setCustom(.Poppins_Medium, 12), color1: .black, str2: dict?.latestComments?.first?.comment ?? "", font2: UIFont.setCustom(.Poppins_Regular, 12), color2: .systemGray)
+            }else{
+                cell.btnViewAllComments.isHidden = false
+                cell.btnViewAllComments.setTitle("View all \(dict?.commentCount ?? "") comments", for: .normal)
+                cell.lblLatestComments.setAttributed3(str1: dict?.latestComments?.first?.user_name ?? "", font1: UIFont.setCustom(.Poppins_Medium, 12), color1: .black, str2: dict?.latestComments?.first?.comment ?? "", font2: UIFont.setCustom(.Poppins_Regular, 12), color2: .systemGray,str3: "\n\(dict?.latestComments?.last?.user_name ?? "")", font3: UIFont.setCustom(.Poppins_Medium, 12), color3: .black, str4: dict?.latestComments?.last?.comment ?? "", font4: UIFont.setCustom(.Poppins_Regular, 12), color4: .systemGray)
+            }
+            cell.btnViewAllComments.tag = indexPath.row
+            cell.btnViewAllComments.addTarget(target: self, action: #selector(actionViewAllComments))
+            
             return cell
         }
         return UITableViewCell()
@@ -336,6 +352,15 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
         }
        
     }
+    
+    @objc func actionViewAllComments(sender:UIButton){
+        
+        let vc = CommentVC()
+        vc.postId = self.viewModel?.arrPostList[sender.tag].id
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
+
+    }
  
 }
 
@@ -344,15 +369,21 @@ extension HomeVC: HomeTVCellDelegate{
     
     func didTapProfileBtn(_ indexPath: IndexPath) {
         
-        if self.viewModel?.arrPostList[indexPath.row].userDetail.id == UserDefaultsCustom.getUserData()?.id{
+        if self.viewModel?.arrPostList.count == 0{
             
-            self.navigationController?.tabBarController?.selectedIndex = 4
+            Singleton.shared.showErrorMessage(error: "Unable to connect with the server. Check your internet connection and try again.", isError: .error)
             
         }else{
-            let vc = OtherUserProfileVC()
-            vc.userId = self.viewModel?.arrPostList[indexPath.row].userDetail.id
-            vc.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(vc, animated: true)
+            if self.viewModel?.arrPostList[indexPath.row].userDetail.id == UserDefaultsCustom.getUserData()?.id{
+                
+                self.navigationController?.tabBarController?.selectedIndex = 4
+                
+            }else{
+                let vc = OtherUserProfileVC()
+                vc.userId = self.viewModel?.arrPostList[indexPath.row].userDetail.id
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }
         
     }

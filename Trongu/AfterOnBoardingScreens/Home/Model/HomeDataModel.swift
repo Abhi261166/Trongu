@@ -32,7 +32,8 @@ struct Post: Codable {
     var tripCategoryName: String
     var tagPeople: [TagPerson]?
     var userDetail: UserDetail
-    
+    var commentCount:String?
+    var latestComments:[LatestComment]?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -53,12 +54,38 @@ struct Post: Codable {
         case trip_complexity_name
         case no_of_days_name
         case is_report
+        case latestComments = "comment"
+        case commentCount = "comment_count"
         
     }
 }
 
 enum CreatedAt: String, Codable {
     case the20230812153948 = "2023-08-12 15:39:48"
+}
+// MARK: - Latest Comments -
+
+struct LatestComment: Codable {
+    var comment_id, post_id, user_id, comment: String
+    var reply_comment_id, reply_to_id, status: String
+    let created_at: String
+    var user_name: String?
+    let name: String
+    
+
+    enum CodingKeys: String, CodingKey {
+      case comment_id
+      case post_id
+      case user_id
+      case comment
+      case reply_comment_id
+      case reply_to_id
+      case status
+      case created_at
+      case user_name
+      case name
+      
+    }
 }
 
 // MARK: - PostImagesVideo -

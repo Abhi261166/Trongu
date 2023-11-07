@@ -43,7 +43,7 @@ class OtherUserProfileVC: UIViewController {
         super.viewWillAppear(animated)
         setViewModel()
         apiCall()
-        hitGetProfilePostsApi()
+//        hitGetProfilePostsApi()
     }
     
     func setViewModel(){
@@ -252,7 +252,10 @@ extension OtherUserProfileVC:ProfileVMObserver{
         self.lblAddress.text = dict?.place
         
         //0=>requested,1=>accept,2=>reject,3=>not requested
-        switch Int(dict?.is_follow ?? ""){
+        
+        let followStatus = Int(dict?.is_follow ?? "")
+        
+        switch followStatus{
         case 0:
             self.btnFollow.setTitle("Requested", for: .normal)
             self.btnFollow.backgroundColor = UIColor(named: "followingBackground")
@@ -270,6 +273,19 @@ extension OtherUserProfileVC:ProfileVMObserver{
         }
         
         btnFollow.isUserInteractionEnabled = true
+        
+        if dict?.is_private == "1"{
+            if followStatus == 1{
+                viewMessage.isHidden = false
+                hitGetProfilePostsApi()
+            }else{
+                self.OtherUserCollectionView.setBackgroundView(message: "This account is private.")
+                viewMessage.isHidden = true
+            }
+        }else{
+            viewMessage.isHidden = false
+            hitGetProfilePostsApi()
+        }
         
     }
     

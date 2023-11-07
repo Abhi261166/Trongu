@@ -126,6 +126,56 @@ extension UILabel {
         self.attributedText = mutable
     }
     
+    public func setAttributed2(str1:String, font1:UIFont?, color1:UIColor, str2:String, font2:UIFont?, color2:UIColor)  {
+        
+        let attributed = NSMutableAttributedString(string: str1, attributes: [
+        .font: font1 ?? UIFont(), .foregroundColor: color1])
+      
+        let attributed2 = NSMutableAttributedString(string: " ", attributes: [
+        .font: font1 ?? UIFont(), .foregroundColor: color1])
+        
+        let attributed3 = NSMutableAttributedString(string: str2, attributes: [
+        .font: font2 ?? UIFont(), .foregroundColor: color2])
+        
+        let attributedStirng = NSMutableAttributedString(attributedString: attributed)
+        attributedStirng.append(attributed2)
+        attributedStirng.append(attributed3)
+        
+        self.attributedText = attributedStirng
+    }
+    
+    public func setAttributed3(str1:String, font1:UIFont?, color1:UIColor, str2:String, font2:UIFont?, color2:UIColor, str3:String, font3:UIFont?, color3:UIColor, str4:String, font4:UIFont?, color4:UIColor)  {
+        
+        let attributed = NSMutableAttributedString(string: str1, attributes: [
+        .font: font1 ?? UIFont(), .foregroundColor: color1])
+      
+        let attributed2 = NSMutableAttributedString(string: " ", attributes: [
+        .font: font1 ?? UIFont(), .foregroundColor: color1])
+        
+        let attributed3 = NSMutableAttributedString(string: str2, attributes: [
+        .font: font2 ?? UIFont(), .foregroundColor: color2])
+        
+        let attributed4 = NSMutableAttributedString(string: str3, attributes: [
+        .font: font3 ?? UIFont(), .foregroundColor: color3])
+      
+        let attributed5 = NSMutableAttributedString(string: " ", attributes: [
+        .font: font4 ?? UIFont(), .foregroundColor: color4])
+        
+        let attributed6 = NSMutableAttributedString(string: str4, attributes: [
+        .font: font4 ?? UIFont(), .foregroundColor: color4])
+        
+        
+        let attributedStirng = NSMutableAttributedString(attributedString: attributed)
+        attributedStirng.append(attributed2)
+        attributedStirng.append(attributed3)
+        attributedStirng.append(attributed4)
+        attributedStirng.append(attributed5)
+        attributedStirng.append(attributed6)
+        
+        self.attributedText = attributedStirng
+    }
+    
+    
     func setCommentLabel(title: String?, value: String?) {
         let mutable = NSMutableAttributedString(string: "\(title ?? "") ", attributes: [
             NSAttributedString.Key.foregroundColor : UIColor.placeholderColor,

@@ -119,6 +119,8 @@ class PostVC: UIViewController {
     
     @IBAction func postAction(_ sender: UIButton) {
        
+        disableButtonForHalfSecond()
+        
         if self.comeForm == "Edit"{
             
             self.viewModel?.apiUpdatePost(postId: finalPost?.id ?? "", tags: self.tagIds, budget: finalPost?.budget ?? "", noOffDays: self.selectedDaysId, tripCat: self.selectedTripCatId, disc: finalPost?.description ?? "", tripComp: self.selectedTripComplexityId, arrPosts: arrPostYP, arrPosts2: finalPost?.postImagesVideo ?? [], address: places)
@@ -128,6 +130,14 @@ class PostVC: UIViewController {
             self.viewModel?.apiCreatePost(tags: self.tagIds, budget: finalPost?.budget ?? "", noOffDays: self.selectedDaysId, tripCat: self.selectedTripCatId, disc: finalPost?.description ?? "", tripComp: self.selectedTripComplexityId, arrPosts: arrPostYP, arrPosts2: finalPost?.postImagesVideo ?? [], images: images, address: places)
         }
         
+    }
+    
+    
+    func disableButtonForHalfSecond() {
+        btnPost.isEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.btnPost.isEnabled = true
+        }
     }
     
 }

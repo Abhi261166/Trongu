@@ -27,7 +27,7 @@ class SignUpVM: NSObject {
     }
 
     func apiSignup(name:String,email:String,pswrd:String,place:String,birthDate:String,gender:String,ethnicity:String,
-                   lat :String, long:String,username:String,bio:String){
+                   lat :String, long:String,username:String,bio:String,isPrivate:String){
         var params = JSON()
         params["user_name"] = username
         params["name"] = name
@@ -43,6 +43,8 @@ class SignUpVM: NSObject {
         params["long"] = long
         params["login_type"] = "1"
         params["bio"] = bio
+        params["is_private"] = isPrivate
+        
         print(params,"Okkk")
         AppDefaults.password = pswrd
         
@@ -179,7 +181,7 @@ class SignUpVM: NSObject {
     }
     
     func googleSignup(name:String,email:String,pswrd:String,place:String,birthDate:String,gender:String,ethnicity:String,
-                      lat :String, long:String,username:String,googleId:String,bio:String){
+                      lat :String, long:String,username:String,googleId:String,bio:String,isPrivate:String){
         var params = JSON()
         params["user_name"] = username
         params["name"] = name
@@ -190,6 +192,7 @@ class SignUpVM: NSObject {
         params["lat"] = lat
         params["long"] = long
         params["bio"] = bio
+        params["is_private"] = isPrivate
         print(params,"Okkk")
         AppDefaults.password = pswrd
         
@@ -246,6 +249,11 @@ class SignUpVM: NSObject {
                     let decoder = JSONDecoder()
                     do {
                         let decoded = try decoder.decode(SignUpCatModel.self, from: data)
+                        
+                        let genderFirstValue = SignUpCatItem(id: "", name: "", status: "", createdAt: "", genderName: "Select Gender")
+                        self.arrGender.append(genderFirstValue)
+                        let ethnicityFirstValue = SignUpCatItem(id: "", name: "Select Ethnicity", status: "", createdAt: "", genderName: "")
+                        self.arrEthnicity.append(ethnicityFirstValue)
                         self.arrGender.append(contentsOf: decoded.gender)
                         self.arrEthnicity.append(contentsOf: decoded.ethnicity)
                         self.observer?.observeGetCategoriesListSucessfull()

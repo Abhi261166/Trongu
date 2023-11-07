@@ -31,7 +31,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     @IBOutlet weak var ethnicityTF: UITextField!
     @IBOutlet weak var termAndConditionBtn: UIButton!
     @IBOutlet weak var bioTextView: UITextView!
-    
+    @IBOutlet weak var accountTypeTF: UITextField!
     
     var viewModel: SignUpVM?
     var selectGender = String()
@@ -42,6 +42,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     var currentLocation: CLLocation!
     var genderPicker = ["Male","Female"]
     var ethnicityPicker = ["American","Australian"]
+    var arrAccountType = ["Select Account Type","Public","Private"]
     var imagePickerController = UIImagePickerController()
     let pickerView = UIPickerView()
     var name = String()
@@ -54,6 +55,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     var iconClick2 = true
     override func viewDidLoad() {
         super.viewDidLoad()
+        getCurrentLocation()
         dateOFbirthTF.addInputViewDatePicker(target: self, selector: #selector(doneButtonPressed))
         setPicker()
         passwordTF.isSecureTextEntry = true
@@ -108,7 +110,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getCurrentLocation()
+        
         self.viewModel?.apiGetCategoriesList(type: 2)
     }
     
@@ -167,6 +169,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         pickerView.backgroundColor = .white
         ethnicityTF.delegate = self
         genderTF.delegate = self
+        accountTypeTF.delegate = self
         passwordTF.delegate = self
         confirmPasswordTF.delegate = self
         emailAddressTF.delegate = self
@@ -210,7 +213,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
 
         let isvaligender =  Validator.validategender(gender: genderTF.text ?? "")
         let isvalidEthnicity = Validator.validethnicity(ethnicity: ethnicityTF.text ?? "")
-        
+        let isValidAccountType = Validator.validateAccountType(type: accountTypeTF.text ?? "")
         guard isvalidUsername.0 == true else {
             
            // Singleton.showMessage(message: "\(isvalidUsername.1)", isError: .error)
@@ -270,6 +273,13 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
          //   Singleton.showMessage(message: "\(isvalidEthnicity.1)", isError: .error)
             Singleton.shared.showAlert(message: "\(isvalidEthnicity.1)", controller: self, Title: self.viewModel?.title ?? "")
             print("isValidPassword  \(isvalidEthnicity)")
+            return false
+        }
+        
+        guard isValidAccountType.0 == true else {
+         //   Singleton.showMessage(message: "\(isvalidEthnicity.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isValidAccountType.1)", controller: self, Title: self.viewModel?.title ?? "")
+            print("isValidPassword  \(isValidAccountType)")
             return false
         }
         
@@ -333,7 +343,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             if selectGender == "" {
                 self.selectGender = "0"
             }else{
-                self.selectGender
+//                self.selectGender
             }
             
             var ethnicity = "1"
@@ -347,7 +357,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }
             
             print(self.selectGender,self.selectEthnicity,"FSDdsf")
-            viewModel?.apiSignup(name:self.nameTF.text ?? "", email:self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender:self.selectGender ?? "0", ethnicity: ethnicity ?? "1", lat:latitude ?? "", long:longitude ?? "",username:userNameTF.text ?? "", bio: self.bioTextView.text.trim)
+            viewModel?.apiSignup(name:self.nameTF.text ?? "", email:self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender: self.selectGender , ethnicity: ethnicity , lat:latitude ?? "", long:longitude ?? "",username:userNameTF.text ?? "", bio: self.bioTextView.text.trim, isPrivate: "")
             
         }
         
@@ -371,8 +381,9 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         let isvalidPlace = Validator.validatePlace(place: addPlaceTF.text ?? "")
         let isvalidDob = Validator.validDOB(dob: dateOFbirthTF.text ?? "")
         let isvaligender =  Validator.validategender(gender: genderTF.text ?? "")
-  
         let isvalidEthnicity = Validator.validethnicity(ethnicity: ethnicityTF.text ?? "")
+        let isValidAccountType = Validator.validateAccountType(type: accountTypeTF.text ?? "")
+        
         guard isvalidname.0 == true else {
            // Singleton.showMessage(message: "\(isvalidname.1)", isError: .error)
             Singleton.shared.showAlert(message: "\(isvalidname.1)", controller: self, Title: self.viewModel?.title ?? "")
@@ -430,6 +441,13 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             return false
         }
         
+        guard isValidAccountType.0 == true else {
+         //   Singleton.showMessage(message: "\(isvalidEthnicity.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isValidAccountType.1)", controller: self, Title: self.viewModel?.title ?? "")
+            print("isValidPassword  \(isValidAccountType)")
+            return false
+        }
+        
         guard termAndConditionBtn.isSelected == true else {
            // Singleton.showMessage(message: "Please accept terms and conditions", isError: .error)
             Singleton.shared.showAlert(message: "Please accept terms and conditions", controller: self, Title: self.viewModel?.title ?? "")
@@ -468,7 +486,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             if selectGender == "" {
                 self.selectGender = "0"
             }else{
-                self.selectGender
+//                self.selectGender
             }
             
             var ethnicity = "1"
@@ -481,7 +499,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 break
             }
             
-            viewModel?.googleSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender, ethnicity: ethnicity, lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",googleId: googleId, bio: bioTextView.text.trim)
+            viewModel?.googleSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender, ethnicity: ethnicity, lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",googleId: googleId, bio: bioTextView.text.trim, isPrivate: "")
         }
         //        else{
         //            if selectGender == "" {
@@ -529,7 +547,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             if selectGender == "" {
                 self.selectGender = "0"
             }else{
-                self.selectGender
+//                self.selectGender
             }
             var ethnicity = "1"
             switch ethnicityTF.text {
@@ -541,7 +559,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 break
             }
             //            viewModel?.fbSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender ?? "0", ethnicity: self.selectEthnicity ?? "1", lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",fbId: fbId)
-            viewModel?.googleSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender ?? "0", ethnicity: ethnicity , lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",googleId: googleId, bio: bioTextView.text.trim)
+            viewModel?.googleSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender , ethnicity: ethnicity , lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",googleId: googleId, bio: bioTextView.text.trim, isPrivate: "")
         }
         //        else{
         //            if selectGender == "" {
@@ -590,7 +608,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             if selectGender == "" {
                 self.selectGender = "0"
             }else{
-                self.selectGender
+//                self.selectGender
             }
             var ethnicity = "1"
             switch ethnicityTF.text {
@@ -603,7 +621,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }
             //            viewModel?.appleSignUp(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender ?? "0", ethnicity: self.selectEthnicity ?? "1", lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",appleId: appleID)
             
-            viewModel?.googleSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender ?? "0", ethnicity: ethnicity, lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",googleId: googleId, bio: bioTextView.text.trim)
+            viewModel?.googleSignup(name: self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOFbirthTF.text ?? "", gender: self.selectGender , ethnicity: ethnicity, lat: latitude ?? "", long: longitude ?? "",username:userNameTF.text ?? "",googleId: googleId, bio: bioTextView.text.trim, isPrivate: "")
             
         }
         //        else{
@@ -736,7 +754,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 if selectGender == "" {
                     self.selectGender = "0"
                 }else{
-                    self.selectGender
+                    
                 }
                 var ethnicity = "1"
                 switch ethnicityTF.text {
@@ -747,7 +765,21 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 default:
                     break
                 }
-                viewModel?.googleSignup(name:self.nameTF.text ?? "", email:self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender:self.selectGender ?? "0", ethnicity: ethnicity, lat:latitude ?? "", long:longitude ?? "",username:userNameTF.text ?? "",googleId:googleId, bio: bioTextView.text.trim)
+                
+                // ["Public","Private"]
+                
+                var selectedAccountType = "0"
+                
+                switch accountTypeTF.text {
+                case "Public":
+                    selectedAccountType = "0"
+                case "Private":
+                    selectedAccountType = "1"
+                default:
+                    break
+                }
+                
+                viewModel?.googleSignup(name:self.nameTF.text ?? "", email:self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender:self.selectGender , ethnicity: ethnicity, lat:latitude ?? "", long:longitude ?? "",username:userNameTF.text ?? "",googleId:googleId, bio: bioTextView.text.trim, isPrivate: selectedAccountType)
             }
            
         
@@ -760,7 +792,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 if selectGender == "" {
                     self.selectGender = "0"
                 }else{
-                    self.selectGender
+                  //  self.selectGender
                 }
                 var ethnicity = "1"
                 switch ethnicityTF.text {
@@ -771,8 +803,20 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 default:
                     break
                 }
+                
+                var selectedAccountType = "0"
+                
+                switch accountTypeTF.text {
+                case "Public":
+                    selectedAccountType = "0"
+                case "Private":
+                    selectedAccountType = "1"
+                default:
+                    break
+                }
+                
                 print(self.selectGender,self.selectEthnicity,"FSDdsf")
-                viewModel?.apiSignup(name:self.nameTF.text ?? "", email:self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender:self.selectGender ?? "0", ethnicity:ethnicity, lat:latitude ?? "", long:longitude ?? "",username:userNameTF.text ?? "", bio: self.bioTextView.text.trim)
+                viewModel?.apiSignup(name:self.nameTF.text ?? "", email:self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender:self.selectGender , ethnicity:ethnicity, lat:latitude ?? "", long:longitude ?? "",username:userNameTF.text ?? "", bio: self.bioTextView.text.trim, isPrivate: selectedAccountType)
             }
             
               
@@ -839,6 +883,8 @@ extension SignUpVC :UIPickerViewDelegate, UIPickerViewDataSource{
             return self.viewModel?.arrGender.count ?? 0
         }else if ethnicityTF.isFirstResponder {
             return self.viewModel?.arrEthnicity.count ?? 0
+        }else if accountTypeTF.isFirstResponder {
+            return self.arrAccountType.count
         }
         return 0
     }
@@ -847,6 +893,8 @@ extension SignUpVC :UIPickerViewDelegate, UIPickerViewDataSource{
             return self.viewModel?.arrGender[row].genderName
         }else if ethnicityTF.isFirstResponder{
             return self.viewModel?.arrEthnicity[row].name
+        }else if accountTypeTF.isFirstResponder{
+            return self.arrAccountType[row]
         }
         return nil
     }
@@ -854,15 +902,32 @@ extension SignUpVC :UIPickerViewDelegate, UIPickerViewDataSource{
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
                 if genderTF.isFirstResponder {
-                    genderTF.text = self.viewModel?.arrGender[row].genderName
-                    self.selectGender = self.viewModel?.arrGender[row].id ?? ""
-                    print("Selected Gender Id ",self.selectGender)
+                    if row == 0{
+                        genderTF.text = ""
+                    }else{
+                        genderTF.text = self.viewModel?.arrGender[row].genderName
+                        self.selectGender = self.viewModel?.arrGender[row].id ?? ""
+                        print("Selected Gender Id ",self.selectGender)
+                    }
                 }else if ethnicityTF.isFirstResponder {
-                    ethnicityTF.text = self.viewModel?.arrEthnicity[row].name
-                    self.selectEthnicity = self.viewModel?.arrEthnicity[row].id ?? ""
-                    print("Selected ethnicity id ",self.selectEthnicity)
-                }
-        
+                    if row == 0{
+                        ethnicityTF.text = ""
+                    }else{
+                        ethnicityTF.text = self.viewModel?.arrEthnicity[row].name
+                        self.selectEthnicity = self.viewModel?.arrEthnicity[row].id ?? ""
+                        print("Selected ethnicity id ",self.selectEthnicity)
+                    }
+                    
+                }else if accountTypeTF.isFirstResponder {
+                    
+                    if row == 0{
+                        accountTypeTF.text = ""
+                    }else{
+                        accountTypeTF.text = self.arrAccountType[row]
+                        print("Selected account type ",self.arrAccountType[row])
+                    }
+            }
+
     }
     
 }
@@ -872,7 +937,7 @@ extension SignUpVC : UITextFieldDelegate {
             genderTF.inputView = pickerView
             pickerView.reloadAllComponents()
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
-                let index = genderPicker.firstIndex(where: {$0 == genderTF.text ?? ""}) ?? 0
+                let index = self.viewModel?.arrGender.firstIndex(where: {$0.genderName == genderTF.text ?? ""}) ?? 0
                 pickerView.selectRow(index, inComponent: 0, animated: false)
               //  genderTF.text = genderPicker[index]
                 //                self.selectGender = String(genderPicker[index])
@@ -882,7 +947,16 @@ extension SignUpVC : UITextFieldDelegate {
             ethnicityTF.inputView = pickerView
             pickerView.reloadAllComponents()
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
-                let index = ethnicityPicker.firstIndex(where: {$0 == ethnicityTF.text ?? ""}) ?? 0
+                let index = self.viewModel?.arrEthnicity.firstIndex(where: {$0.name == ethnicityTF.text ?? ""}) ?? 0
+                pickerView.selectRow(index, inComponent: 0, animated: false)
+               // ethnicityTF.text = ethnicityPicker[index]
+                //                self.selectEthnicity = String(ethnicityPicker[index + 1])
+            })
+        }else if textField == accountTypeTF {
+            accountTypeTF.inputView = pickerView
+            pickerView.reloadAllComponents()
+            DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
+                let index = arrAccountType.firstIndex(where: {$0 == accountTypeTF.text ?? ""}) ?? 0
                 pickerView.selectRow(index, inComponent: 0, animated: false)
                // ethnicityTF.text = ethnicityPicker[index]
                 //                self.selectEthnicity = String(ethnicityPicker[index + 1])
@@ -1050,7 +1124,7 @@ extension SignUpVC{
                 DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
                     let index = self.viewModel?.arrGender.firstIndex(where: {$0.genderName == genderTF.text ?? ""}) ?? 0
                  
-                    if (self.viewModel?.arrGender.count ?? 0) > 0 {
+                    if (self.viewModel?.arrGender.count ?? 0) > 0 && index != 0{
                         self.genderTF.text = self.viewModel?.arrGender[index].genderName ?? ""
                         self.selectGender = self.viewModel?.arrGender[index].id ?? ""
                         print("   Selected Gender   \(self.viewModel?.arrGender[index].genderName ?? "") id  \(self.viewModel?.arrGender[index].id ?? "")")
@@ -1063,7 +1137,7 @@ extension SignUpVC{
                 DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
                     let index = self.viewModel?.arrEthnicity.firstIndex(where: {$0.name == ethnicityTF.text ?? ""}) ?? 0
                   
-                    if (self.viewModel?.arrEthnicity.count ?? 0) > 0 {
+                    if (self.viewModel?.arrEthnicity.count ?? 0) > 0 && index != 0{
                         
                         self.ethnicityTF.text = self.viewModel?.arrEthnicity[index].name ?? ""
                         self.selectEthnicity = self.viewModel?.arrEthnicity[index].id ?? ""
@@ -1075,7 +1149,16 @@ extension SignUpVC{
                 })
                 
                 pickerView.reloadAllComponents()
+            case accountTypeTF:
+                DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
+                    let index = self.arrAccountType.firstIndex(where: {$0 == accountTypeTF.text ?? ""}) ?? 0
+                  
+                    if (self.arrAccountType.count) > 0 && index != 0 {
+                        self.accountTypeTF.text = self.arrAccountType[index]
+                    }
+                })
                 
+                pickerView.reloadAllComponents()
             default: break
             }
         }

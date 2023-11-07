@@ -246,12 +246,13 @@ extension ChatVC: ImagePickerDelegate {
             print("id is **** \(pickerData.id)")
             self.viewModel?.imageData.append(pickerData)
             
-            if self.viewModel?.imageData.first?.fileName?.isImageType == false{
+            if pickerData.fileName?.isImageType == false{
                 
                 self.viewModel?.apiSendMessagesWithVideo(type: 3, sender: UIButton())
                 
             }else{
                 self.viewModel?.apiSendMessagesWithImges(type: 2, sender: UIButton())
+                
             }
 
         }
@@ -470,7 +471,7 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     }
                     
                     cell.profileImgTopCons.constant = 0
-                    cell.viewLeadingConstraint.constant = 80
+                    cell.viewLeadingConstraint.constant = 110
                     cell.viewTrailingConstraint.constant = 20
                     cell.imageWidthConstraint.constant = 0
                     cell.profileImage.isHidden = true
@@ -578,7 +579,7 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     }
                     
                     cell.profileImgTopCons.constant = 0
-                    cell.viewLeadingConstraint.constant = 80
+                    cell.viewLeadingConstraint.constant = 110
                     cell.viewTrailingConstraint.constant = 20
                     cell.imageWidthConstraint.constant = 0
                     cell.profileImage.isHidden = true

@@ -195,7 +195,7 @@ extension FollowersVC: UITableViewDelegate,UITableViewDataSource{
             if isSelected == "Followers"{
                 let cell = tableView.dequeueReusableCell(withIdentifier: "LikesTVCell", for: indexPath) as! LikesTVCell
                 let dict = self.viewModel?.arrUser[indexPath.row]
-                cell.profileImage.setImage(image: dict?.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
+                cell.profileImage.setImage(image: dict?.userImage,placeholder: UIImage(named: "ic_profilePlaceHolder"))
                 cell.userNameLabel.text = dict?.userName
                 cell.nameLabel.text = dict?.name
                 cell.followButton.backgroundColor = #colorLiteral(red: 0.8666666667, green: 0.8666666667, blue: 0.8666666667, alpha: 0.7)
@@ -223,7 +223,7 @@ extension FollowersVC: UITableViewDelegate,UITableViewDataSource{
             if isSelected == "Followers"{
                 let cell = tableView.dequeueReusableCell(withIdentifier: "LikesTVCell", for: indexPath) as! LikesTVCell
                 let dict = self.viewModel?.arrUser[indexPath.row]
-                cell.profileImage.setImage(image: dict?.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
+                cell.profileImage.setImage(image: dict?.userImage,placeholder: UIImage(named: "ic_profilePlaceHolder"))
                 cell.userNameLabel.text = dict?.userName
                 cell.nameLabel.text = dict?.name
                 
@@ -290,6 +290,44 @@ extension FollowersVC: UITableViewDelegate,UITableViewDataSource{
         }
         
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
+        if comeFrom == "ownProfile"{
+            
+            if isSelected == "Followers"{
+                
+                let vc = OtherUserProfileVC()
+                vc.userId = self.viewModel?.arrUser[indexPath.row].userID
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            }else{
+                
+                let vc = OtherUserProfileVC()
+                vc.userId = self.viewModel?.arrUser[indexPath.row].otherID
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }else{
+            if isSelected == "Followers"{
+                let vc = OtherUserProfileVC()
+                vc.userId = self.viewModel?.arrUser[indexPath.row].userID
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            }else{
+                let vc = OtherUserProfileVC()
+                vc.userId = self.viewModel?.arrUser[indexPath.row].otherID
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+        }
+        
+    }
+    
+    
     
     @objc func actionRemove(sender:UIButton){
         

@@ -11,6 +11,7 @@ protocol DetailsVMObserver: NSObjectProtocol {
    
     func observeGetPostDetailsSucessfull()
     func observeLikedSucessfull()
+    func observeAddedToBucket()
     
 }
 
@@ -75,6 +76,35 @@ class DetailsVM: NSObject {
                 if let self = self{
                     if succeeded == true {
                         self.observer?.observeLikedSucessfull()
+                    } else {
+                        if let message = response["message"] as? String {
+                            self.showMessage(message: message, isError: .error)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    //MARK: - Add to bucket post -
+    
+    func apiAddTobucket(postId:String) {
+        var params = JSON()
+        params["post_id"] = postId
+        print("params : ", params)
+        
+        // add loader
+        //  ActivityIndicator.shared.showActivityIndicator()
+        ApiHandler.callWithMultipartForm(apiName: API.Name.addToBucket, params: params) { [weak self] succeeded, response, data in
+            DispatchQueue.main.async {
+                //       ActivityIndicator.shared.hideActivityIndicator()
+                if let self = self{
+                    if succeeded == true {
+                        if let message = response["message"] as? String {
+                            self.showMessage(message: message, isError: .success)
+                        }
+                        self.observer?.observeAddedToBucket()
                     } else {
                         if let message = response["message"] as? String {
                             self.showMessage(message: message, isError: .error)

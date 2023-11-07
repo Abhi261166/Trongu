@@ -20,8 +20,6 @@ protocol TagListVMObserver: NSObjectProtocol {
 
 class TagListVM: NSObject {
     
-    
-    
     var perPage = 100
     var pageNo = 0
     var isLastPage: Bool = false
@@ -85,6 +83,11 @@ class TagListVM: NSObject {
                     do {
                         let decoded = try decoder.decode(CategoriesModel.self, from: data)
                         self.arrNoOfDays.append(contentsOf: decoded.numberOfDays)
+                        
+                        let tripCategoryFirstValue = Category(id: "", noOfDays: "", status: "", createdAt: "", name: "Slelect trip category")
+                        self.arrTripCategory.append(tripCategoryFirstValue)
+                        let tripComplexityFirstValue = Category(id: "", noOfDays: "", status: "", createdAt: "", name: "Slelect trip complexity")
+                        self.arrTripComplexity.append(tripComplexityFirstValue)
                         self.arrTripCategory.append(contentsOf: decoded.tripCategory)
                         self.arrTripComplexity.append(contentsOf: decoded.tripComplexity)
                         self.observer?.observeGetCategoriesListSucessfull()

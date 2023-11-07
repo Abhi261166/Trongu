@@ -30,6 +30,8 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
     var selectEthnicity = String()
     var viewModel: EditVM?
     var completion : (() -> Void)? = nil
+    var latitude :String?
+    var longitude:String?
    
     
     override func viewDidLoad() {
@@ -40,6 +42,10 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
         setData()
         setPicker()
         setViewModel()
+        
+        latitude = UserDefaultsCustom.getUserData()?.lat
+        longitude = UserDefaultsCustom.getUserData()?.long
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,6 +77,14 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
         addPlaceTF.delegate = self
         
     }
+    
+    @IBAction func actionPickLocation(_ sender: UIButton) {
+        
+        let vc = AddLocationVC()
+        vc.delegate = self
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func setData(){
         userProfileImage.setImage(image: UserDefaultsCustom.getUserData()?.image ?? "",placeholder: UIImage(named: "ic_profilePlaceHolder"))
         self.userNameTF.text = UserDefaultsCustom.getUserData()?.user_name ?? ""
@@ -161,7 +175,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavig
 //            Trongu.showAlert(title: Constants.AppName, message: "Enter bio details", view: self)
 //        }
         else{
-            viewModel?.apiEditProfile(name: self.nameTF.text ?? "", username: self.userNameTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOfBirthTF.text ?? "", gender: self.selectGender ?? "", ethnicity: selectEthnicity, lat: UserDefaultsCustom.getUserData()?.lat ?? "", long: UserDefaultsCustom.getUserData()?.long ?? "",bio: self.bioTextView.text.trim)
+            viewModel?.apiEditProfile(name: self.nameTF.text ?? "", username: self.userNameTF.text ?? "", pswrd: self.passwordTF.text ?? "", place: self.addPlaceTF.text ?? "", birthDate: self.dateOfBirthTF.text ?? "", gender: self.selectGender , ethnicity: selectEthnicity, lat: self.latitude ?? "", long: self.longitude ?? "",bio: self.bioTextView.text.trim)
 //            let vc = TabBarController()
 //            self.navigationController?.pushViewController(vc, animated: true)
         }
@@ -242,14 +256,33 @@ extension EditProfileVC :UIPickerViewDelegate, UIPickerViewDataSource{
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//        if genderTF.isFirstResponder {
+//            genderTF.text = self.viewModel?.arrGender[row].genderName
+//            self.selectGender = self.viewModel?.arrGender[row].id ?? ""
+//            print("Selected Gender ID -- ",self.selectGender)
+//        }else if ethnicityTF.isFirstResponder {
+//            ethnicityTF.text = self.viewModel?.arrEthnicity[row].name
+//            self.selectEthnicity = self.viewModel?.arrEthnicity[row].id ?? ""
+//            print("Selected ethnicity ID",self.selectEthnicity)
+//        }
+        
         if genderTF.isFirstResponder {
-            genderTF.text = self.viewModel?.arrGender[row].genderName
-            self.selectGender = self.viewModel?.arrGender[row].id ?? ""
-            print("Selected Gender ID -- ",self.selectGender)
+            if row == 0{
+                genderTF.text = ""
+            }else{
+                genderTF.text = self.viewModel?.arrGender[row].genderName
+                self.selectGender = self.viewModel?.arrGender[row].id ?? ""
+                print("Selected Gender Id ",self.selectGender)
+            }
         }else if ethnicityTF.isFirstResponder {
-            ethnicityTF.text = self.viewModel?.arrEthnicity[row].name
-            self.selectEthnicity = self.viewModel?.arrEthnicity[row].id ?? ""
-            print("Selected ethnicity ID",self.selectEthnicity)
+            if row == 0{
+                ethnicityTF.text = ""
+            }else{
+                ethnicityTF.text = self.viewModel?.arrEthnicity[row].name
+                self.selectEthnicity = self.viewModel?.arrEthnicity[row].id ?? ""
+                print("Selected ethnicity id ",self.selectEthnicity)
+            }
+            
         }
     }
     
@@ -261,7 +294,7 @@ extension EditProfileVC : UITextFieldDelegate {
             genderTF.inputView = pickerView
             pickerView.reloadAllComponents()
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
-                let index = genderPicker.firstIndex(where: {$0 == genderTF.text ?? ""}) ?? 0
+                let index = self.viewModel?.arrGender.firstIndex(where: {$0.genderName == genderTF.text ?? ""}) ?? 0
                 pickerView.selectRow(index, inComponent: 0, animated: false)
                // genderTF.text = genderPicker[index]
                 //                self.selectGender = String(genderPicker[index])
@@ -271,7 +304,7 @@ extension EditProfileVC : UITextFieldDelegate {
             ethnicityTF.inputView = pickerView
             pickerView.reloadAllComponents()
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
-                let index = ethnicityPicker.firstIndex(where: {$0 == ethnicityTF.text ?? ""}) ?? 0
+                let index = self.viewModel?.arrEthnicity.firstIndex(where: {$0.name == ethnicityTF.text ?? ""}) ?? 0
                 pickerView.selectRow(index, inComponent: 0, animated: false)
               //  ethnicityTF.text = ethnicityPicker[index]
                 //                self.selectEthnicity = String(ethnicityPicker[index + 1])
@@ -293,4 +326,19 @@ extension EditProfileVC : EditVMObserver{
         
     }
     
+}
+
+
+extension EditProfileVC:AddLocationVCDelegate{
+  
+    func setLocation(text: String, lat: Double, long: Double, address: String,country: String) {
+        DispatchQueue.main.async {
+            
+            self.latitude = "\(lat)"
+            self.longitude = "\(long)"
+            self.addPlaceTF.text = address
+            
+        }
+        
+    }
 }

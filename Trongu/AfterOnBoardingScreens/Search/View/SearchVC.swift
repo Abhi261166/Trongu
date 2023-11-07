@@ -198,7 +198,16 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
                 vc.userId = dictSearch?.actionID
                 self.pushViewController(vc, true)
             }else{
-                Singleton.shared.showErrorMessage(error: "Not implemented yet..", isError: .message)
+                //Singleton.shared.showErrorMessage(error: "Not implemented yet..", isError: .message)
+                let dict = self.viewModel?.arrUserAndPlace[indexPath.row]
+                let vc = DetailVC()
+                vc.completion = {
+                    
+                }
+                vc.postId = dict?.postID
+                vc.hidesBottomBarWhenPushed = true
+                self.pushViewController(vc, true)
+                
             }
         }
         

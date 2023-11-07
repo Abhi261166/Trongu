@@ -86,8 +86,14 @@ class EditVM: NSObject {
                     let decoder = JSONDecoder()
                     do {
                         let decoded = try decoder.decode(SignUpCatModel.self, from: data)
+                        let genderFirstValue = SignUpCatItem(id: "", name: "", status: "", createdAt: "", genderName: "Select Gender")
+                        self.arrGender.append(genderFirstValue)
+                        let ethnicityFirstValue = SignUpCatItem(id: "", name: "Select Ethnicity", status: "", createdAt: "", genderName: "")
+                        self.arrEthnicity.append(ethnicityFirstValue)
+                        
                         self.arrGender.append(contentsOf: decoded.gender)
                         self.arrEthnicity.append(contentsOf: decoded.ethnicity)
+                        
                         self.observer?.observeGetCategoriesListSucessfull()
                     } catch {
                         print("error", error)

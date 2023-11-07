@@ -47,8 +47,10 @@ class HomeTVCell: UITableViewCell {
     @IBOutlet weak var lblAddressPriceDays: UILabel!
     @IBOutlet weak var lblTripComplexity: UILabel!
     @IBOutlet weak var lblPostCreatedTime: UILabel!
-    @IBOutlet weak var lblHashTags: UILabel!
+    @IBOutlet weak var lblItinerary: UILabel!
     @IBOutlet weak var lblDesc: UILabel!
+    @IBOutlet weak var btnViewAllComments: UIButton!
+    @IBOutlet weak var lblLatestComments: UILabel!
     @IBOutlet weak var btnLikeCount: UIButton!
     @IBOutlet weak var lblTimeAddress: UILabel!
     @IBOutlet weak var btnDislike: UIButton!
@@ -305,7 +307,8 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             withDuration: 0.3,
             delay: 0,
             animations: {
-                let address = self.arrPostImagesVideosList.map({"\($0.place) \($0.time)"}).joined(separator: "\n")
+                self.lblItinerary.text = "Itinerary"
+                let address = self.arrPostImagesVideosList.map({"\($0.date) \($0.time) \($0.place)"}).joined(separator: "\n")
                 self.lblTimeAddress.text = address
                 self.contentView.layoutIfNeeded()
             }, completion: { completed in
@@ -341,8 +344,8 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
                 withDuration: 0.3,
                 delay: 0,
                 animations: {
-            
-            self.lblTimeAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ) \(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].place )"
+                    self.lblItinerary.text = ""
+            self.lblTimeAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].date ) \(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ) \(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].place )"
             self.lblTopAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].country ?? "")"
             
                     self.contentView.layoutIfNeeded()
@@ -361,7 +364,9 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
                 delay: 0,
                 animations: {
             
-            self.lblTimeAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ) \(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].place )"
+                    self.lblItinerary.text = ""
+                    
+            self.lblTimeAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].date ) \(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ) \(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].place )"
             self.lblTopAddress.text = "\(self.arrPostImagesVideosList[self.homeCollectionView.visibleCells.first?.indexPath?.row ?? 0].country ?? "")"
             
             self.contentView.layoutIfNeeded()

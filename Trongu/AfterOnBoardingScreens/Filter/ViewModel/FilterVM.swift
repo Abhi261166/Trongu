@@ -31,13 +31,24 @@ class FilterVM: NSObject {
         params["type"] = type
         print("params : ", params)
         
+        arrNoOfDays = []
+        arrTripComplexity = []
+        arrTripCategory = []
+        
         ApiHandler.callWithMultipartForm(apiName: API.Name.getCategories, params: params) { succeeded, response, data in
             DispatchQueue.main.async {
                 if succeeded == true, let data {
                     let decoder = JSONDecoder()
                     do {
                         let decoded = try decoder.decode(CategoriesModel.self, from: data)
+                        
                         self.arrNoOfDays.append(contentsOf: decoded.numberOfDays)
+                        
+                        let tripCategoryFirstValue = Category(id: "", noOfDays: "", status: "", createdAt: "", name: "Slelect trip category")
+                        self.arrTripCategory.append(tripCategoryFirstValue)
+                        let tripComplexityFirstValue = Category(id: "", noOfDays: "", status: "", createdAt: "", name: "Slelect trip complexity")
+                        self.arrTripComplexity.append(tripComplexityFirstValue)
+                        
                         self.arrTripCategory.append(contentsOf: decoded.tripCategory)
                         self.arrTripComplexity.append(contentsOf: decoded.tripComplexity)
                         self.observer?.observeGetCategoriesListSucessfull()
@@ -60,6 +71,9 @@ class FilterVM: NSObject {
                     let decoder = JSONDecoder()
                     do {
                         let decoded = try decoder.decode(SignUpCatModel.self, from: data)
+                        
+                        let ethnicityFirstValue = SignUpCatItem(id: "", name: "Slelect trip ethnicity", status: "", createdAt: "", genderName: "")
+                        self.arrEthnicity.append(ethnicityFirstValue)
                         self.arrEthnicity.append(contentsOf: decoded.ethnicity)
                         self.observer?.observeGetCategoriesListSucessfull()
                     } catch {

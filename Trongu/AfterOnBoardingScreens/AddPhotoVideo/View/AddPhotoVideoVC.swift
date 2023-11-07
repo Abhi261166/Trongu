@@ -12,6 +12,7 @@ import Photos
 import YPImagePicker
 import CoreLocation
 
+
 class AddPhotoVideoVC: UIViewController {
 
     @IBOutlet weak var placeTF: UITextField!
@@ -33,12 +34,21 @@ class AddPhotoVideoVC: UIViewController {
     var arrPostItems = [PostImagesVideo]()
     var images : [UIImage] = []
     var selectedIndex:IndexPath?
+    
     var completion : (( _ post1:[YPMediaItem], _ posts2:[PostImagesVideo], _ images:[UIImage]) -> Void)? = nil
+    var completion2 : (() -> Void)? = nil
+   
     var comeFrom:String?
     var dateFormat = "MM/dd/yy"  //  dd/MM/yyyy
     var deviceTimeZone:String?
     var timeZoneAbbreviation:String?
     var errorTitle = "Create Post"
+    var locationManager = CLLocationManager()
+    var currentLocation: CLLocation!
+    var curruntLatitude :String?
+    var curruntLongitude:String?
+    var curruntAddress:String?
+    var curruntCountry:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,6 +97,11 @@ class AddPhotoVideoVC: UIViewController {
          timeZoneAbbreviation = timeZoneAbbreviation?.replacingOccurrences(of: "(", with: "")
          timeZoneAbbreviation = timeZoneAbbreviation?.replacingOccurrences(of: ")", with: "")
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getCurrentLocation()
     }
     
     func textFiledDelegates(){
@@ -281,7 +296,16 @@ class AddPhotoVideoVC: UIViewController {
     
     
     @IBAction func backAction(_ sender: UIButton) {
-        popVC()
+        if self.comeFrom != "Edit" {
+            popVC()
+        }else{
+            
+        if let completion2 = completion2{
+            popVC()
+            completion2()
+        }
+        
+    }
     }
     
     @IBAction func actionDate(_ sender: UIButton) {
@@ -721,9 +745,24 @@ extension AddPhotoVideoVC{
                        if address ?? "" == "North Atlantic Ocean"{
                            
                            if self.arrPostItems.count == 0{
-                               self.placeTF.text = ""
+                               
+                               self.placeTF.text = self.curruntAddress ?? ""
+                               self.arrPostItems[0].country = self.curruntCountry ?? ""
+                               self.arrPostItems[0].place = self.curruntAddress ?? ""
+                               self.arrPostItems[0].lat = self.curruntLatitude ?? ""
+                               self.arrPostItems[0].long = self.curruntLongitude ?? ""
+                               
+                               
+                               
                            }else{
-                               self.placeTF.text = self.arrPostItems[0].place
+                               self.placeTF.text = self.curruntAddress ?? ""
+                               self.arrPostItems[0].country = self.curruntCountry ?? ""
+                               self.arrPostItems[0].place = self.curruntAddress ?? ""
+                               self.arrPostItems[0].lat = self.curruntLatitude ?? ""
+                               self.arrPostItems[0].long = self.curruntLongitude ?? ""
+                               
+                               
+                              // self.placeTF.text = self.arrPostItems[0].place
                            }
                            
                        }else{
@@ -782,9 +821,19 @@ extension AddPhotoVideoVC{
                        if address ?? "" == "North Atlantic Ocean"{
                            
                            if self.arrPostItems.count == 0{
-                               self.placeTF.text = ""
+                             //  self.placeTF.text = ""
+                               self.placeTF.text = self.curruntAddress ?? ""
+                               self.arrPostItems[0].country = self.curruntCountry ?? ""
+                               self.arrPostItems[0].place = self.curruntAddress ?? ""
+                               self.arrPostItems[0].lat = self.curruntLatitude ?? ""
+                               self.arrPostItems[0].long = self.curruntLongitude ?? ""
                            }else{
-                               self.placeTF.text = self.arrPostItems[0].place
+                              // self.placeTF.text = self.arrPostItems[0].place
+                               self.placeTF.text = self.curruntAddress ?? ""
+                               self.arrPostItems[0].country = self.curruntCountry ?? ""
+                               self.arrPostItems[0].place = self.curruntAddress ?? ""
+                               self.arrPostItems[0].lat = self.curruntLatitude ?? ""
+                               self.arrPostItems[0].long = self.curruntLongitude ?? ""
                            }
                            
                        }else{
@@ -912,7 +961,6 @@ extension AddPhotoVideoVC{
 
                 if let name = placemark.name {
                    // addressComponents.append(name)
-                    addressComponents.append(name)
                     print("name---", name)
                 }
 
@@ -927,7 +975,7 @@ extension AddPhotoVideoVC{
                 }
 
                 if let locality = placemark.locality {
-                   // addressComponents.append(locality)
+                    addressComponents.append(locality)
                     print("locality---", locality)
                 }
 
@@ -978,7 +1026,9 @@ extension AddPhotoVideoVC{
             case "0":
                 getAddressFromLatLong(latitude: Double(arrPostItems[index].lat) ?? 0.0, longitude: Double(arrPostItems[index].long) ?? 0.0, completion: { address in
                     if address ?? "" == "North Atlantic Ocean"{
-                        self.placeTF.text = ""
+                       // self.placeTF.text = ""
+                        self.placeTF.text = self.curruntAddress ?? ""
+                        
                     }else{
                         let addressFromLatLong = address?.components(separatedBy: ",")
                         let place = addressFromLatLong?.first
@@ -997,7 +1047,8 @@ extension AddPhotoVideoVC{
             case "1":
                 getAddressFromLatLong(latitude: Double(arrPostItems[index].lat) ?? 0.0, longitude: Double(arrPostItems[index].long) ?? 0.0, completion: { address in
                     if address ?? "" == "North Atlantic Ocean"{
-                        self.placeTF.text = ""
+                       // self.placeTF.text = ""
+                        self.placeTF.text = self.curruntAddress ?? ""
                     }else{
                         let addressFromLatLong = address?.components(separatedBy: ",")
                         let place = addressFromLatLong?.first
@@ -1032,9 +1083,7 @@ extension AddPhotoVideoVC{
                     place = address ?? ""
                 })
                 
-                
-                
-                if photo.asset?.creationDate?.dateToString(format: self.dateFormat) == nil{
+                if photo.asset?.creationDate?.dateToString(format: self.dateFormat) == nil || place == "North Atlantic Ocean"{
                     
                     let currentDate = Date()
                     let dateFormatter = DateFormatter()
@@ -1042,8 +1091,7 @@ extension AddPhotoVideoVC{
                     let formattedDate = dateFormatter.string(from: currentDate)
                     let time = "\(currentDate.dateToString(format: "h:mm a") ) \(self.timeZoneAbbreviation ?? "")"
                     
-                    
-                    let post = PostImagesVideo(id: "", postID: "", place: place, date: formattedDate, time: time, lat: "\(photo.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(photo.asset?.location?.coordinate.longitude ?? 0.0)", image: "", country: "", videoTitle: "", videoURL: "", height: "", width: "", thumbNailImage: "", type: "0", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
+                    let post = PostImagesVideo(id: "", postID: "", place: curruntAddress ?? "", date: formattedDate, time: time, lat: curruntLatitude ?? "", long: curruntLongitude ?? "", image: "", country: curruntCountry, videoTitle: "", videoURL: "", height: "", width: "", thumbNailImage: "", type: "0", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
                     self.images.append(photo.image)
                     arrPostItems.append(post)
                     
@@ -1060,7 +1108,7 @@ extension AddPhotoVideoVC{
                     place = address ?? ""
                 })
                 
-                if video.asset?.creationDate?.dateToString(format: self.dateFormat) == nil{
+                if video.asset?.creationDate?.dateToString(format: self.dateFormat) == nil || place == "North Atlantic Ocean"{
                     
                     let currentDate = Date()
                     let dateFormatter = DateFormatter()
@@ -1068,7 +1116,7 @@ extension AddPhotoVideoVC{
                     let formattedDate = dateFormatter.string(from: currentDate)
                     let time = "\(currentDate.dateToString(format: "h:mm a") ) \(self.timeZoneAbbreviation ?? "")"
                     
-                    let post = PostImagesVideo(id: "", postID: "", place: place, date: formattedDate, time:time, lat: "\(video.asset?.location?.coordinate.latitude ?? 0.0)", long: "\(video.asset?.location?.coordinate.longitude ?? 0.0)", image: "", country: "", videoTitle: "", videoURL: video.url.path, height: "", width: "", thumbNailImage: "", type: "1", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
+                    let post = PostImagesVideo(id: "", postID: "", place: curruntAddress ?? "", date: formattedDate, time:time, lat: curruntLatitude ?? "" , long: curruntLongitude ?? "", image: "", country: curruntCountry, videoTitle: "", videoURL: video.url.path, height: "", width: "", thumbNailImage: "", type: "1", deviceType: "", songFrom: "", songTitle: "", fullMusicURL: "", artistID: "", artistName: "", trackID: "", trackType: "", trackPicture: "", playbackSeconds: "", albumName: "", albumID: "", trackName: "", videoStartTime: "", videoEndTime: "", status: "", createdAt: "")
                     self.images.append(video.thumbnail)
                     arrPostItems.append(post)
                     
@@ -1139,6 +1187,82 @@ extension AddPhotoVideoVC:UITextFieldDelegate{
         }
         
         return true
+    }
+    
+}
+
+extension AddPhotoVideoVC:CLLocationManagerDelegate{
+    func getCurrentLocation(){
+        if #available(iOS 14.0, *) {
+            
+            if locationManager.authorizationStatus == (CLAuthorizationStatus.authorizedWhenInUse) ||
+                locationManager.authorizationStatus ==  (CLAuthorizationStatus.authorizedAlways)  {
+                currentLocation = locationManager.location
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        if #available(iOS 14.0, *) {
+            if locationManager.authorizationStatus == (CLAuthorizationStatus.authorizedWhenInUse) ||
+                locationManager.authorizationStatus ==  (CLAuthorizationStatus.authorizedAlways)  {
+                currentLocation = locationManager.location
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
+        DispatchQueue.main.async {
+            if CLLocationManager.locationServicesEnabled() {
+                self.locationManager.startUpdatingLocation()
+            }
+        }
+        
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        print("**********************")
+        let userLocation: CLLocation = locations[0] as CLLocation
+        
+        print("user latitude = \(userLocation.coordinate.latitude)")
+        print("user longitude = \(userLocation.coordinate.longitude)")
+        
+        self.curruntLatitude = "\(userLocation.coordinate.latitude)"
+        self.curruntLongitude = "\(userLocation.coordinate.longitude)"
+        //        AppDefaults.latitude = self.latitude
+        //        AppDefaults.longitude = self.longitude
+        //        print(AppDefaults.latitude!)
+        //        print(AppDefaults.longitude!)
+        
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(userLocation) { (placemarks, error) in
+            if (error != nil){
+                print("error in reverseGeocode")
+            }
+            let placemark = placemarks! as [CLPlacemark]
+            if placemark.count > 0 {
+                let placemark = placemarks![0]
+             
+                self.curruntAddress = placemark.locality
+                self.curruntCountry = placemark.country
+                
+                print(placemark.locality!)
+                print(placemark.administrativeArea!)
+                print(placemark.country!)
+                //                let data = "\(placemark.timeZone!), \(placemark.administrativeArea!), \(placemark.country!), \(placemark.timeZone!)"
+                let data = placemark.timeZone?.identifier ?? ""
+                
+                //                self.cuntry = data
+                print("data :-  ****** \(data) *****   self.cuntry:-  \(TimeZone.current.identifier)")
+                self.locationManager.stopUpdatingLocation()
+                
+            }
+        }
+        
     }
     
 }

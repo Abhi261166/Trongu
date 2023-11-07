@@ -12,7 +12,7 @@ class MapFilterVC: UIViewController {
     
     @IBOutlet weak var txtFilter: UITextField!
     
-    var arrFilter:[String] = ["Places visited","Added in bucket"]
+    var arrFilter:[String] = ["Select post filter type","Places visited","Added to bucket list"]
     var selectedValue:String?
    
     var completion : (( _ text:String) -> Void)?  = nil
@@ -21,6 +21,7 @@ class MapFilterVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setPicker()
+        txtFilter.text = ""
     }
     
     func setPicker() {
@@ -39,6 +40,8 @@ class MapFilterVC: UIViewController {
     
     @IBAction func filterAction(_ sender: UIButton) {
         
+        if txtFilter.text != ""{
+            
         if let completion = completion{
             popVC()
             
@@ -47,13 +50,16 @@ class MapFilterVC: UIViewController {
             switch txtFilter.text {
             case "Places visited":
                 filterBy = "1"
-            case "Added in bucket":
+            case "Added to bucket list":
                 filterBy = "2"
             default:
                 break
             }
-            
             completion(filterBy)
+        }
+        }else{
+          
+            Singleton.shared.showAlert(message: "Please select filter type.", controller: self, Title: "Filter")
             
         }
         
@@ -76,8 +82,13 @@ extension MapFilterVC: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        self.selectedValue = arrFilter[row]
-        txtFilter.text = self.selectedValue
+        if row == 0{
+            txtFilter.text = ""
+        }else{
+            self.selectedValue = arrFilter[row]
+            txtFilter.text = self.selectedValue
+            
+        }
         
     }
     
@@ -86,7 +97,15 @@ extension MapFilterVC: UIPickerViewDelegate, UIPickerViewDataSource {
 extension MapFilterVC:UITextFieldDelegate{
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        txtFilter.text = arrFilter[0]
+       // txtFilter.text = arrFilter[0]
     }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        
+        
+        
+    }
+    
     
 }

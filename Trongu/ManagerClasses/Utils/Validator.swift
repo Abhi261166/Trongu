@@ -120,6 +120,16 @@ class Validator {
         
         return (true, "")
     }
+    
+    static public func validateAccountType(type: String) -> (Bool,String) {
+      
+        guard type.count > 0  else {
+            return (false, "Please select account type")
+        }
+        
+        return (true, "")
+    }
+    
     static public func validatePlace(place: String) -> (Bool,String) {
       
         guard place.count > 0  else {

@@ -42,6 +42,7 @@ class CreatePostVC: UIViewController{
     var selectedDaysId = ""
     var selectedTripCatId = ""
     var selectedTripComplexityId = ""
+    var comeFromEditPostForTag = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,7 +172,7 @@ class CreatePostVC: UIViewController{
         
         if comeFrom == "Edit"{
             txtBudget.text = myPost[0].budget
-            txtNoOffDays.text = myPost[0].no_of_days_name
+            txtNoOffDays.text = myPost[0].noOfDays
             txtTripCategory.text = myPost[0].tripCategoryName
             txtTripComplexity.text = myPost[0].trip_complexity_name
             txtViewDesc.text = myPost[0].description
@@ -185,6 +186,8 @@ class CreatePostVC: UIViewController{
                
             }else{
                 
+                if !comeFromEditPostForTag{
+                    
                 if myPost[0].tagPeople?.count ?? 0 > 0 {
                     for index in 0...((myPost[0].tagPeople?.count ?? 0) - 1){
                         txtTags.text = "\(txtTags.text ?? "") @\(myPost[0].tagPeople?[index].name ?? "")"
@@ -202,6 +205,9 @@ class CreatePostVC: UIViewController{
                     
                 }else{
                     
+                }
+                }else{
+                    self.comeFromEditPostForTag = false
                 }
                 self.comeFromPostBack = false
                 
@@ -270,6 +276,7 @@ class CreatePostVC: UIViewController{
             
             if self.comeFrom == "Edit"{
                 self.isFromTabbar = true
+                self.comeFromEditPostForTag = true
                 self.myPost[0].postImagesVideo = posts2
                 if self.myPost[0].postImagesVideo.count != 0{
                     if self.myPost[0].postImagesVideo.count == 1{
@@ -309,8 +316,12 @@ class CreatePostVC: UIViewController{
         
         if self.comeFrom == "Edit"{
             vc.arrPostItems = myPost[0].postImagesVideo
+            vc.completion2 = {
+                self.comeFromEditPostForTag = true
+            }
             vc.comeFrom = "Edit"
         }
+        
         
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
@@ -453,9 +464,19 @@ extension CreatePostVC: UIPickerViewDelegate, UIPickerViewDataSource {
         if txtNoOffDays.isFirstResponder {
             txtNoOffDays.text = self.viewModel?.arrNoOfDays[row].noOfDays
         } else if txtTripCategory.isFirstResponder {
-            txtTripCategory.text = self.viewModel?.arrTripCategory[row].name
+            
+            if row == 0{
+                txtTripCategory.text = ""
+            }else{
+                txtTripCategory.text = self.viewModel?.arrTripCategory[row].name
+            }
+            
         } else if txtTripComplexity.isFirstResponder {
-            txtTripComplexity.text = self.viewModel?.arrTripComplexity[row].name
+            if row == 0{
+                txtTripComplexity.text = ""
+            }else{
+                txtTripComplexity.text = self.viewModel?.arrTripComplexity[row].name
+            }
         }
         
     }
@@ -465,13 +486,13 @@ extension CreatePostVC: UIPickerViewDelegate, UIPickerViewDataSource {
 extension CreatePostVC{
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == txtNoOffDays {
-            txtNoOffDays.inputView = pickerView
-            pickerView.reloadAllComponents()
-            DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
-                let index = self.viewModel?.arrNoOfDays.firstIndex(where: {$0.noOfDays == txtNoOffDays.text ?? ""}) ?? 0
-                pickerView.selectRow(index, inComponent: 0, animated: false)
-               // txtNoOffDays.text = arrDays[index]
-            })
+//            txtNoOffDays.inputView = pickerView
+//            pickerView.reloadAllComponents()
+//            DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
+//                let index = self.viewModel?.arrNoOfDays.firstIndex(where: {$0.noOfDays == txtNoOffDays.text ?? ""}) ?? 0
+//                pickerView.selectRow(index, inComponent: 0, animated: false)
+//               // txtNoOffDays.text = arrDays[index]
+//            })
             
         } else if textField == txtTripCategory {
             txtTripCategory.inputView = pickerView
@@ -566,35 +587,45 @@ extension CreatePostVC{
     func textFieldDidEndEditing(_ textField: UITextField) {
             switch textField {
             case txtNoOffDays:
-                DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
-                    let index = self.viewModel?.arrNoOfDays.firstIndex(where: {$0.noOfDays == txtNoOffDays.text ?? ""}) ?? 0
-                    pickerView.selectRow(index, inComponent: 0, animated: false)
-                    //                self.mId = home_Search_Data?[index].brand_name ?? ""
-                    self.txtNoOffDays.text = self.viewModel?.arrNoOfDays[index].noOfDays
-                    self.selectedDaysId = self.viewModel?.arrNoOfDays[index].id ?? ""
-                    print("   Selected No Off Days   \(self.viewModel?.arrNoOfDays[index].noOfDays ?? "") id  \(self.viewModel?.arrNoOfDays[index].id ?? "")")
-                })
-                pickerView.reloadAllComponents()
+                self.selectedDaysId = txtNoOffDays.text ?? ""
+                print("in no of days field")
+//                DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
+//                    let index = self.viewModel?.arrNoOfDays.firstIndex(where: {$0.noOfDays == txtNoOffDays.text ?? ""}) ?? 0
+//                    
+//                    if (self.viewModel?.arrNoOfDays.count ?? 0) > 0{
+//                        
+//                        pickerView.selectRow(index, inComponent: 0, animated: false)
+//                        //                self.mId = home_Search_Data?[index].brand_name ?? ""
+//                        self.txtNoOffDays.text = self.viewModel?.arrNoOfDays[index].noOfDays
+//                        self.selectedDaysId = self.viewModel?.arrNoOfDays[index].id ?? ""
+//                        print("   Selected No Off Days   \(self.viewModel?.arrNoOfDays[index].noOfDays ?? "") id  \(self.viewModel?.arrNoOfDays[index].id ?? "")")
+//                    }
+//                })
+//                pickerView.reloadAllComponents()
                 
             case txtTripCategory:
                 DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
                     let index = self.viewModel?.arrTripCategory.firstIndex(where: {$0.name == txtTripCategory.text ?? ""}) ?? 0
-                    pickerView.selectRow(index, inComponent: 0, animated: false)
-                    //                self.caliber_Id = viewModel?.caliberData[index].id
-                    self.txtTripCategory.text = self.viewModel?.arrTripCategory[index].name
-                    self.selectedTripCatId = self.viewModel?.arrTripCategory[index].id ?? ""
-                    print("  Selected Trip Category   \(self.viewModel?.arrTripCategory[index].name ?? "") id  \(self.viewModel?.arrTripCategory[index].id ?? "")")
+                    if (self.viewModel?.arrTripCategory.count ?? 0) > 0 && index != 0{
+                        pickerView.selectRow(index, inComponent: 0, animated: false)
+                        //                self.caliber_Id = viewModel?.caliberData[index].id
+                        self.txtTripCategory.text = self.viewModel?.arrTripCategory[index].name
+                        self.selectedTripCatId = self.viewModel?.arrTripCategory[index].id ?? ""
+                        print("  Selected Trip Category   \(self.viewModel?.arrTripCategory[index].name ?? "") id  \(self.viewModel?.arrTripCategory[index].id ?? "")")
+                    }
                 })
                 pickerView.reloadAllComponents()
                 
             case txtTripComplexity:
                 DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [self] in
-                    let index = arrTripComplexity.firstIndex(where: {$0 == txtTripComplexity.text ?? ""}) ?? 0
-                    pickerView.selectRow(index, inComponent: 0, animated: false)
-                    //                self.caliber_Id = viewModel?.caliberData[index].id
-                    self.txtTripComplexity.text = self.viewModel?.arrTripComplexity[index].name
-                    self.selectedTripComplexityId = self.viewModel?.arrTripComplexity[index].id ?? ""
-                    print("  Selected Trip Complexity   \(self.viewModel?.arrTripComplexity[index].name ?? "")  Id  \(self.viewModel?.arrTripComplexity[index].id ?? "")")
+                    let index = self.viewModel?.arrTripComplexity.firstIndex(where: {$0.name == txtTripComplexity.text ?? ""}) ?? 0
+                    if (self.viewModel?.arrTripComplexity.count ?? 0) > 0 && index != 0{
+                        pickerView.selectRow(index, inComponent: 0, animated: false)
+                        //                self.caliber_Id = viewModel?.caliberData[index].id
+                        self.txtTripComplexity.text = self.viewModel?.arrTripComplexity[index].name
+                        self.selectedTripComplexityId = self.viewModel?.arrTripComplexity[index].id ?? ""
+                        print("  Selected Trip Complexity   \(self.viewModel?.arrTripComplexity[index].name ?? "")  Id  \(self.viewModel?.arrTripComplexity[index].id ?? "")")
+                    }
                 })
                 pickerView.reloadAllComponents()
                 

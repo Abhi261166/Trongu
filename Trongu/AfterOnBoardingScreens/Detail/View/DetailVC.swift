@@ -25,6 +25,12 @@ class DetailVC: UIViewController {
     @IBOutlet weak var lblCreatedTime: UILabel!
     @IBOutlet weak var heightConsLikeButton: NSLayoutConstraint!
     
+    @IBOutlet weak var lblItinerary: UILabel!
+    @IBOutlet weak var btnViewAllComments: UIButton!
+    @IBOutlet weak var lblLatestComments: UILabel!
+    
+    
+    
     var image = ["PostFirstImage","PostSecondImage"]
     var postId:String?
     var viewModel:DetailsVM?
@@ -32,6 +38,7 @@ class DetailVC: UIViewController {
     var postDetails:Post?
     var postIdFromApi = ""
     var completion : (() -> Void)? = nil
+    var timer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +58,16 @@ class DetailVC: UIViewController {
         apiCall()
         hideShowBucket()
        // setPostData(post: postDetails)
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        if let player = DAVideoPlayerView.player {
+            player.pause()
+            DAVideoPlayerView.player = nil
+        }
+        
     }
     
     func hideShowBucket(){
@@ -81,15 +98,113 @@ class DetailVC: UIViewController {
         let index = scrollView.contentOffset.x / witdh
         let roundedIndex = round(index)
         self.pageControl.currentPage = Int(roundedIndex)
+        
+        if self.timer != nil {
+            self.timer?.invalidate()
+            self.timer = nil
+        }
+        let indexPaths = self.detailCollectionView.visibleCells.map({$0.indexPath!}).sorted(by: {$0.item < $1.item})
+        indexPaths.forEach { index in
+            
+            if let cell = self.detailCollectionView.cellForItem(at: index){
+                self.detailCollectionView.bringSubviewToFront(cell)
+                
+            }
+            
+        }
+        
+        let visibleRect = CGRect(origin: self.detailCollectionView.contentOffset, size: self.detailCollectionView.frame.size)
+        let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+        if let VisibleIndexpath = self.detailCollectionView.indexPathForItem(at: visiblePoint) {
+            print("VisibleIndexpath:- \(VisibleIndexpath)")
+            
+        }
+        
+        self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.playCurrentVideo), userInfo: nil, repeats: false)
+        
     }
+    
+    
+    @objc func playCurrentVideo() {
+        
+        guard let visibleCell = detailCollectionView.visibleCells.first as? AddPostCVC else { return }
+        let dict = self.viewModel?.postDetails?.postImagesVideo
+        if visibleCell.urlString?.isImageType == false {
+            if DAVideoPlayerView.player != nil {
+                DAVideoPlayerView.player?.pause()
+                DAVideoPlayerView.player?.isPlaying = false
+                DAVideoPlayerView.player = nil
+            }
+            visibleCell.volumeButton.isSelected = isMuted
+            visibleCell.videoPlayerView.isMuted = isMuted
+            visibleCell.videoPlayerView.play()
+            
+//            let tableView = self.getTable()
+//            tableView?.beginUpdates()
+//            UIView.animate(
+//                withDuration: 0.3,
+//                delay: 0,
+//                animations: {
+                    self.lblItinerary.text = ""
+            self.lblTimeAndAddress.text = "\(dict?[self.detailCollectionView.visibleCells.first?.indexPath?.row ?? 0].date ?? "" ) \(dict?[self.detailCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ?? "" ) \(dict?[self.detailCollectionView.visibleCells.first?.indexPath?.row ?? 0].place ?? "" )"
+            self.lblAddressPriceNoOfDays.text = "\(dict?[self.detailCollectionView.visibleCells.first?.indexPath?.row ?? 0].country ?? "")"
+            
+//                    self.contentView.layoutIfNeeded()
+//                }, completion: { completed in
+//                    self.contentView.layoutIfNeeded()
+//                }
+//            )
+//            tableView?.endUpdates()
+                    
+        }else if visibleCell.urlString?.isImageType == true {
+            
+//            let tableView = self.getTable()
+//            tableView?.beginUpdates()
+//            UIView.animate(
+//                withDuration: 0.3,
+//                delay: 0,
+//                animations: {
+            
+            self.lblItinerary.text = ""
+    self.lblTimeAndAddress.text = "\(dict?[self.detailCollectionView.visibleCells.first?.indexPath?.row ?? 0].date ?? "" ) \(dict?[self.detailCollectionView.visibleCells.first?.indexPath?.row ?? 0].time ?? "" ) \(dict?[self.detailCollectionView.visibleCells.first?.indexPath?.row ?? 0].place ?? "" )"
+    self.lblAddressPriceNoOfDays.text = "\(dict?[self.detailCollectionView.visibleCells.first?.indexPath?.row ?? 0].country ?? "")"
+            
+//            self.contentView.layoutIfNeeded()
+//        }, completion: { completed in
+//            self.contentView.layoutIfNeeded()
+//        }
+//    )
+//    tableView?.endUpdates()
+            
+            if let player = DAVideoPlayerView.player {
+                player.pause()
+                DAVideoPlayerView.player = nil
+            }
+            
+        }else{
+            print("In map cell")
+            
+            if let player = DAVideoPlayerView.player {
+                player.pause()
+                DAVideoPlayerView.player = nil
+            }
+        }
+        
+    }
+    
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
     }
     
+    
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
     }
+    
+    
+    
+    
     
     @IBAction func backAction(_ sender: UIButton) {
      
@@ -132,6 +247,9 @@ class DetailVC: UIViewController {
         self.present(vc, true)
     }
     
+    
+    
+    
     @IBAction func mapAction(_ sender: UIButton) {
 //        let vc = MapVC()
 //        self.navigationController?.pushViewController(vc, animated: true)
@@ -140,8 +258,9 @@ class DetailVC: UIViewController {
     }
     
     @IBAction func bucketListAction(_ sender: UIButton) {
-        let vc = BucketListVC()
-        self.navigationController?.pushViewController(vc, animated: true)
+        
+        self.viewModel?.apiAddTobucket(postId: self.postId ?? "")
+        
     }
     
     @IBAction func likeCountAction(_ sender: UIButton) {
@@ -244,6 +363,11 @@ extension DetailVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollec
 
 extension DetailVC:DetailsVMObserver{
     
+    func observeAddedToBucket() {
+        print("Added or Removed from bucket list.")
+    }
+    
+    
     func observeLikedSucessfull() {
         apiCall()
     }
@@ -266,16 +390,14 @@ extension DetailVC:DetailsVMObserver{
         self.lblName.text = dict?.userDetail.name
         self.lblTripComplexity.text = dict?.trip_complexity_name
         self.lblDescription.text = dict?.description
-        self.lblTimeAndAddress.text = "\(dict?.postImagesVideo.first?.time ?? "") \(dict?.postImagesVideo.first?.place ?? "")"
+        self.lblTimeAndAddress.text = "\(dict?.postImagesVideo.first?.date ?? "") \(dict?.postImagesVideo.first?.time ?? "") \(dict?.postImagesVideo.first?.place ?? "")"
         
-        if dict?.no_of_days_name == "1"{
-            self.lblAddressPriceNoOfDays.text = "\(dict?.postImagesVideo.first?.country ?? "") $\(dict?.budget ?? "") (\(dict?.no_of_days_name ?? "") day)"
+        if dict?.noOfDays == "1"{
+            self.lblAddressPriceNoOfDays.text = "\(dict?.postImagesVideo.first?.country ?? "") $\(dict?.budget ?? "") (\(dict?.noOfDays ?? "") day)"
         }else{
             
-            self.lblAddressPriceNoOfDays.text = "\(dict?.postImagesVideo.first?.country ?? "") $\(dict?.budget ?? "") (\(dict?.no_of_days_name ?? "") days)"
+            self.lblAddressPriceNoOfDays.text = "\(dict?.postImagesVideo.first?.country ?? "") $\(dict?.budget ?? "") (\(dict?.noOfDays ?? "") days)"
         }
-        
-        
         
         if dict?.isLike == "1"{
             self.btnLike.isSelected = true
@@ -290,21 +412,37 @@ extension DetailVC:DetailsVMObserver{
         
         if dict?.post_like_count == "1"{
             self.btnLikeCount.setTitle("\(dict?.post_like_count ?? "0") like", for: .normal)
-            self.heightConsLikeButton.constant = 30
+            self.btnLikeCount.isHidden = false
         }else if dict?.post_like_count == "0"{
-            self.heightConsLikeButton.constant = 0
+            self.btnLikeCount.isHidden = true
             self.btnLikeCount.setTitle("", for: .normal)
         }else {
-            self.heightConsLikeButton.constant = 30
+            self.btnLikeCount.isHidden = false
             self.btnLikeCount.setTitle("\(dict?.post_like_count ?? "0") likes", for: .normal)
         }
         
         let timestamp = Int(dict?.createdAt ?? "") ?? 0
         let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
         self.lblCreatedTime.text = date.timeAgoSinceDate()
-        
         self.detailCollectionView.reloadData()
+        
+        
+        if dict?.commentCount ?? "" == "0"{
+            btnViewAllComments.isHidden = true
+        }else if dict?.commentCount ?? "" == "1"{
+            btnViewAllComments.isHidden = false
+            btnViewAllComments.setTitle("View \(dict?.commentCount ?? "") comment", for: .normal)
+            
+            lblLatestComments.setAttributed2(str1: dict?.latestComments?.first?.user_name ?? "", font1: UIFont.setCustom(.Poppins_Medium, 12), color1: .black, str2: dict?.latestComments?.first?.comment ?? "", font2: UIFont.setCustom(.Poppins_Regular, 12), color2: .systemGray)
+        }else{
+            btnViewAllComments.isHidden = false
+            btnViewAllComments.setTitle("View all \(dict?.commentCount ?? "") comments", for: .normal)
+           lblLatestComments.setAttributed3(str1: dict?.latestComments?.first?.user_name ?? "", font1: UIFont.setCustom(.Poppins_Medium, 12), color1: .black, str2: dict?.latestComments?.first?.comment ?? "", font2: UIFont.setCustom(.Poppins_Regular, 12), color2: .systemGray,str3: "\n\(dict?.latestComments?.last?.user_name ?? "")", font3: UIFont.setCustom(.Poppins_Medium, 12), color3: .black, str4: dict?.latestComments?.last?.comment ?? "", font4: UIFont.setCustom(.Poppins_Regular, 12), color4: .systemGray)
+        }
+        
     }
+    
+    
     
     
 }

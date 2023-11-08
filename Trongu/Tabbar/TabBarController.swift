@@ -130,7 +130,7 @@ extension UITabBar {
 extension UITabBarItem {
     func setImageFromUrl() {
         let imgUrl = UserDefaultsCustom.getUserData()?.image
-        let defImg = "ic_profilePlaceHolder"
+        let defImg = "ic_TabBarProfilePlaceHolder"
         let fghj = UIImage(named: defImg)?.withRenderingMode(.alwaysOriginal).roundedImageWithBorder(width: 0)
         self.image = fghj?.withRenderingMode(.alwaysOriginal)
         self.selectedImage = fghj?.withRenderingMode(.alwaysOriginal).roundedImageWithBorder(width: 2,color: .systemOrange)

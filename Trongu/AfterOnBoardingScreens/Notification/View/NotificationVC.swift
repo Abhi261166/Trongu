@@ -166,13 +166,13 @@ extension NotificationVC: UITableViewDelegate,UITableViewDataSource{
     
     @objc func actionReject(sender:UIButton){
         
-        self.viewModel?.apiFollowRequestAcceptReject(otherUserId: self.viewModel?.arrNotificationList[sender.tag].followID, requestStatus: 2)
+        self.viewModel?.apiFollowRequestAcceptReject(otherUserId: self.viewModel?.arrNotificationList[sender.tag].followID, requestStatus: 2, id: self.viewModel?.arrNotificationList[sender.tag].id)
         
     }
     
     @objc func actionAccept(sender:UIButton){
         
-        self.viewModel?.apiFollowRequestAcceptReject(otherUserId: self.viewModel?.arrNotificationList[sender.tag].followID, requestStatus: 1)
+        self.viewModel?.apiFollowRequestAcceptReject(otherUserId: self.viewModel?.arrNotificationList[sender.tag].followID, requestStatus: 1, id: self.viewModel?.arrNotificationList[sender.tag].id)
         
     }
     

@@ -114,6 +114,9 @@ class ApiHandler {
                     if(isSucceeded){
                         if let status = response["status"] as? Int {
                             switch(status) {
+                            case API.statusCodes.Invalid_Cred:
+                                Singleton.shared.showErrorMessage(error: AlertMessage.invalid_Credencials, isError: .error)
+                                ActivityIndicator.shared.hideActivityIndicator()
                             case API.statusCodes.EMAIL_NOT_Verified:
                                 Singleton.shared.showErrorMessage(error: AlertMessage.Email_Veryfication, isError: .error)
                                 ActivityIndicator.shared.hideActivityIndicator()

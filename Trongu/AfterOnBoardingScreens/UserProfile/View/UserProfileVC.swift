@@ -243,7 +243,7 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
         let vc = EditProfileVC()
         vc.completion = {
          //   self.navigationController?.tabBarController?.selectedIndex = 3
-            self.hitGetProfilePostsApi()
+            self.hitGetProfileApi()
             self.isReloadController = false
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [self] in

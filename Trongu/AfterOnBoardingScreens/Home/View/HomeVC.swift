@@ -69,6 +69,7 @@ class HomeVC: UIViewController {
         
        // self.tabBarController?.tabBar.isHidden = false
         
+        self.homeTableView.reloadData()
         
         if comeFromFilter{
             
@@ -419,24 +420,46 @@ extension HomeVC: HomeTVCellDelegate{
     
     func didTapLike(_ indexPath: IndexPath) {
         
-        self.viewModel?.apiLikePost(postId: self.viewModel?.arrPostList[indexPath.row].id ?? "", type: "1")
-        
+        if self.viewModel?.arrPostList.count == 0{
+            
+            Singleton.shared.showErrorMessage(error: "Unable to connect with the server. Check your internet connection and try again.", isError: .error)
+            
+        }else{
+            
+            self.viewModel?.apiLikePost(postId: self.viewModel?.arrPostList[indexPath.row].id ?? "", type: "1")
+            
+        }
     }
     
     func didTapComment(_ indexPath: IndexPath) {
-        let vc = CommentVC()
-        vc.postId = self.viewModel?.arrPostList[indexPath.row].id
-        vc.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(vc, animated: true)
+        if self.viewModel?.arrPostList.count == 0{
+            
+            Singleton.shared.showErrorMessage(error: "Unable to connect with the server. Check your internet connection and try again.", isError: .error)
+            
+        }else{
+            
+            let vc = CommentVC()
+            vc.postId = self.viewModel?.arrPostList[indexPath.row].id
+            vc.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     func didTapShare(_ indexPath: IndexPath) {
-        let vc = ShareProfilePopUpVC()
-        vc.postid = self.viewModel?.arrPostList[indexPath.row].id
-        vc.controller = self
-        vc.hidesBottomBarWhenPushed = true
-        vc.modalPresentationStyle = .overFullScreen
-        self.present(vc, true)
+        if self.viewModel?.arrPostList.count == 0{
+            
+            Singleton.shared.showErrorMessage(error: "Unable to connect with the server. Check your internet connection and try again.", isError: .error)
+            
+        }else{
+            
+            let vc = ShareProfilePopUpVC()
+            vc.postid = self.viewModel?.arrPostList[indexPath.row].id
+            vc.controller = self
+            vc.hidesBottomBarWhenPushed = true
+            vc.modalPresentationStyle = .overFullScreen
+            self.present(vc, true)
+        }
+        
     }
     
     func didTapmap(_ indexPath: IndexPath) {
@@ -454,22 +477,44 @@ extension HomeVC: HomeTVCellDelegate{
 //        vc.comeFrom = "NotFromTabbar"
 //        self.navigationController?.pushViewController(vc, animated: true)
         
-        self.viewModel?.apiAddTobucket(postId: self.viewModel?.arrPostList[indexPath.row].id ?? "")
- 
+        if self.viewModel?.arrPostList.count == 0{
+            
+            Singleton.shared.showErrorMessage(error: "Unable to connect with the server. Check your internet connection and try again.", isError: .error)
+            
+        }else{
+            
+            
+            self.viewModel?.apiAddTobucket(postId: self.viewModel?.arrPostList[indexPath.row].id ?? "")
+        }
     }
     
     func didTapDislike(_ indexPath: IndexPath) {
         
-        self.viewModel?.apiLikePost(postId: self.viewModel?.arrPostList[indexPath.row].id ?? "", type: "2")
-        
+        if self.viewModel?.arrPostList.count == 0{
+            
+            Singleton.shared.showErrorMessage(error: "Unable to connect with the server. Check your internet connection and try again.", isError: .error)
+            
+        }else{
+            
+            self.viewModel?.apiLikePost(postId: self.viewModel?.arrPostList[indexPath.row].id ?? "", type: "2")
+            
+        }
     }
     
     func didTapLikecountList(_ indexPath: IndexPath) {
-        let vc = LikesVC()
-        vc.controller = self
-        vc.postId = self.viewModel?.arrPostList[indexPath.row].id
-        vc.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(vc, animated: true)
+        if self.viewModel?.arrPostList.count == 0{
+            
+            Singleton.shared.showErrorMessage(error: "Unable to connect with the server. Check your internet connection and try again.", isError: .error)
+            
+        }else{
+            
+            let vc = LikesVC()
+            vc.controller = self
+            vc.postId = self.viewModel?.arrPostList[indexPath.row].id
+            vc.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        }
     }
    
 }

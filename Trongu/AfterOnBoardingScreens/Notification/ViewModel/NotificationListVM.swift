@@ -69,9 +69,10 @@ class NotificationListVM: NSObject {
     
     //MARK: - Follow Request Accept/Reject APi -
     
-    func apiFollowRequestAcceptReject(otherUserId:String?,requestStatus:Int?) {
+    func apiFollowRequestAcceptReject(otherUserId:String?,requestStatus:Int?,id:String?) {
         var params = JSON()
         params["follow_id"] = otherUserId
+        params["id"] = id
         params["request_status"] = requestStatus
         
         print("params : ", params)

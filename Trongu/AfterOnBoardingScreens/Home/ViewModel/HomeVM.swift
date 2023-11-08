@@ -80,7 +80,6 @@ class HomeVM: NSObject {
         params["trip_category"] = tripCat
         params["trip_complexity"] = complexity
         params["ethnicity"] = ethnicity
-        
         params["per_page"] = perPage
         params["page_no"] = pageNo + 1
         print("params : ", params)

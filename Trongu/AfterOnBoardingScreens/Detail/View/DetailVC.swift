@@ -278,12 +278,13 @@ class DetailVC: UIViewController {
     
     @IBAction func actionLike(_ sender: UIButton) {
         
-      
+        btnLike.isUserInteractionEnabled = false
         self.viewModel?.apiLikePost(postId: postIdFromApi, type: "1")
     }
     
     @IBAction func actionDislike(_ sender: UIButton) {
-        
+        btnDislike.isUserInteractionEnabled = false
+
         self.viewModel?.apiLikePost(postId: postIdFromApi, type: "2")
     }
 }
@@ -440,9 +441,10 @@ extension DetailVC:DetailsVMObserver{
            lblLatestComments.setAttributed3(str1: dict?.latestComments?.first?.user_name ?? "", font1: UIFont.setCustom(.Poppins_Medium, 12), color1: .black, str2: dict?.latestComments?.first?.comment ?? "", font2: UIFont.setCustom(.Poppins_Regular, 12), color2: .systemGray,str3: "\n\(dict?.latestComments?.last?.user_name ?? "")", font3: UIFont.setCustom(.Poppins_Medium, 12), color3: .black, str4: dict?.latestComments?.last?.comment ?? "", font4: UIFont.setCustom(.Poppins_Regular, 12), color4: .systemGray)
         }
         
+        btnLike.isUserInteractionEnabled = true
+        btnDislike.isUserInteractionEnabled = true
+
+        
     }
-    
-    
-    
     
 }

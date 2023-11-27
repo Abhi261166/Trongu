@@ -67,17 +67,18 @@ open class YPBottomPager: UIViewController, UIScrollViewDelegate {
         v.scrollView.contentSize = CGSize(width: scrollableWidth, height: 0)
         
         // Build headers
+       
         for (index, c) in controllers.enumerated() {
-                   let menuItem = YPMenuItem()
-                   let arrBottomTitle = ["Gallery","Camera","Video"]
-                 //  menuItem.textLabel.text = c.title?.capitalized
-                   menuItem.textLabel.text = arrBottomTitle[index]
-                   menuItem.button.tag = index
-                   menuItem.button.addTarget(self,
-                                             action: #selector(tabTapped(_:)),
-                                             for: .touchUpInside)
-                   v.header.menuItems.append(menuItem)
-               }
+            let menuItem = YPMenuItem()
+            let arrBottomTitle = ["Gallery","Camera","Video"]
+            //  menuItem.textLabel.text = c.title?.capitalized
+            menuItem.textLabel.text = arrBottomTitle[index]
+            menuItem.button.tag = index
+            menuItem.button.addTarget(self,
+                                      action: #selector(tabTapped(_:)),
+                                      for: .touchUpInside)
+            v.header.menuItems.append(menuItem)
+        }
         
         let currentMenuItem = v.header.menuItems[0]
         currentMenuItem.select()

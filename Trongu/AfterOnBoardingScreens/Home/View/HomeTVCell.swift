@@ -26,12 +26,12 @@ protocol HomeTVCellDelegate: NSObjectProtocol {
     //func viewUserProfile(_ indexPath: IndexPath)
     func didTapProfileBtn(_ indexPath: IndexPath)
     func didTapMenu(_ indexPath: IndexPath)
-    func didTapLike(_ indexPath: IndexPath)
+    func didTapLike(_ indexPath: IndexPath, likeCount: String?)
     func didTapComment(_ indexPath: IndexPath)
     func didTapShare(_ indexPath: IndexPath)
     func didTapmap(_ indexPath: IndexPath)
     func didTapBucketList(_ indexPath: IndexPath)
-    func didTapDislike(_ indexPath: IndexPath)
+    func didTapDislike(_ indexPath: IndexPath, likeCount: String?)
     func didTapLikecountList(_ indexPath: IndexPath)
 }
 
@@ -111,8 +111,88 @@ class HomeTVCell: UITableViewCell {
     
     @IBAction func likeAction(_ sender: UIButton) {
         sender.isSelected.toggle()
+        btnDislike.isSelected = false
         if let indexPath = self.indexPath {
-            self.delegate?.didTapLike(indexPath)
+            
+            var likeCount:Int?
+            if sender.isSelected{
+                if btnLikeCount.title != " "{
+                    let firstComponent = btnLikeCount.title?.components(separatedBy: " ")
+                    likeCount = (Int(firstComponent?.first ?? "") ?? 0) + 1
+                }else if btnLikeCount.title == " "{
+                    likeCount = 1
+                }else{
+                    
+                    
+                }
+            }else{
+                
+                let firstComponent = btnLikeCount.title?.components(separatedBy: " ")
+                 likeCount = (Int(firstComponent?.first ?? "") ?? 0) - 1
+           
+            }
+            if let count = likeCount{
+                
+                if count != 0{
+                    self.btnLikeCount.isHidden = false
+                    if count == 1{
+                        let tableView = self.getTable()
+                        tableView?.beginUpdates()
+                        UIView.animate(
+                            withDuration: 0.3,
+                            delay: 0,
+                            animations: {
+                                self.btnLikeCount.setTitle("\(count) like", for: .normal)
+                                self.contentView.layoutIfNeeded()
+                            }, completion: { completed in
+                                self.contentView.layoutIfNeeded()
+                            }
+                        )
+                        tableView?.endUpdates()
+                        
+                    }else{
+                        
+                        let tableView = self.getTable()
+                        tableView?.beginUpdates()
+                        UIView.animate(
+                            withDuration: 0.3,
+                            delay: 0,
+                            animations: {
+                                self.btnLikeCount.setTitle("\(count) likes", for: .normal)
+                                self.contentView.layoutIfNeeded()
+                            }, completion: { completed in
+                                self.contentView.layoutIfNeeded()
+                            }
+                        )
+                        tableView?.endUpdates()
+                        
+                    }
+                }else{
+                    
+                    let tableView = self.getTable()
+                    tableView?.beginUpdates()
+                    UIView.animate(
+                        withDuration: 0.3,
+                        delay: 0,
+                        animations: {
+                            
+                            self.btnLikeCount.setTitle(" ", for: .normal)
+                            self.btnLikeCount.isHidden = true
+
+                            
+                            self.contentView.layoutIfNeeded()
+                        }, completion: { completed in
+                            self.contentView.layoutIfNeeded()
+                        }
+                    )
+                    tableView?.endUpdates()
+                    
+                    
+                }
+                
+            }
+            
+            self.delegate?.didTapLike(indexPath, likeCount: "\(likeCount ?? 0)")
         }
     }
     
@@ -148,10 +228,85 @@ class HomeTVCell: UITableViewCell {
     }
     
     @IBAction func dislikeAction(_ sender: UIButton) {
-        
         sender.isSelected.toggle()
+        
         if let indexPath = self.indexPath {
-            self.delegate?.didTapDislike(indexPath)
+            
+            var likeCount:Int?
+            if sender.isSelected{
+                if btnLikeCount.title != " " && btnLike.isSelected{
+                    let firstComponent = btnLikeCount.title?.components(separatedBy: " ")
+                    likeCount = (Int(firstComponent?.first ?? "") ?? 0) - 1
+                }else{
+                    likeCount = 0
+                }
+            }else{
+               // let firstComponent = btnLikeCount.title?.components(separatedBy: " ")
+
+               //  likeCount = (Int(firstComponent?.first ?? "") ?? 0) + 1
+            }
+            
+            if let count = likeCount{
+                
+                if count != 0{
+                    self.btnLikeCount.isHidden = false
+                    if count == 1{
+                        let tableView = self.getTable()
+                        tableView?.beginUpdates()
+                        UIView.animate(
+                            withDuration: 0.3,
+                            delay: 0,
+                            animations: {
+                                self.btnLikeCount.setTitle("\(count) like", for: .normal)
+                                self.contentView.layoutIfNeeded()
+                            }, completion: { completed in
+                                self.contentView.layoutIfNeeded()
+                            }
+                        )
+                        tableView?.endUpdates()
+                        
+                    }else{
+                        
+                        let tableView = self.getTable()
+                        tableView?.beginUpdates()
+                        UIView.animate(
+                            withDuration: 0.3,
+                            delay: 0,
+                            animations: {
+                                self.btnLikeCount.setTitle("\(count) likes", for: .normal)
+                                self.contentView.layoutIfNeeded()
+                            }, completion: { completed in
+                                self.contentView.layoutIfNeeded()
+                            }
+                        )
+                        tableView?.endUpdates()
+                        
+                    }
+                }else{
+                    
+                    let tableView = self.getTable()
+                    tableView?.beginUpdates()
+                    UIView.animate(
+                        withDuration: 0.3,
+                        delay: 0,
+                        animations: {
+                            
+                            self.btnLikeCount.setTitle(" ", for: .normal)
+                            self.btnLikeCount.isHidden = true
+
+                            
+                            self.contentView.layoutIfNeeded()
+                        }, completion: { completed in
+                            self.contentView.layoutIfNeeded()
+                        }
+                    )
+                    tableView?.endUpdates()
+                    
+                }
+                
+            }
+            btnLike.isSelected = false
+            self.delegate?.didTapDislike(indexPath, likeCount: "\(likeCount ?? 0)")
         }
         
     }

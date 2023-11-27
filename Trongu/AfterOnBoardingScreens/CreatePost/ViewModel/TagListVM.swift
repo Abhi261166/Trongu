@@ -84,9 +84,9 @@ class TagListVM: NSObject {
                         let decoded = try decoder.decode(CategoriesModel.self, from: data)
                         self.arrNoOfDays.append(contentsOf: decoded.numberOfDays)
                         
-                        let tripCategoryFirstValue = Category(id: "", noOfDays: "", status: "", createdAt: "", name: "Slelect trip category")
+                        let tripCategoryFirstValue = Category(id: "", noOfDays: "", status: "", createdAt: "", name: "Select trip category")
                         self.arrTripCategory.append(tripCategoryFirstValue)
-                        let tripComplexityFirstValue = Category(id: "", noOfDays: "", status: "", createdAt: "", name: "Slelect trip complexity")
+                        let tripComplexityFirstValue = Category(id: "", noOfDays: "", status: "", createdAt: "", name: "Select trip complexity")
                         self.arrTripComplexity.append(tripComplexityFirstValue)
                         self.arrTripCategory.append(contentsOf: decoded.tripCategory)
                         self.arrTripComplexity.append(contentsOf: decoded.tripComplexity)
@@ -195,8 +195,8 @@ class TagListVM: NSObject {
         let isValidConfirmPassword = Validator.validateTripComplex(tripComp: tripComp)
 
         guard imageSelected == true else {
-            //Singleton.showMessage(message: "Please select at leaset one video or image to post", isError: .error)
-            Singleton.shared.showAlert(message: "Please select at leaset one video or image to post", controller: controller, Title: self.Title)
+            //Singleton.showMessage(message: "Please select at least one video or image to post", isError: .error)
+            Singleton.shared.showAlert(message: "Please select at least one video or image to post", controller: controller, Title: self.Title)
             return false
         }
         guard isvalidUsername.0 == true else {

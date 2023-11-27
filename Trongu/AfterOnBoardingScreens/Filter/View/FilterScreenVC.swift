@@ -40,6 +40,7 @@ class FilterScreenVC: UIViewController {
         multislider.addTarget(self, action: #selector(sliderChanged), for: .valueChanged)
         setPicker()
         setViewModel()
+        numberOfDaysTF.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -320,6 +321,39 @@ extension FilterScreenVC: UITextFieldDelegate {
             default: break
             }
         }
+    
+    
+    // UITextFieldDelegate method to detect the "@" symbol
+      func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+          if textField == numberOfDaysTF{
+              let newText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+              
+              if string.isEmpty {
+                  return true
+              }
+
+              // Check if the first character of the entered text is '0'
+              if numberOfDaysTF.text?.count ?? 0 > 0{
+                  
+              }else{
+                  
+                  if let firstCharacter = string.first, firstCharacter == "0" {
+                      // Reject the input by returning false
+                      return false
+                  }
+                  
+              }
+              
+             if newText.count > 10{
+                 Singleton.showMessage(message: "maximum limit reached.", isError: .error)
+             }
+              return newText.count < 11
+              
+          }
+
+          return true
+      }
     
 }
 

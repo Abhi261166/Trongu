@@ -119,22 +119,23 @@ extension YPSelectionsGalleryVC: UICollectionViewDelegate {
             }
         }
         
-        if let mediaFilterVC = mediaFilterVC as? UIViewController {
-                    let navVC = UINavigationController(rootViewController: mediaFilterVC)
-                    navVC.navigationBar.isTranslucent = false
-                    navVC.modalPresentationStyle = .overFullScreen
-                    navVC.view.backgroundColor = .white
-                    present(navVC, animated: true, completion: nil)
+        mediaFilterVC?.didSave = { outputMedia in
+            self.items[indexPath.row] = outputMedia
+            collectionView.reloadData()
+            self.dismiss(animated: true, completion: nil)
         }
-        
         mediaFilterVC?.didCancel = {
             self.dismiss(animated: true, completion: nil)
         }
+        
         if let mediaFilterVC = mediaFilterVC as? UIViewController {
             let navVC = UINavigationController(rootViewController: mediaFilterVC)
             navVC.navigationBar.isTranslucent = false
+            navVC.modalPresentationStyle = .overFullScreen
+            navVC.view.backgroundColor = .white
             present(navVC, animated: true, completion: nil)
         }
+        
     }
     
     // Set "paging" behaviour when scrolling backwards.

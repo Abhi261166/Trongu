@@ -201,9 +201,14 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         }
     }
     
+    
+    
+    
+    
+    
     func validateSignUpDetails() -> Bool {
-        let isvalidUsername = Validator.validateUserName(name: userNameTF.text ?? "")
-        let isvalidname = Validator.validateName(name: nameTF.text ?? "")
+        let isvalidUsername = Validator.validateUserName(name: userNameTF.text?.trim ?? "")
+        let isvalidname = Validator.validateName(name: nameTF.text?.trim ?? "")
         
         let isvalidEmail = Validator.validateEmail(candidate: emailAddressTF.text ?? "")
         let isValidPassword = Validator.validateOldPassword(password: passwordTF.text ?? "")
@@ -217,7 +222,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         guard isvalidUsername.0 == true else {
             
            // Singleton.showMessage(message: "\(isvalidUsername.1)", isError: .error)
-            Singleton.shared.showAlert(message: "\(isvalidUsername.1)", controller: self, Title: self.viewModel?.title ?? "")
+            Singleton.shared.showAlert(message: "Please enter valid username.", controller: self, Title: self.viewModel?.title ?? "")
             
             print("isvalidUsername  \(isvalidUsername)")
             return false
@@ -372,9 +377,9 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     //    }
     
     func validateSignUpDetailSocial() -> Bool {
-        let isvalidUsername = Validator.validateUserName(name: userNameTF.text ?? "")
+        let isvalidUsername = Validator.validateUserName(name: userNameTF.text?.trim ?? "")
 
-        let isvalidname = Validator.validateName(name: nameTF.text ?? "")
+        let isvalidname = Validator.validateName(name: nameTF.text?.trim ?? "")
 //        let isvalidEmail = Validator.validateEmail(candidate: emailAddressTF.text ?? "")
 //        let isValidPassword = Validator.validateOldPassword(password: passwordTF.text ?? "")
 //        let isValidConPassword = Validator.validateOldPassword(password: confirmPasswordTF.text ?? "")
@@ -393,7 +398,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         guard isvalidUsername.0 == true else {
           //  Singleton.showMessage(message: "\(isvalidUsername.1)", isError: .error)
-            Singleton.shared.showAlert(message: "\(isvalidUsername.1)", controller: self, Title: self.viewModel?.title ?? "")
+            Singleton.shared.showAlert(message: "Please enter valid username.", controller: self, Title: self.viewModel?.title ?? "")
             
             print("isvalidUsername  \(isvalidUsername)")
             return false
@@ -981,20 +986,55 @@ extension SignUpVC : UITextFieldDelegate {
             }
         }
         else if textField == userNameTF{
-            if  string == " " {
 
-                    return false
-                }else{
-                  return true
-                }
+            
+            let updatedText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
+                return isValidUsername(updatedText)
+
+        }else if textField == nameTF{
+           
+            let currentText = textField.text ?? ""
+            let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
+                 
+            return isValidname(newText, currntString: string)
+
         }
         else {
             return true
         }
     }
     
+    
+    func isValidUsername(_ username: String) -> Bool {
+           let usernameRegex = "^[a-zA-Z0-9_]{0,20}$"
+           let usernameTest = NSPredicate(format: "SELF MATCHES %@", usernameRegex)
+           return usernameTest.evaluate(with: username)
+       }
 
+    func isValidname(_ name: String, currntString:String) -> Bool {
+           
+        let containsEmoji = currntString.containsEmoji()
+           let isEmoji = !containsEmoji
+           let isValidLength = name.count <= 20
+        
+        if isEmoji && isValidLength {
+            return true
+        }else{
+            return false
+        }
+           
+       }
+    
+       // You can also implement other UITextFieldDelegate methods if needed
+
+       // For example, to dismiss the keyboard when the Return key is pressed
+       func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+           textField.resignFirstResponder()
+           return true
+       }
+    
 }
+
 extension UITextField {
     
     func addInputViewDatePicker(target: Any, selector: Selector) {

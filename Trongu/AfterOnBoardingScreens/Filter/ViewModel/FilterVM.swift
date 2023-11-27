@@ -44,9 +44,9 @@ class FilterVM: NSObject {
                         
                         self.arrNoOfDays.append(contentsOf: decoded.numberOfDays)
                         
-                        let tripCategoryFirstValue = Category(id: "", noOfDays: "", status: "", createdAt: "", name: "Slelect trip category")
+                        let tripCategoryFirstValue = Category(id: "", noOfDays: "", status: "", createdAt: "", name: "Select trip category")
                         self.arrTripCategory.append(tripCategoryFirstValue)
-                        let tripComplexityFirstValue = Category(id: "", noOfDays: "", status: "", createdAt: "", name: "Slelect trip complexity")
+                        let tripComplexityFirstValue = Category(id: "", noOfDays: "", status: "", createdAt: "", name: "Select trip complexity") //complexity
                         self.arrTripComplexity.append(tripComplexityFirstValue)
                         
                         self.arrTripCategory.append(contentsOf: decoded.tripCategory)
@@ -72,7 +72,7 @@ class FilterVM: NSObject {
                     do {
                         let decoded = try decoder.decode(SignUpCatModel.self, from: data)
                         
-                        let ethnicityFirstValue = SignUpCatItem(id: "", name: "Slelect trip ethnicity", status: "", createdAt: "", genderName: "")
+                        let ethnicityFirstValue = SignUpCatItem(id: "", name: "Select trip ethnicity", status: "", createdAt: "", genderName: "")
                         self.arrEthnicity.append(ethnicityFirstValue)
                         self.arrEthnicity.append(contentsOf: decoded.ethnicity)
                         self.observer?.observeGetCategoriesListSucessfull()

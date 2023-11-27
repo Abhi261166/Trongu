@@ -248,6 +248,12 @@ extension FollowersVC: UITableViewDelegate,UITableViewDataSource{
                     break
                 }
                 
+                if dict?.otherID == UserDefaultsCustom.getUserData()?.id{
+                    cell.followButton.isHidden = true
+                }else{
+                    cell.followButton.isHidden = false
+                }
+                
                 cell.followButton.tag = indexPath.row
                 cell.followButton.addTarget(self, action: #selector(actionFollowUnfollow), for: .touchUpInside)
                 
@@ -280,6 +286,12 @@ extension FollowersVC: UITableViewDelegate,UITableViewDataSource{
                     cell.followButton.backgroundColor = UIColor(named: "OrengeAppColour")
                 default:
                     break
+                }
+                
+                if dict?.otherID == UserDefaultsCustom.getUserData()?.id{
+                    cell.followButton.isHidden = true
+                }else{
+                    cell.followButton.isHidden = false
                 }
                 
                 cell.followButton.tag = indexPath.row

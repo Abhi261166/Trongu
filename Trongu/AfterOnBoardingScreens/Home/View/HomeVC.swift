@@ -418,7 +418,7 @@ extension HomeVC: HomeTVCellDelegate{
         
     }
     
-    func didTapLike(_ indexPath: IndexPath) {
+    func didTapLike(_ indexPath: IndexPath, likeCount: String?) {
         
         if self.viewModel?.arrPostList.count == 0{
             
@@ -426,7 +426,9 @@ extension HomeVC: HomeTVCellDelegate{
             
         }else{
             
-            self.viewModel?.apiLikePost(postId: self.viewModel?.arrPostList[indexPath.row].id ?? "", type: "1")
+           // self.viewModel?.apiLikePost(postId: self.viewModel?.arrPostList[indexPath.row].id ?? "", type: "1")
+            
+            self.viewModel?.apiLikePost(indexPath, postId: self.viewModel?.arrPostList[indexPath.row].id ?? "", type: "1", likeCount: likeCount)
             
         }
     }
@@ -488,7 +490,7 @@ extension HomeVC: HomeTVCellDelegate{
         }
     }
     
-    func didTapDislike(_ indexPath: IndexPath) {
+    func didTapDislike(_ indexPath: IndexPath, likeCount: String?) {
         
         if self.viewModel?.arrPostList.count == 0{
             
@@ -496,7 +498,9 @@ extension HomeVC: HomeTVCellDelegate{
             
         }else{
             
-            self.viewModel?.apiLikePost(postId: self.viewModel?.arrPostList[indexPath.row].id ?? "", type: "2")
+          //  self.viewModel?.apiLikePost(postId: self.viewModel?.arrPostList[indexPath.row].id ?? "", type: "2")
+            self.viewModel?.apiLikePost(indexPath, postId: self.viewModel?.arrPostList[indexPath.row].id ?? "", type: "2", likeCount: likeCount)
+
             
         }
     }
@@ -618,19 +622,83 @@ extension HomeVC:HomeVMObserver{
         
     }
     
-    func observeLikedSucessfull() {
+    func observeLikedSucessfull(_ indexPath: IndexPath, likeCount: String?, type: String) {
         if comeFrom{
-            self.viewModel?.arrPostList = []
-            self.viewModel?.pageNo = 0
-            self.viewModel?.apiProfilePostDetails(type: "1", userId: "")
+//            self.viewModel?.arrPostList = []
+//            self.viewModel?.pageNo = 0
+//            self.viewModel?.apiProfilePostDetails(type: "1", userId: "")
+            
+            if type == "1"{
+                if self.viewModel?.arrPostList[indexPath.row].isLike == "0"{
+                    self.viewModel?.arrPostList[indexPath.row].isLike = "1"
+                }else{
+                    self.viewModel?.arrPostList[indexPath.row].isLike = "0"
+                }
+                self.viewModel?.arrPostList[indexPath.row].post_like_count = likeCount ?? ""
+           
+            }else{
+                
+                if self.viewModel?.arrPostList[indexPath.row].isLike == "2"{
+                    self.viewModel?.arrPostList[indexPath.row].isLike = "0"
+                }else{
+                    self.viewModel?.arrPostList[indexPath.row].isLike = "2"
+                }
+                
+                self.viewModel?.arrPostList[indexPath.row].post_like_count = likeCount ?? ""
+                
+            }
+            
+            
         }else{
             if comeFromFilter{
-                print("Data not changed")
-                self.viewModel?.pageNo = 0
-                self.viewModel?.apiFilterHomePostList(place: place, budget: budget, noOfDays: noOfDays, tripCat: tripCat, ethnicity: ethnicity, complexity: complexity)
+//                print("Data not changed")
+//                self.viewModel?.pageNo = 0
+//                self.viewModel?.apiFilterHomePostList(place: place, budget: budget, noOfDays: noOfDays, tripCat: tripCat, ethnicity: ethnicity, complexity: complexity)
+                
+                if type == "1"{
+                    if self.viewModel?.arrPostList[indexPath.row].isLike == "0"{
+                        self.viewModel?.arrPostList[indexPath.row].isLike = "1"
+                    }else{
+                        self.viewModel?.arrPostList[indexPath.row].isLike = "0"
+                    }
+                    self.viewModel?.arrPostList[indexPath.row].post_like_count = likeCount ?? ""
+               
+                }else{
+                    
+                    if self.viewModel?.arrPostList[indexPath.row].isLike == "2"{
+                        self.viewModel?.arrPostList[indexPath.row].isLike = "0"
+                    }else{
+                        self.viewModel?.arrPostList[indexPath.row].isLike = "2"
+                    }
+                    
+                    self.viewModel?.arrPostList[indexPath.row].post_like_count = likeCount ?? ""
+                    
+                }
+
                 
             }else{
-                self.apiCall()
+                
+               // self.apiCall()
+                if type == "1"{
+                    if self.viewModel?.arrPostList[indexPath.row].isLike == "0"{
+                        self.viewModel?.arrPostList[indexPath.row].isLike = "1"
+                    }else{
+                        self.viewModel?.arrPostList[indexPath.row].isLike = "0"
+                    }
+                    self.viewModel?.arrPostList[indexPath.row].post_like_count = likeCount ?? ""
+               
+                }else{
+                    
+                    if self.viewModel?.arrPostList[indexPath.row].isLike == "2"{
+                        self.viewModel?.arrPostList[indexPath.row].isLike = "0"
+                    }else{
+                        self.viewModel?.arrPostList[indexPath.row].isLike = "2"
+                    }
+                    
+                    self.viewModel?.arrPostList[indexPath.row].post_like_count = likeCount ?? ""
+                    
+                }
+                
             }
         }
     }

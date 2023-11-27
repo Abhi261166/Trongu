@@ -9,7 +9,7 @@ import Foundation
 
 protocol HomeVMObserver: NSObjectProtocol {
     func observeGetHomeDataSucessfull()
-    func observeLikedSucessfull()
+    func observeLikedSucessfull(_ indexPath: IndexPath, likeCount: String?,type:String)
     func observeGetProfilePostsSucessfull()
     func observeAddedToBucket()
     
@@ -119,7 +119,7 @@ class HomeVM: NSObject {
     
     //MARK: - like Post APi -
     
-    func apiLikePost(postId:String,type:String) {
+    func apiLikePost(_ indexPath: IndexPath, postId: String,type: String, likeCount: String?) {
         var params = JSON()
         params["post_id"] = postId
         params["type"] = type
@@ -133,7 +133,7 @@ class HomeVM: NSObject {
                 //       ActivityIndicator.shared.hideActivityIndicator()
                 if let self = self{
                     if succeeded == true {
-                        self.observer?.observeLikedSucessfull()
+                        self.observer?.observeLikedSucessfull(indexPath, likeCount: likeCount, type: type)
                     } else {
                         if let message = response["message"] as? String {
                             self.showMessage(message: message, isError: .error)
@@ -201,7 +201,7 @@ class HomeVM: NSObject {
                 if let self = self{
                     if succeeded == true {
                         if let message = response["message"] as? String {
-                            self.showMessage(message: message, isError: .success)
+                            self.showMessage(message: "Post added successfully in bucket", isError: .success)
                         }
                         self.observer?.observeAddedToBucket()
                     } else {

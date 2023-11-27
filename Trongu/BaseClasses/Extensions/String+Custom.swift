@@ -823,3 +823,13 @@ extension String {
 //  
 //}
 
+extension String {
+    func containsEmoji() -> Bool {
+        for scalar in unicodeScalars {
+            if scalar.properties.isEmoji {
+                return true
+            }
+        }
+        return false
+    }
+}

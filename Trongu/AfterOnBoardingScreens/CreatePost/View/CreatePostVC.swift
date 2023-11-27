@@ -86,7 +86,6 @@ class CreatePostVC: UIViewController{
               
     }
           
-          
           func addDoneButtonToPickerView() {
                   let toolbar = UIToolbar()
                   toolbar.sizeToFit()
@@ -133,6 +132,8 @@ class CreatePostVC: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
        
+        calculateTime()
+        
         self.viewModel?.apiGetCategoriesList(type: 1)
         
         if comeFrom == "Edit"{
@@ -145,6 +146,39 @@ class CreatePostVC: UIViewController{
             removeData()
         }
     }
+        
+    }
+    
+    
+    
+    func calculateTime(){
+       
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yy"
+
+        let dates = self.myPost.first?.postImagesVideo.map { $0.date }.compactMap { dateFormatter.date(from: $0) }
+
+        if let minDate = dates?.min(), let maxDate = dates?.max() {
+            let minDateString = dateFormatter.string(from: minDate)
+            let maxDateString = dateFormatter.string(from: maxDate)
+
+            print("Minimum Date: \(minDateString)")
+            print("Maximum Date: \(maxDateString)")
+            
+               let calendar = Calendar.current
+               let components = calendar.dateComponents([.day], from: minDate, to: maxDate)
+
+               if let numberOfDays = components.day {
+                   print("Number of Days between Minimum and Maximum Dates: \(numberOfDays) days")
+                   txtNoOffDays.text = "\(numberOfDays + 1)"
+                   
+               } else {
+                   print("Error calculating the number of days.")
+               }
+            
+        } else {
+            print("No valid dates in the array.")
+        }
         
     }
     
@@ -375,7 +409,7 @@ class CreatePostVC: UIViewController{
             vc.hidesBottomBarWhenPushed = true
             self.pushViewController(vc, true)
         }else{
-            Singleton.shared.showAlert(message: "Please select at leaset one video or image to post", controller: self, Title: self.viewModel?.Title ?? "")
+            Singleton.shared.showAlert(message: "Please select at least one video or image to post", controller: self, Title: self.viewModel?.Title ?? "")
            // Singleton.showMessage(message: "Please select atleast one video or image to post", isError: .error)
         }
        
@@ -388,7 +422,7 @@ extension CreatePostVC:UITextFieldDelegate{
     // UITextFieldDelegate method to detect the "@" symbol
       func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
-          if textField == txtBudget{
+          if textField == txtBudget || textField == txtNoOffDays{
               let newText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
               
               if string.isEmpty {
@@ -396,7 +430,7 @@ extension CreatePostVC:UITextFieldDelegate{
               }
 
               // Check if the first character of the entered text is '0'
-              if txtBudget.text?.count ?? 0 > 0{
+              if textField.text?.count ?? 0 > 0{
                   
               }else{
                   

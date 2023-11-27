@@ -49,22 +49,26 @@ class Validator {
     
     static public func validateUserName(name: String) -> (Bool,String) {
       
-        let maxLength = 20 // Maximum allowed length for full name
+//        let maxLength = 20 // Maximum allowed length for full name
+//        
+//           // Trim any leading or trailing whitespaces
+//           let trimmedFullName = name.trimmingCharacters(in: .whitespacesAndNewlines)
+//           
+//        guard trimmedFullName.count <= maxLength   else {
+//            return (false, "Please enter at maximum 20 Characters for username")
+//        }
+//        guard name.count > 0  else {
+//            return (false, "Please enter username")
+//        }
+//        guard name.count > 3  else {
+//            return (false, "Please enter at least four Characters for username")
+//        }
         
-           // Trim any leading or trailing whitespaces
-           let trimmedFullName = name.trimmingCharacters(in: .whitespacesAndNewlines)
-           
-        guard trimmedFullName.count <= maxLength   else {
-            return (false, "Please enter at maximum 20 Characters for username")
-        }
-        guard name.count > 0  else {
-            return (false, "Please enter username")
-        }
-        guard name.count > 3  else {
-            return (false, "Please enter at least four Characters for username")
-        }
+        let usernameRegex = "^[a-zA-Z0-9_]{4,20}$"
+        let usernameTest = NSPredicate(format: "SELF MATCHES %@", usernameRegex)
         
-        return (true, "")
+        return (usernameTest.evaluate(with: name), "")
+        
     }
     
     static public func validateLearnReson(learnReason: String) -> (Bool,String) {

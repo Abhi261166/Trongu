@@ -146,7 +146,7 @@ class PostVM: NSObject {
                let dictPlace : [String
                            :Any] = [
                  "key": "image[\(index)][place]",
-                 "value": address[index],
+                 "value": arrPosts2[index].place,
                  "type": "text"
                ]
                arrImagesDict.append(dictPlace)
@@ -460,7 +460,7 @@ class PostVM: NSObject {
                let dictPlace : [String
                            :Any] = [
                  "key": "image[\(index)][place]",
-                 "value": address[index],
+                 "value": arrPosts2[index].place,
                  "type": "text"
                ]
                arrImagesDict.append(dictPlace)

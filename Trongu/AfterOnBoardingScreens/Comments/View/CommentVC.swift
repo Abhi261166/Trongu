@@ -28,6 +28,8 @@ class CommentVC: UIViewController {
     var keyboardHieght : CGFloat?
     var keyboard: KeyboardVM?
     
+    var completion : (() -> Void)? = nil
+    
 
     //MARK: - LifeCycle Methods -
     
@@ -85,7 +87,13 @@ class CommentVC: UIViewController {
     //MARK: - IB Actions -
 
     @IBAction func backAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        
+        if let completion = completion{
+            popVC()
+            completion()
+            
+        }
+        
     }
     
     @IBAction func actionSendComment(_ sender: UIButton) {
@@ -94,8 +102,6 @@ class CommentVC: UIViewController {
         guard comment.count > 0 else { return }
         self.viewModel?.apiSendComment(postId: postId ?? "", comment: comment, replyToId: replyToId, commentId: commentId, isReply: isReply)
     }
-    
-   
     
 }
 

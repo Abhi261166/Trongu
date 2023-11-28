@@ -40,9 +40,7 @@ class HomeVC: UIViewController {
         setViewModel()
         
         if comeFromFilter{
-            
             print("Come from filter")
-            
         }else{
             
             if comeFrom{
@@ -94,9 +92,6 @@ class HomeVC: UIViewController {
               //  apiCall()
             }
         }
-        
-       
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -358,6 +353,9 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
         
         let vc = CommentVC()
         vc.postId = self.viewModel?.arrPostList[sender.tag].id
+        vc.completion = {
+            self.apiCall()
+        }
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
 
@@ -442,6 +440,9 @@ extension HomeVC: HomeTVCellDelegate{
             
             let vc = CommentVC()
             vc.postId = self.viewModel?.arrPostList[indexPath.row].id
+            vc.completion = {
+                self.apiCall()
+            }
             vc.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
         }
@@ -484,8 +485,6 @@ extension HomeVC: HomeTVCellDelegate{
             Singleton.shared.showErrorMessage(error: "Unable to connect with the server. Check your internet connection and try again.", isError: .error)
             
         }else{
-            
-            
             self.viewModel?.apiAddTobucket(postId: self.viewModel?.arrPostList[indexPath.row].id ?? "")
         }
     }

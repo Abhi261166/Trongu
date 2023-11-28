@@ -157,8 +157,8 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
                 cell.btnDeleteRecent.isHidden = false
                 cell.btnDeleteRecent.tag = indexPath.row
                 cell.btnDeleteRecent.addTarget(self, action: #selector(actionDeleteFromRecent), for: .touchUpInside)
-                
                 cell.profileImage.setImage(image: dictRecentSearch?.image,placeholder:UIImage(named: "ic_profilePlaceHolder"))
+                
             }
             
         }else{

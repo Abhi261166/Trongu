@@ -24,6 +24,18 @@ class MapCVC: UICollectionViewCell,MKMapViewDelegate{
         
         mapView.delegate = self
         mapView.mapType = .hybrid
+        
+        DispatchQueue.main.async {
+            
+            if self.post.count != 0{
+                for item in self.mapView.annotations{
+                    if item.coordinate.latitude == self.initialLat{
+                        self.mapView.selectAnnotation(item, animated: true)
+                    }
+                }
+            }
+        }
+        
     }
     
     

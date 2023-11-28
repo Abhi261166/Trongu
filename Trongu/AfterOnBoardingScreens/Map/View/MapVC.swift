@@ -27,9 +27,30 @@ class MapVC: UIViewController,MKMapViewDelegate {
 //        mapView.overrideUserInterfaceStyle = .dark
 //        locationManager = CLLocationManager()
 //        locationManager.requestWhenInUseAuthorization()
+        
+        mapView.showsUserLocation = false
+        
         setLatLongData()
       
         }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        DispatchQueue.main.async {
+            
+            for item in self.mapView.annotations{
+                
+                if item.coordinate.latitude == self.initialLat{
+                    self.mapView.selectAnnotation(item, animated: true)
+                    
+                }
+                
+            }
+                
+        }
+        
+    }
     
     func setLatLongData(){
        // self.post = post
@@ -111,6 +132,11 @@ class MapVC: UIViewController,MKMapViewDelegate {
         return MKOverlayRenderer(overlay: overlay)
     }
     
+    func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
+        
+        print("Point selected")
+        
+    }
     
     func getAddressFromLatLong(latitude: Double, longitude: Double, completion: @escaping (String?) -> Void) {
         let location = CLLocation(latitude: latitude, longitude: longitude)

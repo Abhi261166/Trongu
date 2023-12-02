@@ -11,6 +11,13 @@ protocol CreateRoomObserver: NSObjectProtocol {
     func observeCreateRoom(model: ChatUserData ,sender:UIButton?)
 }
 
+protocol CreateRoomObserverImages: NSObjectProtocol {
+    func observeCreateRoomImages(model: ChatUserData ,sender:UIButton?,postImages: [PickerData])
+}
+protocol CreateRoomObserverCapturedImages: NSObjectProtocol {
+    func observeCreateRoomCapturedImages(model: ChatUserData ,sender:UIButton?,postImages: PickerData?)
+}
+
 protocol ChatVMObserver: NSObjectProtocol {
     func observerListMessages(image:String)
     func observerRemoveHeader()
@@ -63,6 +70,82 @@ class ChatVM: NSObject {
                            
                             if let model = decoded?.data {
                                 observer?.observeCreateRoom(model: model, sender: sender)
+                            }
+                           
+                        } catch {
+                            print("error", error)
+                        }
+                    } else {
+                        if let message = response["message"] as? String {
+                            self.showMessage(message: message, isError: .error)
+                        }
+                    }
+            
+            }
+        }
+    }
+    
+    // cerate room for images
+    
+    class func apiCreateRoomImages(otherUserId: String, observer: CreateRoomObserverImages?,sender:UIButton?,postImages: [PickerData] = []) {
+        var params = JSON()
+       
+        params["other_id"] = otherUserId
+      
+        print("params : ", params)
+//        add loader
+      //  ActivityIndicator.shared.showActivityIndicator()
+        ApiHandler.callWithMultipartForm(apiName: API.Name.createRoom, params: params) { succeeded, response, data in
+            DispatchQueue.main.async {
+//        remove loader
+      //  ActivityIndicator.shared.hideActivityIndicator()
+             
+                    if succeeded == true, let data {
+                        let decoder = JSONDecoder()
+                        do {
+                            
+                            let decoded = try? decoder.decode(CreateRoomModel.self, from: data)
+                           
+                            if let model = decoded?.data {
+                                observer?.observeCreateRoomImages(model: model, sender: sender,postImages: postImages)
+                            }
+                           
+                        } catch {
+                            print("error", error)
+                        }
+                    } else {
+                        if let message = response["message"] as? String {
+                            self.showMessage(message: message, isError: .error)
+                        }
+                    }
+            
+            }
+        }
+    }
+    
+    // cerate room for captured images
+    
+    class func apiCreateRoomCapturedImages(otherUserId: String, observer: CreateRoomObserverCapturedImages?,sender:UIButton?,postImages: PickerData?) {
+        var params = JSON()
+       
+        params["other_id"] = otherUserId
+      
+        print("params : ", params)
+//        add loader
+        //ActivityIndicator.shared.showActivityIndicator()
+        ApiHandler.callWithMultipartForm(apiName: API.Name.createRoom, params: params) { succeeded, response, data in
+            DispatchQueue.main.async {
+//        remove loader
+       // ActivityIndicator.shared.hideActivityIndicator()
+             
+                    if succeeded == true, let data {
+                        let decoder = JSONDecoder()
+                        do {
+                            
+                            let decoded = try? decoder.decode(CreateRoomModel.self, from: data)
+                           
+                            if let model = decoded?.data {
+                                observer?.observeCreateRoomCapturedImages(model: model, sender: sender,postImages: postImages)
                             }
                            
                         } catch {

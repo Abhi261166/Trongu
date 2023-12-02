@@ -152,7 +152,7 @@ extension CommentVC: UITableViewDelegate,UITableViewDataSource{
             cell.btnProfileImage.tag = indexPath.section
             cell.btnProfileImage.addTarget(target: self, action: #selector(imageTapped))
             
-            cell.lblName.text = dict?.name
+            cell.lblName.text = dict?.username
             cell.lblComment.text = dict?.comment
             let timestamp = Int(dict?.createdAt ?? "") ?? 0
             let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
@@ -192,9 +192,7 @@ extension CommentVC: UITableViewDelegate,UITableViewDataSource{
             
             cell1.btnProfileImage.tag = 1000*indexPath.section + (indexPath.row - 1)
             cell1.btnProfileImage.addTarget(target: self, action: #selector(replyImageTapped))
-            
-            
-            cell1.nameLabel.text = dict?.name
+            cell1.nameLabel.text = dict?.userName
             cell1.massageLabel.text = dict?.comment
             let timestamp = Int(dict?.createdAt ?? "") ?? 0
             let date = Date(timeIntervalSince1970: TimeInterval(timestamp))

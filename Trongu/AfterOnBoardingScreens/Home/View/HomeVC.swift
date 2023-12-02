@@ -215,7 +215,7 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
             let dict = self.viewModel?.arrPostList[indexPath.row]
             
             cell.otherUserProfileImage.setImage(image: dict?.userDetail.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
-            cell.lblName.text = dict?.userDetail.name
+            cell.lblName.text = dict?.userDetail.userName
             cell.lblTripComplexity.text = dict?.trip_complexity_name
             cell.lblDesc.text = dict?.description
             

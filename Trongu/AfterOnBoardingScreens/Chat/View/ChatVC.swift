@@ -169,6 +169,8 @@ class ChatVC: UIViewController {
     
     @IBAction func actionSelectMedia(_ sender: UIButton) {
         
+        self.viewModel?.imageData = []
+        
         self.txtVwMessage.resignFirstResponder()
         self.viewModel?.imagePicker.mediaType = .both
         self.viewModel?.imagePicker.setImagePicker(controller: self, delegate: self)
@@ -226,14 +228,24 @@ extension ChatVC: ImagePickerDelegate {
             }
         }
         print("post images are ******** \(postImages.count)")
-        self.viewModel?.imageData = postImages
         
-        if postImages.first?.fileName?.isImageType == false{
+        if self.viewModel?.roomId != ""{
             
-            self.viewModel?.apiSendMessagesWithVideo(type: 3, sender: UIButton())
+            guard IJReachability.isConnectedToNetwork() == true else {
+                Singleton.shared.showErrorMessage(error: AlertMessage.NO_INTERNET_CONNECTION, isError: .error)
+                return
+            }
+            self.viewModel?.imageData = postImages
+            if postImages.first?.fileName?.isImageType == false{
+                self.viewModel?.apiSendMessagesWithVideo(type: 3, sender: UIButton())
+            }else{
+                self.viewModel?.apiSendMessagesWithImges(type: 2, sender: UIButton())
+            }
             
         }else{
-            self.viewModel?.apiSendMessagesWithImges(type: 2, sender: UIButton())
+            
+            ChatVM.apiCreateRoomImages(otherUserId: self.viewModel?.otherUserId ?? "", observer: self, sender: UIButton(),postImages: postImages)
+            
         }
         
     }
@@ -244,17 +256,17 @@ extension ChatVC: ImagePickerDelegate {
                 pickerData.id = pickerData.fileName
             }
             print("id is **** \(pickerData.id)")
+           
+            if self.viewModel?.roomId != ""{
             self.viewModel?.imageData.append(pickerData)
-            
             if pickerData.fileName?.isImageType == false{
-                
                 self.viewModel?.apiSendMessagesWithVideo(type: 3, sender: UIButton())
-                
             }else{
                 self.viewModel?.apiSendMessagesWithImges(type: 2, sender: UIButton())
-                
             }
-
+            }else{
+                ChatVM.apiCreateRoomCapturedImages(otherUserId: self.viewModel?.otherUserId ?? "", observer: self, sender: UIButton(),postImages: pickerData)
+            }
         }
     }
     
@@ -347,8 +359,6 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                         return cell
                     
                 }
-                
-                
                 
             case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "MediaTVCell", for: indexPath) as? MediaTVCell
@@ -917,6 +927,43 @@ extension ChatVC: CreateRoomObserver{
         let message = (txtVwMessage.text ?? "").trim
             guard message.count > 0 else { return }
         self.viewModel?.apiSendMessages(message: message, type: 1, sender: UIButton(), postId: "")
+    }
+    
+}
+
+extension ChatVC:CreateRoomObserverImages{
+    func observeCreateRoomImages(model: ChatUserData, sender: UIButton?, postImages: [PickerData]) {
+        self.viewModel?.roomId = model.roomID
+        
+        self.viewModel?.imageData = postImages
+        
+        if postImages.first?.fileName?.isImageType == false{
+            
+            self.viewModel?.apiSendMessagesWithVideo(type: 3, sender: UIButton())
+            
+        }else{
+            self.viewModel?.apiSendMessagesWithImges(type: 2, sender: UIButton())
+        }
+    }
+       
+}
+
+extension ChatVC:CreateRoomObserverCapturedImages{
+    
+    func observeCreateRoomCapturedImages(model: ChatUserData, sender: UIButton?, postImages: PickerData?) {
+        
+        self.viewModel?.roomId = model.roomID
+        self.viewModel?.imageData.append(postImages!)
+        if postImages?.fileName?.isImageType == false{
+            
+            self.viewModel?.apiSendMessagesWithVideo(type: 3, sender: UIButton())
+            
+        }else{
+            
+            self.viewModel?.apiSendMessagesWithImges(type: 2, sender: UIButton())
+            
+        }
+        
     }
     
 }

@@ -227,8 +227,8 @@ extension FollowersVC: UITableViewDelegate,UITableViewDataSource{
                 cell.userNameLabel.text = dict?.userName
                 cell.nameLabel.text = dict?.name
                 
-//                cell.followButton.backgroundColor = #colorLiteral(red: 0.8666666667, green: 0.8666666667, blue: 0.8666666667, alpha: 0.7)
-//                cell.followButton.setTitle("Remove", for: .normal)
+                //                cell.followButton.backgroundColor = #colorLiteral(red: 0.8666666667, green: 0.8666666667, blue: 0.8666666667, alpha: 0.7)
+                //                cell.followButton.setTitle("Remove", for: .normal)
                 cell.followButton.setTitleColor(.black, for: .normal)
                 
                 switch Int(dict?.isFollow ?? ""){
@@ -248,7 +248,7 @@ extension FollowersVC: UITableViewDelegate,UITableViewDataSource{
                     break
                 }
                 
-                if dict?.otherID == UserDefaultsCustom.getUserData()?.id{
+                if dict?.userID == UserDefaultsCustom.getUserData()?.id{
                     cell.followButton.isHidden = true
                 }else{
                     cell.followButton.isHidden = false
@@ -267,8 +267,8 @@ extension FollowersVC: UITableViewDelegate,UITableViewDataSource{
                 cell.nameLabel.text = dict?.name
                 
                 cell.followedByView.isHidden = true
-//                cell.followButton.backgroundColor = #colorLiteral(red: 0.8666666667, green: 0.8666666667, blue: 0.8666666667, alpha: 0.7)
-//                cell.followButton.setTitle("Following", for: .normal)
+                //                cell.followButton.backgroundColor = #colorLiteral(red: 0.8666666667, green: 0.8666666667, blue: 0.8666666667, alpha: 0.7)
+                //                cell.followButton.setTitle("Following", for: .normal)
                 cell.followButton.setTitleColor(.black, for: .normal)
                 
                 switch Int(dict?.isFollow ?? ""){
@@ -295,7 +295,7 @@ extension FollowersVC: UITableViewDelegate,UITableViewDataSource{
                 }
                 
                 cell.followButton.tag = indexPath.row
-                cell.followButton.addTarget(self, action: #selector(actionFollowUnfollow), for: .touchUpInside)
+                cell.followButton.addTarget(self, action: #selector(actionRemoveFromFollowing), for: .touchUpInside)
                 return cell
             }
             
@@ -343,17 +343,51 @@ extension FollowersVC: UITableViewDelegate,UITableViewDataSource{
     
     @objc func actionRemove(sender:UIButton){
         
-        self.viewModel?.apiRemoveFromFollower(userId: self.viewModel?.arrUser[sender.tag].userID ?? "")
+        if comeFrom == "ownProfile"{
+            
+            if isSelected == "Followers"{
+                
+                self.viewModel?.apiRemoveFromFollower(userId: self.viewModel?.arrUser[sender.tag].userID ?? "")
+                
+            }
+        }
     }
     
     @objc func actionRemoveFromFollowing(sender:UIButton){
         
-        self.viewModel?.apiUnfollow(userID: self.viewModel?.arrUser[sender.tag].otherID ?? "")
+        if comeFrom == "ownProfile"{
+            
+            if isSelected == "Followers"{
+                
+            }else{
+                self.viewModel?.apiUnfollow(userID: self.viewModel?.arrUser[sender.tag].otherID ?? "")
+            }
+        }else{
+            
+            if isSelected == "Followers"{
+                
+            }else{
+                self.viewModel?.apiUnfollow(userID: self.viewModel?.arrUser[sender.tag].otherID ?? "")
+            }
+            
+        }
+        
     }
     
     @objc func actionFollowUnfollow(sender:UIButton){
         
-        self.viewModel?.apiUnfollow(userID: self.viewModel?.arrUser[sender.tag].otherID ?? "")
+        if comeFrom == "ownProfile"{
+            
+            
+        }else{
+            
+            if isSelected == "Followers"{
+                self.viewModel?.apiUnfollow(userID: self.viewModel?.arrUser[sender.tag].userID ?? "")
+            }
+            
+        }
+        
+        
     }
     
     

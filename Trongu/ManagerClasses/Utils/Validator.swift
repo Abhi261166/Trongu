@@ -80,6 +80,15 @@ class Validator {
         return (true, "")
     }
     
+    static public func validateUserNameWhenEmpty(username: String) -> (Bool,String) {
+      
+        guard username.count > 0  else {
+            return (false, "Please enter username")
+        }
+        
+        return (true, "")
+    }
+    
     static public func validatePrice(price: String) -> (Bool,String) {
       
         guard price.count > 0  else {

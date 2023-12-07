@@ -277,6 +277,7 @@ class UserProfileVC: UIViewController,MKMapViewDelegate {
     
 }
 extension UserProfileVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if isSelected == "Gallery"{
             if self.viewModel?.arrPostList.count == 0{
@@ -296,6 +297,7 @@ extension UserProfileVC: UICollectionViewDelegate,UICollectionViewDataSource,UIC
             }
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
       //  if isSelected == "Gallery"{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OtherUserProfileCVCell", for: indexPath) as! OtherUserProfileCVCell
@@ -313,7 +315,6 @@ extension UserProfileVC: UICollectionViewDelegate,UICollectionViewDataSource,UIC
                 cell.lblAddress.text = address
                 
             }
-            
            
             return cell
             

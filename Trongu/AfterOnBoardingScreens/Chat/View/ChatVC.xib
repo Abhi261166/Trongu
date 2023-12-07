@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -70,16 +70,30 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ma-S5-1Gd">
+                                    <rect key="frame" x="40" y="0.0" width="308" height="45"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <connections>
+                                        <action selector="openOtherUserProfileAction:" destination="-1" eventType="touchUpInside" id="Jd6-71-FIq"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
+                                <constraint firstItem="3Ma-S5-1Gd" firstAttribute="centerY" secondItem="V8d-tC-meq" secondAttribute="centerY" id="00V-tx-8de"/>
                                 <constraint firstItem="vkT-TM-Wqw" firstAttribute="leading" secondItem="S7J-dO-X03" secondAttribute="trailing" constant="10" id="16o-uZ-xoS"/>
+                                <constraint firstItem="3Ma-S5-1Gd" firstAttribute="trailing" secondItem="9o5-wJ-UMw" secondAttribute="trailing" id="A1i-Q3-X5m"/>
+                                <constraint firstItem="3Ma-S5-1Gd" firstAttribute="top" secondItem="V8d-tC-meq" secondAttribute="top" id="ITq-U8-eB8"/>
                                 <constraint firstItem="9o5-wJ-UMw" firstAttribute="centerY" secondItem="V8d-tC-meq" secondAttribute="centerY" id="KPA-tX-YB0"/>
                                 <constraint firstItem="9o5-wJ-UMw" firstAttribute="leading" secondItem="vkT-TM-Wqw" secondAttribute="trailing" constant="15" id="Lu9-wy-1E2"/>
+                                <constraint firstAttribute="bottom" secondItem="3Ma-S5-1Gd" secondAttribute="bottom" id="OHZ-Sl-mJN"/>
                                 <constraint firstAttribute="trailing" secondItem="9o5-wJ-UMw" secondAttribute="trailing" constant="5" id="YWx-iR-Oh7"/>
                                 <constraint firstItem="vkT-TM-Wqw" firstAttribute="centerY" secondItem="V8d-tC-meq" secondAttribute="centerY" id="c7a-oz-Tiw"/>
                                 <constraint firstItem="S7J-dO-X03" firstAttribute="centerY" secondItem="V8d-tC-meq" secondAttribute="centerY" id="njW-HO-cgk"/>
                                 <constraint firstAttribute="height" constant="45" id="p9h-Ru-hiP"/>
+                                <constraint firstItem="3Ma-S5-1Gd" firstAttribute="leading" secondItem="vkT-TM-Wqw" secondAttribute="leading" id="tbX-xg-8KK"/>
                                 <constraint firstItem="S7J-dO-X03" firstAttribute="leading" secondItem="V8d-tC-meq" secondAttribute="leading" id="yb9-l5-VU9"/>
                             </constraints>
                         </view>
@@ -212,13 +226,18 @@
             <point key="canvasLocation" x="130.53435114503816" y="-11.267605633802818"/>
         </view>
     </objects>
+    <designables>
+        <designable name="Sbh-nB-h68">
+            <size key="intrinsicContentSize" width="-1" height="30"/>
+        </designable>
+    </designables>
     <resources>
         <image name="chatProfileImage" width="38" height="38"/>
         <image name="ic_Back" width="18.333333969116211" height="18"/>
         <image name="ic_SendComment" width="21" height="21"/>
         <image name="ic_selectMedia" width="17.666666030883789" height="15.666666984558105"/>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -235,6 +235,9 @@ class DetailVC: UIViewController {
     @IBAction func commentAction(_ sender: UIButton) {
         let vc = CommentVC()
         vc.postId = postIdFromApi
+        vc.completion = {
+            self.apiCall()
+        }
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -251,10 +254,9 @@ class DetailVC: UIViewController {
     
     
     @IBAction func mapAction(_ sender: UIButton) {
-//        let vc = MapVC()
-//        self.navigationController?.pushViewController(vc, animated: true)
-        
-        Singleton.shared.showErrorMessage(error: "Not implemented yet", isError: .message)
+
+        detailCollectionView.scrollToItem(at: IndexPath(item: self.viewModel?.postDetails?.postImagesVideo.count ?? 0, section: 0), at: .right, animated: true)
+     
     }
     
     @IBAction func bucketListAction(_ sender: UIButton) {
@@ -273,6 +275,20 @@ class DetailVC: UIViewController {
     
     @IBAction func actionShowProfile(_ sender: UIButton) {
         
+        if self.viewModel?.postDetails?.userDetail.id == UserDefaultsCustom.getUserData()?.id{
+           // self.navigationController?.tabBarController?.selectedIndex = 4
+            let vc = UserProfileVC()
+            vc.comeFrom = "Comment"
+            vc.hidesBottomBarWhenPushed = true
+            self.pushViewController(vc, true)
+            print("Own Profile")
+            
+        }else{
+            let vc = OtherUserProfileVC()
+            vc.userId = self.viewModel?.postDetails?.userDetail.id
+            vc.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         
     }
     
@@ -287,13 +303,32 @@ class DetailVC: UIViewController {
 
         self.viewModel?.apiLikePost(postId: postIdFromApi, type: "2")
     }
+    
+    @IBAction func PageControlDotAction(_ sender: UIPageControl) {
+        
+        var indexPath: IndexPath!
+        let current = pageControl.currentPage
+        indexPath = IndexPath(item: current, section: 0)
+        detailCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        
+    }
+    
+    
 }
 
 extension DetailVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel?.postDetails?.postImagesVideo.count ?? 0 + 1
+      
+        print("return cells is ---- ",self.viewModel?.postDetails?.postImagesVideo.count ?? 0 + 1)
         
-       // return self.postDetails?.postImagesVideo.count ?? 0 + 1
+        if self.viewModel?.postDetails?.postImagesVideo.count != nil{
+            
+            let returnValue = self.viewModel?.postDetails?.postImagesVideo.count ?? 0
+            
+            return returnValue + 1
+        }
+        
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -336,8 +371,21 @@ extension DetailVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollec
     }
   
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = ImageVideoLocationVC()
-        self.navigationController?.pushViewController(vc, animated: true)
+       
+        if indexPath.row == self.viewModel?.postDetails?.postImagesVideo.count{
+            print("In Map Cell")
+            let vc = MapVC()
+            vc.post = self.viewModel?.postDetails?.postImagesVideo
+            vc.initialLat = Double(self.viewModel?.postDetails?.postImagesVideo.first?.lat ?? "") ?? 0.0
+            vc.initialLong = Double(self.viewModel?.postDetails?.postImagesVideo.first?.long ?? "") ?? 0.0
+            vc.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else{
+            //            let vc = ImageVideoLocationVC()
+            //            vc.arrPost = arrPostImagesVideosList
+            //            vc.hidesBottomBarWhenPushed = true
+            //            controller?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     @objc func actionGoToPost(sender:UIButton){
@@ -356,9 +404,6 @@ extension DetailVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollec
 //        vc.hidesBottomBarWhenPushed = true
 //        controller?.navigationController?.pushViewController(vc, animated: true)
     }
-    
-    
-    
     
 }
 
@@ -386,9 +431,9 @@ extension DetailVC:DetailsVMObserver{
         
         let dict = post
         self.postIdFromApi = dict?.id ?? ""
-        self.pageControl.numberOfPages = (dict?.postImagesVideo.count ?? 0)
+        self.pageControl.numberOfPages = (dict?.postImagesVideo.count ?? 0) + 1
         self.imgUserProfile.setImage(image: dict?.userDetail.image,placeholder: UIImage(named: "ic_profilePlaceHolder"))
-        self.lblName.text = dict?.userDetail.name
+        self.lblName.text = dict?.userDetail.userName
         self.lblTripComplexity.text = dict?.trip_complexity_name
         self.lblDescription.text = dict?.description
         self.lblTimeAndAddress.text = "\(dict?.postImagesVideo.first?.date ?? "") \(dict?.postImagesVideo.first?.time ?? "") \(dict?.postImagesVideo.first?.place ?? "")"

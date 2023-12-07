@@ -269,12 +269,15 @@
                                                             <rect key="frame" x="134" y="2.3333333333333712" width="98" height="25.666666666666668"/>
                                                             <color key="pageIndicatorTintColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <color key="currentPageIndicatorTintColor" red="0.92941176469999998" green="0.57254901960000004" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <connections>
+                                                                <action selector="PageControlDotAction:" destination="-1" eventType="valueChanged" id="ezf-oq-EFz"/>
+                                                            </connections>
                                                         </pageControl>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="dSD-4f-om2">
-                                                            <rect key="frame" x="304" y="0.0" width="62" height="30"/>
+                                                            <rect key="frame" x="263" y="0.0" width="103" height="30"/>
                                                             <subviews>
-                                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="puP-qA-uGo">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="30"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="puP-qA-uGo">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="21" height="30"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" image="ic_Map"/>
                                                                     <connections>
@@ -282,7 +285,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XU0-GY-OcP">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="21" height="30"/>
+                                                                    <rect key="frame" x="41" y="0.0" width="21" height="30"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" image="ic_Bucket"/>
                                                                     <connections>
@@ -290,7 +293,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eO3-pu-CzF">
-                                                                    <rect key="frame" x="41" y="0.0" width="21" height="30"/>
+                                                                    <rect key="frame" x="82" y="0.0" width="21" height="30"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" image="ic_Dislike"/>
                                                                     <state key="selected" image="ic_disliked"/>

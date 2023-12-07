@@ -41,24 +41,24 @@ class FollowersVC: UIViewController,UITextFieldDelegate {
         self.followersTableView.delegate = self
         self.followersTableView.dataSource = self
         self.followersTableView.register(UINib(nibName: "LikesTVCell", bundle: nil), forCellReuseIdentifier: "LikesTVCell")
-        
+        setFollowerFollowing()
         
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setFollowerFollowing()
+        
         setcountsAndUserName()
     }
     
     func setcountsAndUserName(){
         userNameLable.text = userName
         if followersCount == 1{
-            followersButton.setTitle("\(followersCount) follower", for: .normal)
+            followersButton.setTitle("\(followersCount) Follower", for: .normal)
         }else{
-            followersButton.setTitle("\(followersCount) followers", for: .normal)
+            followersButton.setTitle("\(followersCount) Followers", for: .normal)
         }
-        followingButton.setTitle("\(followingCount) following", for: .normal)
+        followingButton.setTitle("\(followingCount) Following", for: .normal)
     }
     
     
@@ -310,29 +310,73 @@ extension FollowersVC: UITableViewDelegate,UITableViewDataSource{
             
             if isSelected == "Followers"{
                 
-                let vc = OtherUserProfileVC()
-                vc.userId = self.viewModel?.arrUser[indexPath.row].userID
-                vc.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController(vc, animated: true)
+                
+                if self.viewModel?.arrUser[indexPath.row].userID == UserDefaultsCustom.getUserData()?.id{
+                    
+                    let vc = UserProfileVC()
+                    vc.comeFrom = "Comment"
+                    vc.hidesBottomBarWhenPushed = true
+                    self.pushViewController(vc, true)
+                    print("Own Profile")
+                    
+                }else{
+                    let vc = OtherUserProfileVC()
+                    vc.userId = self.viewModel?.arrUser[indexPath.row].userID
+                    vc.hidesBottomBarWhenPushed = true
+                    self.pushViewController(vc, true)
+                }
                 
             }else{
-                
-                let vc = OtherUserProfileVC()
-                vc.userId = self.viewModel?.arrUser[indexPath.row].otherID
-                vc.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController(vc, animated: true)
+                if self.viewModel?.arrUser[indexPath.row].otherID == UserDefaultsCustom.getUserData()?.id{
+                    
+                    let vc = UserProfileVC()
+                    vc.comeFrom = "Comment"
+                    vc.hidesBottomBarWhenPushed = true
+                    self.pushViewController(vc, true)
+                    print("Own Profile")
+                    
+                }else{
+                    let vc = OtherUserProfileVC()
+                    vc.userId = self.viewModel?.arrUser[indexPath.row].otherID
+                    vc.hidesBottomBarWhenPushed = true
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
             }
         }else{
             if isSelected == "Followers"{
-                let vc = OtherUserProfileVC()
-                vc.userId = self.viewModel?.arrUser[indexPath.row].userID
-                vc.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController(vc, animated: true)
+                
+                
+                if self.viewModel?.arrUser[indexPath.row].userID == UserDefaultsCustom.getUserData()?.id{
+                    
+                    let vc = UserProfileVC()
+                    vc.comeFrom = "Comment"
+                    vc.hidesBottomBarWhenPushed = true
+                    self.pushViewController(vc, true)
+                    print("Own Profile")
+                    
+                }else{
+                    let vc = OtherUserProfileVC()
+                    vc.userId = self.viewModel?.arrUser[indexPath.row].userID
+                    vc.hidesBottomBarWhenPushed = true
+                    self.pushViewController(vc, true)
+                }
+                
+                
             }else{
-                let vc = OtherUserProfileVC()
-                vc.userId = self.viewModel?.arrUser[indexPath.row].otherID
-                vc.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController(vc, animated: true)
+                if self.viewModel?.arrUser[indexPath.row].otherID == UserDefaultsCustom.getUserData()?.id{
+                    
+                    let vc = UserProfileVC()
+                    vc.comeFrom = "Comment"
+                    vc.hidesBottomBarWhenPushed = true
+                    self.pushViewController(vc, true)
+                    print("Own Profile")
+                    
+                }else{
+                    let vc = OtherUserProfileVC()
+                    vc.userId = self.viewModel?.arrUser[indexPath.row].otherID
+                    vc.hidesBottomBarWhenPushed = true
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
             }
             
         }
@@ -399,11 +443,11 @@ extension FollowersVC:FollowersVMObserver{
         
         userNameLable.text = self.viewModel?.userData?.user_name
         if self.viewModel?.userData?.Followers == "1"{
-            followersButton.setTitle("\(self.viewModel?.userData?.Followers ?? "") follower", for: .normal)
+            followersButton.setTitle("\(self.viewModel?.userData?.Followers ?? "") Follower", for: .normal)
         }else{
-            followersButton.setTitle("\(self.viewModel?.userData?.Followers ?? "") followers", for: .normal)
+            followersButton.setTitle("\(self.viewModel?.userData?.Followers ?? "") Followers", for: .normal)
         }
-        followingButton.setTitle("\(self.viewModel?.userData?.Following ?? "") following", for: .normal)
+        followingButton.setTitle("\(self.viewModel?.userData?.Following ?? "") Following", for: .normal)
         
     }
     

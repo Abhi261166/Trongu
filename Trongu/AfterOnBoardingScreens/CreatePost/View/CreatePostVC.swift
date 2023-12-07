@@ -394,7 +394,7 @@ class CreatePostVC: UIViewController{
                 self.isFromTabbar = true
             }
             
-            vc.selectedDaysId = selectedDaysId
+            vc.selectedDaysId = self.txtNoOffDays.text ?? "" //selectedDaysId
             vc.selectedTripCatId = selectedTripCatId
             vc.selectedTripComplexityId = selectedTripComplexityId
             vc.arrPostYP = finalPostItems

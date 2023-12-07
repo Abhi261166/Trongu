@@ -179,34 +179,39 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if isRecentSearch{
-            
-            if self.viewModel?.arrRecentSearchUserAndPlace[indexPath.row].actionType == "1"{
-                let dictRecentSearch = self.viewModel?.arrRecentSearchUserAndPlace[indexPath.row]
-                let vc = OtherUserProfileVC()
-                vc.userId = dictRecentSearch?.id
-                self.pushViewController(vc, true)
-                print("in recent search")
-            }else{
-                Singleton.shared.showErrorMessage(error: "Not implemented yet..", isError: .message)
+            if self.viewModel?.arrRecentSearchUserAndPlace.count ?? 0 > 0 {
+                if self.viewModel?.arrRecentSearchUserAndPlace[indexPath.row].actionType == "1"{
+                    let dictRecentSearch = self.viewModel?.arrRecentSearchUserAndPlace[indexPath.row]
+                    let vc = OtherUserProfileVC()
+                    vc.userId = dictRecentSearch?.id
+                    self.pushViewController(vc, true)
+                    print("in recent search")
+                }else{
+                    Singleton.shared.showErrorMessage(error: "Not implemented yet..", isError: .message)
+                }
             }
-            
         }else{
-            if self.viewModel?.arrUserAndPlace[indexPath.row].actionType == "1"{
-                let dictSearch = self.viewModel?.arrUserAndPlace[indexPath.row]
-                self.viewModel?.apiAddRecentHistory(actionId: dictSearch?.actionID ?? "", actionType: dictSearch?.actionType ?? "")
-                let vc = OtherUserProfileVC()
-                vc.userId = dictSearch?.actionID
-                self.pushViewController(vc, true)
-            }else{
-                //Singleton.shared.showErrorMessage(error: "Not implemented yet..", isError: .message)
-                let dict = self.viewModel?.arrUserAndPlace[indexPath.row]
-                let vc = DetailVC()
-                vc.completion = {
+            if self.viewModel?.arrUserAndPlace.count ?? 0 > 0 {
+                if self.viewModel?.arrUserAndPlace[indexPath.row].actionType == "1"{
+                    let dictSearch = self.viewModel?.arrUserAndPlace[indexPath.row]
+                    self.viewModel?.apiAddRecentHistory(actionId: dictSearch?.actionID ?? "", actionType: dictSearch?.actionType ?? "")
+                    let vc = OtherUserProfileVC()
+                    vc.userId = dictSearch?.actionID
+                    self.pushViewController(vc, true)
+                }else{
+                    //Singleton.shared.showErrorMessage(error: "Not implemented yet..", isError: .message)
+                    
+                    let dict = self.viewModel?.arrUserAndPlace[indexPath.row]
+                    let vc = DetailVC()
+                    vc.completion = {
+                        
+                    }
+                    vc.postId = dict?.postID
+                    vc.hidesBottomBarWhenPushed = true
+                    self.pushViewController(vc, true)
+                    
                     
                 }
-                vc.postId = dict?.postID
-                vc.hidesBottomBarWhenPushed = true
-                self.pushViewController(vc, true)
                 
             }
         }

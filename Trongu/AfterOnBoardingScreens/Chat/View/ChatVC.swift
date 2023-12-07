@@ -12,7 +12,7 @@ import AVFoundation
 import AVKit
 import SDWebImage
 
-class ChatVC: UIViewController {
+class ChatVC: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var btnSendMessage: UIButton!
     @IBOutlet weak var chatTableView: UITableView!
@@ -203,6 +203,15 @@ class ChatVC: UIViewController {
         
     }
     
+    @IBAction func openOtherUserProfileAction(_ sender: UIButton) {
+        
+        let vc = OtherUserProfileVC()
+        vc.userId = self.viewModel?.otherUserId ?? ""
+        self.pushViewController(vc, true)
+        
+    }
+    
+    
     func disableButtonForHalfSecond() {
         btnSendMessage.isEnabled = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -326,6 +335,13 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     let date = Date(timeIntervalSince1970: TimeInterval(dict?.createdAt ?? "") ?? 0.0)
                     print(date)
                     cell.lblTime.text = date.dateToString(format: timeFormat)
+                    
+                    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+                        tapGesture.delegate = self
+                        cell.imgProfile.addGestureRecognizer(tapGesture)
+                        cell.imgProfile.isUserInteractionEnabled = true
+                    
+                    
                         return cell
                     
                 }else{
@@ -423,6 +439,11 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     cell.profileImage.isHidden = false
                     cell.viewLeadingConstraint.constant = 10
                     cell.viewTrailingConstraint.constant = 80
+                    
+                    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+                        tapGesture.delegate = self
+                        cell.profileImage.addGestureRecognizer(tapGesture)
+                        cell.profileImage.isUserInteractionEnabled = true
                    
                 }else{
                    
@@ -549,6 +570,11 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     cell.profileImage.isHidden = false
                     cell.viewLeadingConstraint.constant = 10
                     cell.viewTrailingConstraint.constant = 80
+                    
+                    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+                        tapGesture.delegate = self
+                        cell.profileImage.addGestureRecognizer(tapGesture)
+                        cell.profileImage.isUserInteractionEnabled = true
                    
                 }else{
                    
@@ -638,6 +664,11 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
                     cell.profileImage.isHidden = false
                     cell.viewLeadingConstraint.constant = 10
                     cell.viewTrailingConstraint.constant = 80
+                    
+                    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+                        tapGesture.delegate = self
+                        cell.profileImage.addGestureRecognizer(tapGesture)
+                        cell.profileImage.isUserInteractionEnabled = true
                     
                 }else{
                     
@@ -751,6 +782,20 @@ extension ChatVC: UITableViewDelegate,UITableViewDataSource{
         func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
             return UITableView.automaticDimension
         }
+    
+    
+    @objc func imageTapped(_ gesture: UITapGestureRecognizer) {
+        if let tappedImageView = gesture.view as? UIImageView {
+            // Handle the tap on the image view
+            print("Image tapped in cell at index \(tappedImageView.tag)")
+        
+            let vc = OtherUserProfileVC()
+            vc.userId = self.viewModel?.otherUserId ?? ""
+            self.pushViewController(vc, true)
+            
+        }
+    }
+    
     
     func checkHeaderAnimation(row: Int) {
         guard self.viewModel?.pageCompleted == false else {return}

@@ -30,7 +30,7 @@ class HomeVC: UIViewController {
     var tripCat:String?
     var ethnicity:String?
     var complexity:String?
-    
+    var selectedIndexForComment:IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +57,7 @@ class HomeVC: UIViewController {
                 imgLogo.isHidden = false
                 lblTitle.isHidden = true
                 apiCall()
+                addRefreshControl()
             }
         }
         
@@ -88,8 +89,7 @@ class HomeVC: UIViewController {
                 stackView.isHidden = false
                 imgLogo.isHidden = false
                 lblTitle.isHidden = true
-                addRefreshControl()
-              //  apiCall()
+                apiCall()
             }
         }
     }
@@ -110,11 +110,10 @@ class HomeVC: UIViewController {
             
             DispatchQueue.main.async {
                 self.apiCall()
+                print("Api call from refresh control")
             }
-            
             refresh.endRefreshing()
-            
-            }
+        }
     }
     
     func setViewModel(){
@@ -227,8 +226,8 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
             cell.lblTimeAddress.text = "\(dict?.postImagesVideo.first?.date ?? "") \(dict?.postImagesVideo.first?.time ?? "") \(dict?.postImagesVideo.first?.place ?? "")"
             cell.lblTopAddress.text = "\(dict?.postImagesVideo.first?.country ?? "")"
             
-            if dict?.no_of_days_name == "1"{
-                cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") (\(dict?.no_of_days_name ?? "") day)"
+            if dict?.noOfDays == "1"{
+                cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") (\(dict?.noOfDays ?? "") day)"
             }else{
                 cell.lblAddressPriceDays.text = " $\(dict?.budget ?? "") (\(dict?.noOfDays ?? "") days)"
             }
@@ -351,10 +350,17 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
     
     @objc func actionViewAllComments(sender:UIButton){
         
+        self.selectedIndexForComment = IndexPath(row: sender.tag, section: 0)
+        
         let vc = CommentVC()
         vc.postId = self.viewModel?.arrPostList[sender.tag].id
         vc.completion = {
-            self.apiCall()
+            if self.comeFrom{
+                
+            }else{
+               // self.apiCall()
+            }
+            
         }
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
@@ -395,7 +401,7 @@ extension HomeVC: HomeTVCellDelegate{
              vc.controller = self
              vc.objMyPost = self.viewModel?.arrPostList[indexPath.row]
              vc.completion = {
-                 self.apiCall()
+              //   self.apiCall()
              }
              vc.modalPresentationStyle = .overFullScreen
              self.present(vc, true)
@@ -408,7 +414,7 @@ extension HomeVC: HomeTVCellDelegate{
             vc.postId = self.viewModel?.arrPostList[indexPath.row].id
             vc.comeFrom = "Home"
             vc.completion = {
-                self.apiCall()
+             //   self.apiCall()
             }
              vc.modalPresentationStyle = .overFullScreen
              self.present(vc, true)
@@ -437,11 +443,15 @@ extension HomeVC: HomeTVCellDelegate{
             Singleton.shared.showErrorMessage(error: "Unable to connect with the server. Check your internet connection and try again.", isError: .error)
             
         }else{
-            
+            self.selectedIndexForComment = indexPath
             let vc = CommentVC()
             vc.postId = self.viewModel?.arrPostList[indexPath.row].id
             vc.completion = {
-                self.apiCall()
+                if self.comeFrom{
+                }else{
+                 //   self.apiCall()
+                    
+                }
             }
             vc.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
@@ -703,7 +713,7 @@ extension HomeVC:HomeVMObserver{
     }
     
     func observeGetHomeDataSucessfull() {
-        
+       // homeTableView.beginUpdates()
         self.homeTableView.reloadData()
         
         if isfromAppDelegates{
@@ -723,17 +733,24 @@ extension HomeVC:HomeVMObserver{
             }
         }
         
+        if selectedIndexForComment != nil {
+            
+            homeTableView.scrollToRow(at: selectedIndexForComment ?? IndexPath(row: 0, section: 0), at: .top, animated: false)
+            
+            selectedIndexForComment = nil
+        }
+     //   homeTableView.endUpdates()
     }
 }
 
 extension HomeVC:TabBarRefreshDel {
     func scrollToTopRefresh () {
        
-        if (self.viewModel?.arrPostList.count ?? 0) > 0{
-            let indexPath = IndexPath(row: 0, section: 0)
-            self.homeTableView?.scrollToRow(at: indexPath, at: .top, animated: false)
-        }
-        self.apiCall()
+//        if (self.viewModel?.arrPostList.count ?? 0) > 0{
+//            let indexPath = IndexPath(row: 0, section: 0)
+//            self.homeTableView?.scrollToRow(at: indexPath, at: .top, animated: false)
+//        }
+//        self.apiCall()
         
     }
 }

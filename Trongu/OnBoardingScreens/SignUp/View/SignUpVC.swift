@@ -69,7 +69,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         }else if appleID != ""{
             passwordTF.isUserInteractionEnabled = false
             confirmPasswordTF.isUserInteractionEnabled = false
-            nameTF.isUserInteractionEnabled = false
+          //  nameTF.isUserInteractionEnabled = false
             emailAddressTF.isUserInteractionEnabled = false
         }else if fbId != ""{
             passwordTF.isUserInteractionEnabled = false
@@ -207,6 +207,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     
     func validateSignUpDetails() -> Bool {
+        let isvalidUsernameWhenEmty = Validator.validateUserNameWhenEmpty(username: userNameTF.text?.trim ?? "")
         let isvalidUsername = Validator.validateUserName(name: userNameTF.text?.trim ?? "")
         let isvalidname = Validator.validateName(name: nameTF.text?.trim ?? "")
         
@@ -219,6 +220,15 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         let isvaligender =  Validator.validategender(gender: genderTF.text ?? "")
         let isvalidEthnicity = Validator.validethnicity(ethnicity: ethnicityTF.text ?? "")
         let isValidAccountType = Validator.validateAccountType(type: accountTypeTF.text ?? "")
+        
+        
+        guard isvalidUsernameWhenEmty.0 == true else {
+        //    Singleton.showMessage(message: "\(isvalidname.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isvalidUsernameWhenEmty.1)", controller: self, Title: self.viewModel?.title ?? "")
+            print("isvalidUsername  \(isvalidUsernameWhenEmty)")
+            return false
+        }
+        
         guard isvalidUsername.0 == true else {
             
            // Singleton.showMessage(message: "\(isvalidUsername.1)", isError: .error)
@@ -377,8 +387,8 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     //    }
     
     func validateSignUpDetailSocial() -> Bool {
+        let isvalidUsernameWhenEmty = Validator.validateUserNameWhenEmpty(username: userNameTF.text?.trim ?? "")
         let isvalidUsername = Validator.validateUserName(name: userNameTF.text?.trim ?? "")
-
         let isvalidname = Validator.validateName(name: nameTF.text?.trim ?? "")
 //        let isvalidEmail = Validator.validateEmail(candidate: emailAddressTF.text ?? "")
 //        let isValidPassword = Validator.validateOldPassword(password: passwordTF.text ?? "")
@@ -389,10 +399,11 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         let isvalidEthnicity = Validator.validethnicity(ethnicity: ethnicityTF.text ?? "")
         let isValidAccountType = Validator.validateAccountType(type: accountTypeTF.text ?? "")
         
-        guard isvalidname.0 == true else {
-           // Singleton.showMessage(message: "\(isvalidname.1)", isError: .error)
-            Singleton.shared.showAlert(message: "\(isvalidname.1)", controller: self, Title: self.viewModel?.title ?? "")
-            print("isvalidUsername  \(isvalidname)")
+        
+        guard isvalidUsernameWhenEmty.0 == true else {
+        //    Singleton.showMessage(message: "\(isvalidname.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isvalidUsernameWhenEmty.1)", controller: self, Title: self.viewModel?.title ?? "")
+            print("isvalidUsername  \(isvalidUsernameWhenEmty)")
             return false
         }
         
@@ -401,6 +412,12 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             Singleton.shared.showAlert(message: "Please enter valid username.", controller: self, Title: self.viewModel?.title ?? "")
             
             print("isvalidUsername  \(isvalidUsername)")
+            return false
+        }
+        guard isvalidname.0 == true else {
+           // Singleton.showMessage(message: "\(isvalidname.1)", isError: .error)
+            Singleton.shared.showAlert(message: "\(isvalidname.1)", controller: self, Title: self.viewModel?.title ?? "")
+            print("isvalidUsername  \(isvalidname)")
             return false
         }
 //        guard isvalidEmail.0 == true else {
@@ -783,8 +800,8 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 default:
                     break
                 }
-                
-                viewModel?.googleSignup(name:self.nameTF.text ?? "", email:self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender:self.selectGender , ethnicity: ethnicity, lat:latitude ?? "", long:longitude ?? "",username:userNameTF.text ?? "",googleId:googleId, bio: bioTextView.text.trim, isPrivate: selectedAccountType)
+                //
+                viewModel?.googleSignup(name:self.nameTF.text ?? "", email: self.emailAddressTF.text ?? "", pswrd:self.passwordTF.text ?? "", place:self.addPlaceTF.text ?? "", birthDate:self.dateOFbirthTF.text ?? "", gender:self.selectGender , ethnicity: ethnicity, lat:latitude ?? "", long:longitude ?? "",username: userNameTF.text ?? "",googleId:googleId, bio: bioTextView.text.trim, isPrivate: selectedAccountType)
             }
            
         

@@ -224,6 +224,7 @@ class PostVM: NSObject {
           ]] as [[String: Any]]
 
         parameters.append(contentsOf: arrImagesDict)
+        
         let boundary:NSString = "----WebKitFormBoundarycC4YiaUFwM44F6rT"
                 print("parameters --- ",parameters)
                 

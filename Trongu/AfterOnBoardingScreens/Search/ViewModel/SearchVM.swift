@@ -106,8 +106,14 @@ class SearchVM: NSObject {
         params["action_id"] = actionId
         params["action_type"] = actionType
         print("params : ", params)
+    //        add loader abcdefgh
+        ActivityIndicator.shared.showActivityIndicator()
         ApiHandler.callWithMultipartForm(apiName: API.Name.deleteFromRecent, params: params) { [weak self] succeeded, response, data in
             DispatchQueue.main.async {
+                
+    //        remove loader
+        ActivityIndicator.shared.hideActivityIndicator()
+                
                 if let self = self {
                     if succeeded == true {
                             self.observer?.observeDeleteFromRecentSucessfull()

@@ -162,8 +162,13 @@ class ChatVC: UIViewController, UIGestureRecognizerDelegate {
     
     @IBAction func backAction(_ sender: UIButton) {
         
-        self.viewModel?.apiUpdateSeenStatus()
+       // self.viewModel?.apiUpdateSeenStatus()
+        keyboard = nil
+        viewModel?.observer = nil
+        viewModel = nil
+        self.isCallChatListApi = true
         
+        popVC()
     }
     
     
@@ -857,11 +862,11 @@ extension ChatVC:UITextViewDelegate{
 extension ChatVC:ChatVMObserver{
     
     func updateSeenStatus() {
-        keyboard = nil
-        viewModel?.observer = nil
-        viewModel = nil
-        self.isCallChatListApi = true
-        self.navigationController?.popViewController(animated: true)
+//        keyboard = nil
+//        viewModel?.observer = nil
+//        viewModel = nil
+//        self.isCallChatListApi = true
+//        self.navigationController?.popViewController(animated: true)
     }
     
     
@@ -880,6 +885,8 @@ extension ChatVC:ChatVMObserver{
     }
     
     func observerListMessages(image: String) {
+        
+        self.viewModel?.apiUpdateSeenStatus()
         
         if viewModel?.otherUserProfile == ""{
             viewModel?.otherUserProfile = image
@@ -925,6 +932,7 @@ extension ChatVC: SockettonDelegate {
         guard let data = try? JSONSerialization.data(withJSONObject: json, options: []) else { return }
         guard let message = DataDecoder.decodeData(data, type: MessageDetails.self) else { return }
         insertNewMessage(message: message)
+        self.viewModel?.apiUpdateSeenStatus()
         self.scrollToBottom(isScrolled: false)
     }
     

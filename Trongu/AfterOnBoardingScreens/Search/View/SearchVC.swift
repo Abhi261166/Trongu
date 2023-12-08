@@ -220,9 +220,12 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
     
     @objc func actionDeleteFromRecent(sender:UIButton){
         
+        if self.viewModel?.arrRecentSearchUserAndPlace.count ?? 0 > 0{
+        
         let dictRecentSearch = self.viewModel?.arrRecentSearchUserAndPlace[sender.tag]
         self.viewModel?.apiRemoveRecentHistory(actionId: dictRecentSearch?.id ?? "", actionType: dictRecentSearch?.actionType ?? "")
         
+    }
         // Singleton.shared.showErrorMessage(error: "Not implemented yet.", isError: .message)
     }
     

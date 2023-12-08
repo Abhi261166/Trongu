@@ -206,7 +206,6 @@ class HomeTVCell: UITableViewCell {
         if let indexPath = self.indexPath {
             self.delegate?.didTapShare(indexPath)
         }
-        
     }
     
     @IBAction func mapAction(_ sender: UIButton) {
@@ -345,10 +344,12 @@ extension HomeTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         let mapCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MapCVC", for: indexPath) as! MapCVC
         
         if indexPath.row == arrPostImagesVideosList.count{
+            
             mapCell.setLatLongData(post: arrPostImagesVideosList)
             mapCell.btnGoToPost.tag = indexPath.row
             mapCell.btnGoToPost.addTarget(self, action: #selector(actionGoToPost),for: .touchUpInside)
             return mapCell
+            
         }else{
             let dict = arrPostImagesVideosList[indexPath.row]
             switch dict.type {

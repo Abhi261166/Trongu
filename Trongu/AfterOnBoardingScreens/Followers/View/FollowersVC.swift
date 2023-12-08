@@ -31,8 +31,6 @@ class FollowersVC: UIViewController,UITextFieldDelegate {
     var userName = ""
     var completion : (() -> Void)? = nil
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setViewModel()

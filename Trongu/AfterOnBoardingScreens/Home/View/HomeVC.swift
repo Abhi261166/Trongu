@@ -56,7 +56,7 @@ class HomeVC: UIViewController {
                 stackView.isHidden = false
                 imgLogo.isHidden = false
                 lblTitle.isHidden = true
-                apiCall()
+            //    apiCall()
                 addRefreshControl()
             }
         }
@@ -401,7 +401,7 @@ extension HomeVC: HomeTVCellDelegate{
              vc.controller = self
              vc.objMyPost = self.viewModel?.arrPostList[indexPath.row]
              vc.completion = {
-              //   self.apiCall()
+                 self.apiCall()
              }
              vc.modalPresentationStyle = .overFullScreen
              self.present(vc, true)
@@ -413,8 +413,8 @@ extension HomeVC: HomeTVCellDelegate{
             vc.userID = self.viewModel?.arrPostList[indexPath.row].userDetail.id
             vc.postId = self.viewModel?.arrPostList[indexPath.row].id
             vc.comeFrom = "Home"
-            vc.completion = {
-             //   self.apiCall()
+            vc.completion = { isBlocked in 
+                self.apiCall()
             }
              vc.modalPresentationStyle = .overFullScreen
              self.present(vc, true)

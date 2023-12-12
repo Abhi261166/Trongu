@@ -53,7 +53,7 @@ class LikesVC: UIViewController,UITextFieldDelegate {
             timer = nil
         }
         
-        timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(self.searchTimerAction(_:)), userInfo: textField.text, repeats: false)
+        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.searchTimerAction(_:)), userInfo: textField.text, repeats: false)
         
     }
     
@@ -63,6 +63,7 @@ class LikesVC: UIViewController,UITextFieldDelegate {
         print(searchText)
             self.viewModel?.pageNo = 0
             self.viewModel?.isLastPage = false
+        self.viewModel?.arrUsers = []
         self.viewModel?.apiSearch(postId: self.postId ?? "", text: searchText)
         
     }

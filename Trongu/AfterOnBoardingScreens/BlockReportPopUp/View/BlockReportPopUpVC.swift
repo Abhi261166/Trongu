@@ -13,7 +13,7 @@ class BlockReportPopUpVC: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var btnReport: UIButton!
     
     var controller: UIViewController?
-    var completion : (() -> Void)? = nil
+    var completion : ((_ isBlocked:Bool) -> Void)? = nil
     var userID:String?
     var postId:String?
     var viewModel:BlockReportVM?
@@ -82,7 +82,7 @@ class BlockReportPopUpVC: UIViewController,UIGestureRecognizerDelegate {
         
         if let completion = completion{
             self.dismiss(animated: true) {}
-            completion()
+            completion(false)
         }
         
     }
@@ -94,14 +94,14 @@ extension BlockReportPopUpVC:BlockReportVMObserver{
     func observeBlockUserSucessfull() {
         if let completion = completion{
             self.dismiss(animated: true) {}
-            completion()
+            completion(true)
         }
     }
     
     func observeReportUserSucessfull() {
         if let completion = completion{
             self.dismiss(animated: true) {}
-            completion()
+            completion(false)
         }
     }
     

@@ -119,10 +119,15 @@ extension MessageVC: UITableViewDelegate,UITableViewDataSource{
         
         let chatData = viewModel?.getChatUsersData[indexPath.row]
         
-        let vc = ChatVC(roomId: self.viewModel?.getChatUsersData[indexPath.row].roomID ?? "", otherUserName: chatData?.userName ?? "" , otherUserId: self.viewModel?.getChatUsersData[indexPath.row].otherID ?? "" , otherUserProfileImage: chatData?.userImage ?? "")
-        
-        vc.hidesBottomBarWhenPushed = true
-        self.pushViewController(vc, true)
+        if UserDefaultsCustom.getUserData()?.id == self.viewModel?.getChatUsersData[indexPath.row].userID{
+            let vc = ChatVC(roomId: self.viewModel?.getChatUsersData[indexPath.row].roomID ?? "", otherUserName: chatData?.userName ?? "" , otherUserId: self.viewModel?.getChatUsersData[indexPath.row].otherID ?? "" , otherUserProfileImage: chatData?.userImage ?? "")
+            vc.hidesBottomBarWhenPushed = true
+            self.pushViewController(vc, true)
+        }else{
+            let vc = ChatVC(roomId: self.viewModel?.getChatUsersData[indexPath.row].roomID ?? "", otherUserName: chatData?.userName ?? "" , otherUserId: self.viewModel?.getChatUsersData[indexPath.row].userID ?? "" , otherUserProfileImage: chatData?.userImage ?? "")
+            vc.hidesBottomBarWhenPushed = true
+            self.pushViewController(vc, true)
+        }
         
     }
     

@@ -68,9 +68,14 @@ class OtherUserProfileVC: UIViewController {
     
     @IBAction func sideMenuAction(_ sender: UIButton) {
         let vc = BlockReportPopUpVC()
-        vc.completion = {
+        vc.completion = { isBlocked in
             self.sideMenuButton.isHidden = false
+            
+            if isBlocked{
+                self.popVC()
+            }
         }
+        vc.userID = self.userId
         self.sideMenuButton.isHidden = true
         vc.modalPresentationStyle = .overFullScreen
         self.present(vc, animated: true)
@@ -127,7 +132,7 @@ extension OtherUserProfileVC: UICollectionViewDelegate,UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if self.viewModel?.arrPostList.count == 0{
-            self.OtherUserCollectionView.setBackgroundView(message: "No posts yet")
+            self.OtherUserCollectionView.setBackgroundView(message: "This account is private.")
             return 0
         }else{
             self.OtherUserCollectionView.setBackgroundView(message: "")
@@ -226,6 +231,7 @@ extension OtherUserProfileVC:ProfileVMObserver{
     
     func observeFollowUnfollowSucessfull() {
         apiCall()
+        
     }
     
     func observeGetProfileSucessfull() {
@@ -278,7 +284,17 @@ extension OtherUserProfileVC:ProfileVMObserver{
             if followStatus == 1{
                 viewMessage.isHidden = false
                 hitGetProfilePostsApi()
-            }else{
+            }else if followStatus == 0{
+                viewMessage.isHidden = false
+                self.viewModel?.arrPostList = []
+                self.OtherUserCollectionView.reloadData()
+                self.OtherUserCollectionView.setBackgroundView(message: "This account is private.")
+            }else if followStatus == 2{
+                viewMessage.isHidden = false
+                self.viewModel?.arrPostList = []
+                self.OtherUserCollectionView.reloadData()
+                self.OtherUserCollectionView.setBackgroundView(message: "This account is private.")
+            } else{
                 self.OtherUserCollectionView.setBackgroundView(message: "This account is private.")
                 viewMessage.isHidden = true
             }

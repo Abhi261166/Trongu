@@ -321,6 +321,19 @@ extension CommentVC: UITableViewDelegate,UITableViewDataSource{
         }
     }
     
+    //    MARK: - SCROLL TO BOTTOM -
+        func scrollToBottom(isScrolled:Bool) {
+            guard isTableScrolled() == false || isScrolled == true  else { return }
+            guard let count = self.viewModel?.arrCommentList.count,
+                  count > 0  else { return }
+            let section = 0
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.15) {
+                let indexPath = IndexPath(row: count - 1, section: section)
+                self.commentTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
+        }
+ 
+    
     func isTableScrolled() -> Bool {
         return (self.commentTableView.contentOffset.y < (self.commentTableView.contentSize.height - SCREEN_SIZE.height))
     }
@@ -348,7 +361,8 @@ extension CommentVC:CommentVMObserver{
             self.commentTableView.reloadData()
             
             if !self.isReply{
-                self.scrollToTop(isScrolled: true)
+               // self.scrollToBottom(isScrolled: true)
+                self.commentTableView.scrollToBottom
             }
             self.isReply = false
             

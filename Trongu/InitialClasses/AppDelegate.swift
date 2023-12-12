@@ -67,8 +67,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         print("share profile url---",url)
         
-
       return GIDSignIn.sharedInstance.handle(url)
+        
     }
 
 
@@ -175,9 +175,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func redirectToSingleChat(pushData: PushModel, vc: UIViewController?){
             print("visibleViewController :- \(vc)")
           
-        let chat = ChatVC(roomId: pushData.room_id ?? "", otherUserName: pushData.username ?? "", otherUserId: pushData.otherID ?? "", otherUserProfileImage: "")
-        print("push data",pushData.room_id ?? "" )
-        vc?.pushViewController(chat , true)
+        if UserDefaultsCustom.getUserData()?.id == pushData.user_id{
+            
+            let chat = ChatVC(roomId: pushData.room_id ?? "", otherUserName: pushData.username ?? "", otherUserId: pushData.otherID ?? "", otherUserProfileImage: "")
+            
+            print("push data",pushData.room_id ?? "" )
+            vc?.pushViewController(chat , true)
+            
+        }else{
+            let chat = ChatVC(roomId: pushData.room_id ?? "", otherUserName: pushData.username ?? "", otherUserId: pushData.user_id ?? "", otherUserProfileImage: "")
+            
+            print("push data",pushData.room_id ?? "" )
+            vc?.pushViewController(chat , true)
+            
+        }
+       
     }
     
     

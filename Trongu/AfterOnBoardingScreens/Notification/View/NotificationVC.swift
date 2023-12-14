@@ -25,7 +25,7 @@ class NotificationVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setViewModel()
         self.notificationTableView.delegate = self
         self.notificationTableView.dataSource = self
         self.notificationTableView.register(UINib(nibName: "NotificationTVCell", bundle: nil), forCellReuseIdentifier: "NotificationTVCell")
@@ -33,7 +33,7 @@ class NotificationVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setViewModel()
+        
         apiCall()
         
         if comeFrom != ""{
@@ -96,7 +96,11 @@ extension NotificationVC: UITableViewDelegate,UITableViewDataSource{
         let timestamp = Int(dict?.createdAt ?? "") ?? 0
         let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
         cell.timeLabel.text = date.timeAgoSinceDate()
-        cell.nameLabel.setAttributed(str1: "\(dict?.userName ?? "")", font1: UIFont.setCustom(.Poppins_Medium, 16), color1: .black, str2: "\(dict?.notification ?? "")", font2: UIFont.setCustom(.Poppins_Regular, 16), color2: .gray)
+        
+        
+            cell.nameLabel.setAttributed(str1: "\(dict?.userName ?? "")", font1: UIFont.setCustom(.Poppins_Medium, 16), color1: .black, str2: "\(dict?.notification ?? "")", font2: UIFont.setCustom(.Poppins_Regular, 16), color2: .gray)
+      
+        
         if dict?.notificationType == "1"{
             if dict?.requestStatuss == "requested"{
                 cell.buttonStackView.isHidden = false
@@ -176,6 +180,13 @@ extension NotificationVC: UITableViewDelegate,UITableViewDataSource{
         
     }
     
+    
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 250
+        
+    }
+    
 }
 
 extension NotificationVC:NotificationListVMObserver{
@@ -201,7 +212,9 @@ extension NotificationVC:NotificationListVMObserver{
     }
     
     func observeNotificationListSucessfull() {
-        notificationTableView.reloadData()
+       
+            notificationTableView.reloadData()
+     
     }
     
 }

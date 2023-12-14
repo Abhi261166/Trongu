@@ -138,6 +138,7 @@ class API {
         static let UNAUTHORIZED_ACCESS      = 401
         static let EMAIL_NOT_Verified       = 402
         static let Invalid_Cred             = 403
+        static let Account_Disabled         = 405
         static let SHOW_MESSAGE             = 201
         static let SHOW_DATA                = 200
         static let SLOW_INTERNET_CONNECTION = 999
@@ -149,6 +150,7 @@ struct AlertMessage {
     static let INVALID_ACCESS_TOKEN        = "Your session is expired. we will logout your session from this device."
     static let Email_Veryfication          = "Your email is not verified, please check email and verify."
     static let invalid_Credencials         = "Please enter valid credentials."
+    static let account_desabled            = "Your  account is disable by admin .Please contact admin for more details"
     static let SERVER_NOT_RESPONDING       = "Something went wrong while connecting to server!"
     static let NO_INTERNET_CONNECTION      = "Unable to connect with the server. Check your internet connection and try again."
     static let pleaseEnter                 = "Please enter "

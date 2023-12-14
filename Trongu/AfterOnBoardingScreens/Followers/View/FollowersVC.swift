@@ -211,7 +211,7 @@ extension FollowersVC: UITableViewDelegate,UITableViewDataSource{
                 cell.nameLabel.text = dict?.name
                 cell.followedByView.isHidden = true
                 cell.followButton.backgroundColor = #colorLiteral(red: 0.8666666667, green: 0.8666666667, blue: 0.8666666667, alpha: 0.7)
-                cell.followButton.setTitle("Following", for: .normal)
+                cell.followButton.setTitle("Unfollow", for: .normal)
                 cell.followButton.setTitleColor(.black, for: .normal)
                 cell.followButton.tag = indexPath.row
                 cell.followButton.addTarget(self, action: #selector(actionRemoveFromFollowing), for: .touchUpInside)
@@ -234,7 +234,7 @@ extension FollowersVC: UITableViewDelegate,UITableViewDataSource{
                     cell.followButton.setTitle("Requested", for: .normal)
                     cell.followButton.backgroundColor = UIColor(named: "followingBackground")
                 case 1:
-                    cell.followButton.setTitle("Following", for: .normal)
+                    cell.followButton.setTitle("Unfollow", for: .normal)
                     cell.followButton.backgroundColor = UIColor(named: "followingBackground")
                 case 2:
                     cell.followButton.setTitle("Follow", for: .normal)
@@ -274,7 +274,7 @@ extension FollowersVC: UITableViewDelegate,UITableViewDataSource{
                     cell.followButton.setTitle("Requested", for: .normal)
                     cell.followButton.backgroundColor = UIColor(named: "followingBackground")
                 case 1:
-                    cell.followButton.setTitle("Following", for: .normal)
+                    cell.followButton.setTitle("Unfollow", for: .normal)
                     cell.followButton.backgroundColor = UIColor(named: "followingBackground")
                 case 2:
                     cell.followButton.setTitle("Follow", for: .normal)

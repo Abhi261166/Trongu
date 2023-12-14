@@ -126,6 +126,8 @@ struct PlaceHolderImages{
     static let userProfilePlaceHolder = "avatar-placeholder"
     static let coverPhotoProfile = "photo-placeholder"
     
+    static let profilePlaceholder = "ic_profilePlaceHolder"
+    
 }
 
 struct DEVICE_TYPE {

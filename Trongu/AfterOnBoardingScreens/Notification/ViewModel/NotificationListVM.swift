@@ -50,8 +50,8 @@ class NotificationListVM: NSObject {
                             if self.pageNo == 0 {
                                 self.arrNotificationList.removeAll()
                             }
-                            self.arrNotificationList.append(contentsOf: notification)
-                            self.isLastPage = notification.count < (self.perPage)
+                            self.arrNotificationList.append(contentsOf: notification!)
+                            self.isLastPage = notification?.count ?? 0 < (self.perPage)
                             self.pageNo += 1
                             self.observer?.observeNotificationListSucessfull()
                         } catch {

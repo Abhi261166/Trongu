@@ -8,6 +8,7 @@
 import UIKit
 import CoreLocation
 import MapKit
+import SDWebImage
 
 class UserProfileVC: UIViewController,MKMapViewDelegate {
     
@@ -428,7 +429,15 @@ extension UserProfileVC : ProfileVMObserver{
     
     func setProfileData(){
         let dict = self.viewModel?.userData
-        self.profileImg.setImage(image: dict?.image ?? "",placeholder: UIImage(named: "ic_profilePlaceHolder"))
+        
+        self.profileImg.sd_imageIndicator = SDWebImageActivityIndicator.gray
+        self.profileImg.sd_imageIndicator?.startAnimatingIndicator()
+        self.profileImg.sd_setImage(with: URL(string: dict?.image ?? ""), placeholderImage: UIImage(named: PlaceHolderImages.profilePlaceholder), context: nil)
+        
+        //self.profileImg.setImage(image: dict?.image ?? "",placeholder: UIImage(named: "ic_profilePlaceHolder"))
+        
+        
+        
         self.nameLbl.text = dict?.name
         self.userNameLbl.text = dict?.user_name
         self.emailLbl.text = dict?.email

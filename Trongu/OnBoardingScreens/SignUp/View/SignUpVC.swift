@@ -867,7 +867,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         //        AppDefaults.longitude = self.longitude
         //        print(AppDefaults.latitude!)
         //        print(AppDefaults.longitude!)
-        
+         
         let geocoder = CLGeocoder()
         geocoder.reverseGeocodeLocation(userLocation) { (placemarks, error) in
             if (error != nil){

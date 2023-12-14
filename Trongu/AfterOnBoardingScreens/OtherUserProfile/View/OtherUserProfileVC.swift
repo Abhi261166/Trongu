@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import SDWebImage
 
 class OtherUserProfileVC: UIViewController {
     
@@ -122,7 +123,7 @@ class OtherUserProfileVC: UIViewController {
     }
     
     @IBAction func followAction(_ sender: UIButton) {
-        btnFollow.isUserInteractionEnabled = true
+        btnFollow.isUserInteractionEnabled = false
         self.viewModel?.apiFollowUnfollow(userID: userId ?? "")
         
     }
@@ -247,7 +248,14 @@ extension OtherUserProfileVC:ProfileVMObserver{
     
     func setProfileData(){
         let dict = self.viewModel?.userData
-        self.imgProfilePic.setImage(image: dict?.image ?? "",placeholder: UIImage(named: "ic_profilePlaceHolder"))
+        
+        self.imgProfilePic.sd_imageIndicator = SDWebImageActivityIndicator.gray
+        self.imgProfilePic.sd_imageIndicator?.startAnimatingIndicator()
+        self.imgProfilePic.sd_setImage(with: URL(string: dict?.image ?? ""), placeholderImage: UIImage(named: PlaceHolderImages.profilePlaceholder), context: nil)
+        
+       // self.imgProfilePic.setImage(image: dict?.image ?? "",placeholder: UIImage(named: "ic_profilePlaceHolder"))
+      
+        
         self.lblName.text = dict?.name
         self.lblUserName.text = dict?.user_name
         self.lblEmail.text = dict?.email
@@ -266,7 +274,7 @@ extension OtherUserProfileVC:ProfileVMObserver{
             self.btnFollow.setTitle("Requested", for: .normal)
             self.btnFollow.backgroundColor = UIColor(named: "followingBackground")
         case 1:
-            self.btnFollow.setTitle("Following", for: .normal)
+            self.btnFollow.setTitle("Unfollow", for: .normal)//Unfollow
             self.btnFollow.backgroundColor = UIColor(named: "followingBackground")
         case 2:
             self.btnFollow.setTitle("Follow", for: .normal)
@@ -285,12 +293,12 @@ extension OtherUserProfileVC:ProfileVMObserver{
                 viewMessage.isHidden = false
                 hitGetProfilePostsApi()
             }else if followStatus == 0{
-                viewMessage.isHidden = false
+                viewMessage.isHidden = true
                 self.viewModel?.arrPostList = []
                 self.OtherUserCollectionView.reloadData()
                 self.OtherUserCollectionView.setBackgroundView(message: "This account is private.")
             }else if followStatus == 2{
-                viewMessage.isHidden = false
+                viewMessage.isHidden = true
                 self.viewModel?.arrPostList = []
                 self.OtherUserCollectionView.reloadData()
                 self.OtherUserCollectionView.setBackgroundView(message: "This account is private.")

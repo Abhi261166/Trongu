@@ -114,7 +114,7 @@ extension LikesVC: UITableViewDelegate,UITableViewDataSource{
             cell.followButton.setTitle("Requested", for: .normal)
             cell.followButton.backgroundColor = UIColor(named: "followingBackground")
         case 1:
-            cell.followButton.setTitle("Following", for: .normal)
+            cell.followButton.setTitle("Unfollow", for: .normal)
             cell.followButton.backgroundColor = UIColor(named: "followingBackground")
         case 2:
             cell.followButton.setTitle("Follow", for: .normal)

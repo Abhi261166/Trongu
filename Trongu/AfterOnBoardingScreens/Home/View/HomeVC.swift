@@ -56,7 +56,7 @@ class HomeVC: UIViewController {
                 stackView.isHidden = false
                 imgLogo.isHidden = false
                 lblTitle.isHidden = true
-            //    apiCall()
+                apiCall()
                 addRefreshControl()
             }
         }
@@ -89,7 +89,7 @@ class HomeVC: UIViewController {
                 stackView.isHidden = false
                 imgLogo.isHidden = false
                 lblTitle.isHidden = true
-                apiCall()
+//                apiCall()
             }
         }
     }
@@ -358,7 +358,7 @@ extension HomeVC: UITableViewDelegate,UITableViewDataSource{
             if self.comeFrom{
                 
             }else{
-               // self.apiCall()
+                self.apiCall()
             }
             
         }
@@ -449,7 +449,7 @@ extension HomeVC: HomeTVCellDelegate{
             vc.completion = {
                 if self.comeFrom{
                 }else{
-                 //   self.apiCall()
+                self.apiCall()
                     
                 }
             }
@@ -746,12 +746,15 @@ extension HomeVC:HomeVMObserver{
 extension HomeVC:TabBarRefreshDel {
     func scrollToTopRefresh () {
        
-//        if (self.viewModel?.arrPostList.count ?? 0) > 0{
-//            let indexPath = IndexPath(row: 0, section: 0)
-//            self.homeTableView?.scrollToRow(at: indexPath, at: .top, animated: false)
-//        }
-//        self.apiCall()
-        
+        if self.navigationController?.tabBarController?.selectedIndex != 0{
+            
+        }else{
+            if (self.viewModel?.arrPostList.count ?? 0) > 0{
+                let indexPath = IndexPath(row: 0, section: 0)
+                self.homeTableView?.scrollToRow(at: indexPath, at: .top, animated: false)
+            }
+            self.apiCall()
+        }
     }
 }
 

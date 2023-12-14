@@ -7,22 +7,22 @@
 
 // MARK: - Welcome
 struct NotificationModel: Codable {
-    let status: Int
-    let message: String
-    let data: [NotificationItem]
+    let status: Int?
+    let message: String?
+    let data: [NotificationItem]?
 }
 
 // MARK: - Datum
 struct NotificationItem: Codable {
-    let id, followID, title, description: String
-    let massPushID, seen: String
-    let notification: String
-    let userID, otherID, postID, notificationType: String
-    let status, requestStatus, createdAt: String
-    let requestStatuss: String
-    let userName: String
-    let userImage: String
-    let isFollow: String
+    let id, followID, title, description: String?
+    let massPushID, seen: String?
+    let notification: String?
+    let userID, otherID, postID, notificationType: String?
+    let status, requestStatus, createdAt: String?
+    let requestStatuss: String?
+    let userName: String?
+    let userImage: String?
+    let isFollow: String?
 
     enum CodingKeys: String, CodingKey {
         case id

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import MultiSlider
 class FilterScreenVC: UIViewController {
     
     @IBOutlet weak var placeTF: UITextField!
@@ -14,9 +13,8 @@ class FilterScreenVC: UIViewController {
     @IBOutlet weak var tripCategoryTF: UITextField!
     @IBOutlet weak var ethnicityTF: UITextField!
     @IBOutlet weak var complexityTF: UITextField!
-    @IBOutlet weak var multislider: MultiSlider!
-    @IBOutlet weak var lblMaxAmount: UILabel!
-    @IBOutlet weak var lblMinAmount: UILabel!
+    @IBOutlet weak var txtMaxAmount: UITextField!
+    @IBOutlet weak var txtMinAmount: UITextField!
    
     let pickerView = UIPickerView()
     
@@ -25,8 +23,8 @@ class FilterScreenVC: UIViewController {
     var arrTripComplexity = ["Complex","Smooth","Normal"]
     var arrEthnicityPicker = ["America","Canada"]
     var completion : ((_ place:String?,_ budget:String?,_ noOffDays:String?,_ tripCat:String?,_ ethnicity:String?,_ complexity:String?) -> Void)? = nil
-    var minPrice = ""
-    var maxPrice = ""
+    var minPrice = Int()
+    var maxPrice = Int()
     var viewModel:FilterVM?
     // selected id's
     var selectedDaysId = ""
@@ -37,10 +35,22 @@ class FilterScreenVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        multislider.addTarget(self, action: #selector(sliderChanged), for: .valueChanged)
+       
+        txtMinAmount.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: txtMinAmount.frame.height))
+        txtMinAmount.leftViewMode = .always
+        txtMaxAmount.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: txtMaxAmount.frame.height))
+        txtMaxAmount.leftViewMode = .always
+        
+        txtMinAmount.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: txtMinAmount.frame.height))
+        txtMinAmount.rightViewMode = .always
+        txtMaxAmount.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: txtMaxAmount.frame.height))
+        txtMaxAmount.rightViewMode = .always
+        
         setPicker()
         setViewModel()
         numberOfDaysTF.delegate = self
+        txtMinAmount.delegate = self
+        txtMaxAmount.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,13 +85,7 @@ class FilterScreenVC: UIViewController {
     }
     
     
-    @objc func sliderChanged(slider: MultiSlider) {
-        print("thumb \(slider.draggedThumbIndex) moved")
-        print("now thumbs are at \(slider.value)") // e.g., [1.0, 4.5, 5.0]
-        lblMaxAmount.text = "$\(Int(slider.value.last ?? 0.0))"
-        lblMinAmount.text = "$\(Int(slider.value.first ?? 0.0))"
-        
-    }
+  
     
     func validation() {
         if placeTF.text == ""{
@@ -107,18 +111,53 @@ class FilterScreenVC: UIViewController {
     
     @IBAction func saveAction(_ sender: UIButton) {
         
-        minPrice = "\(Int(multislider.value.first ?? 0.0))"
-        maxPrice = "\(Int(multislider.value.last ?? 0.0))"
-        var noOfDays = numberOfDaysTF.text?.replacingOccurrences(of: " ", with: "")
-        noOfDays = noOfDays?.replacingOccurrences(of: "day", with: "")
-        noOfDays = noOfDays?.replacingOccurrences(of: "days", with: "")
-        noOfDays = noOfDays?.replacingOccurrences(of: "s", with: "")
         
-        if let completion = completion{
-            popVC()
-            completion(placeTF.text,"\(minPrice)-\(maxPrice)",numberOfDaysTF.text?.trim,selectedTripCatId,selectedEthnicity,selectedTripComplexityId)
+        if let minValueText = txtMinAmount.text,
+                   let maxValueText = txtMaxAmount.text,
+                   let minValue = Int(minValueText),
+           let maxValue = Int(maxValueText) {
+            
+             minPrice = minValue
+             maxPrice = maxValue
             
         }
+        
+        
+        if placeTF.text?.trim == "" && txtMinAmount.text?.trim == "" && txtMaxAmount.text?.trim == "" && numberOfDaysTF.text?.trim == "" && tripCategoryTF.text?.trim == "" && ethnicityTF.text?.trim == "" && complexityTF.text?.trim == "" {
+          
+            showAlert(message: "Please select at least one filter option", title: "Filter Post")
+            
+        }else{
+        
+        if txtMinAmount.text?.trim != "" && txtMaxAmount.text?.trim == ""{
+            
+            showAlert(message: "Please enter max price", title: "Filter Post")
+            
+        }else if txtMinAmount.text?.trim == "" && txtMaxAmount.text?.trim != ""{
+            showAlert(message: "Please enter min price", title: "Filter Post")
+        }else if minPrice > maxPrice{
+            showAlert(message: "Min price can not be greater than Max price", title: "Filter Post")
+        } else{
+            
+            var noOfDays = numberOfDaysTF.text?.replacingOccurrences(of: " ", with: "")
+            noOfDays = noOfDays?.replacingOccurrences(of: "day", with: "")
+            noOfDays = noOfDays?.replacingOccurrences(of: "days", with: "")
+            noOfDays = noOfDays?.replacingOccurrences(of: "s", with: "")
+            
+            if let completion = completion{
+                popVC()
+                
+                if txtMinAmount.text == ""{
+                    completion(placeTF.text,"",numberOfDaysTF.text?.trim,selectedTripCatId,selectedEthnicity,selectedTripComplexityId)
+                }else{
+                    completion(placeTF.text,"\(txtMinAmount.text ?? "")-\(txtMaxAmount.text ?? "")",numberOfDaysTF.text?.trim,selectedTripCatId,selectedEthnicity,selectedTripComplexityId)
+                }
+                
+            }
+        }
+    }
+        
+        
         
     }
     
@@ -344,6 +383,86 @@ extension FilterScreenVC: UITextFieldDelegate {
                   }
                   
               }
+             
+              // Check if the first character of the entered text is '0'
+              if txtMinAmount.text?.count ?? 0 > 0{
+                  
+              }else{
+                  
+                  if let firstCharacter = string.first, firstCharacter == "0" {
+                      // Reject the input by returning false
+                      return false
+                  }
+                  
+              }
+              
+              if txtMaxAmount.text?.count ?? 0 > 0{
+                  
+              }else{
+                  
+                  if let firstCharacter = string.first, firstCharacter == "0" {
+                      // Reject the input by returning false
+                      return false
+                  }
+                  
+              }
+              
+              
+              
+             if newText.count > 10{
+                 Singleton.showMessage(message: "maximum limit reached.", isError: .error)
+             }
+              return newText.count < 11
+              
+          }
+          
+          if textField == txtMinAmount{
+              let newText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+              
+              if string.isEmpty {
+                  return true
+              }
+
+             
+              // Check if the first character of the entered text is '0'
+              if txtMinAmount.text?.count ?? 0 > 0{
+                  
+              }else{
+                  
+                  if let firstCharacter = string.first, firstCharacter == "0" {
+                      // Reject the input by returning false
+                      return false
+                  }
+                  
+              }
+         
+              
+             if newText.count > 10{
+                 Singleton.showMessage(message: "maximum limit reached.", isError: .error)
+             }
+              return newText.count < 11
+              
+          }
+          
+          if textField == txtMaxAmount{
+              let newText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+              
+              if string.isEmpty {
+                  return true
+              }
+
+              if txtMaxAmount.text?.count ?? 0 > 0{
+                  
+              }else{
+                  
+                  if let firstCharacter = string.first, firstCharacter == "0" {
+                      // Reject the input by returning false
+                      return false
+                  }
+                  
+              }
+              
+              
               
              if newText.count > 10{
                  Singleton.showMessage(message: "maximum limit reached.", isError: .error)
